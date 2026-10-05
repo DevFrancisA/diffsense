@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-2",
+  "project": "Bower",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "87a041a212a03142e92c56ff832bcf5cbf49a72b",
+  "buggySha": "9c52ec2751d689a2cddb34adb004df41ce7c8a92",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "5e9c77786495fa261dbc730cb695bd8b7fe81f68feb4fbe88d3fd6199fbdb513",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "87a041a212a03142e92c56ff832bcf5cbf49a72b",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 131,
+    "embeddingUsage": {
+      "inputTokens": 95998,
+      "outputTokens": 0,
+      "totalTokens": 95998
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "fc4fe97ae79e5da1d55737924fce7806f045104ba65c2c933baec67c48f2d677"
+      },
+      {
+        "path": "test/commands/install.js",
+        "contentSha256": "17a8249025daa4cef9c1c2d3e676c9e5d36b137b339bfc63adc0df724ddad281"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/commands/install.js",
+        "contentSha256": "6aed989734817914dc80336b8b7a60396cb4f5ff4690f7fbd96db7a19d4f514d"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "4e5dd51deec7eda6ee017315ca9173999ab5b02a4a083199ae3df7727ddd0008"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "44d50437b902ddec6dd35d0ca0da71af8f5e67bc17a5e22fbd433b18776a08c7"
+      },
+      {
+        "path": "lib/core/Manager.js",
+        "contentSha256": "bad7a6f048a746d66e52a2d293f70eb1c4f278402bf53df14a58dc6e3be9d603"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "be808de84036594988f1cb7527310f39a21c559386ca78fdb8d3c0fef00979f0"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "d7fb0cd8e84500accefb5f34fb53bc2fe74ab15c9ad9fd7327bcb25ed19b6d52"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "435f3572fb1ea40f9a6f9decf1ceb7f5627fe6f10a409e5ae6f53a6cb0953a38"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "0ba07b37a0a8289442935e77c02b26a2a3183b44557ec7f47b380dcbfa5f7291"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 660,
+      "outputTokens": 0,
+      "totalTokens": 660
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 12198,
+          "outputTokens": 461,
+          "totalTokens": 12659
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect dependency version format saved when --save-exact is used",
+            "severity": "high",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The patch changes the condition to only update dependencies if either save or saveDev is true, excluding saveExact alone. Additionally, it changes the saved version format to only the version number string, not including the source path plus version hash. This fixes a bug where saving exact versions incorrectly stored source path plus version instead of just version.",
+            "suggestion": "Keep the patch changes as is to ensure that when --save-exact is used together with --save or --save-dev, the exact version string only (without source path) is saved. Do not save or modify dependencies if only --save-exact is provided."
+          },
+          {
+            "title": "Test expectations do not match previous incorrect behavior of save-exact flag",
+            "severity": "medium",
+            "file": "test/commands/install.js",
+            "line": 74,
+            "explanation": "Test expected to save dependency as 'source#version' when --save-exact was used, but patch changes it to save only 'version' string. This aligns with the new, correct behavior ensuring only version is saved as exact version.",
+            "suggestion": "Update test expectations to expect only the version string in bower.json dependencies or devDependencies when save-exact flag is used with save or save-dev."
+          },
+          {
+            "title": "Missing test case for save-exact flag usage without save or save-dev",
+            "severity": "low",
+            "file": "test/commands/install.js",
+            "line": 100,
+            "explanation": "The patch adds a new test case ensuring no changes happen to bower.json dependencies or devDependencies if only --save-exact flag is used without --save or --save-dev. This prevents saving partial or incorrect modifications.",
+            "suggestion": "Ensure the new test 'does not write to bower.json if only --save-exact flag is used' is kept to prevent regressions."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect dependency version format saved when --save-exact is used",
+            "severity": "high",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The patch changes the condition to only update dependencies if either save or saveDev is true, excluding saveExact alone. Additionally, it changes the saved version format to only the version number string, not including the source path plus version hash. This fixes a bug where saving exact versions incorrectly stored source path plus version instead of just version.",
+            "suggestion": "Keep the patch changes as is to ensure that when --save-exact is used together with --save or --save-dev, the exact version string only (without source path) is saved. Do not save or modify dependencies if only --save-exact is provided."
+          },
+          {
+            "title": "Missing test case for save-exact flag usage without save or save-dev",
+            "severity": "low",
+            "file": "test/commands/install.js",
+            "line": 100,
+            "explanation": "The patch adds a new test case ensuring no changes happen to bower.json dependencies or devDependencies if only --save-exact flag is used without --save or --save-dev. This prevents saving partial or incorrect modifications.",
+            "suggestion": "Ensure the new test 'does not write to bower.json if only --save-exact flag is used' is kept to prevent regressions."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 12198,
+          "outputTokens": 143,
+          "totalTokens": 12341
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of --save-exact flag without --save or --save-dev in Project.install",
+            "severity": "high",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The original code would write dependencies to bower.json even when only the --save-exact flag was set without --save or --save-dev. The changed code correctly does not write dependencies unless --save or --save-dev is set, fixing unintended file writes when only --save-exact is specified.",
+            "suggestion": "Check the conditions to write to bower.json dependencies; ensure writing only occurs if --save or --save-dev is true, not merely --save-exact."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of --save-exact flag without --save or --save-dev in Project.install",
+            "severity": "high",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The original code would write dependencies to bower.json even when only the --save-exact flag was set without --save or --save-dev. The changed code correctly does not write dependencies unless --save or --save-dev is set, fixing unintended file writes when only --save-exact is specified.",
+            "suggestion": "Check the conditions to write to bower.json dependencies; ensure writing only occurs if --save or --save-dev is true, not merely --save-exact."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 12198,
+          "outputTokens": 200,
+          "totalTokens": 12398
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect behavior when using only --save-exact flag during install",
+            "severity": "high",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The code incorrectly attempts to save dependencies if only the --save-exact option is true, even when neither --save nor --save-dev is specified, which contradicts the intent to save changes only when --save or --save-dev is provided. The patch correctly fixes this by wrapping the saving logic in a condition that checks only for --save or --save-dev, preventing unwanted modifications to bower.json when only --save-exact is set.",
+            "suggestion": "Change the condition from `if (that._options.save || that._options.saveDev || that._options.saveExact)` to `if (that._options.save || that._options.saveDev)` so that saving to bower.json occurs only when --save or --save-dev flags are set, regardless of --save-exact."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect behavior when using only --save-exact flag during install",
+            "severity": "high",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The code incorrectly attempts to save dependencies if only the --save-exact option is true, even when neither --save nor --save-dev is specified, which contradicts the intent to save changes only when --save or --save-dev is provided. The patch correctly fixes this by wrapping the saving logic in a condition that checks only for --save or --save-dev, preventing unwanted modifications to bower.json when only --save-exact is set.",
+            "suggestion": "Change the condition from `if (that._options.save || that._options.saveDev || that._options.saveExact)` to `if (that._options.save || that._options.saveDev)` so that saving to bower.json occurs only when --save or --save-dev flags are set, regardless of --save-exact."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

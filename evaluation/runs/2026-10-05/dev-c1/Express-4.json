@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-4",
+  "project": "Express",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "2de6514b4b4cc7e9629664faa56859da7e597265",
+  "buggySha": "d07c06363f00647ab0553ef227b9b65cb4a04ae9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "cc05257e656abafaa1cbcfaa728fa0c7a8921ed86d3860a959f2e6023ff57f77",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "2de6514b4b4cc7e9629664faa56859da7e597265",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 1998,
+      "outputTokens": 0,
+      "totalTokens": 1998
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/request.js",
+        "contentSha256": "049e9cc1b0a282a9ebc6eca057cb35de26f0d2558d265f0a308733ab1edd4033"
+      },
+      {
+        "path": "test/req.subdomains.js",
+        "contentSha256": "f650da8d035cce1908119e2353f7a7edf7f4b69185fdded34871c7e7012a94f0"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/cookies/app.js",
+        "contentSha256": "71d245f27ad27d788c6352b72afe7e638fa7b2334ba2fc94c08e868afd64c2ea"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "cc988ca789ff7ee675585aa1114b069b8fc8544cbd56cad8acf7f34f7c06c09e"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "d5e1ffbfabb0c2f21e1ab0ec5d1d618079bfbdf6e79b507c386e06fd4c715471"
+      },
+      {
+        "path": "examples/resource/app.js",
+        "contentSha256": "ad23b11bad1e3b8c5371affdc06671d59418f05da217a92e368496306d1304fd"
+      },
+      {
+        "path": "examples/content-negotiation/index.js",
+        "contentSha256": "899b2a0a7377118ee8717bd0173326927be4474fedec28847f1ff3936043da6b"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "cde26b9eff2aff149e0d5c4c5fd38304f389988a074b0b06bc984693081d9340"
+      },
+      {
+        "path": "examples/params/app.js",
+        "contentSha256": "080af371787bbb58be905dc4e7d4500728fda011e3d7d450af6d4417b5d926b4"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "edef9b7b1c440501f7e72586ce3a8ebded2eaba6304ef074dc4bad0cc2157fa4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 624,
+      "outputTokens": 0,
+      "totalTokens": 624
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8332,
+          "outputTokens": 180,
+          "totalTokens": 8512
+        },
+        "rawFindings": [
+          {
+            "title": "req.subdomains getter no longer handles IP hosts properly",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 458,
+            "explanation": "The patch removes the check that distinguishes IP addresses in the 'req.subdomains' getter. Previously, IP addresses were returned as a single-element array containing the full host. Now, the host string is always split by '.' and reversed, which breaks the previous behavior for IPs like '127.0.0.1' or '[::1]'. This causes subdomains to be incorrectly parsed for IP hosts, potentially breaking all code relying on the 'subdomains' property when the host is an IP address.",
+            "suggestion": "Restore the check for IP addresses using 'isIP' in the 'req.subdomains' getter to return [host] for IP addresses, as before, to ensure consistent behavior."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8332,
+          "outputTokens": 195,
+          "totalTokens": 8527
+        },
+        "rawFindings": [
+          {
+            "title": "Subdomains getter no longer handles IP addresses correctly",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 457,
+            "explanation": "The change removed the previous check for IP addresses in the subdomains getter. Previously, if the host was an IP (IPv4 or IPv6), the subdomains getter would return an array containing the full host without splitting by dots. The new code always splits the host string by dots and reverses it, including IP addresses, causing IP hosts like '127.0.0.1' to be split and returned as ['1', '0', '0', '127'] instead of ['127.0.0.1']. This breaks existing behavior and causes incorrect subdomains for IP a",
+            "suggestion": "Revert the subdomains getter to include the IP address check:\nvar subdomains = !isIP(host) ? host.split('.').reverse() : [host];"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Subdomains getter no longer handles IP addresses correctly",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 457,
+            "explanation": "The change removed the previous check for IP addresses in the subdomains getter. Previously, if the host was an IP (IPv4 or IPv6), the subdomains getter would return an array containing the full host without splitting by dots. The new code always splits the host string by dots and reverses it, including IP addresses, causing IP hosts like '127.0.0.1' to be split and returned as ['1', '0', '0', '127'] instead of ['127.0.0.1']. This breaks existing behavior and causes incorrect subdomains for IP a",
+            "suggestion": "Revert the subdomains getter to include the IP address check:\nvar subdomains = !isIP(host) ? host.split('.').reverse() : [host];"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8332,
+          "outputTokens": 141,
+          "totalTokens": 8473
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of IP address hosts in req.subdomains getter",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 458,
+            "explanation": "The change removes the isIP check that previously prevented IP addresses from being split into subdomains. This causes IP address hosts like '127.0.0.1' or '[::1]' to be split on dots and reversed, returning invalid subdomain arrays instead of an array with the single IP string.",
+            "suggestion": "Restore the isIP() check in the subdomains getter to detect IP addresses and return an array with the host as a single element for IP addresses, as it was before the change."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

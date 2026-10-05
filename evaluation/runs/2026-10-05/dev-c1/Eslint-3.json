@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-3",
+  "project": "Eslint",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+  "buggySha": "263b7782438899240548d0020cf9a49c2bbe2b5c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "8a1c9483c9284902ff99c46346b399b49e9af4f54c79afe952eefa39bbf7a779",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 117,
+    "embeddingUsage": {
+      "inputTokens": 99958,
+      "outputTokens": 0,
+      "totalTokens": 99958
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/prefer-template.js",
+        "contentSha256": "b2faa6e12744e751e0169c3e546d28b82e3d2dc56ce24c979fb181431efa14a6"
+      },
+      {
+        "path": "tests/lib/rules/prefer-template.js",
+        "contentSha256": "8e9eab63e0a482c62b143ecbc4fec41445cf3c72b41cf168a06eaf50528af1e3"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "a3d45ae787819b7e5e475fa618ab9aefc5992a33a35dd4617619e7591edf99e8"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "2e89810ffef7629fe4b66836822211d84287d6431cfda0d5f271f4c2478e2077"
+      },
+      {
+        "path": "lib/rules/accessor-pairs.js",
+        "contentSha256": "f0bd759863ccad4ec194dc40245c660f6265b1467844971bac089c0ac384cd17"
+      },
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "7525a20b67ddf8a09051296e118110a4f91af6ce2c822dce00786070e9568dcc"
+      },
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "0048b49697fc11ed4a5949056c6294d57045af02a16dda0e8badb559a5393e75"
+      },
+      {
+        "path": "lib/rules/arrow-spacing.js",
+        "contentSha256": "3e26e2009f945aaf7315366ebbe1502ee6ce22e72d2275cd87dec13a882cc802"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "5cebb981eb41e0ec54ee9bdc278570a2e473a66a91fc46d2bfd49d1252c223bc"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "3faf4db241bcf00365e04303ecfda578417c37f70f5f34eb1aa2cff616260bb4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 370,
+      "outputTokens": 0,
+      "totalTokens": 370
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5474,
+          "outputTokens": 258,
+          "totalTokens": 5732
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect hasNonLiteral behavior on TemplateLiteral nodes",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 35,
+            "explanation": "The updated hasNonLiteral function no longer considers TemplateLiteral nodes as literals by removing the check for 'node.type === \"TemplateLiteral\"'. This causes template literals to be treated as non-literals, which can cause false positives in reporting unexpected string concatenations.",
+            "suggestion": "Restore the check for TemplateLiteral nodes as literals by modifying the return statement to: 'return node.type !== \"Literal\" && node.type !== \"TemplateLiteral\";'"
+          },
+          {
+            "title": "Invalid removal of valid test cases causing false positives",
+            "severity": "high",
+            "file": "tests/lib/rules/prefer-template.js",
+            "line": 33,
+            "explanation": "Several valid test cases involving template literals and unary expressions with strings have been removed. This reduces test coverage for scenarios involving template literals and string coercions, increasing risk of regressions especially given the changes in hasNonLiteral.",
+            "suggestion": "Re-add the removed valid test cases involving template literals and unary expressions to maintain comprehensive coverage, for example: '{code: \"var foo = +100 + 'yen';\"}', and the tests with template strings and concatenation."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Invalid removal of valid test cases causing false positives",
+            "severity": "high",
+            "file": "tests/lib/rules/prefer-template.js",
+            "line": 33,
+            "explanation": "Several valid test cases involving template literals and unary expressions with strings have been removed. This reduces test coverage for scenarios involving template literals and string coercions, increasing risk of regressions especially given the changes in hasNonLiteral.",
+            "suggestion": "Re-add the removed valid test cases involving template literals and unary expressions to maintain comprehensive coverage, for example: '{code: \"var foo = +100 + 'yen';\"}', and the tests with template strings and concatenation."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5474,
+          "outputTokens": 231,
+          "totalTokens": 5705
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect removal of TemplateLiteral type from hasNonLiteral function",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 35,
+            "explanation": "The original function hasNonLiteral considers nodes with type 'TemplateLiteral' as literals. The changed function removed this check, now returning true for template literals as non-literals, which changes the logic for string concatenation detection and likely causes incorrect rule reports.",
+            "suggestion": "Restore the previous logic by including node.type !== 'TemplateLiteral' in the return condition, i.e., return node.type !== 'Literal' && node.type !== 'TemplateLiteral';"
+          },
+          {
+            "title": "Test cases for template literals incorrectly removed",
+            "severity": "medium",
+            "file": "tests/lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The test cases that verify no errors occur when using template literals were removed. This weakens test coverage for the rule behavior with template literals and may allow regressions to go unnoticed.",
+            "suggestion": "Re-add the removed test cases that check for valid usage of template literals, to ensure proper testing of the rule with template literals."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5474,
+          "outputTokens": 159,
+          "totalTokens": 5633
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of TemplateLiteral nodes in hasNonLiteral()",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 35,
+            "explanation": "The original code considered TemplateLiteral nodes as literal (return false), but the changed code always returns true if node.type !== 'Literal', so TemplateLiteral nodes are no longer treated as literals. This breaks correct detection of template strings in the prefer-template rule.",
+            "suggestion": "Restore the original check to include TemplateLiteral as a literal node, i.e. change the function back to:\n\nif (node.type === \"UnaryExpression\") {"
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

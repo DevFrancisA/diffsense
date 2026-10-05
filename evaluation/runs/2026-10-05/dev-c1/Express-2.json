@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-2",
+  "project": "Express",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "20aa12616abac9466d590c9fb333fd8a0408eedc",
+  "buggySha": "bb4703e199cbbf62203730be275c81a0f7d68d47",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "d40aa652b8664c89812401d40affe0f5c036b77fa053dd749ae96eef31cd2d23",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "20aa12616abac9466d590c9fb333fd8a0408eedc",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 19796,
+      "outputTokens": 0,
+      "totalTokens": 19796
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/request.js",
+        "contentSha256": "208ce794b939bb8612c071d39e4544bc92f6ceeef8d6fcad91ca18db02545e59"
+      },
+      {
+        "path": "test/req.protocol.js",
+        "contentSha256": "7a2a8576d0d2e83d9c38e2fec742ce483241773556eb15e4c79569a39d1bb776"
+      },
+      {
+        "path": "test/req.secure.js",
+        "contentSha256": "52dbb3f46c27e1fcb88f007871caf99e6ebd64f4965914f7d1ed7259a4c3e673"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "d5e1ffbfabb0c2f21e1ab0ec5d1d618079bfbdf6e79b507c386e06fd4c715471"
+      },
+      {
+        "path": "examples/cookies/app.js",
+        "contentSha256": "71d245f27ad27d788c6352b72afe7e638fa7b2334ba2fc94c08e868afd64c2ea"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "cde26b9eff2aff149e0d5c4c5fd38304f389988a074b0b06bc984693081d9340"
+      },
+      {
+        "path": "examples/route-middleware/index.js",
+        "contentSha256": "712baa0298844ee1bc9cc79343e7df3dd62e61b982252ae4c20f29f1a14fdf0f"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "edef9b7b1c440501f7e72586ce3a8ebded2eaba6304ef074dc4bad0cc2157fa4"
+      },
+      {
+        "path": "examples/cors/index.js",
+        "contentSha256": "c255c9f3545fff2daa43aa063b2ef54463ef79c1f9338225762a59d2f26bd663"
+      },
+      {
+        "path": "examples/content-negotiation/index.js",
+        "contentSha256": "899b2a0a7377118ee8717bd0173326927be4474fedec28847f1ff3936043da6b"
+      },
+      {
+        "path": "examples/cookie-sessions/index.js",
+        "contentSha256": "67b3f915b4e101cda4fd91d44c23c68280f4e196a9ba2c34cf61a1c715afc0ec"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 533,
+      "outputTokens": 0,
+      "totalTokens": 533
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8053,
+          "outputTokens": 142,
+          "totalTokens": 8195
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect invocation of trust function in req.protocol getter",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 361,
+            "explanation": "The trust function is called with one argument 'this.connection.remoteAddress' while it expects two arguments, the address and the hop count index. In the previous code, it was called with two arguments: remoteAddress and 0. The change removed the second argument which can cause trust to incorrectly determine whether the proxy is trusted, leading to wrong protocol detection.",
+            "suggestion": "Change the trust function invocation back to passing two arguments: 'trust(this.connection.remoteAddress, 0)' to correctly check if the socket address is trusted."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect invocation of trust function in req.protocol getter",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 361,
+            "explanation": "The trust function is called with one argument 'this.connection.remoteAddress' while it expects two arguments, the address and the hop count index. In the previous code, it was called with two arguments: remoteAddress and 0. The change removed the second argument which can cause trust to incorrectly determine whether the proxy is trusted, leading to wrong protocol detection.",
+            "suggestion": "Change the trust function invocation back to passing two arguments: 'trust(this.connection.remoteAddress, 0)' to correctly check if the socket address is trusted."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8053,
+          "outputTokens": 136,
+          "totalTokens": 8189
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect argument usage in trust proxy function call",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 361,
+            "explanation": "The trust proxy function is called with two arguments, but the function expects only a single argument representing the remote address or a trust function with a single parameter. Passing an extra argument (0) might cause the function to ignore valid proxy trust settings, potentially causing req.protocol to incorrectly ignore trusted proxy headers.",
+            "suggestion": "On line 361, change `trust(this.connection.remoteAddress, 0)` to `trust(this.connection.remoteAddress)` to match the expected function signature and properly check trust proxy settings."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect argument usage in trust proxy function call",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 361,
+            "explanation": "The trust proxy function is called with two arguments, but the function expects only a single argument representing the remote address or a trust function with a single parameter. Passing an extra argument (0) might cause the function to ignore valid proxy trust settings, potentially causing req.protocol to incorrectly ignore trusted proxy headers.",
+            "suggestion": "On line 361, change `trust(this.connection.remoteAddress, 0)` to `trust(this.connection.remoteAddress)` to match the expected function signature and properly check trust proxy settings."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8053,
+          "outputTokens": 157,
+          "totalTokens": 8210
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect trust function invocation in req.protocol getter",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 361,
+            "explanation": "The function call to the trust proxy function is missing the second argument '0' which represents the hop count index. The original code passes two arguments (remoteAddress and 0), but the changed code passes only one argument (remoteAddress). This might cause the trust function to behave incorrectly when it expects two arguments to determine if the socket address is trusted based on hop count.",
+            "suggestion": "Restore the second argument '0' in the trust function call: change `trust(this.connection.remoteAddress)` back to `trust(this.connection.remoteAddress, 0)` in the req.protocol getter at line 361."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect trust function invocation in req.protocol getter",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 361,
+            "explanation": "The function call to the trust proxy function is missing the second argument '0' which represents the hop count index. The original code passes two arguments (remoteAddress and 0), but the changed code passes only one argument (remoteAddress). This might cause the trust function to behave incorrectly when it expects two arguments to determine if the socket address is trusted based on hop count.",
+            "suggestion": "Restore the second argument '0' in the trust function call: change `trust(this.connection.remoteAddress)` back to `trust(this.connection.remoteAddress, 0)` in the req.protocol getter at line 361."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

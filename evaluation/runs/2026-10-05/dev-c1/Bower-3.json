@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-3",
+  "project": "Bower",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "9f4c2384ea9295accf0143a7f8fce2941d1c2e3a",
+  "buggySha": "e85a5f778fc74e91862caa5bad2817d6bf475d1c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c24a50476e482afafdcc6ffe568af3896ff62c9938dea4974c63a4f0be398cc7",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "9f4c2384ea9295accf0143a7f8fce2941d1c2e3a",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 129,
+    "embeddingUsage": {
+      "inputTokens": 89068,
+      "outputTokens": 0,
+      "totalTokens": 89068
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/core/scripts.js",
+        "contentSha256": "8277d4509e15a017fb44f50b24c86d3f66f826165e9de40e2c285055dc4cac49"
+      },
+      {
+        "path": "test/core/scripts.js",
+        "contentSha256": "045dbeb877a4d130b026151783ae7a54b3a800783353706172e816a25eccdaf8"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/core/scripts.js",
+        "contentSha256": "15249154266ba92acd7bd35540b8b674ffb731bfbf87f1cf37cf8a96233bf0a6"
+      },
+      {
+        "path": "lib/core/scripts.js",
+        "contentSha256": "918b7ac2f2ed191b8aab07f2e856b1578b7684bccd15cb5e79dd5b69f7120f23"
+      },
+      {
+        "path": "Gruntfile.js",
+        "contentSha256": "9d74a022622186d397ef7f2fe2b16166e3e16da95f219449992058368d56a584"
+      },
+      {
+        "path": "lib/core/Manager.js",
+        "contentSha256": "ea2c238a748216ea4c1061909ef0a1e046e43f011ea29d2798edf2528f3c122c"
+      },
+      {
+        "path": "lib/core/Manager.js",
+        "contentSha256": "898c734063d34d564e914688f98951b2d072448c0a681f5f1f45cf93c8712375"
+      },
+      {
+        "path": "lib/commands/list.js",
+        "contentSha256": "738d21d7490092ed4d32603012157f93c54130e9f98fd7114cb35b5ab9238a3b"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "d28bd5316b69a6d33165e11a7b07d8f1592c0a84008f16fdef52d2707dc139de"
+      },
+      {
+        "path": "Gruntfile.js",
+        "contentSha256": "f607974b7d734f33d95d1f0f94f56036c7a74f78c49df441ce310118076aff0a"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 432,
+      "outputTokens": 0,
+      "totalTokens": 432
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7049,
+          "outputTokens": 241,
+          "totalTokens": 7290
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect use of global replacement regex in hook function leading to unexpected placeholder replacement",
+            "severity": "medium",
+            "file": "lib/core/scripts.js",
+            "line": 87,
+            "explanation": "The original code used a global regex /%/g to replace all percent signs in the script command, but the patch changes this to replace only the first occurrence of '%'. This can cause scripts with multiple placeholders to be incorrectly rendered, affecting script execution.",
+            "suggestion": "Change the placeholder replacement back to use a global regex (/%,/g) to replace all occurrences of '%' in config.scripts[action]."
+          },
+          {
+            "title": "Test expectations no longer match updated placeholder usage in script commands",
+            "severity": "medium",
+            "file": "test/core/scripts.js",
+            "line": 48,
+            "explanation": "The tests were modified to expect fewer suffixed parts in filenames (e.g., 'preinstall_packageName' instead of 'preinstall_packageName_packageName'), reflecting the change that only one placeholder is replaced instead of multiple. This reduces test coverage of scripts with multiple placeholders and may mask regressions.",
+            "suggestion": "Update tests to cover both cases or revert changes to the test strings to maintain coverage for multiple placeholder replacements."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Test expectations no longer match updated placeholder usage in script commands",
+            "severity": "medium",
+            "file": "test/core/scripts.js",
+            "line": 48,
+            "explanation": "The tests were modified to expect fewer suffixed parts in filenames (e.g., 'preinstall_packageName' instead of 'preinstall_packageName_packageName'), reflecting the change that only one placeholder is replaced instead of multiple. This reduces test coverage of scripts with multiple placeholders and may mask regressions.",
+            "suggestion": "Update tests to cover both cases or revert changes to the test strings to maintain coverage for multiple placeholder replacements."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7049,
+          "outputTokens": 159,
+          "totalTokens": 7208
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect global replacement of placeholder '%' in script command",
+            "severity": "medium",
+            "file": "lib/core/scripts.js",
+            "line": 87,
+            "explanation": "The original code replaced all occurrences of '%' in the script command string with ordered package names, which allowed multiple placeholders to be replaced. The change limits replacement to only the first occurrence by passing '%' directly (without global flag) to mout.string.replace. This may cause unexpected behavior if the script contains multiple '%' placeholders intended to be replaced.",
+            "suggestion": "Revert to using a RegExp with global flag for placeholder replacement: Use var placeholder = new RegExp('%', 'g'); and then call mout.string.replace(config.scripts[action], placeholder, orderedPackages.join(' ')); to replace all '%' occurrences consistently."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7049,
+          "outputTokens": 138,
+          "totalTokens": 7187
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect placeholder replacement regex usage in `hook` function",
+            "severity": "high",
+            "file": "lib/core/scripts.js",
+            "line": 87,
+            "explanation": "The `hook` function uses `new RegExp('%', 'g')` as `placeholder` to replace all '%' characters with the joined package names. The change replaces this with a string '%' instead. The mout.string.replace function is expected to replace only the first occurrence when passed a string, not all occurrences.",
+            "suggestion": "Revert line 87 to use `var placeholder = new RegExp('%', 'g');` to replace all '%' placeholders globally rather than only the first occurrence."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

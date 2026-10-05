@@ -29,3 +29,10 @@ Among baseline, C1, C2, and C3, the final configuration is the one with the high
 ## Results log
 
 Filled in from the committed `results-dev-*.json` files as each variant completes.
+
+| Config | Runs: found / 59 | Predictions (3 runs) | False positives | Pooled recall | Pooled precision | Meets rule? |
+|---|---|---:|---:|---:|---:|---|
+| Baseline (`results.json`) | 18, 17, 17 | 54 | 2 | 52/177 = 29.4% | 52/54 = 96.3% | yes |
+| C1 (`results-dev-c1.json`) | 22, 23, 24 | 82 | 13 | 69/177 = 39.0% | 69/82 = 84.1% | **no** (precision < 90%) |
+
+Per-run C1: precision 75.9% / 88.5% / 88.9%, recall 37.3% / 39.0% / 40.7%. Session ledger after C1: 233 calls, 2,059,722 tokens.

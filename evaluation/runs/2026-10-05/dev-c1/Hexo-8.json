@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-8",
+  "project": "Hexo",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "c9278111fe51d38b9c676f4fad48972f43e9d3b9",
+  "buggySha": "1da7ad5c920fb16e182342c4acda7d8a94af31f9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "775acc9f4a0158db5dd5a2be4eec95f29723d71aae83a629ea9fe76688f1488c",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "c9278111fe51d38b9c676f4fad48972f43e9d3b9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 71,
+    "embeddingUsage": {
+      "inputTokens": 13414,
+      "outputTokens": 0,
+      "totalTokens": 13414
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/plugins/helper/open_graph.js",
+        "contentSha256": "2400daa7bba580180d828682f7f78cc97e316141475402339a1e084f251248ac"
+      },
+      {
+        "path": "test/scripts/helpers/open_graph.js",
+        "contentSha256": "2865eeefd096ca7d1770e72a09a7ec9a993a1586496fcd16031c63326dd08a84"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "e3841735e8652759fb729b66799011aa20ea55480e9cd6ddc34f974c9347d14c"
+      },
+      {
+        "path": "lib/hexo/load_config.js",
+        "contentSha256": "0d830122123469cf9adeaa28223b5a9c8f87bc6377f2fa9f910025da74b7b541"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a23b6e1908660cec7b59d097f7a7300009e926f268c1bfd813cff411689f80a7"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "02e11fbdf23aea24789834255ba642093425ec596a449edd9cec83537c136d35"
+      },
+      {
+        "path": "lib/hexo/default_config.js",
+        "contentSha256": "b0519ec5fa49241a5d8dcc822c6bcdb0918e2d970037f35166609aa66a32b529"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "123db9add0cccdd1abcc8c82c4b268d803e929a472b9ea6ddbdab89c927d545f"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "27c480f41ab13a0fac3d0c0b012bd45c8b3b81ec2c8269bc546e064795dcd30d"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "080c75789466852343916c68db353ad8c58a9c96e9f342c750b5aa0bf95c20f8"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 370,
+      "outputTokens": 0,
+      "totalTokens": 370
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8394,
+          "outputTokens": 161,
+          "totalTokens": 8555
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect image URL resolution for relative paths in openGraphHelper",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 90,
+            "explanation": "The original code used url.resolve to resolve relative image paths against the page URL, supporting site base paths and nested directories. The changed code simply prepends config.url and a slash to the path if not starting with '/', ignoring the page URL and potential subdirectory hosting. This breaks correct URL resolution for images when the site is hosted in a subdirectory or when the page URL is different from the site root.",
+            "suggestion": "Restore the original resolution logic using url.resolve(url || config.url, path) to correctly resolve relative image paths based on the page URL or site URL, supporting subdirectory hosting."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8394,
+          "outputTokens": 172,
+          "totalTokens": 8566
+        },
+        "rawFindings": [
+          {
+            "title": "Potential incorrect image URL resolution for relative paths relative to page URL",
+            "severity": "medium",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The original code resolved relative image paths using url.resolve(url || config.url, path), which correctly resolves relative paths based on the current page's URL, including scenarios where the site is hosted in a subdirectory. The new code instead prepends config.url plus a '/' plus the path (after adding a leading slash if missing), which ignores the page's URL path and may generate incorrect image URLs if the site uses subdirectories or the page URL is deeper than root.",
+            "suggestion": "Revert the resolution of relative image paths to use url.resolve(url || config.url, path) as before, to correctly handle relative paths based on the page URL."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Potential incorrect image URL resolution for relative paths relative to page URL",
+            "severity": "medium",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The original code resolved relative image paths using url.resolve(url || config.url, path), which correctly resolves relative paths based on the current page's URL, including scenarios where the site is hosted in a subdirectory. The new code instead prepends config.url plus a '/' plus the path (after adding a leading slash if missing), which ignores the page's URL path and may generate incorrect image URLs if the site uses subdirectories or the page URL is deeper than root.",
+            "suggestion": "Revert the resolution of relative image paths to use url.resolve(url || config.url, path) as before, to correctly handle relative paths based on the page URL."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8394,
+          "outputTokens": 174,
+          "totalTokens": 8568
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect image URL resolution for relative paths",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The changed code replaces the previous usage of url.resolve to compute absolute image URLs with a simple string concatenation of config.url and the image path. This breaks correct resolution of relative image paths when the site is hosted in a subdirectory or when the current page URL includes additional path segments. It causes incorrect URLs to be generated, e.g., it won't respect the current page URL and subdirectory context, resulting in invalid image links.",
+            "suggestion": "Restore the previous logic using url.resolve(url || config.url, path) to correctly resolve relative URLs according to the current page URL or site URL. Replace the new lines 88-90 with the original three lines to fix the issue."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect image URL resolution for relative paths",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The changed code replaces the previous usage of url.resolve to compute absolute image URLs with a simple string concatenation of config.url and the image path. This breaks correct resolution of relative image paths when the site is hosted in a subdirectory or when the current page URL includes additional path segments. It causes incorrect URLs to be generated, e.g., it won't respect the current page URL and subdirectory context, resulting in invalid image links.",
+            "suggestion": "Restore the previous logic using url.resolve(url || config.url, path) to correctly resolve relative URLs according to the current page URL or site URL. Replace the new lines 88-90 with the original three lines to fix the issue."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

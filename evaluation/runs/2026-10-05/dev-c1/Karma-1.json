@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-1",
+  "project": "Karma",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+  "buggySha": "4673116a6f7310a6390025618a4a6c7215e3b793",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "0b58b67c952edfb17e7cf2b17e0436530dd06ac2688959fc5a89e3a8745349bb",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 82,
+    "embeddingUsage": {
+      "inputTokens": 63044,
+      "outputTokens": 0,
+      "totalTokens": 63044
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/reporter.js",
+        "contentSha256": "97e2ecc1732cc9caa0062826672689d38153c14ae852f1b384319dc1c50fa5d0"
+      },
+      {
+        "path": "test/unit/reporter.spec.js",
+        "contentSha256": "51b50c464dd4e743e70bc0b21b3665fe21d912b000d104734de719600c7f0da5"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "7b5226b64e19578f70429b75083b0f8a2324bf566373a72ab55f59fabbd67e9f"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "1679a24276d8964eebc7dc16f23a446871879c5f1f8ad48da9d3bcc0a664db96"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "3d03e5b9c80351bb45fb5315f3e3aaa9a8c3fb77e21f1d5e8e07ece6fecf87fe"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "0ce0f0fdb3add867cb6b9f91bc3807650af1a0ffad425865462b378f1ee76628"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "d9731c53104530b883816a185e3769317415040cea98078dafd5feb257877a91"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "f36c17834c39947e383abe9bf17a6d681c2d739f9003e3eeb0b4c3b2db113cbe"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "11aad1e5af03508430c39a71f3b85add0cb37241d9b7cc10be53dc252ea465c8"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "cea387ddcb7fc0be734e4568a71a95a0590ffd0c4791dc84d90bcf33f2383ec3"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 366,
+      "outputTokens": 0,
+      "totalTokens": 366
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7717,
+          "outputTokens": 249,
+          "totalTokens": 7966
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL regular expression in createErrorFormatter",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The URL_REGEXP was changed from '(?:http:\\/\\/[^\\/]*)?\\/?...' to 'http:\\/\\/[^\\/]*\\/' which makes the protocol and domain mandatory and no longer optional. This breaks the ability to format relative URLs (like '/base/b.js:2:6') that do not include the protocol domain prefix, reducing the robustness of error formatting.",
+            "suggestion": "Restore the original URL_REGEXP that makes the protocol and domain optional, i.e., revert line 24 to:\nvar URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' +\n  '(base|absolute)' +  // prefix"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL regular expression in createErrorFormatter",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The URL_REGEXP was changed from '(?:http:\\/\\/[^\\/]*)?\\/?...' to 'http:\\/\\/[^\\/]*\\/' which makes the protocol and domain mandatory and no longer optional. This breaks the ability to format relative URLs (like '/base/b.js:2:6') that do not include the protocol domain prefix, reducing the robustness of error formatting.",
+            "suggestion": "Restore the original URL_REGEXP that makes the protocol and domain optional, i.e., revert line 24 to:\nvar URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' +\n  '(base|absolute)' +  // prefix"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7717,
+          "outputTokens": 257,
+          "totalTokens": 7974
+        },
+        "rawFindings": [
+          {
+            "title": "Regular expression for URL matching restricts accepted URLs incorrectly",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original regular expression in line 24 matched URLs optionally starting with domain and accepted both '/base' and '/absolute' prefixes. The changed version only matches URLs starting with 'http://' (not optional), then a non-empty domain (no slash), then a slash, and then a path starting without optional leading slash. This removes support for protocol-relative URLs, explicit relative URLs and implicit URLs used in error messages like '/base/file.js'. This will break stack trace rewriting fo",
+            "suggestion": "Revert the regular expression on line 24 to its original form that optionally matches the domain and leading slash, i.e., revert to: var URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' + '(base|absolute)' + '((?:[A-z]\\:)?[^\\?\\s\\:]*)' + '(\\?\\w*)?' + '(\\:(\\d+))?' + '(\\:(\\d+))?', 'g')"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Regular expression for URL matching restricts accepted URLs incorrectly",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original regular expression in line 24 matched URLs optionally starting with domain and accepted both '/base' and '/absolute' prefixes. The changed version only matches URLs starting with 'http://' (not optional), then a non-empty domain (no slash), then a slash, and then a path starting without optional leading slash. This removes support for protocol-relative URLs, explicit relative URLs and implicit URLs used in error messages like '/base/file.js'. This will break stack trace rewriting fo",
+            "suggestion": "Revert the regular expression on line 24 to its original form that optionally matches the domain and leading slash, i.e., revert to: var URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' + '(base|absolute)' + '((?:[A-z]\\:)?[^\\?\\s\\:]*)' + '(\\?\\w*)?' + '(\\:(\\d+))?' + '(\\:(\\d+))?', 'g')"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7717,
+          "outputTokens": 152,
+          "totalTokens": 7869
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect regular expression for URL matching in error formatter",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The change modifies URL_REGEXP from a regex that optionally matches the domain part (including zero or one leading slash) to a regex that requires the domain part and a trailing slash. This breaks matching of paths without protocol + domain (e.g., '/base/file.js'), which were previously matched but are no longer matched after the change. This could cause source URL rewriting to fail for relative URLs.",
+            "suggestion": "Revert the regex change on line 24 to the original version to support matching URL prefixes with or without the domain and optional slashes, preserving prior behavior."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect regular expression for URL matching in error formatter",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The change modifies URL_REGEXP from a regex that optionally matches the domain part (including zero or one leading slash) to a regex that requires the domain part and a trailing slash. This breaks matching of paths without protocol + domain (e.g., '/base/file.js'), which were previously matched but are no longer matched after the change. This could cause source URL rewriting to fail for relative URLs.",
+            "suggestion": "Revert the regex change on line 24 to the original version to support matching URL prefixes with or without the domain and optional slashes, preserving prior behavior."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

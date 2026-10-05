@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-8",
+  "project": "Hessian.js",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "ed102d096883428073795c61777b57efabef8517",
+  "buggySha": "dd8a485d524c96d20b0384e7d81da3ff9b3bfd16",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c7319e595024a922d28a64bcc8cfaabd83b130ced617741cb128ced2d7525944",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "ed102d096883428073795c61777b57efabef8517",
+    "maxFiles": 40,
+    "filesIndexed": 26,
+    "chunksIndexed": 119,
+    "embeddingUsage": {
+      "inputTokens": 4972,
+      "outputTokens": 0,
+      "totalTokens": 4972
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/utils.js",
+        "contentSha256": "b3fcf6e8ce30b8d032f1cd12dade9007049a786ffce99b667fe62580bcd723b0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f0dd988bcafb4ebc9195ede2078cc5d812d651f11bdd4e4fe73470ea8f68f5d4"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "13ca45f66540e4e864a83c1fd9b67778a547a8d36afcb37039547c8948383731"
+      },
+      {
+        "path": "test/int.test.js",
+        "contentSha256": "34253e0410f4eff4788d891788e0f44524493d11c464229bc6e1f70c7393a990"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "50fd2a49fb9029d5df52fa832b44a42379ee7346441584bd5a9faa85f0943cc2"
+      },
+      {
+        "path": "test/int.test.js",
+        "contentSha256": "ce275a01d09e98e01adf919c9c5f8a5b3b6b2978f0286014e031d52b6c802688"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "a813f66daa456ee1278de020c7ee3ef976c17ca53498870a524683b93a155b50"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "1e7027830c72bb343821364148791c6b83003bbe78650a1067ef9313f408e2c3"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "9f60d491b453e592f5ab65bae8b81ade43227a360bbbe000f53efc1c3bb5bbfb"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 831,
+      "outputTokens": 0,
+      "totalTokens": 831
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 15456,
+          "outputTokens": 242,
+          "totalTokens": 15698
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of JavaScript 'Long' values in 'handleLong' function",
+            "severity": "high",
+            "file": "lib/utils.js",
+            "line": 42,
+            "explanation": "The original code used 'val.greaterThan' and 'val.lessThan' methods which may not be available or suitable for the 'Long' type used. The new code attempts to handle safety by analyzing 'high' and 'low' parts of 'val' (assuming 'val' is an object with these properties). However, this requires 'val' to be a Long-like object, and the new condition logic checks for values outside safe integer range differently. The updated logic might fail if 'val' is a primitive or a different object, causing runti",
+            "suggestion": "Ensure that 'val' is indeed a 'Long' object with 'high' and 'low' properties before applying the new logic. Add type checks or use 'Long' class methods safely to avoid runtime exceptions. Alternatively, revert to using 'val.greaterThan(MAX_SAFE_INT)' and 'val.lessThan(MIN_SAFE_INT)' if 'val' is guaranteed to be a Long instance."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of JavaScript 'Long' values in 'handleLong' function",
+            "severity": "high",
+            "file": "lib/utils.js",
+            "line": 42,
+            "explanation": "The original code used 'val.greaterThan' and 'val.lessThan' methods which may not be available or suitable for the 'Long' type used. The new code attempts to handle safety by analyzing 'high' and 'low' parts of 'val' (assuming 'val' is an object with these properties). However, this requires 'val' to be a Long-like object, and the new condition logic checks for values outside safe integer range differently. The updated logic might fail if 'val' is a primitive or a different object, causing runti",
+            "suggestion": "Ensure that 'val' is indeed a 'Long' object with 'high' and 'low' properties before applying the new logic. Add type checks or use 'Long' class methods safely to avoid runtime exceptions. Alternatively, revert to using 'val.greaterThan(MAX_SAFE_INT)' and 'val.lessThan(MIN_SAFE_INT)' if 'val' is guaranteed to be a Long instance."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 15456,
+          "outputTokens": 141,
+          "totalTokens": 15597
+        },
+        "rawFindings": [
+          {
+            "title": "Removed import of 'long' library breaking handleLong function",
+            "severity": "critical",
+            "file": "lib/utils.js",
+            "line": 13,
+            "explanation": "The diff removed the import of the 'long' module which is crucial for the function handleLong to operate correctly. Inside handleLong, properties 'val.high' and 'val.low' are accessed, which only exist on Long objects. Without importing 'long', this function will fail at runtime due to missing Long definition, causing errors during long value manipulation.",
+            "suggestion": "Re-add the line \"var Long = require('long');\" at line 13 in lib/utils.js to properly import the Long module."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 15456,
+          "outputTokens": 148,
+          "totalTokens": 15604
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect import of 'long' module removed breaking handleLong function",
+            "severity": "critical",
+            "file": "lib/utils.js",
+            "line": 13,
+            "explanation": "The original 'long' module was removed from the imports, but the handleLong function relies on 'val.high' and 'val.low' properties provided by the Long object. Without importing 'long' module or otherwise providing the Long class, this will cause a runtime error when handleLong is called with a Long instance.",
+            "suggestion": "Re-import the 'long' module at the top of lib/utils.js (e.g., `var Long = require('long');`) to ensure Long class is defined and handleLong function works as expected."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

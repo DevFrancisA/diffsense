@@ -1,0 +1,6880 @@
+{
+  "schemaVersion": 1,
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "dev-c1",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "dataset": {
+    "name": "BugsJS",
+    "repository": "https://github.com/BugsJS/bug-dataset",
+    "revision": "7abbad3e4df12cd5294110bb5db11b7d5bc758a6",
+    "version": "1.0",
+    "license": "MIT",
+    "advertisedBugCount": 453
+  },
+  "selection": {
+    "policy": "evaluation/SELECTION.md",
+    "selectedCases": 30,
+    "totalCandidates": 453,
+    "diffsInspected": 37,
+    "initialChangedLineLimit": 150,
+    "changedLineLimitUsed": 150,
+    "fallbackApplied": false,
+    "maxBugsPerProject": 6,
+    "maxIndexFiles": 40,
+    "fileClassification": "Committed policy in evaluation/SELECTION.md",
+    "candidatesResolvedByRules": 357
+  },
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "models": {
+    "review": "gpt-4.1-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "manualReview": {
+    "status": "unmeasured",
+    "reason": "The paired human timing study has not been run."
+  },
+  "regressionEvaluation": {
+    "status": "not_run",
+    "reason": "Seeded regression scenarios have not been authored or executed."
+  },
+  "arms": {
+    "withContext": [
+      {
+        "runNumber": 1,
+        "pullRequests": [
+          {
+            "id": "Bower-1",
+            "knownDefects": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 49,
+                "endLine": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 174,
+                "endLine": 175
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 177,
+                "endLine": 178
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 177
+              }
+            ]
+          },
+          {
+            "id": "Bower-2",
+            "knownDefects": [
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 89,
+                "endLine": 89
+              },
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 97,
+                "endLine": 101
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/Project.js",
+                "line": 89
+              },
+              {
+                "file": "test/commands/install.js",
+                "line": 100
+              }
+            ]
+          },
+          {
+            "id": "Bower-3",
+            "knownDefects": [
+              {
+                "file": "lib/core/scripts.js",
+                "startLine": 86,
+                "endLine": 86
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "test/core/scripts.js",
+                "line": 48
+              }
+            ]
+          },
+          {
+            "id": "Eslint-1",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "startLine": 31,
+                "endLine": 31
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-3",
+            "knownDefects": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "startLine": 34,
+                "endLine": 34
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "tests/lib/rules/prefer-template.js",
+                "line": 33
+              }
+            ]
+          },
+          {
+            "id": "Eslint-5",
+            "knownDefects": [
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 258,
+                "endLine": 258
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 265,
+                "endLine": 266
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 270,
+                "endLine": 271
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 409,
+                "endLine": 409
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 415,
+                "endLine": 415
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 436,
+                "endLine": 437
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/indent.js",
+                "line": 271
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "line": 271
+              }
+            ]
+          },
+          {
+            "id": "Eslint-6",
+            "knownDefects": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 54,
+                "endLine": 55
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 57,
+                "endLine": 59
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 61,
+                "endLine": 61
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 63,
+                "endLine": 63
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "line": 54
+              }
+            ]
+          },
+          {
+            "id": "Eslint-7",
+            "knownDefects": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 28,
+                "endLine": 28
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 42,
+                "endLine": 42
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 44,
+                "endLine": 44
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "line": 42
+              }
+            ]
+          },
+          {
+            "id": "Eslint-8",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "startLine": 27,
+                "endLine": 27
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "line": 27
+              }
+            ]
+          },
+          {
+            "id": "Express-1",
+            "knownDefects": [
+              {
+                "file": "lib/router/index.js",
+                "startLine": 210,
+                "endLine": 210
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/router/index.js",
+                "line": 210
+              }
+            ]
+          },
+          {
+            "id": "Express-2",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 361,
+                "endLine": 361
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/request.js",
+                "line": 361
+              }
+            ]
+          },
+          {
+            "id": "Express-3",
+            "knownDefects": [
+              {
+                "file": "lib/response.js",
+                "startLine": 609,
+                "endLine": 609
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/response.js",
+                "line": 609
+              }
+            ]
+          },
+          {
+            "id": "Express-4",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 457,
+                "endLine": 457
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-5",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 70,
+                "endLine": 70
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/utils.js",
+                "line": 70
+              }
+            ]
+          },
+          {
+            "id": "Express-6",
+            "knownDefects": [
+              {
+                "file": "lib/application.js",
+                "startLine": 402,
+                "endLine": 404
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 406,
+                "endLine": 406
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 423,
+                "endLine": 425
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/application.js",
+                "line": 403
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-2",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 421,
+                "endLine": 421
+              },
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 430,
+                "endLine": 431
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 728,
+                "endLine": 728
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 733,
+                "endLine": 737
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 421
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 728
+              },
+              {
+                "file": "test/map.test.js",
+                "line": 168
+              },
+              {
+                "file": "test/map.test.js",
+                "line": 480
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-4",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 302,
+                "endLine": 302
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 302
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-6",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 417,
+                "endLine": 418
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 563,
+                "endLine": 563
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 575,
+                "endLine": 575
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 588,
+                "endLine": 588
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-7",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 330,
+                "endLine": 331
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 331
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-8",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 15,
+                "endLine": 19
+              },
+              {
+                "file": "lib/utils.js",
+                "startLine": 42,
+                "endLine": 49
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/utils.js",
+                "line": 42
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-9",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 415,
+                "endLine": 415
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 415
+              }
+            ]
+          },
+          {
+            "id": "Hexo-2",
+            "knownDefects": [
+              {
+                "file": "lib/box/file.js",
+                "startLine": 42,
+                "endLine": 46
+              },
+              {
+                "file": "lib/box/file.js",
+                "startLine": 61,
+                "endLine": 65
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-3",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 26,
+                "endLine": 26
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 32,
+                "endLine": 32
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 35,
+                "endLine": 35
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-4",
+            "knownDefects": [
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 5,
+                "endLine": 5
+              },
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 21,
+                "endLine": 21
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-5",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 4,
+                "endLine": 4
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 9,
+                "endLine": 9
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 14,
+                "endLine": 14
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 9
+              }
+            ]
+          },
+          {
+            "id": "Hexo-7",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/toc.js",
+                "startLine": 28,
+                "endLine": 28
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-8",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "startLine": 88,
+                "endLine": 89
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Karma-1",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 24,
+                "endLine": 24
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 24
+              }
+            ]
+          },
+          {
+            "id": "Karma-2",
+            "knownDefects": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 43,
+                "endLine": 44
+              },
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 46,
+                "endLine": 46
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "line": 43
+              }
+            ]
+          },
+          {
+            "id": "Karma-3",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 99,
+                "endLine": 99
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 99
+              },
+              {
+                "file": "test/unit/reporter.spec.js",
+                "line": 55
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "pullRequests": 30,
+          "precision": 0.7586206896551724,
+          "recall": 0.3728813559322034,
+          "reviewTimeSavingsMedianPercent": null,
+          "pairedReviewTasks": 0,
+          "manualDefectsFound": null,
+          "assistedDefectsFound": 22,
+          "falsePositives": 7,
+          "knownDefects": 59,
+          "seededRegressions": 0,
+          "regressionCatchRate": null,
+          "caughtRegressions": 0,
+          "findings": {
+            "manual": null,
+            "assisted": 29
+          },
+          "perPullRequest": [
+            {
+              "id": "Bower-1",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.6666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 1,
+              "precision": 0.5,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 1,
+              "precision": 0,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 1,
+              "precision": 0,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-5",
+              "knownDefects": 6,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 1,
+              "precision": 0.5,
+              "recall": 0.16666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-7",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-2",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-5",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-6",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-2",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 4,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 2,
+              "precision": 0.5,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-8",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-9",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-3",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-4",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-5",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 1,
+              "precision": 0.5,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            }
+          ]
+        }
+      },
+      {
+        "runNumber": 2,
+        "pullRequests": [
+          {
+            "id": "Bower-1",
+            "knownDefects": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 49,
+                "endLine": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 174,
+                "endLine": 175
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 177,
+                "endLine": 178
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 178
+              }
+            ]
+          },
+          {
+            "id": "Bower-2",
+            "knownDefects": [
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 89,
+                "endLine": 89
+              },
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 97,
+                "endLine": 101
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/Project.js",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "id": "Bower-3",
+            "knownDefects": [
+              {
+                "file": "lib/core/scripts.js",
+                "startLine": 86,
+                "endLine": 86
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-1",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "startLine": 31,
+                "endLine": 31
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-3",
+            "knownDefects": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "startLine": 34,
+                "endLine": 34
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-5",
+            "knownDefects": [
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 258,
+                "endLine": 258
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 265,
+                "endLine": 266
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 270,
+                "endLine": 271
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 409,
+                "endLine": 409
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 415,
+                "endLine": 415
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 436,
+                "endLine": 437
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/indent.js",
+                "line": 270
+              }
+            ]
+          },
+          {
+            "id": "Eslint-6",
+            "knownDefects": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 54,
+                "endLine": 55
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 57,
+                "endLine": 59
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 61,
+                "endLine": 61
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 63,
+                "endLine": 63
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "line": 55
+              }
+            ]
+          },
+          {
+            "id": "Eslint-7",
+            "knownDefects": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 28,
+                "endLine": 28
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 42,
+                "endLine": 42
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 44,
+                "endLine": 44
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "line": 42
+              }
+            ]
+          },
+          {
+            "id": "Eslint-8",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "startLine": 27,
+                "endLine": 27
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "line": 27
+              }
+            ]
+          },
+          {
+            "id": "Express-1",
+            "knownDefects": [
+              {
+                "file": "lib/router/index.js",
+                "startLine": 210,
+                "endLine": 210
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/router/index.js",
+                "line": 210
+              }
+            ]
+          },
+          {
+            "id": "Express-2",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 361,
+                "endLine": 361
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/request.js",
+                "line": 361
+              }
+            ]
+          },
+          {
+            "id": "Express-3",
+            "knownDefects": [
+              {
+                "file": "lib/response.js",
+                "startLine": 609,
+                "endLine": 609
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-4",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 457,
+                "endLine": 457
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/request.js",
+                "line": 457
+              }
+            ]
+          },
+          {
+            "id": "Express-5",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 70,
+                "endLine": 70
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/utils.js",
+                "line": 70
+              }
+            ]
+          },
+          {
+            "id": "Express-6",
+            "knownDefects": [
+              {
+                "file": "lib/application.js",
+                "startLine": 402,
+                "endLine": 404
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 406,
+                "endLine": 406
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 423,
+                "endLine": 425
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/application.js",
+                "line": 406
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-2",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 421,
+                "endLine": 421
+              },
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 430,
+                "endLine": 431
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 728,
+                "endLine": 728
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 733,
+                "endLine": 737
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 421
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 728
+              },
+              {
+                "file": "test/map.test.js",
+                "line": 168
+              },
+              {
+                "file": "test/map.test.js",
+                "line": 480
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-4",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 302,
+                "endLine": 302
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-6",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 417,
+                "endLine": 418
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 563,
+                "endLine": 563
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 575,
+                "endLine": 575
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 588,
+                "endLine": 588
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 588
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-7",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 330,
+                "endLine": 331
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 331
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-8",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 15,
+                "endLine": 19
+              },
+              {
+                "file": "lib/utils.js",
+                "startLine": 42,
+                "endLine": 49
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-9",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 415,
+                "endLine": 415
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 415
+              }
+            ]
+          },
+          {
+            "id": "Hexo-2",
+            "knownDefects": [
+              {
+                "file": "lib/box/file.js",
+                "startLine": 42,
+                "endLine": 46
+              },
+              {
+                "file": "lib/box/file.js",
+                "startLine": 61,
+                "endLine": 65
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/box/file.js",
+                "line": 42
+              }
+            ]
+          },
+          {
+            "id": "Hexo-3",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 26,
+                "endLine": 26
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 32,
+                "endLine": 32
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 35,
+                "endLine": 35
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-4",
+            "knownDefects": [
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 5,
+                "endLine": 5
+              },
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 21,
+                "endLine": 21
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/models/post_asset.js",
+                "line": 21
+              }
+            ]
+          },
+          {
+            "id": "Hexo-5",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 4,
+                "endLine": 4
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 9,
+                "endLine": 9
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 14,
+                "endLine": 14
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 4
+              }
+            ]
+          },
+          {
+            "id": "Hexo-7",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/toc.js",
+                "startLine": 28,
+                "endLine": 28
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-8",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "startLine": 88,
+                "endLine": 89
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "id": "Karma-1",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 24,
+                "endLine": 24
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 24
+              }
+            ]
+          },
+          {
+            "id": "Karma-2",
+            "knownDefects": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 43,
+                "endLine": 44
+              },
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 46,
+                "endLine": 46
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "line": 43
+              }
+            ]
+          },
+          {
+            "id": "Karma-3",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 99,
+                "endLine": 99
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 99
+              },
+              {
+                "file": "test/unit/reporter.spec.js",
+                "line": 55
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "pullRequests": 30,
+          "precision": 0.8846153846153846,
+          "recall": 0.3898305084745763,
+          "reviewTimeSavingsMedianPercent": null,
+          "pairedReviewTasks": 0,
+          "manualDefectsFound": null,
+          "assistedDefectsFound": 23,
+          "falsePositives": 3,
+          "knownDefects": 59,
+          "seededRegressions": 0,
+          "regressionCatchRate": null,
+          "caughtRegressions": 0,
+          "findings": {
+            "manual": null,
+            "assisted": 26
+          },
+          "perPullRequest": [
+            {
+              "id": "Bower-1",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-5",
+              "knownDefects": 6,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.16666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-7",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-2",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-5",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-6",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-2",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 4,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 2,
+              "precision": 0.5,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-8",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-9",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-3",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-4",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-5",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 1,
+              "precision": 0.5,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            }
+          ]
+        }
+      },
+      {
+        "runNumber": 3,
+        "pullRequests": [
+          {
+            "id": "Bower-1",
+            "knownDefects": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 49,
+                "endLine": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 174,
+                "endLine": 175
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 177,
+                "endLine": 178
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 178
+              }
+            ]
+          },
+          {
+            "id": "Bower-2",
+            "knownDefects": [
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 89,
+                "endLine": 89
+              },
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 97,
+                "endLine": 101
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/Project.js",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "id": "Bower-3",
+            "knownDefects": [
+              {
+                "file": "lib/core/scripts.js",
+                "startLine": 86,
+                "endLine": 86
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-1",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "startLine": 31,
+                "endLine": 31
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-3",
+            "knownDefects": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "startLine": 34,
+                "endLine": 34
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-5",
+            "knownDefects": [
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 258,
+                "endLine": 258
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 265,
+                "endLine": 266
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 270,
+                "endLine": 271
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 409,
+                "endLine": 409
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 415,
+                "endLine": 415
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 436,
+                "endLine": 437
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/indent.js",
+                "line": 270
+              }
+            ]
+          },
+          {
+            "id": "Eslint-6",
+            "knownDefects": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 54,
+                "endLine": 55
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 57,
+                "endLine": 59
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 61,
+                "endLine": 61
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 63,
+                "endLine": 63
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "line": 54
+              }
+            ]
+          },
+          {
+            "id": "Eslint-7",
+            "knownDefects": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 28,
+                "endLine": 28
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 42,
+                "endLine": 42
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 44,
+                "endLine": 44
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "line": 28
+              }
+            ]
+          },
+          {
+            "id": "Eslint-8",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "startLine": 27,
+                "endLine": 27
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "line": 27
+              }
+            ]
+          },
+          {
+            "id": "Express-1",
+            "knownDefects": [
+              {
+                "file": "lib/router/index.js",
+                "startLine": 210,
+                "endLine": 210
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/router/index.js",
+                "line": 210
+              }
+            ]
+          },
+          {
+            "id": "Express-2",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 361,
+                "endLine": 361
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/request.js",
+                "line": 361
+              }
+            ]
+          },
+          {
+            "id": "Express-3",
+            "knownDefects": [
+              {
+                "file": "lib/response.js",
+                "startLine": 609,
+                "endLine": 609
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/response.js",
+                "line": 609
+              }
+            ]
+          },
+          {
+            "id": "Express-4",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 457,
+                "endLine": 457
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-5",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 70,
+                "endLine": 70
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/utils.js",
+                "line": 70
+              }
+            ]
+          },
+          {
+            "id": "Express-6",
+            "knownDefects": [
+              {
+                "file": "lib/application.js",
+                "startLine": 402,
+                "endLine": 404
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 406,
+                "endLine": 406
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 423,
+                "endLine": 425
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/application.js",
+                "line": 403
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-2",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 421,
+                "endLine": 421
+              },
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 430,
+                "endLine": 431
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 728,
+                "endLine": 728
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 733,
+                "endLine": 737
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 421
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 728
+              },
+              {
+                "file": "test/map.test.js",
+                "line": 168
+              },
+              {
+                "file": "test/map.test.js",
+                "line": 480
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-4",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 302,
+                "endLine": 302
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 302
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-6",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 417,
+                "endLine": 418
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 563,
+                "endLine": 563
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 575,
+                "endLine": 575
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 588,
+                "endLine": 588
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-7",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 330,
+                "endLine": 331
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 331
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-8",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 15,
+                "endLine": 19
+              },
+              {
+                "file": "lib/utils.js",
+                "startLine": 42,
+                "endLine": 49
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-9",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 415,
+                "endLine": 415
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 415
+              }
+            ]
+          },
+          {
+            "id": "Hexo-2",
+            "knownDefects": [
+              {
+                "file": "lib/box/file.js",
+                "startLine": 42,
+                "endLine": 46
+              },
+              {
+                "file": "lib/box/file.js",
+                "startLine": 61,
+                "endLine": 65
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-3",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 26,
+                "endLine": 26
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 32,
+                "endLine": 32
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 35,
+                "endLine": 35
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 26
+              }
+            ]
+          },
+          {
+            "id": "Hexo-4",
+            "knownDefects": [
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 5,
+                "endLine": 5
+              },
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 21,
+                "endLine": 21
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/models/post_asset.js",
+                "line": 21
+              }
+            ]
+          },
+          {
+            "id": "Hexo-5",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 4,
+                "endLine": 4
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 9,
+                "endLine": 9
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 14,
+                "endLine": 14
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 14
+              }
+            ]
+          },
+          {
+            "id": "Hexo-7",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/toc.js",
+                "startLine": 28,
+                "endLine": 28
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-8",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "startLine": 88,
+                "endLine": 89
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "id": "Karma-1",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 24,
+                "endLine": 24
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 24
+              }
+            ]
+          },
+          {
+            "id": "Karma-2",
+            "knownDefects": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 43,
+                "endLine": 44
+              },
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 46,
+                "endLine": 46
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "line": 43
+              }
+            ]
+          },
+          {
+            "id": "Karma-3",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 99,
+                "endLine": 99
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 99
+              },
+              {
+                "file": "test/unit/reporter.spec.js",
+                "line": 55
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "pullRequests": 30,
+          "precision": 0.8888888888888888,
+          "recall": 0.4067796610169492,
+          "reviewTimeSavingsMedianPercent": null,
+          "pairedReviewTasks": 0,
+          "manualDefectsFound": null,
+          "assistedDefectsFound": 24,
+          "falsePositives": 3,
+          "knownDefects": 59,
+          "seededRegressions": 0,
+          "regressionCatchRate": null,
+          "caughtRegressions": 0,
+          "findings": {
+            "manual": null,
+            "assisted": 27
+          },
+          "perPullRequest": [
+            {
+              "id": "Bower-1",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.6666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-5",
+              "knownDefects": 6,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.16666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-7",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-2",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-5",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-6",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-2",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 4,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 2,
+              "precision": 0.5,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-8",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-9",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-3",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-4",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-5",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 1,
+              "precision": 0.5,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            }
+          ]
+        }
+      }
+    ],
+    "withoutContext": []
+  },
+  "usage": {
+    "session": "session-2",
+    "callLimit": 1000,
+    "tokenLimit": 10000000,
+    "reservedCalls": 233,
+    "completedCalls": 232,
+    "estimatedInputTokens": 2798609,
+    "observedInputTokens": 2025969,
+    "observedOutputTokens": 33753,
+    "observedTotalTokens": 2059722,
+    "byLabel": {
+      "regressions/index_embeddings": {
+        "calls": 1,
+        "totalTokens": 35649
+      },
+      "regressions/context_embedding": {
+        "calls": 34,
+        "totalTokens": 11406
+      },
+      "regressions/test_plan": {
+        "calls": 34,
+        "totalTokens": 272806
+      },
+      "benchmark/dev-c1/index_embeddings": {
+        "calls": 44,
+        "totalTokens": 789752
+      },
+      "benchmark/dev-c1/context_embedding": {
+        "calls": 30,
+        "totalTokens": 18096
+      },
+      "benchmark/dev-c1/review_response": {
+        "calls": 89,
+        "totalTokens": 932013
+      }
+    },
+    "log": [
+      {
+        "at": "2026-10-05T10:30:02.297Z",
+        "label": "regressions/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 48469
+      },
+      {
+        "at": "2026-10-05T10:30:03.211Z",
+        "label": "regressions/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 35649,
+          "outputTokens": 0,
+          "totalTokens": 35649
+        }
+      },
+      {
+        "at": "2026-10-05T10:31:58.560Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 288
+      },
+      {
+        "at": "2026-10-05T10:31:59.205Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 224,
+          "outputTokens": 0,
+          "totalTokens": 224
+        }
+      },
+      {
+        "at": "2026-10-05T10:31:59.221Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 9468
+      },
+      {
+        "at": "2026-10-05T10:32:05.499Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7314,
+          "outputTokens": 703,
+          "totalTokens": 8017
+        }
+      },
+      {
+        "at": "2026-10-05T10:32:11.168Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 120
+      },
+      {
+        "at": "2026-10-05T10:32:11.353Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 108,
+          "outputTokens": 0,
+          "totalTokens": 108
+        }
+      },
+      {
+        "at": "2026-10-05T10:32:11.366Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 9300
+      },
+      {
+        "at": "2026-10-05T10:32:15.905Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7190,
+          "outputTokens": 581,
+          "totalTokens": 7771
+        }
+      },
+      {
+        "at": "2026-10-05T10:32:21.505Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 155
+      },
+      {
+        "at": "2026-10-05T10:32:21.966Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 151,
+          "outputTokens": 0,
+          "totalTokens": 151
+        }
+      },
+      {
+        "at": "2026-10-05T10:32:21.978Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 9226
+      },
+      {
+        "at": "2026-10-05T10:32:28.993Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7167,
+          "outputTokens": 1025,
+          "totalTokens": 8192
+        }
+      },
+      {
+        "at": "2026-10-05T10:32:34.695Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 534
+      },
+      {
+        "at": "2026-10-05T10:32:34.881Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 395,
+          "outputTokens": 0,
+          "totalTokens": 395
+        }
+      },
+      {
+        "at": "2026-10-05T10:32:34.892Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10919
+      },
+      {
+        "at": "2026-10-05T10:32:39.754Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8369,
+          "outputTokens": 689,
+          "totalTokens": 9058
+        }
+      },
+      {
+        "at": "2026-10-05T10:32:45.486Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 541
+      },
+      {
+        "at": "2026-10-05T10:32:45.730Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 401,
+          "outputTokens": 0,
+          "totalTokens": 401
+        }
+      },
+      {
+        "at": "2026-10-05T10:32:45.743Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10520
+      },
+      {
+        "at": "2026-10-05T10:32:49.950Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8108,
+          "outputTokens": 584,
+          "totalTokens": 8692
+        }
+      },
+      {
+        "at": "2026-10-05T10:33:10.591Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 131
+      },
+      {
+        "at": "2026-10-05T10:33:11.151Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 136,
+          "outputTokens": 0,
+          "totalTokens": 136
+        }
+      },
+      {
+        "at": "2026-10-05T10:33:11.163Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10353
+      },
+      {
+        "at": "2026-10-05T10:33:15.964Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8061,
+          "outputTokens": 606,
+          "totalTokens": 8667
+        }
+      },
+      {
+        "at": "2026-10-05T10:34:45.296Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 721
+      },
+      {
+        "at": "2026-10-05T10:34:45.702Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 582,
+          "outputTokens": 0,
+          "totalTokens": 582
+        }
+      },
+      {
+        "at": "2026-10-05T10:34:45.716Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10471
+      },
+      {
+        "at": "2026-10-05T10:34:50.007Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8102,
+          "outputTokens": 578,
+          "totalTokens": 8680
+        }
+      },
+      {
+        "at": "2026-10-05T10:34:55.438Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 716
+      },
+      {
+        "at": "2026-10-05T10:34:55.627Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 578,
+          "outputTokens": 0,
+          "totalTokens": 578
+        }
+      },
+      {
+        "at": "2026-10-05T10:34:55.674Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10467
+      },
+      {
+        "at": "2026-10-05T10:34:59.444Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8098,
+          "outputTokens": 440,
+          "totalTokens": 8538
+        }
+      },
+      {
+        "at": "2026-10-05T10:36:29.126Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 478
+      },
+      {
+        "at": "2026-10-05T10:36:29.470Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 384,
+          "outputTokens": 0,
+          "totalTokens": 384
+        }
+      },
+      {
+        "at": "2026-10-05T10:36:29.483Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10228
+      },
+      {
+        "at": "2026-10-05T10:36:34.014Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7893,
+          "outputTokens": 616,
+          "totalTokens": 8509
+        }
+      },
+      {
+        "at": "2026-10-05T10:36:39.498Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 350
+      },
+      {
+        "at": "2026-10-05T10:36:39.697Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 273,
+          "outputTokens": 0,
+          "totalTokens": 273
+        }
+      },
+      {
+        "at": "2026-10-05T10:36:39.710Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 9100
+      },
+      {
+        "at": "2026-10-05T10:36:42.458Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7026,
+          "outputTokens": 365,
+          "totalTokens": 7391
+        }
+      },
+      {
+        "at": "2026-10-05T10:37:11.688Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 380
+      },
+      {
+        "at": "2026-10-05T10:37:11.876Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 309,
+          "outputTokens": 0,
+          "totalTokens": 309
+        }
+      },
+      {
+        "at": "2026-10-05T10:37:11.888Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10195
+      },
+      {
+        "at": "2026-10-05T10:37:13.927Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7848,
+          "outputTokens": 226,
+          "totalTokens": 8074
+        }
+      },
+      {
+        "at": "2026-10-05T10:37:34.011Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 379
+      },
+      {
+        "at": "2026-10-05T10:37:34.301Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 309,
+          "outputTokens": 0,
+          "totalTokens": 309
+        }
+      },
+      {
+        "at": "2026-10-05T10:37:34.316Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10194
+      },
+      {
+        "at": "2026-10-05T10:37:36.339Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7848,
+          "outputTokens": 246,
+          "totalTokens": 8094
+        }
+      },
+      {
+        "at": "2026-10-05T10:37:41.668Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 665
+      },
+      {
+        "at": "2026-10-05T10:37:41.874Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 545,
+          "outputTokens": 0,
+          "totalTokens": 545
+        }
+      },
+      {
+        "at": "2026-10-05T10:37:41.923Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10415
+      },
+      {
+        "at": "2026-10-05T10:37:45.506Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8063,
+          "outputTokens": 536,
+          "totalTokens": 8599
+        }
+      },
+      {
+        "at": "2026-10-05T10:40:05.939Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 659
+      },
+      {
+        "at": "2026-10-05T10:40:06.285Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 544,
+          "outputTokens": 0,
+          "totalTokens": 544
+        }
+      },
+      {
+        "at": "2026-10-05T10:40:06.299Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10410
+      },
+      {
+        "at": "2026-10-05T10:40:08.080Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8062,
+          "outputTokens": 146,
+          "totalTokens": 8208
+        }
+      },
+      {
+        "at": "2026-10-05T10:40:13.391Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 458
+      },
+      {
+        "at": "2026-10-05T10:40:13.567Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 358,
+          "outputTokens": 0,
+          "totalTokens": 358
+        }
+      },
+      {
+        "at": "2026-10-05T10:40:13.617Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10437
+      },
+      {
+        "at": "2026-10-05T10:40:18.913Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8060,
+          "outputTokens": 719,
+          "totalTokens": 8779
+        }
+      },
+      {
+        "at": "2026-10-05T10:40:24.196Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 467
+      },
+      {
+        "at": "2026-10-05T10:40:24.398Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 378,
+          "outputTokens": 0,
+          "totalTokens": 378
+        }
+      },
+      {
+        "at": "2026-10-05T10:40:24.412Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10446
+      },
+      {
+        "at": "2026-10-05T10:40:28.146Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8079,
+          "outputTokens": 434,
+          "totalTokens": 8513
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:17.135Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 80653
+      },
+      {
+        "at": "2026-10-05T10:41:17.715Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 27621,
+          "outputTokens": 0,
+          "totalTokens": 27621
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:20.916Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 538
+      },
+      {
+        "at": "2026-10-05T10:41:21.111Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 25776,
+          "outputTokens": 0,
+          "totalTokens": 25776
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:21.207Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 402,
+          "outputTokens": 0,
+          "totalTokens": 402
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:21.221Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10789
+      },
+      {
+        "at": "2026-10-05T10:41:23.882Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 1195
+      },
+      {
+        "at": "2026-10-05T10:41:24.192Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 873,
+          "outputTokens": 0,
+          "totalTokens": 873
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:24.461Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 21689
+      },
+      {
+        "at": "2026-10-05T10:41:25.767Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8354,
+          "outputTokens": 631,
+          "totalTokens": 8985
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:26.832Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 12903,
+          "outputTokens": 297,
+          "totalTokens": 13200
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:26.835Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 21689
+      },
+      {
+        "at": "2026-10-05T10:41:29.620Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 12903,
+          "outputTokens": 267,
+          "totalTokens": 13170
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:29.623Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 21689
+      },
+      {
+        "at": "2026-10-05T10:41:32.747Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 12903,
+          "outputTokens": 375,
+          "totalTokens": 13278
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:34.911Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 73597
+      },
+      {
+        "at": "2026-10-05T10:41:35.378Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 27610,
+          "outputTokens": 0,
+          "totalTokens": 27610
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:35.634Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 543
+      },
+      {
+        "at": "2026-10-05T10:41:35.826Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 408,
+          "outputTokens": 0,
+          "totalTokens": 408
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:35.839Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10628
+      },
+      {
+        "at": "2026-10-05T10:41:38.657Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 20389,
+          "outputTokens": 0,
+          "totalTokens": 20389
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:40.015Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8052,
+          "outputTokens": 479,
+          "totalTokens": 8531
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:40.836Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 910
+      },
+      {
+        "at": "2026-10-05T10:41:41.000Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 660,
+          "outputTokens": 0,
+          "totalTokens": 660
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:41.235Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 20518
+      },
+      {
+        "at": "2026-10-05T10:41:44.554Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 12198,
+          "outputTokens": 461,
+          "totalTokens": 12659
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:44.557Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 20518
+      },
+      {
+        "at": "2026-10-05T10:41:46.164Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 12198,
+          "outputTokens": 143,
+          "totalTokens": 12341
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:46.167Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 20518
+      },
+      {
+        "at": "2026-10-05T10:41:48.048Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 12198,
+          "outputTokens": 200,
+          "totalTokens": 12398
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:50.115Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 67831
+      },
+      {
+        "at": "2026-10-05T10:41:50.595Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 28760,
+          "outputTokens": 0,
+          "totalTokens": 28760
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:53.908Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 15774,
+          "outputTokens": 0,
+          "totalTokens": 15774
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:55.612Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 576
+      },
+      {
+        "at": "2026-10-05T10:41:55.828Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 432,
+          "outputTokens": 0,
+          "totalTokens": 432
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:56.131Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11243
+      },
+      {
+        "at": "2026-10-05T10:41:58.360Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7049,
+          "outputTokens": 241,
+          "totalTokens": 7290
+        }
+      },
+      {
+        "at": "2026-10-05T10:41:58.362Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11243
+      },
+      {
+        "at": "2026-10-05T10:42:00.030Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7049,
+          "outputTokens": 159,
+          "totalTokens": 7208
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:00.032Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11243
+      },
+      {
+        "at": "2026-10-05T10:42:03.012Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7049,
+          "outputTokens": 138,
+          "totalTokens": 7187
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:05.410Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 3,
+        "estimatedTokens": 138977
+      },
+      {
+        "at": "2026-10-05T10:42:05.910Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 32210,
+          "outputTokens": 0,
+          "totalTokens": 32210
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:09.269Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 31576,
+          "outputTokens": 0,
+          "totalTokens": 31576
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:12.601Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 24852,
+          "outputTokens": 0,
+          "totalTokens": 24852
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:15.610Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 636
+      },
+      {
+        "at": "2026-10-05T10:42:15.809Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 590,
+          "outputTokens": 0,
+          "totalTokens": 590
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:16.199Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9343
+      },
+      {
+        "at": "2026-10-05T10:42:16.910Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6129,
+          "outputTokens": 6,
+          "totalTokens": 6135
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:16.912Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9343
+      },
+      {
+        "at": "2026-10-05T10:42:20.155Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6129,
+          "outputTokens": 6,
+          "totalTokens": 6135
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:20.158Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9343
+      },
+      {
+        "at": "2026-10-05T10:42:21.889Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6129,
+          "outputTokens": 6,
+          "totalTokens": 6135
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:23.991Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 80205
+      },
+      {
+        "at": "2026-10-05T10:42:24.511Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 30531,
+          "outputTokens": 0,
+          "totalTokens": 30531
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:27.872Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 19448,
+          "outputTokens": 0,
+          "totalTokens": 19448
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:30.498Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 407
+      },
+      {
+        "at": "2026-10-05T10:42:30.678Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 370,
+          "outputTokens": 0,
+          "totalTokens": 370
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:31.054Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9402
+      },
+      {
+        "at": "2026-10-05T10:42:33.463Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5474,
+          "outputTokens": 258,
+          "totalTokens": 5732
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:33.466Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9402
+      },
+      {
+        "at": "2026-10-05T10:42:37.021Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5474,
+          "outputTokens": 231,
+          "totalTokens": 5705
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:37.023Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9402
+      },
+      {
+        "at": "2026-10-05T10:42:38.737Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5474,
+          "outputTokens": 159,
+          "totalTokens": 5633
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:40.657Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 25805
+      },
+      {
+        "at": "2026-10-05T10:42:41.699Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 17072,
+          "outputTokens": 0,
+          "totalTokens": 17072
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:43.555Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 901
+      },
+      {
+        "at": "2026-10-05T10:42:43.771Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 768,
+          "outputTokens": 0,
+          "totalTokens": 768
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:44.533Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 25436
+      },
+      {
+        "at": "2026-10-05T10:42:47.300Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 15902,
+          "outputTokens": 318,
+          "totalTokens": 16220
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:47.303Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 25436
+      },
+      {
+        "at": "2026-10-05T10:42:49.464Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 15902,
+          "outputTokens": 250,
+          "totalTokens": 16152
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:49.466Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 25436
+      },
+      {
+        "at": "2026-10-05T10:42:51.595Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 15902,
+          "outputTokens": 213,
+          "totalTokens": 16115
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:53.487Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 98110
+      },
+      {
+        "at": "2026-10-05T10:42:53.969Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 32531,
+          "outputTokens": 0,
+          "totalTokens": 32531
+        }
+      },
+      {
+        "at": "2026-10-05T10:42:57.193Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 29297,
+          "outputTokens": 0,
+          "totalTokens": 29297
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:00.180Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 745
+      },
+      {
+        "at": "2026-10-05T10:43:00.334Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 631,
+          "outputTokens": 0,
+          "totalTokens": 631
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:00.836Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13702
+      },
+      {
+        "at": "2026-10-05T10:43:04.322Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8868,
+          "outputTokens": 201,
+          "totalTokens": 9069
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:04.325Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13702
+      },
+      {
+        "at": "2026-10-05T10:43:06.158Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8868,
+          "outputTokens": 236,
+          "totalTokens": 9104
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:06.161Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13702
+      },
+      {
+        "at": "2026-10-05T10:43:08.308Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8868,
+          "outputTokens": 239,
+          "totalTokens": 9107
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:10.353Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 169
+      },
+      {
+        "at": "2026-10-05T10:43:10.458Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 66777
+      },
+      {
+        "at": "2026-10-05T10:43:10.666Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 171,
+          "outputTokens": 0,
+          "totalTokens": 171
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:10.681Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10420
+      },
+      {
+        "at": "2026-10-05T10:43:10.903Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 29865,
+          "outputTokens": 0,
+          "totalTokens": 29865
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:13.700Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8115,
+          "outputTokens": 381,
+          "totalTokens": 8496
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:14.288Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11477,
+          "outputTokens": 0,
+          "totalTokens": 11477
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:15.910Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 1020
+      },
+      {
+        "at": "2026-10-05T10:43:16.076Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 930,
+          "outputTokens": 0,
+          "totalTokens": 930
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:16.457Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13407
+      },
+      {
+        "at": "2026-10-05T10:43:18.706Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8277,
+          "outputTokens": 207,
+          "totalTokens": 8484
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:18.709Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13407
+      },
+      {
+        "at": "2026-10-05T10:43:18.994Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 169
+      },
+      {
+        "at": "2026-10-05T10:43:19.254Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 170,
+          "outputTokens": 0,
+          "totalTokens": 170
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:19.301Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10420
+      },
+      {
+        "at": "2026-10-05T10:43:21.079Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8277,
+          "outputTokens": 249,
+          "totalTokens": 8526
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:21.081Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13407
+      },
+      {
+        "at": "2026-10-05T10:43:23.973Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8114,
+          "outputTokens": 585,
+          "totalTokens": 8699
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:24.462Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8277,
+          "outputTokens": 418,
+          "totalTokens": 8695
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:26.642Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 8223
+      },
+      {
+        "at": "2026-10-05T10:43:27.033Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5883,
+          "outputTokens": 0,
+          "totalTokens": 5883
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:27.646Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 279
+      },
+      {
+        "at": "2026-10-05T10:43:27.810Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 267,
+          "outputTokens": 0,
+          "totalTokens": 267
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:29.364Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 655
+      },
+      {
+        "at": "2026-10-05T10:43:29.404Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 15860
+      },
+      {
+        "at": "2026-10-05T10:43:29.546Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 474,
+          "outputTokens": 0,
+          "totalTokens": 474
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:29.560Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10906
+      },
+      {
+        "at": "2026-10-05T10:43:31.265Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11203,
+          "outputTokens": 184,
+          "totalTokens": 11387
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:31.268Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 15860
+      },
+      {
+        "at": "2026-10-05T10:43:33.018Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8437,
+          "outputTokens": 464,
+          "totalTokens": 8901
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:33.021Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 15860
+      },
+      {
+        "at": "2026-10-05T10:43:35.083Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11203,
+          "outputTokens": 156,
+          "totalTokens": 11359
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:37.024Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 14399
+      },
+      {
+        "at": "2026-10-05T10:43:37.499Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11322,
+          "outputTokens": 0,
+          "totalTokens": 11322
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:38.276Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 669
+      },
+      {
+        "at": "2026-10-05T10:43:38.479Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 484,
+          "outputTokens": 0,
+          "totalTokens": 484
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:38.524Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10921
+      },
+      {
+        "at": "2026-10-05T10:43:39.693Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 462
+      },
+      {
+        "at": "2026-10-05T10:43:39.860Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 411,
+          "outputTokens": 0,
+          "totalTokens": 411
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:39.885Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8447,
+          "outputTokens": 118,
+          "totalTokens": 8565
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:40.171Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11530
+      },
+      {
+        "at": "2026-10-05T10:43:41.780Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8175,
+          "outputTokens": 162,
+          "totalTokens": 8337
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:41.785Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11530
+      },
+      {
+        "at": "2026-10-05T10:43:43.992Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8175,
+          "outputTokens": 120,
+          "totalTokens": 8295
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:43.995Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11530
+      },
+      {
+        "at": "2026-10-05T10:43:45.545Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8175,
+          "outputTokens": 149,
+          "totalTokens": 8324
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:47.426Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 12690
+      },
+      {
+        "at": "2026-10-05T10:43:47.733Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 9898,
+          "outputTokens": 0,
+          "totalTokens": 9898
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:49.380Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 590
+      },
+      {
+        "at": "2026-10-05T10:43:49.522Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 533,
+          "outputTokens": 0,
+          "totalTokens": 533
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:50.005Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11331
+      },
+      {
+        "at": "2026-10-05T10:43:51.475Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8053,
+          "outputTokens": 142,
+          "totalTokens": 8195
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:51.477Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11331
+      },
+      {
+        "at": "2026-10-05T10:43:53.011Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8053,
+          "outputTokens": 136,
+          "totalTokens": 8189
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:53.015Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11331
+      },
+      {
+        "at": "2026-10-05T10:43:54.797Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8053,
+          "outputTokens": 157,
+          "totalTokens": 8210
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:56.747Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 2190
+      },
+      {
+        "at": "2026-10-05T10:43:56.799Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 653
+      },
+      {
+        "at": "2026-10-05T10:43:56.931Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 1711,
+          "outputTokens": 0,
+          "totalTokens": 1711
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:57.020Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 474,
+          "outputTokens": 0,
+          "totalTokens": 474
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:57.032Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10904
+      },
+      {
+        "at": "2026-10-05T10:43:57.230Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 342
+      },
+      {
+        "at": "2026-10-05T10:43:57.402Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 333,
+          "outputTokens": 0,
+          "totalTokens": 333
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:57.793Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 15502
+      },
+      {
+        "at": "2026-10-05T10:43:59.725Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11500,
+          "outputTokens": 172,
+          "totalTokens": 11672
+        }
+      },
+      {
+        "at": "2026-10-05T10:43:59.728Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 15502
+      },
+      {
+        "at": "2026-10-05T10:44:01.476Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8438,
+          "outputTokens": 591,
+          "totalTokens": 9029
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:01.524Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11500,
+          "outputTokens": 6,
+          "totalTokens": 11506
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:01.527Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 15502
+      },
+      {
+        "at": "2026-10-05T10:44:04.043Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11500,
+          "outputTokens": 259,
+          "totalTokens": 11759
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:05.996Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 1316
+      },
+      {
+        "at": "2026-10-05T10:44:06.226Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 999,
+          "outputTokens": 0,
+          "totalTokens": 999
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:06.404Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 717
+      },
+      {
+        "at": "2026-10-05T10:44:06.609Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 624,
+          "outputTokens": 0,
+          "totalTokens": 624
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:06.909Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11620
+      },
+      {
+        "at": "2026-10-05T10:44:14.841Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8332,
+          "outputTokens": 180,
+          "totalTokens": 8512
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:14.843Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11620
+      },
+      {
+        "at": "2026-10-05T10:44:16.836Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8332,
+          "outputTokens": 195,
+          "totalTokens": 8527
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:16.840Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11620
+      },
+      {
+        "at": "2026-10-05T10:44:18.374Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8332,
+          "outputTokens": 141,
+          "totalTokens": 8473
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:20.333Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 780
+      },
+      {
+        "at": "2026-10-05T10:44:20.535Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 578,
+          "outputTokens": 0,
+          "totalTokens": 578
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:20.697Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 240
+      },
+      {
+        "at": "2026-10-05T10:44:20.883Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 238,
+          "outputTokens": 0,
+          "totalTokens": 238
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:21.226Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8299
+      },
+      {
+        "at": "2026-10-05T10:44:21.432Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 537
+      },
+      {
+        "at": "2026-10-05T10:44:21.729Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 399,
+          "outputTokens": 0,
+          "totalTokens": 399
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:21.742Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10368
+      },
+      {
+        "at": "2026-10-05T10:44:23.314Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5769,
+          "outputTokens": 192,
+          "totalTokens": 5961
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:23.316Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8299
+      },
+      {
+        "at": "2026-10-05T10:44:24.115Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7924,
+          "outputTokens": 238,
+          "totalTokens": 8162
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:25.010Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5769,
+          "outputTokens": 147,
+          "totalTokens": 5916
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:25.013Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8299
+      },
+      {
+        "at": "2026-10-05T10:44:27.210Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5769,
+          "outputTokens": 229,
+          "totalTokens": 5998
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:29.523Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 12630
+      },
+      {
+        "at": "2026-10-05T10:44:30.001Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 9795,
+          "outputTokens": 0,
+          "totalTokens": 9795
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:31.692Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 745
+      },
+      {
+        "at": "2026-10-05T10:44:31.864Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 679,
+          "outputTokens": 0,
+          "totalTokens": 679
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:32.215Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11030
+      },
+      {
+        "at": "2026-10-05T10:44:34.529Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7894,
+          "outputTokens": 179,
+          "totalTokens": 8073
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:34.531Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11030
+      },
+      {
+        "at": "2026-10-05T10:44:36.347Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7894,
+          "outputTokens": 135,
+          "totalTokens": 8029
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:36.350Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11030
+      },
+      {
+        "at": "2026-10-05T10:44:38.285Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7894,
+          "outputTokens": 154,
+          "totalTokens": 8048
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:40.128Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 92211
+      },
+      {
+        "at": "2026-10-05T10:44:40.590Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 39431,
+          "outputTokens": 0,
+          "totalTokens": 39431
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:42.322Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 458
+      },
+      {
+        "at": "2026-10-05T10:44:42.541Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 341,
+          "outputTokens": 0,
+          "totalTokens": 341
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:42.554Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10011
+      },
+      {
+        "at": "2026-10-05T10:44:43.881Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 44060,
+          "outputTokens": 0,
+          "totalTokens": 44060
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:46.298Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7660,
+          "outputTokens": 540,
+          "totalTokens": 8200
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:46.678Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 387
+      },
+      {
+        "at": "2026-10-05T10:44:46.873Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 404,
+          "outputTokens": 0,
+          "totalTokens": 404
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:46.969Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 23036
+      },
+      {
+        "at": "2026-10-05T10:44:52.145Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 20089,
+          "outputTokens": 630,
+          "totalTokens": 20719
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:52.148Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 23036
+      },
+      {
+        "at": "2026-10-05T10:44:56.062Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 20089,
+          "outputTokens": 466,
+          "totalTokens": 20555
+        }
+      },
+      {
+        "at": "2026-10-05T10:44:56.065Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 23036
+      },
+      {
+        "at": "2026-10-05T10:45:01.122Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 20089,
+          "outputTokens": 522,
+          "totalTokens": 20611
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:02.577Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 70201
+      },
+      {
+        "at": "2026-10-05T10:45:03.007Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 42480,
+          "outputTokens": 0,
+          "totalTokens": 42480
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:06.301Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 20540,
+          "outputTokens": 0,
+          "totalTokens": 20540
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:08.049Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 684
+      },
+      {
+        "at": "2026-10-05T10:45:08.242Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 688,
+          "outputTokens": 0,
+          "totalTokens": 688
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:08.338Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 25339
+      },
+      {
+        "at": "2026-10-05T10:45:10.643Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 21291,
+          "outputTokens": 182,
+          "totalTokens": 21473
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:10.645Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 25339
+      },
+      {
+        "at": "2026-10-05T10:45:11.780Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 21291,
+          "outputTokens": 6,
+          "totalTokens": 21297
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:11.782Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 25339
+      },
+      {
+        "at": "2026-10-05T10:45:14.462Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 21291,
+          "outputTokens": 232,
+          "totalTokens": 21523
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:16.111Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 22935
+      },
+      {
+        "at": "2026-10-05T10:45:16.608Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 21365,
+          "outputTokens": 0,
+          "totalTokens": 21365
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:18.463Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 1677
+      },
+      {
+        "at": "2026-10-05T10:45:18.668Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 1902,
+          "outputTokens": 0,
+          "totalTokens": 1902
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:18.797Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 29070
+      },
+      {
+        "at": "2026-10-05T10:45:21.632Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 25748,
+          "outputTokens": 312,
+          "totalTokens": 26060
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:21.635Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 29070
+      },
+      {
+        "at": "2026-10-05T10:45:24.559Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 25748,
+          "outputTokens": 317,
+          "totalTokens": 26065
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:24.561Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 29070
+      },
+      {
+        "at": "2026-10-05T10:45:27.936Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 25748,
+          "outputTokens": 384,
+          "totalTokens": 26132
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:29.743Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 6392
+      },
+      {
+        "at": "2026-10-05T10:45:30.001Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5576,
+          "outputTokens": 0,
+          "totalTokens": 5576
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:30.724Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 1562
+      },
+      {
+        "at": "2026-10-05T10:45:30.895Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 1470,
+          "outputTokens": 0,
+          "totalTokens": 1470
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:30.979Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 17668
+      },
+      {
+        "at": "2026-10-05T10:45:32.522Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 14809,
+          "outputTokens": 107,
+          "totalTokens": 14916
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:32.525Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 17668
+      },
+      {
+        "at": "2026-10-05T10:45:34.262Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 14809,
+          "outputTokens": 177,
+          "totalTokens": 14986
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:34.264Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 17668
+      },
+      {
+        "at": "2026-10-05T10:45:35.723Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 14809,
+          "outputTokens": 110,
+          "totalTokens": 14919
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:37.333Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 2635
+      },
+      {
+        "at": "2026-10-05T10:45:37.595Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 2486,
+          "outputTokens": 0,
+          "totalTokens": 2486
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:37.964Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 787
+      },
+      {
+        "at": "2026-10-05T10:45:38.142Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 831,
+          "outputTokens": 0,
+          "totalTokens": 831
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:38.219Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 17869
+      },
+      {
+        "at": "2026-10-05T10:45:40.653Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 15456,
+          "outputTokens": 242,
+          "totalTokens": 15698
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:40.656Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 17869
+      },
+      {
+        "at": "2026-10-05T10:45:42.382Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 15456,
+          "outputTokens": 141,
+          "totalTokens": 15597
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:42.385Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 17869
+      },
+      {
+        "at": "2026-10-05T10:45:44.457Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 15456,
+          "outputTokens": 148,
+          "totalTokens": 15604
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:46.180Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 16465
+      },
+      {
+        "at": "2026-10-05T10:45:46.664Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 14563,
+          "outputTokens": 0,
+          "totalTokens": 14563
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:47.711Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 229
+      },
+      {
+        "at": "2026-10-05T10:45:47.876Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 233,
+          "outputTokens": 0,
+          "totalTokens": 233
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:47.951Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13347
+      },
+      {
+        "at": "2026-10-05T10:45:49.423Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11079,
+          "outputTokens": 128,
+          "totalTokens": 11207
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:49.426Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13347
+      },
+      {
+        "at": "2026-10-05T10:45:51.277Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11079,
+          "outputTokens": 141,
+          "totalTokens": 11220
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:51.280Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 13347
+      },
+      {
+        "at": "2026-10-05T10:45:52.876Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11079,
+          "outputTokens": 144,
+          "totalTokens": 11223
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:54.823Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 28047
+      },
+      {
+        "at": "2026-10-05T10:45:55.214Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 20070,
+          "outputTokens": 0,
+          "totalTokens": 20070
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:58.276Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 650,
+          "outputTokens": 0,
+          "totalTokens": 650
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:58.607Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 843
+      },
+      {
+        "at": "2026-10-05T10:45:58.821Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 736,
+          "outputTokens": 0,
+          "totalTokens": 736
+        }
+      },
+      {
+        "at": "2026-10-05T10:45:59.041Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9110
+      },
+      {
+        "at": "2026-10-05T10:46:02.341Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6048,
+          "outputTokens": 130,
+          "totalTokens": 6178
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:02.344Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9110
+      },
+      {
+        "at": "2026-10-05T10:46:03.882Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6048,
+          "outputTokens": 139,
+          "totalTokens": 6187
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:03.885Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 9110
+      },
+      {
+        "at": "2026-10-05T10:46:05.512Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6048,
+          "outputTokens": 165,
+          "totalTokens": 6213
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:08.662Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 4014
+      },
+      {
+        "at": "2026-10-05T10:46:08.965Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 2958,
+          "outputTokens": 0,
+          "totalTokens": 2958
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:09.375Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 365
+      },
+      {
+        "at": "2026-10-05T10:46:09.545Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 324,
+          "outputTokens": 0,
+          "totalTokens": 324
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:09.923Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 7773
+      },
+      {
+        "at": "2026-10-05T10:46:11.417Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5322,
+          "outputTokens": 133,
+          "totalTokens": 5455
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:11.420Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 7773
+      },
+      {
+        "at": "2026-10-05T10:46:13.960Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5322,
+          "outputTokens": 348,
+          "totalTokens": 5670
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:13.963Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 7773
+      },
+      {
+        "at": "2026-10-05T10:46:15.599Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5322,
+          "outputTokens": 145,
+          "totalTokens": 5467
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:16.522Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 528
+      },
+      {
+        "at": "2026-10-05T10:46:16.887Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 393,
+          "outputTokens": 0,
+          "totalTokens": 393
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:16.902Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10080
+      },
+      {
+        "at": "2026-10-05T10:46:17.668Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 28566
+      },
+      {
+        "at": "2026-10-05T10:46:18.207Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 20277,
+          "outputTokens": 0,
+          "totalTokens": 20277
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:18.727Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7712,
+          "outputTokens": 178,
+          "totalTokens": 7890
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:21.357Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 1120,
+          "outputTokens": 0,
+          "totalTokens": 1120
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:21.687Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 478
+      },
+      {
+        "at": "2026-10-05T10:46:21.869Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 415,
+          "outputTokens": 0,
+          "totalTokens": 415
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:22.078Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 6656
+      },
+      {
+        "at": "2026-10-05T10:46:24.377Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 4447,
+          "outputTokens": 272,
+          "totalTokens": 4719
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:24.380Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 6656
+      },
+      {
+        "at": "2026-10-05T10:46:26.225Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 4447,
+          "outputTokens": 170,
+          "totalTokens": 4617
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:26.228Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 6656
+      },
+      {
+        "at": "2026-10-05T10:46:27.743Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 4447,
+          "outputTokens": 139,
+          "totalTokens": 4586
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:29.921Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 15713
+      },
+      {
+        "at": "2026-10-05T10:46:30.324Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 11573,
+          "outputTokens": 0,
+          "totalTokens": 11573
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:31.780Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 623
+      },
+      {
+        "at": "2026-10-05T10:46:32.081Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 539,
+          "outputTokens": 0,
+          "totalTokens": 539
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:32.622Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8051
+      },
+      {
+        "at": "2026-10-05T10:46:34.860Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5609,
+          "outputTokens": 271,
+          "totalTokens": 5880
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:34.862Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8051
+      },
+      {
+        "at": "2026-10-05T10:46:35.688Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 212
+      },
+      {
+        "at": "2026-10-05T10:46:35.870Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 160,
+          "outputTokens": 0,
+          "totalTokens": 160
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:35.884Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 6115
+      },
+      {
+        "at": "2026-10-05T10:46:36.258Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5609,
+          "outputTokens": 130,
+          "totalTokens": 5739
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:36.261Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8051
+      },
+      {
+        "at": "2026-10-05T10:46:38.245Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 4687,
+          "outputTokens": 280,
+          "totalTokens": 4967
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:38.712Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 5609,
+          "outputTokens": 298,
+          "totalTokens": 5907
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:40.479Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 4957
+      },
+      {
+        "at": "2026-10-05T10:46:40.778Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 3700,
+          "outputTokens": 0,
+          "totalTokens": 3700
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:41.184Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 463
+      },
+      {
+        "at": "2026-10-05T10:46:41.375Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 433,
+          "outputTokens": 0,
+          "totalTokens": 433
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:41.712Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8771
+      },
+      {
+        "at": "2026-10-05T10:46:43.269Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6286,
+          "outputTokens": 161,
+          "totalTokens": 6447
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:43.272Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8771
+      },
+      {
+        "at": "2026-10-05T10:46:43.760Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 211
+      },
+      {
+        "at": "2026-10-05T10:46:44.049Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 170,
+          "outputTokens": 0,
+          "totalTokens": 170
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:44.097Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 6516
+      },
+      {
+        "at": "2026-10-05T10:46:44.978Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6286,
+          "outputTokens": 178,
+          "totalTokens": 6464
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:44.981Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 8771
+      },
+      {
+        "at": "2026-10-05T10:46:46.653Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6286,
+          "outputTokens": 148,
+          "totalTokens": 6434
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:48.460Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 9112
+      },
+      {
+        "at": "2026-10-05T10:46:48.538Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 4911,
+          "outputTokens": 611,
+          "totalTokens": 5522
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:48.823Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6707,
+          "outputTokens": 0,
+          "totalTokens": 6707
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:49.647Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 451
+      },
+      {
+        "at": "2026-10-05T10:46:49.897Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 370,
+          "outputTokens": 0,
+          "totalTokens": 370
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:50.413Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11780
+      },
+      {
+        "at": "2026-10-05T10:46:52.438Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8394,
+          "outputTokens": 161,
+          "totalTokens": 8555
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:52.441Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11780
+      },
+      {
+        "at": "2026-10-05T10:46:53.885Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 120
+      },
+      {
+        "at": "2026-10-05T10:46:54.081Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 108,
+          "outputTokens": 0,
+          "totalTokens": 108
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:54.128Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 5063
+      },
+      {
+        "at": "2026-10-05T10:46:54.278Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8394,
+          "outputTokens": 172,
+          "totalTokens": 8566
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:54.281Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11780
+      },
+      {
+        "at": "2026-10-05T10:46:55.806Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 3860,
+          "outputTokens": 189,
+          "totalTokens": 4049
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:56.092Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8394,
+          "outputTokens": 174,
+          "totalTokens": 8568
+        }
+      },
+      {
+        "at": "2026-10-05T10:46:57.877Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 43180
+      },
+      {
+        "at": "2026-10-05T10:46:58.304Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 24597,
+          "outputTokens": 0,
+          "totalTokens": 24597
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:01.109Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 509
+      },
+      {
+        "at": "2026-10-05T10:47:01.313Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 409,
+          "outputTokens": 0,
+          "totalTokens": 409
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:01.360Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 9690
+      },
+      {
+        "at": "2026-10-05T10:47:01.544Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 6925,
+          "outputTokens": 0,
+          "totalTokens": 6925
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:02.527Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 406
+      },
+      {
+        "at": "2026-10-05T10:47:02.731Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 366,
+          "outputTokens": 0,
+          "totalTokens": 366
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:03.036Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11058
+      },
+      {
+        "at": "2026-10-05T10:47:05.036Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7500,
+          "outputTokens": 483,
+          "totalTokens": 7983
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:05.941Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7717,
+          "outputTokens": 249,
+          "totalTokens": 7966
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:05.943Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11058
+      },
+      {
+        "at": "2026-10-05T10:47:08.150Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7717,
+          "outputTokens": 257,
+          "totalTokens": 7974
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:08.153Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11058
+      },
+      {
+        "at": "2026-10-05T10:47:09.773Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7717,
+          "outputTokens": 152,
+          "totalTokens": 7869
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:10.357Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 536
+      },
+      {
+        "at": "2026-10-05T10:47:10.562Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 428,
+          "outputTokens": 0,
+          "totalTokens": 428
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:10.612Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 10020
+      },
+      {
+        "at": "2026-10-05T10:47:11.445Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "estimatedTokens": 35793
+      },
+      {
+        "at": "2026-10-05T10:47:11.854Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 26003,
+          "outputTokens": 0,
+          "totalTokens": 26003
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:12.237Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7746,
+          "outputTokens": 120,
+          "totalTokens": 7866
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:14.780Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 632
+      },
+      {
+        "at": "2026-10-05T10:47:14.988Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 576,
+          "outputTokens": 0,
+          "totalTokens": 576
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:15.182Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11914
+      },
+      {
+        "at": "2026-10-05T10:47:17.907Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8279,
+          "outputTokens": 187,
+          "totalTokens": 8466
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:17.911Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11914
+      },
+      {
+        "at": "2026-10-05T10:47:19.704Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8279,
+          "outputTokens": 195,
+          "totalTokens": 8474
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:19.708Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 11914
+      },
+      {
+        "at": "2026-10-05T10:47:21.239Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 8279,
+          "outputTokens": 156,
+          "totalTokens": 8435
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:21.559Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 334
+      },
+      {
+        "at": "2026-10-05T10:47:21.734Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 257,
+          "outputTokens": 0,
+          "totalTokens": 257
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:21.747Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 9515
+      },
+      {
+        "at": "2026-10-05T10:47:23.136Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7348,
+          "outputTokens": 113,
+          "totalTokens": 7461
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:23.489Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 2,
+        "estimatedTokens": 41030
+      },
+      {
+        "at": "2026-10-05T10:47:24.855Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 27611,
+          "outputTokens": 0,
+          "totalTokens": 27611
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:28.068Z",
+        "label": "benchmark/dev-c1/index_embeddings",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 2085,
+          "outputTokens": 0,
+          "totalTokens": 2085
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:28.412Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 307
+      },
+      {
+        "at": "2026-10-05T10:47:28.529Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 614
+      },
+      {
+        "at": "2026-10-05T10:47:28.592Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 236,
+          "outputTokens": 0,
+          "totalTokens": 236
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:28.766Z",
+        "label": "benchmark/dev-c1/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 470,
+          "outputTokens": 0,
+          "totalTokens": 470
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:29.640Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 9627
+      },
+      {
+        "at": "2026-10-05T10:47:29.944Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 14195
+      },
+      {
+        "at": "2026-10-05T10:47:32.946Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 10017,
+          "outputTokens": 285,
+          "totalTokens": 10302
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:32.949Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 14195
+      },
+      {
+        "at": "2026-10-05T10:47:35.963Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 10017,
+          "outputTokens": 318,
+          "totalTokens": 10335
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:35.966Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "estimatedTokens": 14195
+      },
+      {
+        "at": "2026-10-05T10:47:36.141Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7391,
+          "outputTokens": 806,
+          "totalTokens": 8197
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:41.391Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "estimatedTokens": 290
+      },
+      {
+        "at": "2026-10-05T10:47:41.579Z",
+        "label": "regressions/context_embedding",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 247,
+          "outputTokens": 0,
+          "totalTokens": 247
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:41.593Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "estimatedTokens": 9471
+      },
+      {
+        "at": "2026-10-05T10:47:43.353Z",
+        "label": "regressions/test_plan",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 7334,
+          "outputTokens": 187,
+          "totalTokens": 7521
+        }
+      },
+      {
+        "at": "2026-10-05T10:47:45.410Z",
+        "label": "benchmark/dev-c1/review_response",
+        "calls": 1,
+        "usage": {
+          "inputTokens": 10017,
+          "outputTokens": 270,
+          "totalTokens": 10287
+        }
+      }
+    ]
+  }
+}
