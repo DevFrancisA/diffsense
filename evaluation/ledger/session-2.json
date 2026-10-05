@@ -1,7 +1,7 @@
 {
   "session": "session-2",
-  "callLimit": 1300,
-  "tokenLimit": 13000000,
+  "callLimit": 2500,
+  "tokenLimit": 25000000,
   "reservedCalls": 1274,
   "completedCalls": 1273,
   "estimatedInputTokens": 12112377,
@@ -20384,6 +20384,12 @@
         "outputTokens": 231,
         "totalTokens": 12941
       }
+    },
+    {
+      "at": "2026-10-05T21:14:33.856Z",
+      "label": "cap-raise",
+      "calls": 0,
+      "note": "Owner raised the call cap to 2500 for Round 4; token cap raised proportionally to 25000000 (evaluation/ROUND4.md)."
     }
   ]
 }

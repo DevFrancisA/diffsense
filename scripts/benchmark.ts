@@ -9,7 +9,7 @@ loadEnvConfig(process.cwd());
 
 const root = process.cwd();
 const manifestFile = process.env.DIFFSENSE_MANIFEST ?? "manifest.json";
-if (manifestFile !== "manifest.json" && manifestFile !== "manifest-holdout.json") throw new Error("DIFFSENSE_MANIFEST must be manifest.json (DEV) or manifest-holdout.json (HOLDOUT).");
+if (!["manifest.json", "manifest-holdout.json", "manifest-test.json"].includes(manifestFile)) throw new Error("DIFFSENSE_MANIFEST must be manifest.json (DEV), manifest-holdout.json (HOLDOUT), or manifest-test.json (TEST).");
 const manifestPath = join(root, "evaluation", manifestFile);
 const cacheRoot = resolve(process.env.DIFFSENSE_BENCHMARK_CACHE ?? join(tmpdir(), "diffsense-benchmark-cache"));
 const diffRoot = join(cacheRoot, "diffs");
@@ -199,6 +199,7 @@ async function main() {
   const resultsPath = join(root, "evaluation", runVariant === "baseline" ? "results.json" : forward ? `falsealarms-${runVariant}.json` : `results-${runVariant}.json`);
   if (runVariant === "baseline") throw new Error("The baseline benchmark is complete; run post-baseline work under a named DIFFSENSE_BENCHMARK_VARIANT.");
   if ((manifestFile === "manifest-holdout.json") !== runVariant.startsWith("holdout-")) throw new Error("HOLDOUT variants must be named holdout-* and use manifest-holdout.json, and only they may.");
+  if ((manifestFile === "manifest-test.json") !== runVariant.startsWith("test-")) throw new Error("TEST variants must be named test-* and use manifest-test.json, and only they may.");
   const existingResults = await readJsonIfExists(resultsPath);
   if (existingResults) throw new Error("evaluation/results.json already exists; refusing to overwrite a completed benchmark.");
 

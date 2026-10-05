@@ -5,8 +5,8 @@ import type { ApiTokenUsage, OpenAIBudget } from "../src/lib/server/ai";
 // Session-wide ledger shared by every script that calls OpenAI after the 2026-10-05 baseline.
 // The earlier per-date ledger (evaluation/runs/2026-10-05/budget.json) is left untouched.
 export const sessionLedgerPath = join(process.cwd(), "evaluation", "ledger", "session-2.json");
-export const sessionCallLimit = 1_300; // raised from 1,000 by the repository owner for Round 3 (evaluation/ROUND3.md)
-export const sessionTokenLimit = 13_000_000; // raised from 10M for Round 3
+export const sessionCallLimit = 2_500; // raised by the repository owner: 1,000 -> 1,300 (Round 3) -> 2,500 (Round 4)
+export const sessionTokenLimit = 25_000_000; // raised proportionally: 10M -> 13M -> 25M (evaluation/ROUND4.md)
 
 type LedgerEntry = { at: string; label: string; calls: number; estimatedTokens?: number; usage?: ApiTokenUsage };
 type Ledger = {
