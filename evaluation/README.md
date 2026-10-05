@@ -45,9 +45,17 @@ No manual findings or paired timing observations exist yet. The paired timing st
 
 ## Seeded Regressions
 
-No regression patches or outcomes exist yet. The predeclared target is 40 valid seeded scenarios. A scenario counts as **detected** if and only if its generated Playwright plan passes on the unmodified baseline app in two runs and that same plan fails on the patched app with an assertion failure on one of the plan's own steps.
+The definition above was fixed before any scenario ran and is applied by `scripts/regressions.ts` as written in [`regressions/PROTOCOL.md`](regressions/PROTOCOL.md). That file records three harness restarts, none of which changed a scenario outcome.
 
-A plan that passes on the patch or fails on the baseline is not detected; baseline failures count as invalid plans separately. Server startup failures, build failures, and navigation timeouts are infrastructure-invalid, not detections. Replace infrastructure-invalid scenarios until 40 valid scenarios exist and report the replacement count. The two headline rates are detected / 40 scenarios and detected / valid plans. Outcomes must come only from executing each generated plan against baseline and patched applications; no outcomes are present until then.
+Result (`regressions/results.json`, checked by `npm run check-results`): **1 detected of 40 valid scenarios (2.5%); 1 of 2 valid plans.** 38 plans were invalid: 24 were rejected by the generator's own validation, and 14 failed on the unmodified baseline. One scenario was not detected, and one was replaced by a reserve after Chromium failed to launch. The patches were authored with Claude Code assistance; detection is computed by execution.
+
+## Post-baseline work
+
+- `ERROR_ANALYSIS.md`: classification of every missed range in the baseline context runs.
+- `SELECTION.md` § HOLDOUT and `manifest-holdout.json`: the second cohort, registered before any run on it.
+- `IMPROVEMENTS.md`: DEV changes C1–C3, the preregistered selection rule, the logged C3 deviation, and the single HOLDOUT run of each configuration with Wilson 95% intervals (`comparison.json`).
+- `PROMPT-REVISIONS.md`: the abandoned, unreported recall-v2 experiment.
+- Usage after the baseline is in `ledger/session-2.json` (session cap 1,000 calls / 10M tokens). The 500-call per-date ledger in `runs/2026-10-05/budget.json` covers only the baseline and recall-v2.
 
 ## Empty and synthetic data
 

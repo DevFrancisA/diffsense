@@ -30,6 +30,24 @@ const resultsSchema = z.object({
   regressionEvaluation: z.object({ status: z.string(), reason: z.string() }),
 }).passthrough();
 
+const regressionSummarySchema = z.object({
+  summary: z.object({
+    validScenarios: z.number().int().nonnegative(),
+    detected: z.number().int().nonnegative(),
+    invalidPlans: z.number().int().nonnegative(),
+    validPlans: z.number().int().nonnegative(),
+  }),
+}).passthrough();
+
+async function readRegressionSummary() {
+  try {
+    const contents = await readFile(join(process.cwd(), "evaluation", "regressions", "results.json"), "utf8");
+    return regressionSummarySchema.parse(JSON.parse(contents)).summary;
+  } catch {
+    return null;
+  }
+}
+
 function getRange(values: (number | null)[]) {
   const present = values.filter((value): value is number => value !== null && Number.isFinite(value));
   if (present.length === 0) return null;
@@ -40,6 +58,7 @@ export async function GET() {
   try {
     const contents = await readFile(join(process.cwd(), "evaluation", "results.json"), "utf8");
     const results = resultsSchema.parse(JSON.parse(contents));
+    const regressions = await readRegressionSummary();
     return NextResponse.json({
       available: true,
       date: results.benchmarkDate,
@@ -64,6 +83,7 @@ export async function GET() {
       })),
       manualReview: results.manualReview,
       regressionEvaluation: results.regressionEvaluation,
+      regressions,
     });
   } catch (error) {
     if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {

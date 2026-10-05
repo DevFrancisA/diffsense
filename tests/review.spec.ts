@@ -7,6 +7,8 @@ test("shows unmeasured evaluation values and loads the example diff", async ({ p
   await expect(page.locator(".metric-cell").nth(0).locator("strong")).toHaveText("94.4–100.0%");
   await expect(page.locator(".metric-cell").nth(1).locator("strong")).toHaveText("28.8–30.5%");
   await expect(page.getByText("Unmeasured").first()).toBeVisible();
+  await expect(page.locator(".metric-cell").nth(3).locator("strong")).toHaveText("2.5%");
+  await expect(page.locator(".metric-cell").nth(3)).toContainText("1/40 seeded");
   await page.getByRole("button", { name: "Load example diff" }).click();
   await expect(page.getByRole("textbox", { name: "Unified diff" })).toContainText("Invoice not found");
 });

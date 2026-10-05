@@ -59,7 +59,7 @@ $env:CI = "1"
 npm run test:e2e
 ```
 
-The plan runner supports a fixed set of actions and rejects external navigation; it never evaluates generated JavaScript. The repository also includes a smoke plan and responsive UI checks. To run the browser suite in containers, start Docker Desktop first, then run:
+The plan runner supports a fixed set of actions and rejects external navigation; it never evaluates generated JavaScript. Generated plans are often invalid: in the seeded-regression evaluation below, 38 of 40 plans were unusable, so review a plan before relying on it. CI runs one real generated plan (`tests/fixtures/generated-plan.json`) plus responsive UI checks. To run the browser suite in containers, start Docker Desktop first, then run:
 
 ```powershell
 docker compose --profile test up --build --abort-on-container-exit --exit-code-from e2e e2e
@@ -100,39 +100,111 @@ For a CLI smoke test, run `npm run evaluate -- tests/fixtures/synthetic-metrics-
 
 ## BugsJS benchmark
 
-The committed [selection protocol](evaluation/SELECTION.md) and [manifest](evaluation/manifest.json) define a 30-case cohort from BugsJS 1.0 (MIT). Cases are ordered by project and bug ID, capped at six per project, and labeled from bug-introducing diffs reconstructed by reversing the fix commit. The manifest commit predates any DiffSense model output. No third-party source files or full diffs are committed; `npm run build-dataset` regenerates diffs in the OS temp directory.
+DiffSense is evaluated on bugs from **BugsJS 1.0** ([BugsJS/bug-dataset](https://github.com/BugsJS/bug-dataset), MIT license):
 
-Run the retrieval ablation after configuring `.env.local` and starting PostgreSQL:
+> Péter Gyimesi, Béla Vancsics, Andrea Stocco, Davood Mazinanian, Árpád Beszédes, Rudolf Ferenc, and Ali Mesbah. "BugsJS: a Benchmark of JavaScript Bugs." *12th IEEE International Conference on Software Testing, Verification and Validation (ICST)*, 2019.
+
+No BugsJS or upstream source is committed. `npm run build-dataset` regenerates the diffs in the OS temp directory from the pinned dataset revision.
+
+Two cohorts are defined by the committed [selection protocol](evaluation/SELECTION.md). Each was committed before any DiffSense output on it.
+
+- **DEV** ([`manifest.json`](evaluation/manifest.json)): 30 cases, 59 labeled defect ranges, six projects. It was used for the baseline and for choosing improvements.
+- **HOLDOUT** ([`manifest-holdout.json`](evaluation/manifest-holdout.json)): 30 further cases selected with the same rules, 56 ranges. It was run once per configuration.
+
+Each case is a bug-introducing diff reconstructed by **reversing the real fix commit**. Labels are the added lines on the buggy side, restricted to non-test source files. A finding matches a label when the file is the same and the line falls within the range ±2 lines (one-to-one matching).
 
 ```powershell
-npm run build-dataset
-npm run benchmark -- --dry-run
-npm run benchmark
-npm run evaluate -- evaluation/results.json
+npm run build-dataset                                    # DEV (refuses after results exist)
+$env:DIFFSENSE_COHORT = "holdout"; npm run build-dataset # HOLDOUT (refuses to overwrite)
+npm run benchmark -- --dry-run                           # prints call/token estimates
+npm run evaluate -- evaluation/results.json              # recompute metrics from committed results
+npm run check-results                                    # CI gate: schema + stored-vs-recomputed metrics
+npm run compare-results                                  # DEV vs HOLDOUT table with Wilson 95% intervals
+npm run error-analysis                                   # classify every missed range (no API calls)
 ```
 
-For each case, the benchmark indexes the fixed commit, reviews the reversed diff with retrieved context three times, then reviews it once without context. Repository chunks are replaced case by case because storage is keyed only by repository. The call ledger prints estimated calls and tokens before each OpenAI batch and stops before exceeding 500 calls. Benchmark SDK retries are disabled so the call cap is enforceable. Set `DIFFSENSE_RUN_DATE=YYYY-MM-DD` to resume a run on its original date.
-
-Raw outputs are limited to structured finding fields, model/date, and token usage. Long finding text is clipped; retrieved context is represented only by source path and content hash. Raw runs are stored under `evaluation/runs/<date>/`; aggregate per-run precision/recall and false-positive rows are written to `evaluation/results.json`. The results file is not created until all cases and arms complete.
+Benchmark variants are set by environment variables (`DIFFSENSE_BENCHMARK_VARIANT`, `DIFFSENSE_MANIFEST`, `DIFFSENSE_RUNS`, `DIFFSENSE_INCLUDE_CHANGED_FILES`, `DIFFSENSE_CHANGED_FILES_EXCLUDE_TESTS`, `REVIEW_PROMPT_REVISION`, `DIFFSENSE_RETRIEVAL_K`, `MAX_INDEX_FILES`). Each variant's exact configuration is stored in its results file. OpenAI usage is metered in [`evaluation/ledger/session-2.json`](evaluation/ledger/session-2.json); the ledger prints an estimate before every batch and refuses any batch that would exceed the session cap. Raw outputs contain only structured finding fields (clipped), token usage, and path + SHA-256 references for context.
 
 ## Results
 
-Baseline run: **2026-10-05**, model `gpt-4.1-mini`, embedding model `text-embedding-3-small`, review prompt fingerprint `b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50`.
+All runs use `gpt-4.1-mini` for review and `text-embedding-3-small` for embeddings, dated 2026-10-05. Numbers come from the committed results files; reproduce them with the commands shown.
 
-The cohort is 30 bug-introducing diffs reconstructed from real fixes in [BugsJS/bug-dataset](https://github.com/BugsJS/bug-dataset) (version 1.0, MIT), across six projects, with 59 labeled defect ranges. Labels were created from each fixing commit and its first parent, reviewed and committed in `evaluation/manifest.json` before any DiffSense output. No 100-PR dataset exists; 100 was an incorrect count.
+### Review accuracy: baseline (DEV)
+
+`npm run evaluate -- evaluation/results.json`. Prompt `b60c051b…`, 8 retrieved chunks, 40-file index cap.
 
 | Arm | Run | Findings | Labeled defects found | False positives | Precision | Recall |
 |---|---:|---:|---:|---:|---:|---:|
-| With retrieved context | 1 | 18 | 18 | 0 | 100.0% | 30.5% |
-| With retrieved context | 2 | 18 | 17 | 1 | 94.4% | 28.8% |
-| With retrieved context | 3 | 18 | 17 | 1 | 94.4% | 28.8% |
-| No-context ablation | 1 | 14 | 13 | 1 | 92.9% | 22.0% |
+| With retrieved context | 1 | 18 | 18 / 59 | 0 | 100.0% | 30.5% |
+| With retrieved context | 2 | 18 | 17 / 59 | 1 | 94.4% | 28.8% |
+| With retrieved context | 3 | 18 | 17 / 59 | 1 | 94.4% | 28.8% |
+| No-context ablation | 1 | 14 | 13 / 59 | 1 | 92.9% | 22.0% |
 
-Matching requires the same file and a finding line within the inclusive defect range extended by two lines on either side. The same committed evaluator rules were used for every run. Context-retrieval recall ranged from 28.8% to 30.5%; these results do **not** support the previous 80% recall claim. The no-context ablation is reported separately, not pooled with the context arm.
+### Why recall is low
 
-**Not measured:** paired manual-vs-assisted review time and human finding comparability. No timing sessions have run, so claim 2 has no measured time-saving result. **Not measured:** seeded-regression catch rate. The 40 regression patches and outcomes have not been authored or executed, so claim 3 has no catch-rate result. These are not zeros or estimates.
+[`ERROR_ANALYSIS.md`](evaluation/ERROR_ANALYSIS.md) is a post-hoc diagnostic over the baseline context runs. Of 125 missed range-runs:
 
-The baseline made 211 API calls with recorded usage; the budget ledger conservatively reserved 212 calls (one reservation had no usage response) against the 500-call ceiling. API-reported token usage was 1,935,588 total (1,917,798 input and 17,790 output). The runner recorded three independent context runs to expose model variance; this is a historical BugsJS cohort, limited to six projects, the pre-registered selection rules, and at most 40 indexed files per case. Results should not be generalized to arbitrary repositories without further evaluation.
+- 45 had the defect file outside the 40-file index cap.
+- 39 were wrong-line findings, 23 of them near-misses dropped by the exact-added-line gate.
+- 23 had the defect file retrieved, but the model stayed silent.
+- 18 had the file indexed but not retrieved.
+- None fell beyond the 12,000-character retrieval query.
+
+### Improvements tried on DEV, checked on HOLDOUT
+
+Three cumulative changes were tried on DEV ([`IMPROVEMENTS.md`](evaluation/IMPROVEMENTS.md)). Each ran 3 times. The final configuration was chosen by a rule preregistered before any DEV run: highest pooled recall with pooled precision ≥ 90%.
+
+| DEV config | Found per run (/59) | Pooled recall | Pooled precision |
+|---|---|---:|---:|
+| Baseline | 18, 17, 17 | 29.4% | 96.3% (52/54) |
+| C1: add full pre-change text of changed files | 22, 23, 24 | 39.0% | 84.1% (69/82) |
+| C2: C1 + prompt asks for the exact `+` line | 22, 23, 29 | 41.8% | 85.1% (74/87) |
+| **C3**: C2 with only non-test files' full text + "do not report findings in test files" | 21, 20, 25 | 37.3% | 97.1% (66/68) |
+
+C3 was redefined after seeing that every C1/C2 false positive was a finding on a test file, which BugsJS labels do not cover. This deviation is logged. Suppressing test-file findings fits this benchmark's label scope and is a product trade-off, not a free gain.
+
+HOLDOUT, each configuration run **once** (`npm run compare-results`, Wilson 95% intervals):
+
+| HOLDOUT config | Found / 56 | Predictions | FP | Recall (95% CI) | Precision (95% CI) |
+|---|---:|---:|---:|---|---|
+| Original baseline | 20 | 22 | 2 | 35.7% (24.5–48.8%) | 90.9% (72.2–97.5%) |
+| Final (C3) | 25 | 25 | 0 | 44.6% (32.4–57.6%) | 100.0% (86.7–100.0%) |
+
+The counts are small. With one run per configuration and overlapping intervals, HOLDOUT is consistent with an improvement but does not establish one; C3's DEV run-to-run spread (20–25 found) is as large as the HOLDOUT difference. C3 is a benchmark configuration: the app's review endpoint still uses the baseline pipeline. The app indexes a pull request's head commit, so wiring in "full pre-change file text" needs a base-commit fetch that has not been built.
+
+### Regression-test generation (seeded regressions)
+
+[`evaluation/regressions/`](evaluation/regressions/PROTOCOL.md) holds 40 valid seeded scenarios: small behavior-breaking patches to DiffSense's own credential-free UI. **The scenarios were authored with Claude Code assistance; detection is computed by execution.**
+
+For each scenario, the app's real plan generator (`/api/tests/generate` logic) produced a Playwright plan from the patch diff using context indexed from the pushed base commit. The plan then ran twice on the baseline build and once on the patched build. A scenario counts as detected only if the plan passes on baseline both times and an assertion step fails on the patch.
+
+| Measure | Value |
+|---|---|
+| Detected / valid scenarios | **1 / 40 (2.5%)** |
+| Detected / valid plans | 1 / 2 |
+| Invalid plans | 38: 24 rejected by the generator's own validation (13 missing an expected value, 10 with an off-origin `goto`, 1 with more than 12 steps), 14 failed on the unmodified baseline |
+| Not detected | 1 (plan passed on the patched app) |
+| Scenarios replaced for infrastructure failure | 1 (Chromium failed to launch) |
+
+`npm run check-results` validates `evaluation/regressions/results.json` against the per-scenario records. The finding is that plan generation, not execution, is the bottleneck: most generated plans are malformed or encode the patched behavior rather than the baseline behavior. CI runs one real generated plan (scenario r11, unedited) in the Docker e2e job.
+
+### Not measured
+
+Paired manual-vs-assisted review time and human finding comparability are **unmeasured**. No timing sessions have been run. These are not zeros or estimates.
+
+### Limitations
+
+- **Reconstructed diffs.** Cases reverse real fix commits. They are not the original bug-introducing pull requests, and the reversed diffs also revert test changes.
+- **Possible memorization.** BugsJS projects and fixes are public and may be in the model's training data. This could inflate every configuration's scores and cannot be ruled out here.
+- **Conservative false positives.** Labels cover only the fixed lines in non-test source. A finding about a real issue elsewhere (including in tests) is scored as a false positive.
+- **Nondeterminism.** Repeated DEV runs of one configuration differed by up to 7 found defects (C2: 22 vs 29). HOLDOUT ran once per configuration.
+- **Small samples.** 59 and 56 labeled ranges, 30 cases per cohort, eight JavaScript projects in total. Confidence intervals are wide. Do not generalize to other languages or repositories without further evaluation.
+- **Post-hoc choices.** C1–C3 were chosen using DEV results, and C3 was amended after seeing DEV false positives. Only HOLDOUT is untouched by those choices.
+- **Seeded regressions** are small single-file UI patches written for this harness, all on one app; 2.5% detection says nothing about larger or non-UI changes.
+
+## Usage
+
+The 2026-10-05 baseline completed 211 API calls (1,935,588 tokens). The abandoned recall-v2 experiment completed another 117 calls (1,400,865 tokens); its metrics are not reported. Everything after that (regression harness, DEV C1–C3, HOLDOUT) used 642 completed calls and 4,879,594 tokens ([session ledger](evaluation/ledger/session-2.json)).
 
 ## Data handling and deployment limits
 
@@ -152,5 +224,6 @@ See `.env.example` for the complete list. `OPENAI_REVIEW_MODEL` defaults to `gpt
 npm run lint
 npm run test:unit
 npm run build
+npm run check-results
 npm run test:e2e
 ```

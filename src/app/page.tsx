@@ -64,6 +64,7 @@ type EvaluationSummary = {
   withoutContext?: { runNumber: number; precision: number | null; recall: number | null; falsePositives: number }[];
   manualReview?: { status: string; reason: string };
   regressionEvaluation?: { status: string; reason: string };
+  regressions?: { validScenarios: number; detected: number; invalidPlans: number; validPlans: number } | null;
 };
 
 function formatPercentRange(range: MetricRange) {
@@ -257,7 +258,7 @@ export default function Home() {
             <div className="metric-cell"><span className="metric-label">PRECISION · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.precisionRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `${evaluation.cohort} BugsJS cases · ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
             <div className="metric-cell"><span className="metric-label">RECALL · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.recallRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `Range across ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
             <div className="metric-cell"><span className="metric-label">REVIEW TIME</span><strong>—<small>min</small></strong><span className="metric-foot"><span className="metric-neutral">Unmeasured</span> · paired human study pending</span></div>
-            <div className="metric-cell metric-last"><span className="metric-label">REGRESSION CATCH RATE</span><strong>—<small>%</small></strong><span className="metric-foot"><span className="metric-neutral">Unmeasured</span> · scenarios not run</span></div>
+            <div className="metric-cell metric-last"><span className="metric-label">REGRESSION CATCH RATE</span><strong>{evaluation?.regressions ? ((evaluation.regressions.detected / evaluation.regressions.validScenarios) * 100).toFixed(1) : "—"}<small>%</small></strong><span className="metric-foot">{evaluation?.regressions ? `${evaluation.regressions.detected}/${evaluation.regressions.validScenarios} seeded · ${evaluation.regressions.invalidPlans} invalid plans` : <><span className="metric-neutral">Unmeasured</span> · scenarios not run</>}</span></div>
           </section>
 
           <form className="review-form" onSubmit={runReview}>
