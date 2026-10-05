@@ -1,0 +1,53 @@
+# Round 3: why correct fixes get flagged, and the fix (preregistration)
+
+Written and committed before any Round-3 model call. Evaluator, labels, cohorts, and matching rule are unchanged. The repository owner raised the session cap to **1,300 calls / 13M tokens** (`ledger/session-2.json`). At the start of Round 3, 881 calls and 6,118,371 tokens had been used.
+
+## Diagnosis (from saved outputs, no API calls)
+
+The final configuration (C4) flagged 23 of 30 correct HOLDOUT fixes (29 findings), and the two blind judges agreed that none of the 29 was a real defect. Their notes put each flag into one category (`audit/judgments.json`):
+
+| Category | C4 (29 flags) | Baseline (21 flags) |
+|---|---:|---:|
+| Describes the bug that the change **fixes**, or recommends exactly what the diff already does | 17 | 3 |
+| Objects to the fix's intended behavior, or speculates without a failing case | 8 | 13 |
+| Misreads the new code, or a style/naming concern | 4 | 5 |
+
+The "describes the fix" failure grew sharply once the **full pre-change file** was added to the context (C1–C4). Shown the old code next to the diff, the model narrates the change ("previously X crashed; this change fixes it") and files that narration as a finding on the added line. In the reversed-fix benchmark, narrating the change happens to land on the labelled bug, so part of the C1–C4 recall gain is this same behavior. This also fits the R7 audit, where 87 of 113 matched findings suggested restoring the removed code.
+
+## Candidates (DEV only)
+
+- **C5: judge the code after the change.**
+  - The full text of each changed non-test source file is given **after** the change: the pre-change file with the diff applied, used only when the diff applies to it. It is labelled "(full file after this change)". The 8 retrieved chunks are unchanged.
+  - The prompt (revision `post-change`) keeps the baseline text verbatim and appends three instructions:
+    - judge the code as it is after the change;
+    - report a defect only if it exists after the change and the change introduced or exposed it;
+    - never report a problem the change fixes, never restate what the change does, and never object to the change's evident intent without a concrete failing input.
+  - Each finding must also return `failureAfterChange` (a concrete input or state that misbehaves in the new code) and `alreadyFixedByChange` (boolean). Findings with `alreadyFixedByChange = true` or an empty `failureAfterChange` are dropped. The remaining findings pass through C4's acceptance rule (exact added line, or a removed-line citation remapped).
+- **C6: C5 plus a verifier.** One extra call per diff that has accepted findings. The verifier sees the diff, the post-change files, and the findings. It keeps a finding only if the finding describes a defect present in the code after the change. It rejects findings that describe the problem the change fixes, restate the change, object to intent without a concrete failure, are style, or are speculation. C6 is computed by running the verifier on C5's saved outputs, so C5 and C6 share their generation runs.
+
+## Measurements
+
+- **DEV reversed (bugs):** C5, one run. C6 is derived from it. The reference is C4's three DEV runs (26, 27, 32 found of 59).
+- **DEV forward (correct fixes):** C4, C5, and C6 on the real DEV fix diffs (`git diff <buggy> <fix>`, indexed at `<buggy>`), one run each.
+- **Combined precision:** labelled ranges found / (accepted findings on the reversed diffs + accepted findings on the forward diffs). Each correct-fix flag counts as a wrong finding. This is reported together with recall and the per-case false-alarm rate.
+
+## Selection rule (fixed now)
+
+Among C4, C5, and C6, choose the configuration with the **fewest DEV forward cases flagged**, provided its DEV reversed recall is at least **26/59** (C4's lowest DEV run). Ties go to higher DEV recall, then fewer model calls. If C5 and C6 both fail the recall floor, C4 stays.
+
+## HOLDOUT (run once)
+
+Run the chosen configuration once on HOLDOUT, reversed and forward. Compare it with the existing HOLDOUT C4 results (`results-holdout-final-c4.json`, `falsealarms-holdout-forward-final.json`). HOLDOUT has already been used once to confirm C4 and to diagnose its false alarms, so it is **not untouched** for the forward arm. Its results are reported with that caveat. The two blind Claude judges are reused for "correctly explained" and "real defect", labelled as model-judged.
+
+## Budget estimate
+
+| Step | Calls |
+|---|---:|
+| DEV forward indexing and query embeddings | ~60 |
+| Reviews: C4 forward, C5 reversed, C5 forward | 90 |
+| Verifier (C6) on DEV | ~50 |
+| HOLDOUT reviews | 60 |
+| HOLDOUT verifier, if C6 is chosen | ~50 |
+| **Total** | **~310 calls, ~3M tokens** |
+
+The ledger refuses any batch that would pass 1,300 calls or 13M tokens.
