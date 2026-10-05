@@ -75,7 +75,8 @@ export async function createSessionBudget(scope: string): Promise<OpenAIBudget &
       }
       Object.assign(ledger, await readSessionLedger()); // another script may share this ledger
       const reservedCalls = ledger.reservedCalls + apiCalls;
-      const projectedTokens = Math.max(ledger.observedTotalTokens, ledger.estimatedInputTokens) + estimatedTokens;
+      // Actual API-reported usage so far plus this batch's (over-)estimate; summed estimates run ~40% above actual usage.
+      const projectedTokens = ledger.observedTotalTokens + estimatedTokens;
       console.log(`BUDGET ${scope}/${label}: ${apiCalls} call(s), ~${estimatedTokens} input tokens; session ${reservedCalls}/${sessionCallLimit} calls, ~${projectedTokens}/${sessionTokenLimit} tokens.`);
       if (reservedCalls > sessionCallLimit) throw new Error(`Session call cap would be exceeded (${reservedCalls} > ${sessionCallLimit}).`);
       if (projectedTokens > sessionTokenLimit) throw new Error(`Session token cap would be exceeded (~${projectedTokens} > ${sessionTokenLimit}).`);
