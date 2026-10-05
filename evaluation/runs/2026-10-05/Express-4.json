@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-4",
+  "project": "Express",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "2de6514b4b4cc7e9629664faa56859da7e597265",
+  "buggySha": "d07c06363f00647ab0553ef227b9b65cb4a04ae9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "cc05257e656abafaa1cbcfaa728fa0c7a8921ed86d3860a959f2e6023ff57f77",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "2de6514b4b4cc7e9629664faa56859da7e597265",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 23356,
+      "outputTokens": 0,
+      "totalTokens": 23356
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "examples/cookies/app.js",
+        "contentSha256": "71d245f27ad27d788c6352b72afe7e638fa7b2334ba2fc94c08e868afd64c2ea"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "cc988ca789ff7ee675585aa1114b069b8fc8544cbd56cad8acf7f34f7c06c09e"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "d5e1ffbfabb0c2f21e1ab0ec5d1d618079bfbdf6e79b507c386e06fd4c715471"
+      },
+      {
+        "path": "examples/resource/app.js",
+        "contentSha256": "ad23b11bad1e3b8c5371affdc06671d59418f05da217a92e368496306d1304fd"
+      },
+      {
+        "path": "examples/content-negotiation/index.js",
+        "contentSha256": "899b2a0a7377118ee8717bd0173326927be4474fedec28847f1ff3936043da6b"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "cde26b9eff2aff149e0d5c4c5fd38304f389988a074b0b06bc984693081d9340"
+      },
+      {
+        "path": "examples/params/app.js",
+        "contentSha256": "080af371787bbb58be905dc4e7d4500728fda011e3d7d450af6d4417b5d926b4"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "edef9b7b1c440501f7e72586ce3a8ebded2eaba6304ef074dc4bad0cc2157fa4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 624,
+      "outputTokens": 0,
+      "totalTokens": 624
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 3994,
+          "outputTokens": 218,
+          "totalTokens": 4212
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of IP addresses in req.subdomains getter",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 458,
+            "explanation": "The original code attempted to detect if the host is an IP address using isIP, and returned the whole host as an array if it was an IP address. The new code removes this check and simply splits the host by '.', reversing the parts. This leads to IP addresses being split into multiple parts, for example, '127.0.0.1' becomes ['1','0','0','127'], which is incorrect behavior.",
+            "suggestion": "Restore the check for IP addresses using isIP and, if true, return an array containing the whole IP host string instead of splitting it. For example:\n\nvar isIP = require('net').isIP;"
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 3994,
+          "outputTokens": 152,
+          "totalTokens": 4146
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of IP address in req.subdomains getter",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 458,
+            "explanation": "The code previously checked if the host was an IP address, and if so, returned the entire host as a single subdomain element array. After the change, it split the host by '.', which for IP addresses results in separate octets rather than the full IP string. This breaks the expected behavior and client code that relies on this method.",
+            "suggestion": "Restore the previous logic to check if host is an IP address (using net.isIP), and if it is, return [host] as single element array; otherwise, split host by '.', reverse it and return."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 3994,
+          "outputTokens": 185,
+          "totalTokens": 4179
+        },
+        "rawFindings": [
+          {
+            "title": "Removing IP address detection breaks req.subdomains behavior with IP Hosts",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 459,
+            "explanation": "The original code checked if the host is an IP address using isIP(host), and if so, wrapped the host string in an array without splitting (returning the whole IP as a single subdomain). This behavior ensures that for IP addresses, req.subdomains returns an array with the entire IP string. The updated code removes this check and always splits the host string by '.', which on IP addresses (especially IPv6 with colons and brackets) produces incorrect subdomain arrays. This breaks expected functiona",
+            "suggestion": "Restore the check for IP addresses using isIP(host) and return [host] if true; otherwise, split the host by '.' and reverse the array as before. Reintroduce the isIP require statement."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 805,
+        "outputTokens": 137,
+        "totalTokens": 942
+      },
+      "rawFindings": [
+        {
+          "title": "Incorrect handling of IP addresses in req.subdomains getter",
+          "severity": "high",
+          "file": "lib/request.js",
+          "line": 458,
+          "explanation": "The change removes the check for IP addresses using isIP and always splits the host by '.' and reverses it. This causes IP addresses (e.g., '127.0.0.1' or '[::1]') to be split into multiple elements rather than returned as a single-element array.",
+          "suggestion": "Restore the original check using isIP so that if the host is an IP address, return [host] as a single-element array; otherwise, split and reverse the host."
+        }
+      ],
+      "acceptedFindings": []
+    }
+  },
+  "complete": true
+}

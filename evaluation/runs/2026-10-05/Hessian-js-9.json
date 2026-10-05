@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-9",
+  "project": "Hessian.js",
+  "bugId": 9,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "f22c27617edcba99bdd6a9f1f7c3daa99797d091",
+  "buggySha": "68dd5347b54e4702f6a2f43bea862abc784a9f6c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "b58eb31b40b5a980cbfaa06cc4a1be4c99de1f14c299596a9ea24edb713f5c23",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "f22c27617edcba99bdd6a9f1f7c3daa99797d091",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 111,
+    "embeddingUsage": {
+      "inputTokens": 147944,
+      "outputTokens": 0,
+      "totalTokens": 147944
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2bacdf432d5b3a3613a9a8226f05e51135b0336c0d0cbc2603c0391eee828786"
+      },
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "8bb52aff0da53fe97a56d4d6875a0c95fa0d90087cf1657df7db979b2c9e89bf"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "88143809348a9dff4d6a3ee9f58f23aae0f072ee5de23f8ca2816fac9c3000b8"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2870d5af95fc4e1ee15134394e55609ff4bc5f105dbfdec05c76dc475756f0f8"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "b3d089294a8f436213aa52ddfe73b1aaa2b6af56669e9992cc31094a83afdaf5"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "73d7010fa134b37bdeb25134ca945dd8bde678397868aa98744c784ddd30a2d8"
+      },
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "37ddecb05a10691fde410ab3e27b0685fae34f2ca13c1b5576ac3d3eb1f900d9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 233,
+      "outputTokens": 0,
+      "totalTokens": 233
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4844,
+          "outputTokens": 6,
+          "totalTokens": 4850
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4844,
+          "outputTokens": 116,
+          "totalTokens": 4960
+        },
+        "rawFindings": [
+          {
+            "title": "Decoding map keys as null skipped in test removal",
+            "severity": "high",
+            "file": "test/map.test.js",
+            "line": 311,
+            "explanation": "The test case for decoding a map with a null key was removed. The removed test verified that decoding a specific buffer results in an object with a key 'null' and value 'null'. Removing this test reduces coverage for null key decoding and could hide regressions.",
+            "suggestion": "Restore the removed test case starting at line 311 to ensure null key decoding continues to work as expected."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4844,
+          "outputTokens": 100,
+          "totalTokens": 4944
+        },
+        "rawFindings": [
+          {
+            "title": "Remove unused test that decodes map with null key",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 310,
+            "explanation": "The entire test case starting at line 310 was removed, which tested decoding a map with a null key. Removing this test reduces test coverage and could allow regressions related to null keys in maps to go unnoticed.",
+            "suggestion": "Restore the removed test case to maintain coverage for decoding maps with null keys."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 414,
+        "outputTokens": 117,
+        "totalTokens": 531
+      },
+      "rawFindings": [
+        {
+          "title": "Removal of test case for null key decoding without replacement",
+          "severity": "high",
+          "file": "test/map.test.js",
+          "line": 310,
+          "explanation": "The test case verifying decoding behavior when the key is null has been deleted without any replacement or update. This reduces test coverage for handling edge cases where keys are null in map decoding, potentially allowing regressions in this area to go undetected.",
+          "suggestion": "Retain or refactor the removed test to ensure decoding with null keys remains covered by tests, or add new tests covering this scenario."
+        }
+      ],
+      "acceptedFindings": []
+    }
+  },
+  "complete": true
+}

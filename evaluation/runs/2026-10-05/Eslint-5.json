@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-5",
+  "project": "Eslint",
+  "bugId": 5,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0643bfeff68979044ca57a2b392d855d18be7d08",
+  "buggySha": "bd0514ca9bc9dbb5dafb27085cf9e554573610b0",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "5be8d0efa3cc1dc14616e20d0c83a6eef79a1ac4f383ef7b34fd7e9f9099c0fb",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "0643bfeff68979044ca57a2b392d855d18be7d08",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 180,
+    "embeddingUsage": {
+      "inputTokens": 169518,
+      "outputTokens": 0,
+      "totalTokens": 169518
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "91d9aebe5fbdf0763715f0f408828db9592ee208d86d6cc36a33004a992be2a2"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fb62f9477450bd582a12028aa5327d4ffdb7c65379796b5704e5d616db0f6fe0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "5891d7660de14fbc1dfe0031f44a6d33a3b0ac4da5e56c36919c973cb343ee96"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1e69108f83cc3af28263082500f2dc077b4f414d99a873ec118be7e95cd2ec95"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9befe6fa119456478668875afd11caabc5545199b36a698c77cc3c3608a90801"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bf7e4dba97c3f617dc6b1c56d1c8b00284b9387af56e782195f6ef5f50c3dff0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9c00aa92f9675708584b22de999e3482db13c7fddc8bdc0d6242ced750aff3bc"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "0984f58d80ae9329c208b34e6b1c9dd969f7bfd7fdf9bea0e71853340e139d62"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 768,
+      "outputTokens": 0,
+      "totalTokens": 768
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5743,
+          "outputTokens": 225,
+          "totalTokens": 5968
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect lastNodeCheckEndOffset logic causing off-by-one errors in indentation report",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The calculation of the range for lastNodeCheckEndOffset parameter in the report function has inconsistent decrement by 1 and improperly handles offsets, which could result in incorrect reporting of indentation ranges.",
+            "suggestion": "Review and correct the arithmetic expressions to consistently calculate the expected range for the last node check end offset, ensuring that all offsets and decrements align with the node's actual positions."
+          },
+          {
+            "title": "Unnecessary code decrementing lastNodeCheckEndOffset in indent rule report method",
+            "severity": "low",
+            "file": "lib/rules/indent.js",
+            "line": 415,
+            "explanation": "The line incrementing lastNodeCheckEndOffset with 'lastNodeCheckEndOffset++' appears without clear usage context and may cause incorrect offset adjustments in indentation reporting.",
+            "suggestion": "Confirm the need for modifying lastNodeCheckEndOffset at this location; if unnecessary or harmful, remove or refactor to prevent incorrect offset calculations."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect lastNodeCheckEndOffset logic causing off-by-one errors in indentation report",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The calculation of the range for lastNodeCheckEndOffset parameter in the report function has inconsistent decrement by 1 and improperly handles offsets, which could result in incorrect reporting of indentation ranges.",
+            "suggestion": "Review and correct the arithmetic expressions to consistently calculate the expected range for the last node check end offset, ensuring that all offsets and decrements align with the node's actual positions."
+          },
+          {
+            "title": "Unnecessary code decrementing lastNodeCheckEndOffset in indent rule report method",
+            "severity": "low",
+            "file": "lib/rules/indent.js",
+            "line": 415,
+            "explanation": "The line incrementing lastNodeCheckEndOffset with 'lastNodeCheckEndOffset++' appears without clear usage context and may cause incorrect offset adjustments in indentation reporting.",
+            "suggestion": "Confirm the need for modifying lastNodeCheckEndOffset at this location; if unnecessary or harmful, remove or refactor to prevent incorrect offset calculations."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5743,
+          "outputTokens": 9,
+          "totalTokens": 5752
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5743,
+          "outputTokens": 135,
+          "totalTokens": 5878
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect range calculation in indent rule's report function",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The modification to the range calculation in the report function subtracts an extra '-1' and a variable 'lastNodeCheckEndOffset' without sufficient context, which could result in incorrect range values for fixes, leading to wrong autofixes or errors in code formatting.",
+            "suggestion": "Review the calculation of range boundaries ensuring correct offsets are used. Remove or correct the '-1' and the 'lastNodeCheckEndOffset' adjustments to ensure the range matches the intended source code segment."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect range calculation in indent rule's report function",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The modification to the range calculation in the report function subtracts an extra '-1' and a variable 'lastNodeCheckEndOffset' without sufficient context, which could result in incorrect range values for fixes, leading to wrong autofixes or errors in code formatting.",
+            "suggestion": "Review the calculation of range boundaries ensuring correct offsets are used. Remove or correct the '-1' and the 'lastNodeCheckEndOffset' adjustments to ensure the range matches the intended source code segment."
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 964,
+        "outputTokens": 138,
+        "totalTokens": 1102
+      },
+      "rawFindings": [
+        {
+          "title": "Potential incorrect calculation of start index for locating range",
+          "severity": "medium",
+          "file": "lib/rules/indent.js",
+          "line": 271,
+          "explanation": "The start and end positions for the range in the ternary operator at line 271 have been changed to subtract 1 and lastNodeCheckEndOffset without clear justification, which might cause off-by-one errors or incorrect highlighting of the indent error location.",
+          "suggestion": "Verify that subtracting 1 and lastNodeCheckEndOffset from the range indices correctly corresponds to the intended character positions. Adjust the calculation to ensure correct indexing, possibly by matching the previous logic or confirming with related loc properties."
+        }
+      ],
+      "acceptedFindings": [
+        {
+          "title": "Potential incorrect calculation of start index for locating range",
+          "severity": "medium",
+          "file": "lib/rules/indent.js",
+          "line": 271,
+          "explanation": "The start and end positions for the range in the ternary operator at line 271 have been changed to subtract 1 and lastNodeCheckEndOffset without clear justification, which might cause off-by-one errors or incorrect highlighting of the indent error location.",
+          "suggestion": "Verify that subtracting 1 and lastNodeCheckEndOffset from the range indices correctly corresponds to the intended character positions. Adjust the calculation to ensure correct indexing, possibly by matching the previous logic or confirming with related loc properties."
+        }
+      ]
+    }
+  },
+  "complete": true
+}

@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-2",
+  "project": "Bower",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "87a041a212a03142e92c56ff832bcf5cbf49a72b",
+  "buggySha": "9c52ec2751d689a2cddb34adb004df41ce7c8a92",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "5e9c77786495fa261dbc730cb695bd8b7fe81f68feb4fbe88d3fd6199fbdb513",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "87a041a212a03142e92c56ff832bcf5cbf49a72b",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 131,
+    "embeddingUsage": {
+      "inputTokens": 117296,
+      "outputTokens": 0,
+      "totalTokens": 117296
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/commands/install.js",
+        "contentSha256": "6aed989734817914dc80336b8b7a60396cb4f5ff4690f7fbd96db7a19d4f514d"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "4e5dd51deec7eda6ee017315ca9173999ab5b02a4a083199ae3df7727ddd0008"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "44d50437b902ddec6dd35d0ca0da71af8f5e67bc17a5e22fbd433b18776a08c7"
+      },
+      {
+        "path": "lib/core/Manager.js",
+        "contentSha256": "bad7a6f048a746d66e52a2d293f70eb1c4f278402bf53df14a58dc6e3be9d603"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "be808de84036594988f1cb7527310f39a21c559386ca78fdb8d3c0fef00979f0"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "d7fb0cd8e84500accefb5f34fb53bc2fe74ab15c9ad9fd7327bcb25ed19b6d52"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "435f3572fb1ea40f9a6f9decf1ceb7f5627fe6f10a409e5ae6f53a6cb0953a38"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "0ba07b37a0a8289442935e77c02b26a2a3183b44557ec7f47b380dcbfa5f7291"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 660,
+      "outputTokens": 0,
+      "totalTokens": 660
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5083,
+          "outputTokens": 6,
+          "totalTokens": 5089
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5083,
+          "outputTokens": 198,
+          "totalTokens": 5281
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of --save-exact option in install command",
+            "severity": "high",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The patch changes the condition to only perform dependency saving if either 'save' or 'saveDev' options are set, completely ignoring the 'saveExact' option. This breaks the intended behavior where using 'saveExact' alone should save dependencies with exact versions. The original code also constructs jsonEndpoint differently when saveExact is true. Now, if only 'saveExact' is set, no dependencies are saved at all, which is undesirable.",
+            "suggestion": "Restore handling of 'saveExact' option in the condition and in the logic for building jsonEndpoint entries. Specifically, the condition on line 89 should be 'if (that._options.save || that._options.saveDev || that._options.saveExact)', and the handling of jsonEndpoint construction for exact saving should be reinstated."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of --save-exact option in install command",
+            "severity": "high",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The patch changes the condition to only perform dependency saving if either 'save' or 'saveDev' options are set, completely ignoring the 'saveExact' option. This breaks the intended behavior where using 'saveExact' alone should save dependencies with exact versions. The original code also constructs jsonEndpoint differently when saveExact is true. Now, if only 'saveExact' is set, no dependencies are saved at all, which is undesirable.",
+            "suggestion": "Restore handling of 'saveExact' option in the condition and in the logic for building jsonEndpoint entries. Specifically, the condition on line 89 should be 'if (that._options.save || that._options.saveDev || that._options.saveExact)', and the handling of jsonEndpoint construction for exact saving should be reinstated."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5083,
+          "outputTokens": 6,
+          "totalTokens": 5089
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 838,
+        "outputTokens": 176,
+        "totalTokens": 1014
+      },
+      "rawFindings": [
+        {
+          "title": "Removing saveExact option breaks exact version save and installation behavior",
+          "severity": "high",
+          "file": "lib/core/Project.js",
+          "line": 89,
+          "explanation": "The code removed the condition `that._options.saveExact` from the if-statement deciding whether to save dependencies to bower.json. This means if the user only passes `--save-exact` flag without `--save` or `--save-dev`, dependencies are not saved to bower.json at all, thus breaking the expected behavior of --save-exact.",
+          "suggestion": "Restore the condition `that._options.saveExact` in the if-statement so that saving with --save-exact alone triggers writing dependencies to bower.json, e.g. `if (that._options.save || that._options.saveDev || that._options.saveExact) {...}`."
+        }
+      ],
+      "acceptedFindings": [
+        {
+          "title": "Removing saveExact option breaks exact version save and installation behavior",
+          "severity": "high",
+          "file": "lib/core/Project.js",
+          "line": 89,
+          "explanation": "The code removed the condition `that._options.saveExact` from the if-statement deciding whether to save dependencies to bower.json. This means if the user only passes `--save-exact` flag without `--save` or `--save-dev`, dependencies are not saved to bower.json at all, thus breaking the expected behavior of --save-exact.",
+          "suggestion": "Restore the condition `that._options.saveExact` in the if-statement so that saving with --save-exact alone triggers writing dependencies to bower.json, e.g. `if (that._options.save || that._options.saveDev || that._options.saveExact) {...}`."
+        }
+      ]
+    }
+  },
+  "complete": true
+}

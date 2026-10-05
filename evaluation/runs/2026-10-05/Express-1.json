@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-1",
+  "project": "Express",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "12626aed35a6d1ef4466fa0d67613a53db8b1149",
+  "buggySha": "3387916efcac19302188151a24927a0405a373e8",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "5553ecafbe872e43b6e8e2a3a13b439776d13ae4cc36f1424aa2514ac86215ac",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "12626aed35a6d1ef4466fa0d67613a53db8b1149",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 22644,
+      "outputTokens": 0,
+      "totalTokens": 22644
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "4c6d3b95f985fd39ea3cafd10f65ddf11d29bce1b6fa6b07f9aebe0a0378c869"
+      },
+      {
+        "path": "examples/route-map/index.js",
+        "contentSha256": "d7709e448a5bddf16a22a1a39fda95f9b8a1e8d70c8a149b67542972957b2613"
+      },
+      {
+        "path": "examples/resource/index.js",
+        "contentSha256": "227bfcecfe94c1786a630c028a84390c813abf02982ca0fad393e76fc515c66d"
+      },
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "e347dfa0febb367795f914fffd48c49605821099d17c604e2bedbc78503c0f02"
+      },
+      {
+        "path": "examples/mvc/lib/boot.js",
+        "contentSha256": "1f0e5f5362c590e85d262b4484cbd28417dd92eed1bd5c8c0688987c6a7a1ee3"
+      },
+      {
+        "path": "examples/route-middleware/index.js",
+        "contentSha256": "712baa0298844ee1bc9cc79343e7df3dd62e61b982252ae4c20f29f1a14fdf0f"
+      },
+      {
+        "path": "examples/route-separation/index.js",
+        "contentSha256": "8f02901d94758765f6513217a0a7992c4fa55db011dd609780cdf85f9741b6cf"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "efb362efb0ebc869920f10a897d5bd06c52b967b76adebc36a2db13252d7d39c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 411,
+      "outputTokens": 0,
+      "totalTokens": 411
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4187,
+          "outputTokens": 135,
+          "totalTokens": 4322
+        },
+        "rawFindings": [
+          {
+            "title": "Appending HTTP methods in router.handle may cause duplicate methods in OPTIONS header",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The change in line 210 replaces a call to appendMethods, which ensured methods were unique, with an unguarded push.apply that appends all methods including duplicates to the options array. This can cause the 'Allow' header response to the OPTIONS method to contain duplicate HTTP methods, which can violate HTTP specification and potentially confuse clients.",
+            "suggestion": "Restore uniqueness check by using the appendMethods function or explicitly filter duplicates when appending route._options() to options."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Appending HTTP methods in router.handle may cause duplicate methods in OPTIONS header",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The change in line 210 replaces a call to appendMethods, which ensured methods were unique, with an unguarded push.apply that appends all methods including duplicates to the options array. This can cause the 'Allow' header response to the OPTIONS method to contain duplicate HTTP methods, which can violate HTTP specification and potentially confuse clients.",
+            "suggestion": "Restore uniqueness check by using the appendMethods function or explicitly filter duplicates when appending route._options() to options."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4187,
+          "outputTokens": 130,
+          "totalTokens": 4317
+        },
+        "rawFindings": [
+          {
+            "title": "Regression: OPTIONS response may contain duplicate methods",
+            "severity": "high",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The original code used a helper function 'appendMethods' to append methods from route._options() to options array, ensuring no duplicates were added. The new code replaces this with 'options.push.apply(options, route._options());' which blindly appends all methods without deduplication, potentially causing duplicate methods in OPTIONS responses.",
+            "suggestion": "Restore deduplication logic by reintroducing a function to append methods without duplicates, or directly filter duplicates after concatenation."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Regression: OPTIONS response may contain duplicate methods",
+            "severity": "high",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The original code used a helper function 'appendMethods' to append methods from route._options() to options array, ensuring no duplicates were added. The new code replaces this with 'options.push.apply(options, route._options());' which blindly appends all methods without deduplication, potentially causing duplicate methods in OPTIONS responses.",
+            "suggestion": "Restore deduplication logic by reintroducing a function to append methods without duplicates, or directly filter duplicates after concatenation."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4187,
+          "outputTokens": 156,
+          "totalTokens": 4343
+        },
+        "rawFindings": [
+          {
+            "title": "Potential duplicated HTTP methods in OPTIONS response",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The updated line at 210 changed from using a function that appended HTTP methods to a list without duplications (appendMethods) to using a direct push of all methods, which may include duplicates if the source array (route._options()) contains repeated methods. This could lead to the 'Allow' header in OPTIONS responses containing duplicate HTTP methods.",
+            "suggestion": "Restore the unique appending of methods by preserving the appendMethods function or implementing a deduplication step before pushing methods. For example, revert to using appendMethods(list, route._options()) or filter the methods array to remove duplicates before pushing."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Potential duplicated HTTP methods in OPTIONS response",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The updated line at 210 changed from using a function that appended HTTP methods to a list without duplications (appendMethods) to using a direct push of all methods, which may include duplicates if the source array (route._options()) contains repeated methods. This could lead to the 'Allow' header in OPTIONS responses containing duplicate HTTP methods.",
+            "suggestion": "Restore the unique appending of methods by preserving the appendMethods function or implementing a deduplication step before pushing methods. For example, revert to using appendMethods(list, route._options()) or filter the methods array to remove duplicates before pushing."
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 593,
+        "outputTokens": 114,
+        "totalTokens": 707
+      },
+      "rawFindings": [
+        {
+          "title": "Duplicate HTTP methods added in OPTIONS header",
+          "severity": "high",
+          "file": "lib/router/index.js",
+          "line": 210,
+          "explanation": "The original appendMethods function prevented duplicate HTTP methods from being added to the 'options' array when handling OPTIONS requests. The new code removes this logic and pushes all methods directly, potentially causing duplicate methods in the 'Allow' header.",
+          "suggestion": "Restore the appendMethods function or implement a deduplication step before sending the 'Allow' header to ensure that duplicate HTTP methods are not included."
+        }
+      ],
+      "acceptedFindings": [
+        {
+          "title": "Duplicate HTTP methods added in OPTIONS header",
+          "severity": "high",
+          "file": "lib/router/index.js",
+          "line": 210,
+          "explanation": "The original appendMethods function prevented duplicate HTTP methods from being added to the 'options' array when handling OPTIONS requests. The new code removes this logic and pushes all methods directly, potentially causing duplicate methods in the 'Allow' header.",
+          "suggestion": "Restore the appendMethods function or implement a deduplication step before sending the 'Allow' header to ensure that duplicate HTTP methods are not included."
+        }
+      ]
+    }
+  },
+  "complete": true
+}

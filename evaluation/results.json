@@ -1,0 +1,4066 @@
+{
+  "schemaVersion": 1,
+  "benchmarkDate": "2026-10-05",
+  "dataset": {
+    "name": "BugsJS",
+    "repository": "https://github.com/BugsJS/bug-dataset",
+    "revision": "7abbad3e4df12cd5294110bb5db11b7d5bc758a6",
+    "version": "1.0",
+    "license": "MIT",
+    "advertisedBugCount": 453
+  },
+  "selection": {
+    "policy": "evaluation/SELECTION.md",
+    "selectedCases": 30,
+    "totalCandidates": 453,
+    "diffsInspected": 37,
+    "initialChangedLineLimit": 150,
+    "changedLineLimitUsed": 150,
+    "fallbackApplied": false,
+    "maxBugsPerProject": 6,
+    "maxIndexFiles": 40,
+    "fileClassification": "Committed policy in evaluation/SELECTION.md",
+    "candidatesResolvedByRules": 357
+  },
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "models": {
+    "review": "gpt-4.1-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "manualReview": {
+    "status": "unmeasured",
+    "reason": "The paired human timing study has not been run."
+  },
+  "regressionEvaluation": {
+    "status": "not_run",
+    "reason": "Seeded regression scenarios have not been authored or executed."
+  },
+  "arms": {
+    "withContext": [
+      {
+        "runNumber": 1,
+        "pullRequests": [
+          {
+            "id": "Bower-1",
+            "knownDefects": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 49,
+                "endLine": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 174,
+                "endLine": 175
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 177,
+                "endLine": 178
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 178
+              }
+            ]
+          },
+          {
+            "id": "Bower-2",
+            "knownDefects": [
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 89,
+                "endLine": 89
+              },
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 97,
+                "endLine": 101
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Bower-3",
+            "knownDefects": [
+              {
+                "file": "lib/core/scripts.js",
+                "startLine": 86,
+                "endLine": 86
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-1",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "startLine": 31,
+                "endLine": 31
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "line": 31
+              }
+            ]
+          },
+          {
+            "id": "Eslint-3",
+            "knownDefects": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "startLine": 34,
+                "endLine": 34
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "line": 34
+              }
+            ]
+          },
+          {
+            "id": "Eslint-5",
+            "knownDefects": [
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 258,
+                "endLine": 258
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 265,
+                "endLine": 266
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 270,
+                "endLine": 271
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 409,
+                "endLine": 409
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 415,
+                "endLine": 415
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 436,
+                "endLine": 437
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/indent.js",
+                "line": 270
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "line": 415
+              }
+            ]
+          },
+          {
+            "id": "Eslint-6",
+            "knownDefects": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 54,
+                "endLine": 55
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 57,
+                "endLine": 59
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 61,
+                "endLine": 61
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 63,
+                "endLine": 63
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-7",
+            "knownDefects": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 28,
+                "endLine": 28
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 42,
+                "endLine": 42
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 44,
+                "endLine": 44
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "line": 28
+              }
+            ]
+          },
+          {
+            "id": "Eslint-8",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "startLine": 27,
+                "endLine": 27
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "line": 27
+              }
+            ]
+          },
+          {
+            "id": "Express-1",
+            "knownDefects": [
+              {
+                "file": "lib/router/index.js",
+                "startLine": 210,
+                "endLine": 210
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/router/index.js",
+                "line": 210
+              }
+            ]
+          },
+          {
+            "id": "Express-2",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 361,
+                "endLine": 361
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-3",
+            "knownDefects": [
+              {
+                "file": "lib/response.js",
+                "startLine": 609,
+                "endLine": 609
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-4",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 457,
+                "endLine": 457
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-5",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 70,
+                "endLine": 70
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/utils.js",
+                "line": 70
+              }
+            ]
+          },
+          {
+            "id": "Express-6",
+            "knownDefects": [
+              {
+                "file": "lib/application.js",
+                "startLine": 402,
+                "endLine": 404
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 406,
+                "endLine": 406
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 423,
+                "endLine": 425
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-2",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 421,
+                "endLine": 421
+              },
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 430,
+                "endLine": 431
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 728,
+                "endLine": 728
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 733,
+                "endLine": 737
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 421
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-4",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 302,
+                "endLine": 302
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-6",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 417,
+                "endLine": 418
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 563,
+                "endLine": 563
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 575,
+                "endLine": 575
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 588,
+                "endLine": 588
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 588
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-7",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 330,
+                "endLine": 331
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 331
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-8",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 15,
+                "endLine": 19
+              },
+              {
+                "file": "lib/utils.js",
+                "startLine": 42,
+                "endLine": 49
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-9",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 415,
+                "endLine": 415
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-2",
+            "knownDefects": [
+              {
+                "file": "lib/box/file.js",
+                "startLine": 42,
+                "endLine": 46
+              },
+              {
+                "file": "lib/box/file.js",
+                "startLine": 61,
+                "endLine": 65
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-3",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 26,
+                "endLine": 26
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 32,
+                "endLine": 32
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 35,
+                "endLine": 35
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 26
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 32
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 35
+              }
+            ]
+          },
+          {
+            "id": "Hexo-4",
+            "knownDefects": [
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 5,
+                "endLine": 5
+              },
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 21,
+                "endLine": 21
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-5",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 4,
+                "endLine": 4
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 9,
+                "endLine": 9
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 14,
+                "endLine": 14
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-7",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/toc.js",
+                "startLine": 28,
+                "endLine": 28
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-8",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "startLine": 88,
+                "endLine": 89
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "id": "Karma-1",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 24,
+                "endLine": 24
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 24
+              }
+            ]
+          },
+          {
+            "id": "Karma-2",
+            "knownDefects": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 43,
+                "endLine": 44
+              },
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 46,
+                "endLine": 46
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Karma-3",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 99,
+                "endLine": 99
+              }
+            ],
+            "assistedFindings": []
+          }
+        ],
+        "metrics": {
+          "pullRequests": 30,
+          "precision": 1,
+          "recall": 0.3050847457627119,
+          "reviewTimeSavingsMedianPercent": null,
+          "pairedReviewTasks": 0,
+          "manualDefectsFound": null,
+          "assistedDefectsFound": 18,
+          "falsePositives": 0,
+          "knownDefects": 59,
+          "seededRegressions": 0,
+          "regressionCatchRate": null,
+          "caughtRegressions": 0,
+          "findings": {
+            "manual": null,
+            "assisted": 18
+          },
+          "perPullRequest": [
+            {
+              "id": "Bower-1",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.6666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-5",
+              "knownDefects": 6,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-7",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-2",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-5",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-6",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-2",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-8",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-9",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-3",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 3,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 3,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-4",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-5",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            }
+          ]
+        }
+      },
+      {
+        "runNumber": 2,
+        "pullRequests": [
+          {
+            "id": "Bower-1",
+            "knownDefects": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 49,
+                "endLine": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 174,
+                "endLine": 175
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 177,
+                "endLine": 178
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 177
+              }
+            ]
+          },
+          {
+            "id": "Bower-2",
+            "knownDefects": [
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 89,
+                "endLine": 89
+              },
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 97,
+                "endLine": 101
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/Project.js",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "id": "Bower-3",
+            "knownDefects": [
+              {
+                "file": "lib/core/scripts.js",
+                "startLine": 86,
+                "endLine": 86
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/scripts.js",
+                "line": 86
+              }
+            ]
+          },
+          {
+            "id": "Eslint-1",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "startLine": 31,
+                "endLine": 31
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "line": 31
+              }
+            ]
+          },
+          {
+            "id": "Eslint-3",
+            "knownDefects": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "startLine": 34,
+                "endLine": 34
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "line": 34
+              }
+            ]
+          },
+          {
+            "id": "Eslint-5",
+            "knownDefects": [
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 258,
+                "endLine": 258
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 265,
+                "endLine": 266
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 270,
+                "endLine": 271
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 409,
+                "endLine": 409
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 415,
+                "endLine": 415
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 436,
+                "endLine": 437
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-6",
+            "knownDefects": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 54,
+                "endLine": 55
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 57,
+                "endLine": 59
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 61,
+                "endLine": 61
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 63,
+                "endLine": 63
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "line": 55
+              }
+            ]
+          },
+          {
+            "id": "Eslint-7",
+            "knownDefects": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 28,
+                "endLine": 28
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 42,
+                "endLine": 42
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 44,
+                "endLine": 44
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-8",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "startLine": 27,
+                "endLine": 27
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "line": 27
+              },
+              {
+                "file": "tests/lib/rules/no-useless-escape.js",
+                "line": 105
+              }
+            ]
+          },
+          {
+            "id": "Express-1",
+            "knownDefects": [
+              {
+                "file": "lib/router/index.js",
+                "startLine": 210,
+                "endLine": 210
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/router/index.js",
+                "line": 210
+              }
+            ]
+          },
+          {
+            "id": "Express-2",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 361,
+                "endLine": 361
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-3",
+            "knownDefects": [
+              {
+                "file": "lib/response.js",
+                "startLine": 609,
+                "endLine": 609
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-4",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 457,
+                "endLine": 457
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-5",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 70,
+                "endLine": 70
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/utils.js",
+                "line": 70
+              }
+            ]
+          },
+          {
+            "id": "Express-6",
+            "knownDefects": [
+              {
+                "file": "lib/application.js",
+                "startLine": 402,
+                "endLine": 404
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 406,
+                "endLine": 406
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 423,
+                "endLine": 425
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-2",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 421,
+                "endLine": 421
+              },
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 430,
+                "endLine": 431
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 728,
+                "endLine": 728
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 733,
+                "endLine": 737
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 733
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-4",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 302,
+                "endLine": 302
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 302
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-6",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 417,
+                "endLine": 418
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 563,
+                "endLine": 563
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 575,
+                "endLine": 575
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 588,
+                "endLine": 588
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 575
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-7",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 330,
+                "endLine": 331
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-8",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 15,
+                "endLine": 19
+              },
+              {
+                "file": "lib/utils.js",
+                "startLine": 42,
+                "endLine": 49
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-9",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 415,
+                "endLine": 415
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-2",
+            "knownDefects": [
+              {
+                "file": "lib/box/file.js",
+                "startLine": 42,
+                "endLine": 46
+              },
+              {
+                "file": "lib/box/file.js",
+                "startLine": 61,
+                "endLine": 65
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-3",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 26,
+                "endLine": 26
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 32,
+                "endLine": 32
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 35,
+                "endLine": 35
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 26
+              }
+            ]
+          },
+          {
+            "id": "Hexo-4",
+            "knownDefects": [
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 5,
+                "endLine": 5
+              },
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 21,
+                "endLine": 21
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-5",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 4,
+                "endLine": 4
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 9,
+                "endLine": 9
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 14,
+                "endLine": 14
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 4
+              }
+            ]
+          },
+          {
+            "id": "Hexo-7",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/toc.js",
+                "startLine": 28,
+                "endLine": 28
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-8",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "startLine": 88,
+                "endLine": 89
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Karma-1",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 24,
+                "endLine": 24
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 24
+              }
+            ]
+          },
+          {
+            "id": "Karma-2",
+            "knownDefects": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 43,
+                "endLine": 44
+              },
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 46,
+                "endLine": 46
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "line": 43
+              }
+            ]
+          },
+          {
+            "id": "Karma-3",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 99,
+                "endLine": 99
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 99
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "pullRequests": 30,
+          "precision": 0.9444444444444444,
+          "recall": 0.288135593220339,
+          "reviewTimeSavingsMedianPercent": null,
+          "pairedReviewTasks": 0,
+          "manualDefectsFound": null,
+          "assistedDefectsFound": 17,
+          "falsePositives": 1,
+          "knownDefects": 59,
+          "seededRegressions": 0,
+          "regressionCatchRate": null,
+          "caughtRegressions": 0,
+          "findings": {
+            "manual": null,
+            "assisted": 18
+          },
+          "perPullRequest": [
+            {
+              "id": "Bower-1",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-5",
+              "knownDefects": 6,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-7",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 1,
+              "precision": 0.5,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-2",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-5",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-6",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-2",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-8",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-9",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-3",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-4",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-5",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            }
+          ]
+        }
+      },
+      {
+        "runNumber": 3,
+        "pullRequests": [
+          {
+            "id": "Bower-1",
+            "knownDefects": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 49,
+                "endLine": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 174,
+                "endLine": 175
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 177,
+                "endLine": 178
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 178
+              }
+            ]
+          },
+          {
+            "id": "Bower-2",
+            "knownDefects": [
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 89,
+                "endLine": 89
+              },
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 97,
+                "endLine": 101
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Bower-3",
+            "knownDefects": [
+              {
+                "file": "lib/core/scripts.js",
+                "startLine": 86,
+                "endLine": 86
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-1",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "startLine": 31,
+                "endLine": 31
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "line": 31
+              }
+            ]
+          },
+          {
+            "id": "Eslint-3",
+            "knownDefects": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "startLine": 34,
+                "endLine": 34
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-5",
+            "knownDefects": [
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 258,
+                "endLine": 258
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 265,
+                "endLine": 266
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 270,
+                "endLine": 271
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 409,
+                "endLine": 409
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 415,
+                "endLine": 415
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 436,
+                "endLine": 437
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/indent.js",
+                "line": 270
+              }
+            ]
+          },
+          {
+            "id": "Eslint-6",
+            "knownDefects": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 54,
+                "endLine": 55
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 57,
+                "endLine": 59
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 61,
+                "endLine": 61
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 63,
+                "endLine": 63
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "line": 54
+              }
+            ]
+          },
+          {
+            "id": "Eslint-7",
+            "knownDefects": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 28,
+                "endLine": 28
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 42,
+                "endLine": 42
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 44,
+                "endLine": 44
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "line": 42
+              }
+            ]
+          },
+          {
+            "id": "Eslint-8",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "startLine": 27,
+                "endLine": 27
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "line": 27
+              }
+            ]
+          },
+          {
+            "id": "Express-1",
+            "knownDefects": [
+              {
+                "file": "lib/router/index.js",
+                "startLine": 210,
+                "endLine": 210
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/router/index.js",
+                "line": 210
+              }
+            ]
+          },
+          {
+            "id": "Express-2",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 361,
+                "endLine": 361
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-3",
+            "knownDefects": [
+              {
+                "file": "lib/response.js",
+                "startLine": 609,
+                "endLine": 609
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-4",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 457,
+                "endLine": 457
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-5",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 70,
+                "endLine": 70
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/utils.js",
+                "line": 70
+              }
+            ]
+          },
+          {
+            "id": "Express-6",
+            "knownDefects": [
+              {
+                "file": "lib/application.js",
+                "startLine": 402,
+                "endLine": 404
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 406,
+                "endLine": 406
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 423,
+                "endLine": 425
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-2",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 421,
+                "endLine": 421
+              },
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 430,
+                "endLine": 431
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 728,
+                "endLine": 728
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 733,
+                "endLine": 737
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 430
+              },
+              {
+                "file": "test/map.test.js",
+                "line": 168
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-4",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 302,
+                "endLine": 302
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-6",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 417,
+                "endLine": 418
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 563,
+                "endLine": 563
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 575,
+                "endLine": 575
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 588,
+                "endLine": 588
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 417
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 588
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-7",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 330,
+                "endLine": 331
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-8",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 15,
+                "endLine": 19
+              },
+              {
+                "file": "lib/utils.js",
+                "startLine": 42,
+                "endLine": 49
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-9",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 415,
+                "endLine": 415
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-2",
+            "knownDefects": [
+              {
+                "file": "lib/box/file.js",
+                "startLine": 42,
+                "endLine": 46
+              },
+              {
+                "file": "lib/box/file.js",
+                "startLine": 61,
+                "endLine": 65
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-3",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 26,
+                "endLine": 26
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 32,
+                "endLine": 32
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 35,
+                "endLine": 35
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-4",
+            "knownDefects": [
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 5,
+                "endLine": 5
+              },
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 21,
+                "endLine": 21
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/models/post_asset.js",
+                "line": 21
+              }
+            ]
+          },
+          {
+            "id": "Hexo-5",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 4,
+                "endLine": 4
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 9,
+                "endLine": 9
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 14,
+                "endLine": 14
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "line": 4
+              }
+            ]
+          },
+          {
+            "id": "Hexo-7",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/toc.js",
+                "startLine": 28,
+                "endLine": 28
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-8",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "startLine": 88,
+                "endLine": 89
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Karma-1",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 24,
+                "endLine": 24
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 24
+              }
+            ]
+          },
+          {
+            "id": "Karma-2",
+            "knownDefects": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 43,
+                "endLine": 44
+              },
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 46,
+                "endLine": 46
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "line": 43
+              }
+            ]
+          },
+          {
+            "id": "Karma-3",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 99,
+                "endLine": 99
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 99
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "pullRequests": 30,
+          "precision": 0.9444444444444444,
+          "recall": 0.288135593220339,
+          "reviewTimeSavingsMedianPercent": null,
+          "pairedReviewTasks": 0,
+          "manualDefectsFound": null,
+          "assistedDefectsFound": 17,
+          "falsePositives": 1,
+          "knownDefects": 59,
+          "seededRegressions": 0,
+          "regressionCatchRate": null,
+          "caughtRegressions": 0,
+          "findings": {
+            "manual": null,
+            "assisted": 18
+          },
+          "perPullRequest": [
+            {
+              "id": "Bower-1",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.6666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-5",
+              "knownDefects": 6,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.16666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-7",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-2",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-5",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-6",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-2",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 1,
+              "precision": 0.5,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-8",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-9",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-3",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-4",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-5",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            }
+          ]
+        }
+      }
+    ],
+    "withoutContext": [
+      {
+        "runNumber": 1,
+        "pullRequests": [
+          {
+            "id": "Bower-1",
+            "knownDefects": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 49,
+                "endLine": 49
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 174,
+                "endLine": 175
+              },
+              {
+                "file": "lib/core/PackageRepository.js",
+                "startLine": 177,
+                "endLine": 178
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/PackageRepository.js",
+                "line": 177
+              }
+            ]
+          },
+          {
+            "id": "Bower-2",
+            "knownDefects": [
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 89,
+                "endLine": 89
+              },
+              {
+                "file": "lib/core/Project.js",
+                "startLine": 97,
+                "endLine": 101
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/core/Project.js",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "id": "Bower-3",
+            "knownDefects": [
+              {
+                "file": "lib/core/scripts.js",
+                "startLine": 86,
+                "endLine": 86
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-1",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-obj-calls.js",
+                "startLine": 31,
+                "endLine": 31
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-3",
+            "knownDefects": [
+              {
+                "file": "lib/rules/prefer-template.js",
+                "startLine": 34,
+                "endLine": 34
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Eslint-5",
+            "knownDefects": [
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 258,
+                "endLine": 258
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 265,
+                "endLine": 266
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 270,
+                "endLine": 271
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 409,
+                "endLine": 409
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 415,
+                "endLine": 415
+              },
+              {
+                "file": "lib/rules/indent.js",
+                "startLine": 436,
+                "endLine": 437
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/indent.js",
+                "line": 271
+              }
+            ]
+          },
+          {
+            "id": "Eslint-6",
+            "knownDefects": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 54,
+                "endLine": 55
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 57,
+                "endLine": 59
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 61,
+                "endLine": 61
+              },
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "startLine": 63,
+                "endLine": 63
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/arrow-spacing.js",
+                "line": 54
+              }
+            ]
+          },
+          {
+            "id": "Eslint-7",
+            "knownDefects": [
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 28,
+                "endLine": 28
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 42,
+                "endLine": 42
+              },
+              {
+                "file": "lib/rules/comma-dangle.js",
+                "startLine": 44,
+                "endLine": 44
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "tests/lib/rules/comma-dangle.js",
+                "line": 346
+              }
+            ]
+          },
+          {
+            "id": "Eslint-8",
+            "knownDefects": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "startLine": 27,
+                "endLine": 27
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/rules/no-useless-escape.js",
+                "line": 27
+              }
+            ]
+          },
+          {
+            "id": "Express-1",
+            "knownDefects": [
+              {
+                "file": "lib/router/index.js",
+                "startLine": 210,
+                "endLine": 210
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/router/index.js",
+                "line": 210
+              }
+            ]
+          },
+          {
+            "id": "Express-2",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 361,
+                "endLine": 361
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/request.js",
+                "line": 361
+              }
+            ]
+          },
+          {
+            "id": "Express-3",
+            "knownDefects": [
+              {
+                "file": "lib/response.js",
+                "startLine": 609,
+                "endLine": 609
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-4",
+            "knownDefects": [
+              {
+                "file": "lib/request.js",
+                "startLine": 457,
+                "endLine": 457
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Express-5",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 70,
+                "endLine": 70
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/utils.js",
+                "line": 70
+              }
+            ]
+          },
+          {
+            "id": "Express-6",
+            "knownDefects": [
+              {
+                "file": "lib/application.js",
+                "startLine": 402,
+                "endLine": 404
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 406,
+                "endLine": 406
+              },
+              {
+                "file": "lib/application.js",
+                "startLine": 423,
+                "endLine": 425
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-2",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 421,
+                "endLine": 421
+              },
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 430,
+                "endLine": 431
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 728,
+                "endLine": 728
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 733,
+                "endLine": 737
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/decoder.js",
+                "line": 430
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "line": 733
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-4",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 302,
+                "endLine": 302
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 302
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-6",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 417,
+                "endLine": 418
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 563,
+                "endLine": 563
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 575,
+                "endLine": 575
+              },
+              {
+                "file": "lib/v2/decoder.js",
+                "startLine": 588,
+                "endLine": 588
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-7",
+            "knownDefects": [
+              {
+                "file": "lib/v1/encoder.js",
+                "startLine": 330,
+                "endLine": 331
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/v1/encoder.js",
+                "line": 331
+              }
+            ]
+          },
+          {
+            "id": "Hessian-js-8",
+            "knownDefects": [
+              {
+                "file": "lib/utils.js",
+                "startLine": 15,
+                "endLine": 19
+              },
+              {
+                "file": "lib/utils.js",
+                "startLine": 42,
+                "endLine": 49
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hessian-js-9",
+            "knownDefects": [
+              {
+                "file": "lib/v1/decoder.js",
+                "startLine": 415,
+                "endLine": 415
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-2",
+            "knownDefects": [
+              {
+                "file": "lib/box/file.js",
+                "startLine": 42,
+                "endLine": 46
+              },
+              {
+                "file": "lib/box/file.js",
+                "startLine": 61,
+                "endLine": 65
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-3",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 26,
+                "endLine": 26
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 32,
+                "endLine": 32
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 35,
+                "endLine": 35
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-4",
+            "knownDefects": [
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 5,
+                "endLine": 5
+              },
+              {
+                "file": "lib/models/post_asset.js",
+                "startLine": 21,
+                "endLine": 21
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-5",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 4,
+                "endLine": 4
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 9,
+                "endLine": 9
+              },
+              {
+                "file": "lib/plugins/helper/is.js",
+                "startLine": 14,
+                "endLine": 14
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-7",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/toc.js",
+                "startLine": 28,
+                "endLine": 28
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Hexo-8",
+            "knownDefects": [
+              {
+                "file": "lib/plugins/helper/open_graph.js",
+                "startLine": 88,
+                "endLine": 89
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Karma-1",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 24,
+                "endLine": 24
+              }
+            ],
+            "assistedFindings": [
+              {
+                "file": "lib/reporter.js",
+                "line": 24
+              }
+            ]
+          },
+          {
+            "id": "Karma-2",
+            "knownDefects": [
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 43,
+                "endLine": 44
+              },
+              {
+                "file": "lib/middleware/proxy.js",
+                "startLine": 46,
+                "endLine": 46
+              }
+            ],
+            "assistedFindings": []
+          },
+          {
+            "id": "Karma-3",
+            "knownDefects": [
+              {
+                "file": "lib/reporter.js",
+                "startLine": 99,
+                "endLine": 99
+              }
+            ],
+            "assistedFindings": []
+          }
+        ],
+        "metrics": {
+          "pullRequests": 30,
+          "precision": 0.9285714285714286,
+          "recall": 0.22033898305084745,
+          "reviewTimeSavingsMedianPercent": null,
+          "pairedReviewTasks": 0,
+          "manualDefectsFound": null,
+          "assistedDefectsFound": 13,
+          "falsePositives": 1,
+          "knownDefects": 59,
+          "seededRegressions": 0,
+          "regressionCatchRate": null,
+          "caughtRegressions": 0,
+          "findings": {
+            "manual": null,
+            "assisted": 14
+          },
+          "perPullRequest": [
+            {
+              "id": "Bower-1",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Bower-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-5",
+              "knownDefects": 6,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.16666666666666666,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.25,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-7",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 1,
+              "precision": 0,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Eslint-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-2",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-5",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Express-6",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-2",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 2,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 2,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 0.5,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-4",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-6",
+              "knownDefects": 4,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-8",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hessian-js-9",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-3",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-4",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-5",
+              "knownDefects": 3,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-7",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Hexo-8",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-1",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 1,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 1,
+              "falsePositives": 0,
+              "precision": 1,
+              "recall": 1,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-2",
+              "knownDefects": 2,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            },
+            {
+              "id": "Karma-3",
+              "knownDefects": 1,
+              "manualFindings": null,
+              "assistedFindings": 0,
+              "manualDefectsFound": null,
+              "assistedDefectsFound": 0,
+              "falsePositives": 0,
+              "precision": null,
+              "recall": 0,
+              "manualMinutes": null,
+              "assistedMinutes": null,
+              "reviewTimeSavingsPercent": null
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "usage": {
+    "runDate": "2026-10-05",
+    "callLimit": 500,
+    "reservedCalls": 212,
+    "completedCalls": 211,
+    "estimatedInputTokens": 2710407,
+    "observedInputTokens": 1917798,
+    "observedOutputTokens": 17790,
+    "observedTotalTokens": 1935588
+  }
+}

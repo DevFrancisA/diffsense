@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-1",
+  "project": "Eslint",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+  "buggySha": "4742d82ee9daf68c9095c283ce1d0dab42fe9e32",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "0847065488769f2cb432c0f2a5c6882dbb14edaf9b3c7d88ce4eb6a81543b36f",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 186,
+    "embeddingUsage": {
+      "inputTokens": 177276,
+      "outputTokens": 0,
+      "totalTokens": 177276
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "9a1a1acbf3ce16cc62f5738cd32f9cc508ac9438acda90570cfb883000eae163"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "5e883404183491b59413b544e673370bef9d02452603b6e9f3f1655ef0092a1d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2184d0c36ae059355db97131389723026e255863e2eae47fde6fb8f1e2ba9ff1"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "6ba4794bb0193119faf1cd4da7453c3aa438f0ce28a9d6504f184ac4d6526880"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bac555b5b248028f13a5e4d88551658fb6a52f234ef1467d311ded0ce5b4ce83"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "f6b680b4efd4cbc127df6854f7061e53f55c553079ec944d6910e04b7ef19e74"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 590,
+      "outputTokens": 0,
+      "totalTokens": 590
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5705,
+          "outputTokens": 160,
+          "totalTokens": 5865
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect rule behavior: 'Reflect' should not be disallowed as a function call",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The original code disallowed calling 'Reflect' as a function, but ECMAScript specification states 'Reflect' cannot be invoked as a function, suggesting no-op or no error should be issued. The change removes 'Reflect' from the disallowed list, aligning behavior with spec and documentation.",
+            "suggestion": "Revert the conditional in lib/rules/no-obj-calls.js line 31 to include 'Reflect' if intent is to warn about such calls, or adjust documentation/tests accordingly to clarify whether 'Reflect' calls are considered errors or not."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect rule behavior: 'Reflect' should not be disallowed as a function call",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The original code disallowed calling 'Reflect' as a function, but ECMAScript specification states 'Reflect' cannot be invoked as a function, suggesting no-op or no error should be issued. The change removes 'Reflect' from the disallowed list, aligning behavior with spec and documentation.",
+            "suggestion": "Revert the conditional in lib/rules/no-obj-calls.js line 31 to include 'Reflect' if intent is to warn about such calls, or adjust documentation/tests accordingly to clarify whether 'Reflect' calls are considered errors or not."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5705,
+          "outputTokens": 207,
+          "totalTokens": 5912
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect removal of 'Reflect' from disallowed object calls",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "This change removes 'Reflect' from the list of objects that are disallowed to be called as functions, but the JavaScript Reflect object cannot be invoked as a function and should remain disallowed.",
+            "suggestion": "Restore 'Reflect' to the condition checking disallowed object calls: if (name === \"Math\" || name === \"JSON\" || name === \"Reflect\")"
+          },
+          {
+            "title": "Tests no longer check calling 'Reflect' as a function",
+            "severity": "high",
+            "file": "tests/lib/rules/no-obj-calls.js",
+            "line": 28,
+            "explanation": "The test case that verifies the error when calling 'Reflect()' has been removed, leading to lack of coverage on this invalid usage.",
+            "suggestion": "Restore the test case for 'Reflect()' call resulting in an error to maintain test coverage."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect removal of 'Reflect' from disallowed object calls",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "This change removes 'Reflect' from the list of objects that are disallowed to be called as functions, but the JavaScript Reflect object cannot be invoked as a function and should remain disallowed.",
+            "suggestion": "Restore 'Reflect' to the condition checking disallowed object calls: if (name === \"Math\" || name === \"JSON\" || name === \"Reflect\")"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5705,
+          "outputTokens": 137,
+          "totalTokens": 5842
+        },
+        "rawFindings": [
+          {
+            "title": "No-obj-calls rule incorrectly references 'Reflect' object",
+            "severity": "medium",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The no-obj-calls rule disallows calling 'Math', 'JSON', and 'Reflect' objects as functions. However, the spec and documentation were updated to remove 'Reflect' from this list because 'Reflect' is not callable. Continuing to include 'Reflect' causes false positives.",
+            "suggestion": "Update the condition to remove 'Reflect' from the disallowed list, only checking for 'Math' and 'JSON' as non-callable objects."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "No-obj-calls rule incorrectly references 'Reflect' object",
+            "severity": "medium",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The no-obj-calls rule disallows calling 'Math', 'JSON', and 'Reflect' objects as functions. However, the spec and documentation were updated to remove 'Reflect' from this list because 'Reflect' is not callable. Continuing to include 'Reflect' causes false positives.",
+            "suggestion": "Update the condition to remove 'Reflect' from the disallowed list, only checking for 'Math' and 'JSON' as non-callable objects."
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 781,
+        "outputTokens": 6,
+        "totalTokens": 787
+      },
+      "rawFindings": [],
+      "acceptedFindings": []
+    }
+  },
+  "complete": true
+}

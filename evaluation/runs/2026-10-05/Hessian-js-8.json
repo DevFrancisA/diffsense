@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-8",
+  "project": "Hessian.js",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "ed102d096883428073795c61777b57efabef8517",
+  "buggySha": "dd8a485d524c96d20b0384e7d81da3ff9b3bfd16",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c7319e595024a922d28a64bcc8cfaabd83b130ced617741cb128ced2d7525944",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "ed102d096883428073795c61777b57efabef8517",
+    "maxFiles": 40,
+    "filesIndexed": 26,
+    "chunksIndexed": 119,
+    "embeddingUsage": {
+      "inputTokens": 161938,
+      "outputTokens": 0,
+      "totalTokens": 161938
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "13ca45f66540e4e864a83c1fd9b67778a547a8d36afcb37039547c8948383731"
+      },
+      {
+        "path": "test/int.test.js",
+        "contentSha256": "34253e0410f4eff4788d891788e0f44524493d11c464229bc6e1f70c7393a990"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "50fd2a49fb9029d5df52fa832b44a42379ee7346441584bd5a9faa85f0943cc2"
+      },
+      {
+        "path": "test/int.test.js",
+        "contentSha256": "ce275a01d09e98e01adf919c9c5f8a5b3b6b2978f0286014e031d52b6c802688"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "a813f66daa456ee1278de020c7ee3ef976c17ca53498870a524683b93a155b50"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "1e7027830c72bb343821364148791c6b83003bbe78650a1067ef9313f408e2c3"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "9f60d491b453e592f5ab65bae8b81ade43227a360bbbe000f53efc1c3bb5bbfb"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 831,
+      "outputTokens": 0,
+      "totalTokens": 831
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8994,
+          "outputTokens": 129,
+          "totalTokens": 9123
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect test case input type in v1.test.js for large long value",
+            "severity": "high",
+            "file": "test/v1.test.js",
+            "line": 112,
+            "explanation": "The test case used a string '9007199254740992' as input to encoder.writeLong(), but according to the context, it should be a number to match the expected behavior and consistency with other tests using numbers.",
+            "suggestion": "Change the test case input from a string '9007199254740992' to the number 9007199254740992 in line 112 of test/v1.test.js."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8994,
+          "outputTokens": 183,
+          "totalTokens": 9177
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect test expectation for encoding large long value as string",
+            "severity": "high",
+            "file": "test/v1.test.js",
+            "line": 114,
+            "explanation": "The test case in test/v1.test.js expects encoding the string '9007199254740992' results in the buffer <Buffer 4c 00 20 00 00 00 00 00 00>. However, the tested code seems to only accept numeric inputs and treats string input differently (or it may not convert string to Long correctly). This is inconsistent with other tests which provide the number 9007199254740992 directly as a number, not as a string, to get this buffer.",
+            "suggestion": "Change the test input from string '9007199254740992' to the numeric value 9007199254740992 to align with the code's expected behavior."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 8994,
+          "outputTokens": 6,
+          "totalTokens": 9000
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 1016,
+        "outputTokens": 169,
+        "totalTokens": 1185
+      },
+      "rawFindings": [
+        {
+          "title": "Incorrect handling of 9007199254740991 in test expectations",
+          "severity": "high",
+          "file": "test/v1.test.js",
+          "line": 114,
+          "explanation": "The modified test case removes the test for input 9007199254740991 (Number.MAX_SAFE_INTEGER), which is a valid safe integer, and now tests 9007199254740992 (which is not safe as a number) as a number, which is incorrect. This may cause the test to pass incorrectly or behave inconsistently, as 9007199254740992 cannot be precisely represented as a JavaScript number.",
+          "suggestion": "Restore the original test cases including 9007199254740991 as a number and 9007199254740992 as a string to correctly reflect safe and unsafe integer boundaries."
+        }
+      ],
+      "acceptedFindings": []
+    }
+  },
+  "complete": true
+}

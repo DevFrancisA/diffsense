@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-1",
+  "project": "Karma",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+  "buggySha": "4673116a6f7310a6390025618a4a6c7215e3b793",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "0b58b67c952edfb17e7cf2b17e0436530dd06ac2688959fc5a89e3a8745349bb",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 82,
+    "embeddingUsage": {
+      "inputTokens": 63044,
+      "outputTokens": 0,
+      "totalTokens": 63044
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "7b5226b64e19578f70429b75083b0f8a2324bf566373a72ab55f59fabbd67e9f"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "1679a24276d8964eebc7dc16f23a446871879c5f1f8ad48da9d3bcc0a664db96"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "3d03e5b9c80351bb45fb5315f3e3aaa9a8c3fb77e21f1d5e8e07ece6fecf87fe"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "0ce0f0fdb3add867cb6b9f91bc3807650af1a0ffad425865462b378f1ee76628"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "d9731c53104530b883816a185e3769317415040cea98078dafd5feb257877a91"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "f36c17834c39947e383abe9bf17a6d681c2d739f9003e3eeb0b4c3b2db113cbe"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "11aad1e5af03508430c39a71f3b85add0cb37241d9b7cc10be53dc252ea465c8"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "cea387ddcb7fc0be734e4568a71a95a0590ffd0c4791dc84d90bcf33f2383ec3"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 366,
+      "outputTokens": 0,
+      "totalTokens": 366
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5126,
+          "outputTokens": 133,
+          "totalTokens": 5259
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL pattern regex in reporter error formatter",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The regular expression pattern for URL matching in createErrorFormatter function was changed from optional 'http://' with optional domain and slash to mandatory 'http://' with mandatory domain and slash. This change makes the regex too strict and may fail to match valid URLs without a domain or with different protocols, thus breaking error report URL rewriting.",
+            "suggestion": "Revert the regex to the previous pattern that allows for optional http:// and optional domain and slash, ensuring proper matching of URLs in stack traces."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL pattern regex in reporter error formatter",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The regular expression pattern for URL matching in createErrorFormatter function was changed from optional 'http://' with optional domain and slash to mandatory 'http://' with mandatory domain and slash. This change makes the regex too strict and may fail to match valid URLs without a domain or with different protocols, thus breaking error report URL rewriting.",
+            "suggestion": "Revert the regex to the previous pattern that allows for optional http:// and optional domain and slash, ensuring proper matching of URLs in stack traces."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5126,
+          "outputTokens": 159,
+          "totalTokens": 5285
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL_REGEXP for rewriting relative URLs in reporter.js",
+            "severity": "medium",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The regular expression URL_REGEXP was changed from matching optionally http:// and optional hostname to requiring http:// and a hostname roughly, but the replacement removed optionality and leading slash. This change may cause failures in rewriting error stack trace URLs that are relative or missing the protocol or host when processing stack traces from client browsers.",
+            "suggestion": "Restore the original regular expression to allow URLs without protocol or hostname like: var URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' + ...); This ensures relative URLs and different URL formats are properly matched and rewritten."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL_REGEXP for rewriting relative URLs in reporter.js",
+            "severity": "medium",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The regular expression URL_REGEXP was changed from matching optionally http:// and optional hostname to requiring http:// and a hostname roughly, but the replacement removed optionality and leading slash. This change may cause failures in rewriting error stack trace URLs that are relative or missing the protocol or host when processing stack traces from client browsers.",
+            "suggestion": "Restore the original regular expression to allow URLs without protocol or hostname like: var URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' + ...); This ensures relative URLs and different URL formats are properly matched and rewritten."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5126,
+          "outputTokens": 151,
+          "totalTokens": 5277
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect RegExp for URL matching breaks error formatting",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original URL_REGEXP allowed URLs with no protocol and leading slashes, as it matched optional 'http://' and an optional slash. The modified RegExp requires 'http://' and at least one '/' after the domain. This change makes the RegExp more restrictive and breaks expected matching behavior for relative URLs, causing error stack trace rewriting to fail.",
+            "suggestion": "Restore the original RegExp to allow optional 'http://' and optional leading slash: var URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' + ...);"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect RegExp for URL matching breaks error formatting",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original URL_REGEXP allowed URLs with no protocol and leading slashes, as it matched optional 'http://' and an optional slash. The modified RegExp requires 'http://' and at least one '/' after the domain. This change makes the RegExp more restrictive and breaks expected matching behavior for relative URLs, causing error stack trace rewriting to fail.",
+            "suggestion": "Restore the original RegExp to allow optional 'http://' and optional leading slash: var URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' + ...);"
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 549,
+        "outputTokens": 124,
+        "totalTokens": 673
+      },
+      "rawFindings": [
+        {
+          "title": "Regression in URL regular expression matching",
+          "severity": "high",
+          "file": "lib/reporter.js",
+          "line": 24,
+          "explanation": "The original regular expression allowed matching URLs that optionally started with 'http://' followed by zero or more characters and optional leading slash ('/'). The changed regex now requires 'http://' with some characters and a trailing slash. This change is stricter and may cause some URLs that previously matched to no longer match, potentially breaking error formatting or URL rewriting functionality.",
+          "suggestion": "Revert the regular expression to its original version to maintain the previous matching behavior."
+        }
+      ],
+      "acceptedFindings": [
+        {
+          "title": "Regression in URL regular expression matching",
+          "severity": "high",
+          "file": "lib/reporter.js",
+          "line": 24,
+          "explanation": "The original regular expression allowed matching URLs that optionally started with 'http://' followed by zero or more characters and optional leading slash ('/'). The changed regex now requires 'http://' with some characters and a trailing slash. This change is stricter and may cause some URLs that previously matched to no longer match, potentially breaking error formatting or URL rewriting functionality.",
+          "suggestion": "Revert the regular expression to its original version to maintain the previous matching behavior."
+        }
+      ]
+    }
+  },
+  "complete": true
+}

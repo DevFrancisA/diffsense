@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-4",
+  "project": "Hessian.js",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+  "buggySha": "d996501c087a3cecc5ce3e470106ebdb90657ca9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c1ddbead0c62f2329329ceff89e32a8c1cf0642e5d120b4a4f0aa200a654ff77",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 112,
+    "embeddingUsage": {
+      "inputTokens": 148844,
+      "outputTokens": 0,
+      "totalTokens": 148844
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "4a9703ac11552bdc7ffdb82af37418dcbe06c18497770ffab24bce2fdcf1481c"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "52338a1f604c9d5ab739ad5b10708d72c9a80d7510a15e6f1c0ab423acbd46cd"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "16eda6809ee9d217fdc65fb0872699e4eece5c25027c25fce173a68105e25346"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 688,
+      "outputTokens": 0,
+      "totalTokens": 688
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 6267,
+          "outputTokens": 212,
+          "totalTokens": 6479
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of object with $class and $ null properties in v1 encoder",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 303,
+            "explanation": "The original code had a condition to treat objects with a string $class and null $ property as null during encoding. This was removed in the new code, potentially changing semantics and causing encoding differences for such objects.",
+            "suggestion": "Restore the check for is.string(obj.$class) && is.nullOrUndefined(obj.$) in the condition to preserve original behavior for null-valued typed objects."
+          },
+          {
+            "title": "Removed tests for encoding null property objects with $class in object.test.js",
+            "severity": "medium",
+            "file": "test/object.test.js",
+            "line": 22,
+            "explanation": "Tests verifying encoding behavior of objects with properties having $class and null $ values were removed. This reduces coverage on a subtle encoding scenario relevant for backward compatibility.",
+            "suggestion": "Retain or replace the removed tests to ensure coverage of encoding objects with nested typed null properties."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 6267,
+          "outputTokens": 155,
+          "totalTokens": 6422
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect removal of null property handling in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The original code in lib/v1/encoder.js checked for objects where obj.$class is a string and obj.$ is null or undefined, and treated them as null (return null). This special handling was removed in the patch, which can cause wrong encoding behavior when encoding objects like { $class: 'xxx', $: null }, possibly resulting in invalid encoding or errors.",
+            "suggestion": "Restore the original condition in writeObject: if (is.nullOrUndefined(obj) || (is.string(obj.$class) && is.nullOrUndefined(obj.$))) { return null; }"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect removal of null property handling in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The original code in lib/v1/encoder.js checked for objects where obj.$class is a string and obj.$ is null or undefined, and treated them as null (return null). This special handling was removed in the patch, which can cause wrong encoding behavior when encoding objects like { $class: 'xxx', $: null }, possibly resulting in invalid encoding or errors.",
+            "suggestion": "Restore the original condition in writeObject: if (is.nullOrUndefined(obj) || (is.string(obj.$class) && is.nullOrUndefined(obj.$))) { return null; }"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 6267,
+          "outputTokens": 140,
+          "totalTokens": 6407
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect null handling check in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 303,
+            "explanation": "The original code's condition to check if the object is null or has '$class' string but null/undefined '$' property was removed, now only is.nullOrUndefined(obj) is checked. This changes behavior and can cause improper encoding of objects with $class and $ properties that have null values.",
+            "suggestion": "Restore the original condition for null handling, including checking if obj is null or undefined, or if obj.$class is a string and obj.$ is null/undefined, to maintain previous serialization behavior."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 869,
+        "outputTokens": 158,
+        "totalTokens": 1027
+      },
+      "rawFindings": [
+        {
+          "title": "Incorrect handling of objects with $class and $ properties in proto.writeObject",
+          "severity": "high",
+          "file": "lib/v1/encoder.js",
+          "line": 302,
+          "explanation": "The original code excludes objects where is.string(obj.$class) && is.nullOrUndefined(obj.$), treating them as null. The new code only excludes nullOrUndefined(obj), so objects like {$class: 'xxx', $: null} will not be treated as null but encoded as objects. This changes semantics and breaks compatibility with tests that expect such objects to be encoded as null.",
+          "suggestion": "Restore the original condition to check for is.string(obj.$class) && is.nullOrUndefined(obj.$) alongside is.nullOrUndefined(obj) to preserve previous behavior:"
+        }
+      ],
+      "acceptedFindings": [
+        {
+          "title": "Incorrect handling of objects with $class and $ properties in proto.writeObject",
+          "severity": "high",
+          "file": "lib/v1/encoder.js",
+          "line": 302,
+          "explanation": "The original code excludes objects where is.string(obj.$class) && is.nullOrUndefined(obj.$), treating them as null. The new code only excludes nullOrUndefined(obj), so objects like {$class: 'xxx', $: null} will not be treated as null but encoded as objects. This changes semantics and breaks compatibility with tests that expect such objects to be encoded as null.",
+          "suggestion": "Restore the original condition to check for is.string(obj.$class) && is.nullOrUndefined(obj.$) alongside is.nullOrUndefined(obj) to preserve previous behavior:"
+        }
+      ]
+    }
+  },
+  "complete": true
+}

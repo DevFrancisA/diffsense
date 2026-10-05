@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-3",
+  "project": "Eslint",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+  "buggySha": "263b7782438899240548d0020cf9a49c2bbe2b5c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "8a1c9483c9284902ff99c46346b399b49e9af4f54c79afe952eefa39bbf7a779",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 117,
+    "embeddingUsage": {
+      "inputTokens": 100108,
+      "outputTokens": 0,
+      "totalTokens": 100108
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "a3d45ae787819b7e5e475fa618ab9aefc5992a33a35dd4617619e7591edf99e8"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "2e89810ffef7629fe4b66836822211d84287d6431cfda0d5f271f4c2478e2077"
+      },
+      {
+        "path": "lib/rules/accessor-pairs.js",
+        "contentSha256": "f0bd759863ccad4ec194dc40245c660f6265b1467844971bac089c0ac384cd17"
+      },
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "7525a20b67ddf8a09051296e118110a4f91af6ce2c822dce00786070e9568dcc"
+      },
+      {
+        "path": "lib/rules/arrow-spacing.js",
+        "contentSha256": "3e26e2009f945aaf7315366ebbe1502ee6ce22e72d2275cd87dec13a882cc802"
+      },
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "0048b49697fc11ed4a5949056c6294d57045af02a16dda0e8badb559a5393e75"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "5cebb981eb41e0ec54ee9bdc278570a2e473a66a91fc46d2bfd49d1252c223bc"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "3faf4db241bcf00365e04303ecfda578417c37f70f5f34eb1aa2cff616260bb4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 370,
+      "outputTokens": 0,
+      "totalTokens": 370
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4553,
+          "outputTokens": 145,
+          "totalTokens": 4698
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of TemplateLiteral nodes in hasNonLiteral function",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The change removes the handling that allowed TemplateLiteral nodes to return false, instead now hasNonLiteral returns true for any node type other than Literal, which will cause TemplateLiteral nodes to be incorrectly classified as non-literals. This breaks correct detection of template literals and can cause false positives or negatives.",
+            "suggestion": "Restore the conditional that checks for UnaryExpression nodes and also allow TemplateLiteral node types to return false, i.e., revert to the original logic that returns false for nodes of type Literal or TemplateLiteral."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of TemplateLiteral nodes in hasNonLiteral function",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The change removes the handling that allowed TemplateLiteral nodes to return false, instead now hasNonLiteral returns true for any node type other than Literal, which will cause TemplateLiteral nodes to be incorrectly classified as non-literals. This breaks correct detection of template literals and can cause false positives or negatives.",
+            "suggestion": "Restore the conditional that checks for UnaryExpression nodes and also allow TemplateLiteral node types to return false, i.e., revert to the original logic that returns false for nodes of type Literal or TemplateLiteral."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4553,
+          "outputTokens": 126,
+          "totalTokens": 4679
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect hasNonLiteral() behavior ignores TemplateLiteral type",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The function hasNonLiteral() originally returned true for nodes that are not Literal or TemplateLiteral, correctly treating TemplateLiteral as a literal type. The change removes TemplateLiteral from the condition, which causes template literals to be treated as non-literals, breaking the rule logic.",
+            "suggestion": "Restore the original condition to treat TemplateLiteral nodes as literals by returning node.type !== 'Literal' && node.type !== 'TemplateLiteral';"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect hasNonLiteral() behavior ignores TemplateLiteral type",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The function hasNonLiteral() originally returned true for nodes that are not Literal or TemplateLiteral, correctly treating TemplateLiteral as a literal type. The change removes TemplateLiteral from the condition, which causes template literals to be treated as non-literals, breaking the rule logic.",
+            "suggestion": "Restore the original condition to treat TemplateLiteral nodes as literals by returning node.type !== 'Literal' && node.type !== 'TemplateLiteral';"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4553,
+          "outputTokens": 154,
+          "totalTokens": 4707
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect detection of non-literal nodes",
+            "severity": "medium",
+            "file": "lib/rules/prefer-template.js",
+            "line": 36,
+            "explanation": "The function hasNonLiteral incorrectly excludes TemplateLiteral nodes by only returning false for Literal types. By removing the check for 'TemplateLiteral', the function will treat template literals as non-literals, which breaks the intended behavior of the rule that should allow template literals without reporting.",
+            "suggestion": "Restore the original condition to exclude both 'Literal' and 'TemplateLiteral' node types:\n\nif (node.type === \"UnaryExpression\") {"
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 556,
+        "outputTokens": 149,
+        "totalTokens": 705
+      },
+      "rawFindings": [
+        {
+          "title": "Incorrect handling of TemplateLiteral nodes in hasNonLiteral function",
+          "severity": "high",
+          "file": "lib/rules/prefer-template.js",
+          "line": 37,
+          "explanation": "The updated hasNonLiteral function no longer treats nodes of type 'TemplateLiteral' as literal, which changes the original behavior that considered both 'Literal' and 'TemplateLiteral' nodes as non-non-literals. This can cause the rule to mistakenly identify template literal nodes as non-literals, potentially affecting rule correctness.",
+          "suggestion": "Reintroduce the check for 'TemplateLiteral' nodes in hasNonLiteral, e.g., return node.type !== 'Literal' && node.type !== 'TemplateLiteral'; to preserve original behavior."
+        }
+      ],
+      "acceptedFindings": []
+    }
+  },
+  "complete": true
+}

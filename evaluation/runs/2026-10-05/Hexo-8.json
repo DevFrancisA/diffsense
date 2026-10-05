@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-8",
+  "project": "Hexo",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "c9278111fe51d38b9c676f4fad48972f43e9d3b9",
+  "buggySha": "1da7ad5c920fb16e182342c4acda7d8a94af31f9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "775acc9f4a0158db5dd5a2be4eec95f29723d71aae83a629ea9fe76688f1488c",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "c9278111fe51d38b9c676f4fad48972f43e9d3b9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 71,
+    "embeddingUsage": {
+      "inputTokens": 43320,
+      "outputTokens": 0,
+      "totalTokens": 43320
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "e3841735e8652759fb729b66799011aa20ea55480e9cd6ddc34f974c9347d14c"
+      },
+      {
+        "path": "lib/hexo/load_config.js",
+        "contentSha256": "0d830122123469cf9adeaa28223b5a9c8f87bc6377f2fa9f910025da74b7b541"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a23b6e1908660cec7b59d097f7a7300009e926f268c1bfd813cff411689f80a7"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "02e11fbdf23aea24789834255ba642093425ec596a449edd9cec83537c136d35"
+      },
+      {
+        "path": "lib/hexo/default_config.js",
+        "contentSha256": "b0519ec5fa49241a5d8dcc822c6bcdb0918e2d970037f35166609aa66a32b529"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "123db9add0cccdd1abcc8c82c4b268d803e929a472b9ea6ddbdab89c927d545f"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "27c480f41ab13a0fac3d0c0b012bd45c8b3b81ec2c8269bc546e064795dcd30d"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "080c75789466852343916c68db353ad8c58a9c96e9f342c750b5aa0bf95c20f8"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 370,
+      "outputTokens": 0,
+      "totalTokens": 370
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4132,
+          "outputTokens": 132,
+          "totalTokens": 4264
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL resolution for 'path' in openGraphHelper",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The patch replaces urlFn.resolve(url || config.url, path) with a simple concatenation config.url + path where path is forced to start with a slash. This breaks correct resolution of relative paths and does not handle cases where config.url might end with a slash, potentially leading to malformed URLs.",
+            "suggestion": "Revert to using urlFn.resolve(url || config.url, path) to correctly resolve both absolute and relative paths according to URL resolution standards."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL resolution for 'path' in openGraphHelper",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The patch replaces urlFn.resolve(url || config.url, path) with a simple concatenation config.url + path where path is forced to start with a slash. This breaks correct resolution of relative paths and does not handle cases where config.url might end with a slash, potentially leading to malformed URLs.",
+            "suggestion": "Revert to using urlFn.resolve(url || config.url, path) to correctly resolve both absolute and relative paths according to URL resolution standards."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4132,
+          "outputTokens": 111,
+          "totalTokens": 4243
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL concatenation for relative path in openGraphHelper",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 90,
+            "explanation": "The updated code concatenates config.url and path without proper URL resolution, which can lead to incorrect URLs especially if config.url has a path or lacks trailing slash. Previously used urlFn.resolve handled these cases properly.",
+            "suggestion": "Revert to use urlFn.resolve(url || config.url, path) to correctly resolve paths relative to the base URL."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4132,
+          "outputTokens": 159,
+          "totalTokens": 4291
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL concatenation breaks relative image path resolution",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 90,
+            "explanation": "The updated code forcibly prepends a slash to the image path if missing and concatenates it with config.url without proper URL resolution. This breaks support for relative paths that should be resolved relative to the page URL (url), which is important when the site is hosted in a subdirectory. Previously, urlFn.resolve correctly handled resolving relative and absolute paths against the base URL, ensuring accurate final URLs for Open Graph images.",
+            "suggestion": "Revert to using urlFn.resolve(url || config.url, path) to correctly resolve both absolute and relative paths with respect to the current page or site base URL."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 550,
+        "outputTokens": 117,
+        "totalTokens": 667
+      },
+      "rawFindings": [
+        {
+          "title": "Incorrect URL resolution for relative paths",
+          "severity": "high",
+          "file": "lib/plugins/helper/open_graph.js",
+          "line": 90,
+          "explanation": "The patch replaces url resolution logic using urlFn.resolve with string concatenation (config.url + path). This fails to handle cases where config.url ends without a trailing slash, leading to invalid URLs when the path is concatenated.",
+          "suggestion": "Restore usage of urlFn.resolve to correctly handle absolute and relative paths with proper URL normalization, e.g. return urlFn.resolve(url || config.url, path);"
+        }
+      ],
+      "acceptedFindings": []
+    }
+  },
+  "complete": true
+}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-7",
+  "project": "Eslint",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "09594ef29673c206641d291ff5d0f45c6e03716b",
+  "buggySha": "311295c6f8867b83263a9fe8744809b0c56b8c28",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "6cadc88a0b9ed316e487abece6b3d31185165a517dd68e1cd48e6a274c79258d",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "09594ef29673c206641d291ff5d0f45c6e03716b",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 111,
+    "embeddingUsage": {
+      "inputTokens": 93442,
+      "outputTokens": 0,
+      "totalTokens": 93442
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "1ea05e45143703e66005acbd9285367376105100da64aca91fb4e7df5df0f5ca"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "1ba80027c7817a8ecdf4233790eb60c5212186b564b8a42ab9af47e391992e12"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "00cd6a559616a267da5a5cff7904f031ed5b6b4c275654c1c1a0ce3e7c95bc0b"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "c4eed0ad1fd072e94eb880efa64242188eaeba21d252a8d75d911d8ad5fedde1"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "3b403ee7e13deb3e3ada242bbd377577877e19705c238a1080bec38129b9d58d"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "f97c8f20d28a031fc8d6a7ef368d17225f1a131b8fec0184d15c27f86e68d139"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "76b5fef49b7ffe70b08031fdb3b8e40712f6cf0f317e6228d11c5558037d2bb2"
+      },
+      {
+        "path": "lib/rules/dot-location.js",
+        "contentSha256": "faac2349c32780d387546b5b259f997b09453086d31f0a284ce7ef46904890dc"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 930,
+      "outputTokens": 0,
+      "totalTokens": 930
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5144,
+          "outputTokens": 253,
+          "totalTokens": 5397
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of multiline detection in comma-dangle rule",
+            "severity": "medium",
+            "file": "lib/rules/comma-dangle.js",
+            "line": 28,
+            "explanation": "The variable 'lastTokenOnNewLine' was replaced with 'nodeIsMultiLine' indicating the node is multiline if its start line differs from end line. However, in the check for 'always-multiline' option, this variable is used incorrectly. The condition 'hasDanglingComma && !nodeIsMultiLine' reports an unexpected trailing comma when the node is not multiline. This deviates from the previous logic which checked if the penultimate token and node end line differ, more accurately reflecting multiline status",
+            "suggestion": "Restore the check to validate if the penultimate token (the last token before the closing bracket) is on a different line than the node's end line, as originally done by 'lastTokenOnNewLine = node.loc.end.line !== penultimateToken.loc.end.line'. Use this variable to check dangling comma placement rather than only checking if the entire node is multiline."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of multiline detection in comma-dangle rule",
+            "severity": "medium",
+            "file": "lib/rules/comma-dangle.js",
+            "line": 28,
+            "explanation": "The variable 'lastTokenOnNewLine' was replaced with 'nodeIsMultiLine' indicating the node is multiline if its start line differs from end line. However, in the check for 'always-multiline' option, this variable is used incorrectly. The condition 'hasDanglingComma && !nodeIsMultiLine' reports an unexpected trailing comma when the node is not multiline. This deviates from the previous logic which checked if the penultimate token and node end line differ, more accurately reflecting multiline status",
+            "suggestion": "Restore the check to validate if the penultimate token (the last token before the closing bracket) is on a different line than the node's end line, as originally done by 'lastTokenOnNewLine = node.loc.end.line !== penultimateToken.loc.end.line'. Use this variable to check dangling comma placement rather than only checking if the entire node is multiline."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5144,
+          "outputTokens": 6,
+          "totalTokens": 5150
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5144,
+          "outputTokens": 210,
+          "totalTokens": 5354
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect dangling comma check in always-multiline option",
+            "severity": "high",
+            "file": "lib/rules/comma-dangle.js",
+            "line": 42,
+            "explanation": "The code replaces lastTokenOnNewLine check with nodeIsMultiLine but incorrectly uses it in conditions checking dangling commas. The modified lines check \"if (hasDanglingComma && !nodeIsMultiLine)\" and \"else if (!hasDanglingComma && nodeIsMultiLine)\" which deviates from the previous behavior of checking if the last token before the end is on a different line than the node end. This might lead to incorrect detection of dangling commas in multi-line nodes.",
+            "suggestion": "Restore the logic to check if the trailing comma token is on a different line than the node end rather than using a simple multiline node check. For example, keep or reintroduce lastTokenOnNewLine computed as 'node.loc.end.line !== penultimateToken.loc.end.line' and use it for the dangling comma checks."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect dangling comma check in always-multiline option",
+            "severity": "high",
+            "file": "lib/rules/comma-dangle.js",
+            "line": 42,
+            "explanation": "The code replaces lastTokenOnNewLine check with nodeIsMultiLine but incorrectly uses it in conditions checking dangling commas. The modified lines check \"if (hasDanglingComma && !nodeIsMultiLine)\" and \"else if (!hasDanglingComma && nodeIsMultiLine)\" which deviates from the previous behavior of checking if the last token before the end is on a different line than the node end. This might lead to incorrect detection of dangling commas in multi-line nodes.",
+            "suggestion": "Restore the logic to check if the trailing comma token is on a different line than the node end rather than using a simple multiline node check. For example, keep or reintroduce lastTokenOnNewLine computed as 'node.loc.end.line !== penultimateToken.loc.end.line' and use it for the dangling comma checks."
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 1129,
+        "outputTokens": 114,
+        "totalTokens": 1243
+      },
+      "rawFindings": [
+        {
+          "title": "Incorrect error message for missing trailing comma",
+          "severity": "medium",
+          "file": "tests/lib/rules/comma-dangle.js",
+          "line": 346,
+          "explanation": "The test case expects the message 'Missing trailing comma.' but the code before likely flagged it as 'Unexpected trailing comma.', indicating the test expectation was reversed or mislabeled.",
+          "suggestion": "Review the test case at line 346 and ensure that the expected error message matches the intended rule behavior, correcting it to either 'Unexpected trailing comma.' or adjusting test code accordingly."
+        }
+      ],
+      "acceptedFindings": [
+        {
+          "title": "Incorrect error message for missing trailing comma",
+          "severity": "medium",
+          "file": "tests/lib/rules/comma-dangle.js",
+          "line": 346,
+          "explanation": "The test case expects the message 'Missing trailing comma.' but the code before likely flagged it as 'Unexpected trailing comma.', indicating the test expectation was reversed or mislabeled.",
+          "suggestion": "Review the test case at line 346 and ensure that the expected error message matches the intended rule behavior, correcting it to either 'Unexpected trailing comma.' or adjusting test code accordingly."
+        }
+      ]
+    }
+  },
+  "complete": true
+}

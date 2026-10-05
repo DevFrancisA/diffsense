@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-6",
+  "project": "Hessian.js",
+  "bugId": 6,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "bd14cde77ed746286fbef304076d56c8b37547ff",
+  "buggySha": "4c439be9f4cd477d47f3bd28946cb055fba4432b",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "a611dc52e9b2903f78f62ba2af7a9994f7a89aa5ae02f5322263834b9f953ce7",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "bd14cde77ed746286fbef304076d56c8b37547ff",
+    "maxFiles": 40,
+    "filesIndexed": 25,
+    "chunksIndexed": 117,
+    "embeddingUsage": {
+      "inputTokens": 160256,
+      "outputTokens": 0,
+      "totalTokens": 160256
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "test/decode.circular.test.js",
+        "contentSha256": "aa5f7f151cb339ad2e6ee847c7d8a5f8f4b4b80f53472a2ecbfa6171f1c1643b"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "9b44247c97df1f21092bce65012250f24d8f0e0f83df03ba98390e083fb5af36"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "bc2977f13f73058f29a538e86a884a913b6e9fb13ea1c6cb9813696fd0ce71f4"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "94a9b4e0b83e3b90690ca403463a6c9e7fbde45631bd8931f90cda647d4d7069"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "5f9b855aae61f711ed35a42de4a93e8c59c2c185ecb625dac8a5faf3250f7e0c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1902,
+      "outputTokens": 0,
+      "totalTokens": 1902
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7346,
+          "outputTokens": 328,
+          "totalTokens": 7674
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of 'this$N' property filtering in v1 decoder",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "The original code in lib/v1/decoder.js filtered out keys matching /^this\\$\\d+$/, avoiding adding those keys to the result object. The patch removes this filtering, causing all properties including 'this$N' to be added to the result's $ object unconditionally. This breaks backward compatibility and expected behavior for Hessian v1 decoding where 'this$N' properties are ignored during decoding.",
+            "suggestion": "Restore the original filtering logic for 'this$N' keys in lib/v1/decoder.js by checking if the key matches /^this\\$\\d+$/ and skipping adding those keys to the result object."
+          },
+          {
+            "title": "Incorrect handling of 'this$N' property filtering in v2 decoder",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "Similar to the v1 decoder, lib/v2/decoder.js originally filtered out keys matching /^this\\$\\d+$/ when decoding objects. The patch removes this filtering and adds all properties including 'this$N' to the result's $ object. This changes behavior and may cause issues with expected object structure in Hessian v2 decoding.",
+            "suggestion": "Restore the original filtering logic for 'this$N' keys in lib/v2/decoder.js by checking if the key matches /^this\\$\\d+$/ and skipping adding those keys to the result object."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of 'this$N' property filtering in v2 decoder",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "Similar to the v1 decoder, lib/v2/decoder.js originally filtered out keys matching /^this\\$\\d+$/ when decoding objects. The patch removes this filtering and adds all properties including 'this$N' to the result's $ object. This changes behavior and may cause issues with expected object structure in Hessian v2 decoding.",
+            "suggestion": "Restore the original filtering logic for 'this$N' keys in lib/v2/decoder.js by checking if the key matches /^this\\$\\d+$/ and skipping adding those keys to the result object."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7346,
+          "outputTokens": 357,
+          "totalTokens": 7703
+        },
+        "rawFindings": [
+          {
+            "title": "Removed skipping of 'this$*' properties breaks compatibility with expected field filtering",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 414,
+            "explanation": "The original code in lib/v1/decoder.js filtered out keys matching /^this\\$\\d+$/ when reading object properties, presumably to avoid including synthetic or internal fields named like 'this$0'. The patch removes this filtering and always includes these keys in the decoded result.\n\nThis change can introduce unexpected fields named 'this$0', 'this$1', etc. into decoded objects, breaking previous code and tests that assumed these fields would be skipped. The filter serves as a protection against inte",
+            "suggestion": "Restore the original key filtering logic to skip keys matching /^this\\$\\d+$/ during decoding in lib/v1/decoder.js, or explicitly document and handle the inclusion of these fields if their presence is intentional."
+          },
+          {
+            "title": "Removed skipping of 'this$*' properties in v2 decoder breaks backward compatibility",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 575,
+            "explanation": "Similarly to the v1 decoder change, the v2 decoder removed the code that filtered out keys matching /^this\\$\\d+$/ when reading an object, causing these internal fields to be included in the decoded objects. This can break compatibility with previous behavior and assumptions in the codebase that such fields are omitted.\n\nThis leads to inconsistent behavior between versions and may cause test failures or unexpected data exposure.",
+            "suggestion": "Restore the filtering for keys matching /^this\\$\\d+$/ in the v2 decoder when reading object properties to maintain backward compatibility."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Removed skipping of 'this$*' properties in v2 decoder breaks backward compatibility",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 575,
+            "explanation": "Similarly to the v1 decoder change, the v2 decoder removed the code that filtered out keys matching /^this\\$\\d+$/ when reading an object, causing these internal fields to be included in the decoded objects. This can break compatibility with previous behavior and assumptions in the codebase that such fields are omitted.\n\nThis leads to inconsistent behavior between versions and may cause test failures or unexpected data exposure.",
+            "suggestion": "Restore the filtering for keys matching /^this\\$\\d+$/ in the v2 decoder when reading object properties to maintain backward compatibility."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 7346,
+          "outputTokens": 307,
+          "totalTokens": 7653
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect removal of exclusion logic for 'this$' fields in v1 decoder causes differences in decoded objects",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 417,
+            "explanation": "The original code excluded fields with keys matching /^this\\$\\d+$/ from being added to the object's $ property during decoding. The new code removes this exclusion, adding all keys. This breaks backward compatibility and causes deviated decoding behavior as test cases rely on excluding 'this$' fields in v1 objects.",
+            "suggestion": "Restore the conditional exclusion of keys matching /^this\\$\\d+$/ during assignment to result.$ in v1 decoder, preserving original behavior."
+          },
+          {
+            "title": "Incorrect removal of exclusion logic for 'this$' fields in v2 decoder breaks expected decoding structure",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "Similar to v1 decoder, the original v2 decoder skipped adding keys matching /^this\\$\\d+$/ to result.$. The diff removes this exclusion, causing 'this$' fields to be included unconditionally. Test changes show tests expecting 'this$0' field to be present and linked circularly, suggesting the original code was intentionally skipping or handling these fields differently. Removing exclusion may cause decoding inaccuracies or infinite recursion errors.",
+            "suggestion": "Restore the conditional check to exclude keys matching /^this\\$\\d+$/ when assigning to result.$ in v2 decoder."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect removal of exclusion logic for 'this$' fields in v1 decoder causes differences in decoded objects",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 417,
+            "explanation": "The original code excluded fields with keys matching /^this\\$\\d+$/ from being added to the object's $ property during decoding. The new code removes this exclusion, adding all keys. This breaks backward compatibility and causes deviated decoding behavior as test cases rely on excluding 'this$' fields in v1 objects.",
+            "suggestion": "Restore the conditional exclusion of keys matching /^this\\$\\d+$/ during assignment to result.$ in v1 decoder, preserving original behavior."
+          },
+          {
+            "title": "Incorrect removal of exclusion logic for 'this$' fields in v2 decoder breaks expected decoding structure",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "Similar to v1 decoder, the original v2 decoder skipped adding keys matching /^this\\$\\d+$/ to result.$. The diff removes this exclusion, causing 'this$' fields to be included unconditionally. Test changes show tests expecting 'this$0' field to be present and linked circularly, suggesting the original code was intentionally skipping or handling these fields differently. Removing exclusion may cause decoding inaccuracies or infinite recursion errors.",
+            "suggestion": "Restore the conditional check to exclude keys matching /^this\\$\\d+$/ when assigning to result.$ in v2 decoder."
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 2093,
+        "outputTokens": 323,
+        "totalTokens": 2416
+      },
+      "rawFindings": [
+        {
+          "title": "Dropped filtering of 'this$' keys in object decoding",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 415,
+          "explanation": "The original code conditionally skipped adding properties whose keys matched the regex /^this\\$\\d+$/ to the result object, avoiding potential circular references or unwanted keys. The new code removes this check and blindly assigns all read properties, including those with keys like 'this$0', potentially introducing circular references or undesired properties in the decoded object.",
+          "suggestion": "Reinstate the condition to exclude keys matching /^this\\$\\d+$/ when assigning properties to result.$:\nif (!/^this\\$\\d+$/.test(key)) {\n  result.$[key] = this.read(withType);"
+        },
+        {
+          "title": "Dropped filtering of 'this$' keys in object decoding for v2",
+          "severity": "high",
+          "file": "lib/v2/decoder.js",
+          "line": 587,
+          "explanation": "Similarly to v1 decoder, the v2 decoder removed the conditional check that prevented properties with keys matching /^this\\$\\d+$/ from being added to the result object. This change means objects now include these keys where previously they were deliberately omitted, risking circular references or incorrect object structure.",
+          "suggestion": "Restore the original conditional check to skip keys matching /^this\\$\\d+$/:\nvar value = this.read(withType);\nif (!/^this\\$\\d+$/.test(name)) {"
+        }
+      ],
+      "acceptedFindings": []
+    }
+  },
+  "complete": true
+}

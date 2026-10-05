@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-2",
+  "project": "Hessian.js",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+  "buggySha": "ed7f966a31c448a62a1414f26196b342631925bb",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1c6eaecbb962a4e53f7aebc5a9605f978944c1ad69d83849a73483ca03ba198a",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+    "maxFiles": 40,
+    "filesIndexed": 27,
+    "chunksIndexed": 123,
+    "embeddingUsage": {
+      "inputTokens": 166982,
+      "outputTokens": 0,
+      "totalTokens": 166982
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "d4e1555e9928700ffd1f4e21a0f285409160b649cd7fb48cc6eddf7272fce55e"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "7a8366fbf0b56d042d4558bb96f533927830a952cda30c26a1842197331ea8d3"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "68cef63dc14d7685650144fdfd65a3e5499bc06f3021929bfcb5dc040fcc754e"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "e4ac088e8ee8cc923f426e6f73a9b16a84ff86b3d06a9eaf942fb9978f379b8a"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "87595a4935247e661ab4f4aa8b61ca8758fa48e7a2dde3628d376f4dea5be99f"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "0b43e4c1e6eda6739f62c810d54b471d06f05a3710f455a82b2eada2c4c9066c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "264f52071d21bf6d178fed63b6faa81d022c546a59eb7ded68514e81e80f7e38"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f073ba8dc7741227e07fa99c5a90b438a7cf995ec7de430f7df5964e4fd5293c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 404,
+      "outputTokens": 0,
+      "totalTokens": 404
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5451,
+          "outputTokens": 301,
+          "totalTokens": 5752
+        },
+        "rawFindings": [
+          {
+            "title": "Potential invalid Object key assignment in _readMap for non-string/number keys",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 729,
+            "explanation": "Previously, any key 'k' returned by this.read(withType) would be assigned as map[k] = v without type checking. This could cause unexpected behavior if 'k' is an object or symbol, which are invalid keys for normal JS objects and would coerce to '[object Object]' or throw. The patch adds a check to only assign map[k] = v if k is string or number, preventing these edge cases.",
+            "suggestion": "Add a typeof check on 'k' before assigning map[k] = v to ensure only valid string or number keys are assigned as properties on the map object."
+          },
+          {
+            "title": "Potential invalid Object key assignment in readObject for non-string/number keys",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In readObject, the patch modifies the filter to only exclude keys matching /^this\\$\\d+$/ if the key is a string or number. This prevents keys of other types (like objects) from being included unchecked, which would cause unexpected or invalid property assignments on the return object.",
+            "suggestion": "Add a typeof check of the key to ensure only keys of type string or number pass the exclusion and get assigned as properties to the object, preventing invalid key assignments."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Potential invalid Object key assignment in readObject for non-string/number keys",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In readObject, the patch modifies the filter to only exclude keys matching /^this\\$\\d+$/ if the key is a string or number. This prevents keys of other types (like objects) from being included unchecked, which would cause unexpected or invalid property assignments on the return object.",
+            "suggestion": "Add a typeof check of the key to ensure only keys of type string or number pass the exclusion and get assigned as properties to the object, preventing invalid key assignments."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5451,
+          "outputTokens": 215,
+          "totalTokens": 5666
+        },
+        "rawFindings": [
+          {
+            "title": "_readMap assigns properties with non-string/number keys to plain object",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 733,
+            "explanation": "In the _readMap function, the original code assigned map[k] = v unconditionally (added line 733).\nThe new code only assigns map[k] = v if the key type is string or number, as per the condition on line 735.\n",
+            "suggestion": "Revert the added type check that limits assignment to string or number keys only. Allow map[k] = v unconditionally as before to preserve the original behavior."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "_readMap assigns properties with non-string/number keys to plain object",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 733,
+            "explanation": "In the _readMap function, the original code assigned map[k] = v unconditionally (added line 733).\nThe new code only assigns map[k] = v if the key type is string or number, as per the condition on line 735.\n",
+            "suggestion": "Revert the added type check that limits assignment to string or number keys only. Allow map[k] = v unconditionally as before to preserve the original behavior."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5451,
+          "outputTokens": 444,
+          "totalTokens": 5895
+        },
+        "rawFindings": [
+          {
+            "title": "_readMap assigns properties with non-string/number keys to plain object, causing incorrect behavior",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 730,
+            "explanation": "At line 730 in _readMap, previously the code assigned all keys to the map object: map[k] = v. After the change at added line 728 to line 733, it only assigns properties if the key type is 'string' or 'number'. Keys of other types are skipped and not converted to string keys. This breaks expected behavior for maps where keys are objects or other types, as those keys will be omitted from the plain object, causing incomplete map representation.",
+            "suggestion": "Either remove the newly added type check or handle non-string/number keys by converting them to string keys consistently, or preserving them appropriately, to maintain correct map decoding."
+          },
+          {
+            "title": "readObject allows only string or number typed keys now, altering expected object property reading",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 430,
+            "explanation": "At line 430 in readObject, the key inclusion condition was strengthened to only accept if key is string or number type and does not match /^this$\\d+$/. Previously, any key not matching the regex was accepted regardless of type. This change may exclude keys of other types that are valid in Hessian maps, inconsistent with the spec and previous behavior.",
+            "suggestion": "Revert the added typeof check and rely only on excluding keys matching /^this$\\d+$/ or handle special cases more explicitly."
+          },
+          {
+            "title": "Tests modified expected result for map keys of non-string types becoming empty objects",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test expectations were changed to expect empty objects instead of objects with stringified keys '[object Object]'. This reflects the new _readMap behavior skipping keys that are non-string/non-number type, indicating a breaking change in map decoding correctness for complex keys.",
+            "suggestion": "Revert test changes and fix code to preserve keys as strings consistent with Hessian key semantics or convert keys properly to string to maintain original expectations."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "readObject allows only string or number typed keys now, altering expected object property reading",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 430,
+            "explanation": "At line 430 in readObject, the key inclusion condition was strengthened to only accept if key is string or number type and does not match /^this$\\d+$/. Previously, any key not matching the regex was accepted regardless of type. This change may exclude keys of other types that are valid in Hessian maps, inconsistent with the spec and previous behavior.",
+            "suggestion": "Revert the added typeof check and rely only on excluding keys matching /^this$\\d+$/ or handle special cases more explicitly."
+          },
+          {
+            "title": "Tests modified expected result for map keys of non-string types becoming empty objects",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test expectations were changed to expect empty objects instead of objects with stringified keys '[object Object]'. This reflects the new _readMap behavior skipping keys that are non-string/non-number type, indicating a breaking change in map decoding correctness for complex keys.",
+            "suggestion": "Revert test changes and fix code to preserve keys as strings consistent with Hessian key semantics or convert keys properly to string to maintain original expectations."
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 584,
+        "outputTokens": 276,
+        "totalTokens": 860
+      },
+      "rawFindings": [
+        {
+          "title": "Inconsistent map key filtering in v1 decoder",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 430,
+          "explanation": "The new condition allows keys of type 'number' or 'string' to be processed, but JavaScript object keys are always coerced to strings. Allowing numbers without coercion may lead to unexpected behavior or missed filtering compared to the previous code that only checked keys as strings against the regex.",
+          "suggestion": "Coerce 'key' to string before testing the regex and ensure consistent key handling by only processing string keys, e.g., `var keyStr = String(key); if (!/^this\\$\\d+$/.test(keyStr))`."
+        },
+        {
+          "title": "Changed behavior in v2 decoder map key assignment may skip keys",
+          "severity": "high",
+          "file": "lib/v2/decoder.js",
+          "line": 733,
+          "explanation": "The new code assigns map[k] = v only if k is of type 'string' or 'number'. However, JavaScript object keys are always strings, and other types like symbols or objects are not valid keys. If 'k' can be other types legitimately, this change might skip entries incorrectly, altering behavior.",
+          "suggestion": "Ensure keys are correctly normalized to strings before assignment or verify that skipping keys of other types does not break functionality."
+        }
+      ],
+      "acceptedFindings": [
+        {
+          "title": "Inconsistent map key filtering in v1 decoder",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 430,
+          "explanation": "The new condition allows keys of type 'number' or 'string' to be processed, but JavaScript object keys are always coerced to strings. Allowing numbers without coercion may lead to unexpected behavior or missed filtering compared to the previous code that only checked keys as strings against the regex.",
+          "suggestion": "Coerce 'key' to string before testing the regex and ensure consistent key handling by only processing string keys, e.g., `var keyStr = String(key); if (!/^this\\$\\d+$/.test(keyStr))`."
+        },
+        {
+          "title": "Changed behavior in v2 decoder map key assignment may skip keys",
+          "severity": "high",
+          "file": "lib/v2/decoder.js",
+          "line": 733,
+          "explanation": "The new code assigns map[k] = v only if k is of type 'string' or 'number'. However, JavaScript object keys are always strings, and other types like symbols or objects are not valid keys. If 'k' can be other types legitimately, this change might skip entries incorrectly, altering behavior.",
+          "suggestion": "Ensure keys are correctly normalized to strings before assignment or verify that skipping keys of other types does not break functionality."
+        }
+      ]
+    }
+  },
+  "complete": true
+}

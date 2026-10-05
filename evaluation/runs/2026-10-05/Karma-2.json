@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-2",
+  "project": "Karma",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "05616a2f4ceca7e86f35a921ab26fe571db33cc9",
+  "buggySha": "8ef475f7d1a06562e659347dcc53c2e474cbddc7",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "19b15f6f9ebbbac0f12f0769b09c8b3a7e081b202603a1033fe3d106a873174f",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "05616a2f4ceca7e86f35a921ab26fe571db33cc9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 86,
+    "embeddingUsage": {
+      "inputTokens": 65476,
+      "outputTokens": 0,
+      "totalTokens": 65476
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "526a928b7cc1b48e61473eea4f06c2695820cc796b02f11f5662ba65883ad3a1"
+      },
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "d10b36aa74a59bcf4a88185837f658afaf3646eff2bb16c3928d0e9335e945d2"
+      },
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "efc466a20b97f951f1bbe9d257cda5c438b30865092e84432105b1e0f68c53f7"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "cd3bd4a535f1dc39f7332de5c2506e709c6fc1f2f10e66c771f5350839ee3ae2"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "ab222d68c0079cf91d3e0ecfd8206161ac2db477087106302aed38a0200a9690"
+      },
+      {
+        "path": "lib/middleware/source_files.js",
+        "contentSha256": "8bc8f254ea672bb330a7d9e0872f50f9bfa63c2f2376989767ea0592a1097e13"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "a9d6a06a327e58b3eab8e3b0d24cbdf18c8db49107225c50fb30949ca40e64f0"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "af468eb5f21e64271a983147caa8e8dbc81ea998ccad534274202ecc10cfb665"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 576,
+      "outputTokens": 0,
+      "totalTokens": 576
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4622,
+          "outputTokens": 6,
+          "totalTokens": 4628
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4622,
+          "outputTokens": 293,
+          "totalTokens": 4915
+        },
+        "rawFindings": [
+          {
+            "title": "Regression: Incorrect port resolution for proxy targets",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The patch replaces an explicit port resolution logic with a single statement: `var port = proxyDetails.port || config.port || (proxyDetails.protocol === 'https:' ? '443' : '80')`. This results in incorrect port assignment when both proxyDetails.port and config.port are undefined, especially for HTTP, as '80' would only be used if config.port is falsy, but if config.port is undefined and proxyDetails.port is undefined, then the fallback works. However, it also changes the order and possibly type ",
+            "suggestion": "Revert to original logic that explicitly assigns port based on presence of proxyDetails.port or protocol, and fallback to config.port only then:\n\n```js"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Regression: Incorrect port resolution for proxy targets",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The patch replaces an explicit port resolution logic with a single statement: `var port = proxyDetails.port || config.port || (proxyDetails.protocol === 'https:' ? '443' : '80')`. This results in incorrect port assignment when both proxyDetails.port and config.port are undefined, especially for HTTP, as '80' would only be used if config.port is falsy, but if config.port is undefined and proxyDetails.port is undefined, then the fallback works. However, it also changes the order and possibly type ",
+            "suggestion": "Revert to original logic that explicitly assigns port based on presence of proxyDetails.port or protocol, and fallback to config.port only then:\n\n```js"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4622,
+          "outputTokens": 253,
+          "totalTokens": 4875
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect proxy port resolution after refactor",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The original code explicitly sets the 'port' based on the presence of 'proxyDetails.port', then fallback to 'proxyDetails.protocol' to assign 443 (https) or 80 (http), or finally to 'config.port'. The replaced code line 'var port = proxyDetails.port || config.port || (proxyDetails.protocol === 'https:' ? '443' : '80')' changes the order and priority of port resolution, and if 'config.port' is set, it will be chosen before the protocol specific ports 80/443, which is a behavioral change and can r",
+            "suggestion": "Restore the original control flow to respect the priority: if proxyDetails.port is present, use it; else, if protocol is defined, set port to 443 for 'https:' or 80 for others; else use config.port. So revert the changes to ensure correct port resolution."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect proxy port resolution after refactor",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The original code explicitly sets the 'port' based on the presence of 'proxyDetails.port', then fallback to 'proxyDetails.protocol' to assign 443 (https) or 80 (http), or finally to 'config.port'. The replaced code line 'var port = proxyDetails.port || config.port || (proxyDetails.protocol === 'https:' ? '443' : '80')' changes the order and priority of port resolution, and if 'config.port' is set, it will be chosen before the protocol specific ports 80/443, which is a behavioral change and can r",
+            "suggestion": "Restore the original control flow to respect the priority: if proxyDetails.port is present, use it; else, if protocol is defined, set port to 443 for 'https:' or 80 for others; else use config.port. So revert the changes to ensure correct port resolution."
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 758,
+        "outputTokens": 83,
+        "totalTokens": 841
+      },
+      "rawFindings": [
+        {
+          "title": "Removed tests for proxy port parsing behavior",
+          "severity": "medium",
+          "file": "test/unit/middleware/proxy.spec.js",
+          "line": 255,
+          "explanation": "The pull request deletes two unit tests that verify correct parsing of proxy target ports for both HTTP and HTTPS protocols.",
+          "suggestion": "Retain or replace the deleted tests to ensure proxy port parsing continues to work as expected."
+        }
+      ],
+      "acceptedFindings": []
+    }
+  },
+  "complete": true
+}

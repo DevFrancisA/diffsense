@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-1",
+  "project": "Bower",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "197b41d97ac4425978c7b91ad01086d8264785f0",
+  "buggySha": "7b11a57c6f834641e3bd92b9781f262be1329700",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "01d824c16e10aa654e54058fb3c35242c3705133b872d04cda70024b9b14933b",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "197b41d97ac4425978c7b91ad01086d8264785f0",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 120,
+    "embeddingUsage": {
+      "inputTokens": 106794,
+      "outputTokens": 0,
+      "totalTokens": 106794
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "52070654af27cdb1a18e28882eedadce53dbd50f8a5c15bbef97c8068995de3a"
+      },
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "3412587d12510d8032d55289090a687a58ecbbac401002992818da8b96d37a4d"
+      },
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "c6a988067acdf9c561b531a38943a2d2286bfeb9482562bf283c0bb508d91eca"
+      },
+      {
+        "path": "lib/core/resolvers/Resolver.js",
+        "contentSha256": "f8eb77e1e3985748f41e98d6f7cdc07e878dc384cd353cd4e6cbbb9e354e4b3d"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "c301cb3f9e8ee36558da7859bd725d4a3b25b7bac829fdbd98b0866c7fed8ca2"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "a185306c5ccc88e5caa0e0a1448a356ad02efc361ff8a51e0acc730a6eed9081"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "6febe09b2451f9360d2be471152a083604e6acdd90f06e51330aa15d575a473d"
+      },
+      {
+        "path": "lib/core/resolvers/Resolver.js",
+        "contentSha256": "897f3274282a9c42fc4621f6a652085d81680f99f97f3e7fe44eabb4af848807"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 873,
+      "outputTokens": 0,
+      "totalTokens": 873
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5370,
+          "outputTokens": 276,
+          "totalTokens": 5646
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect caching behavior for local dependencies and branch targets in PackageRepository.fetch",
+            "severity": "high",
+            "file": "lib/core/PackageRepository.js",
+            "line": 49,
+            "explanation": "The patch removes the check for resolver.isNotCacheable() in the fetch method that would bypass the cache for certain resolvers. Instead, it only checks the force flag and then attempts to use the cache. This change causes local dependencies and similar types no longer to bypass cache retrieval, potentially leading to incorrect results or stale caches being used.",
+            "suggestion": "Restore the check for resolver.isNotCacheable() in fetch to bypass caching logic for local dependencies and branch targets, preserving the original behavior."
+          },
+          {
+            "title": "Incorrect caching behavior for branch targets in PackageRepository._resolve",
+            "severity": "high",
+            "file": "lib/core/PackageRepository.js",
+            "line": 178,
+            "explanation": "The patch replaces a check of resolver.isNotCacheable() with a direct check of resolver._resolution.type === 'branch' to decide whether to cache the resolved package. This is less comprehensive and breaks the caching bypass for local file dependencies which are handled by isNotCacheable(). This will cause local dependencies to be cached improperly.",
+            "suggestion": "Use resolver.isNotCacheable() to decide caching bypass in _resolve method to preserve correct behavior for all relevant cases including local dependencies and branches."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect caching behavior for local dependencies and branch targets in PackageRepository.fetch",
+            "severity": "high",
+            "file": "lib/core/PackageRepository.js",
+            "line": 49,
+            "explanation": "The patch removes the check for resolver.isNotCacheable() in the fetch method that would bypass the cache for certain resolvers. Instead, it only checks the force flag and then attempts to use the cache. This change causes local dependencies and similar types no longer to bypass cache retrieval, potentially leading to incorrect results or stale caches being used.",
+            "suggestion": "Restore the check for resolver.isNotCacheable() in fetch to bypass caching logic for local dependencies and branch targets, preserving the original behavior."
+          },
+          {
+            "title": "Incorrect caching behavior for branch targets in PackageRepository._resolve",
+            "severity": "high",
+            "file": "lib/core/PackageRepository.js",
+            "line": 178,
+            "explanation": "The patch replaces a check of resolver.isNotCacheable() with a direct check of resolver._resolution.type === 'branch' to decide whether to cache the resolved package. This is less comprehensive and breaks the caching bypass for local file dependencies which are handled by isNotCacheable(). This will cause local dependencies to be cached improperly.",
+            "suggestion": "Use resolver.isNotCacheable() to decide caching bypass in _resolve method to preserve correct behavior for all relevant cases including local dependencies and branches."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5370,
+          "outputTokens": 168,
+          "totalTokens": 5538
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect caching logic for moving targets in PackageRepository._resolve",
+            "severity": "high",
+            "file": "lib/core/PackageRepository.js",
+            "line": 177,
+            "explanation": "The original code incorrectly caches resolvers marked as not cacheable by checking resolver.isNotCacheable(). The patch replaces this with a check for resolver._resolution.type === 'branch' to avoid caching moving targets like branches, but fails to include a check for local file sources (which resolver.isNotCacheable() covered). This causes local dependencies to be cached incorrectly, potentially leading to stale or invalid cache usage.",
+            "suggestion": "Restore the check for local file sources to avoid caching them, or reinstate the isNotCacheable method call to decide whether to cache, ensuring all not cacheable cases are covered before storing in cache."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect caching logic for moving targets in PackageRepository._resolve",
+            "severity": "high",
+            "file": "lib/core/PackageRepository.js",
+            "line": 177,
+            "explanation": "The original code incorrectly caches resolvers marked as not cacheable by checking resolver.isNotCacheable(). The patch replaces this with a check for resolver._resolution.type === 'branch' to avoid caching moving targets like branches, but fails to include a check for local file sources (which resolver.isNotCacheable() covered). This causes local dependencies to be cached incorrectly, potentially leading to stale or invalid cache usage.",
+            "suggestion": "Restore the check for local file sources to avoid caching them, or reinstate the isNotCacheable method call to decide whether to cache, ensuring all not cacheable cases are covered before storing in cache."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5370,
+          "outputTokens": 313,
+          "totalTokens": 5683
+        },
+        "rawFindings": [
+          {
+            "title": "Removed isNotCacheable method causes bypass cache logic to be lost",
+            "severity": "critical",
+            "file": "lib/core/PackageRepository.js",
+            "line": 49,
+            "explanation": "The patch deletes the Resolver.prototype.isNotCacheable method from lib/core/resolvers/Resolver.js and removes the if (resolver.isNotCacheable()) { return that._resolve(resolver, logger); } branch in PackageRepository.prototype.fetch. This method determined whether a resolver should bypass the cache (for example, local file dependencies or branches). Removing it causes all resolvers to try to use the cache, which is incorrect behavior and will break resolutions for local file dependencies or bra",
+            "suggestion": "Restore the isNotCacheable method on Resolver.prototype and the corresponding cache bypass check in PackageRepository.prototype.fetch."
+          },
+          {
+            "title": "_resolve method cache skipping logic modified incorrectly",
+            "severity": "critical",
+            "file": "lib/core/PackageRepository.js",
+            "line": 178,
+            "explanation": "In PackageRepository.prototype._resolve, the original implementation called _resolveCache.store unless resolver.isNotCacheable() was true. The patch replaces this with a manual check only for resolver._resolution.type === 'branch', skipping cache for branches only, and otherwise storing to cache. This is inconsistent with previous logic that also skipped caching for local file dependencies. This causes local file dependencies to be cached, changing expected behavior and possibly causing incorrec",
+            "suggestion": "Reinstate the cache skipping behavior for all non-cacheable resolvers, not just branches."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Removed isNotCacheable method causes bypass cache logic to be lost",
+            "severity": "critical",
+            "file": "lib/core/PackageRepository.js",
+            "line": 49,
+            "explanation": "The patch deletes the Resolver.prototype.isNotCacheable method from lib/core/resolvers/Resolver.js and removes the if (resolver.isNotCacheable()) { return that._resolve(resolver, logger); } branch in PackageRepository.prototype.fetch. This method determined whether a resolver should bypass the cache (for example, local file dependencies or branches). Removing it causes all resolvers to try to use the cache, which is incorrect behavior and will break resolutions for local file dependencies or bra",
+            "suggestion": "Restore the isNotCacheable method on Resolver.prototype and the corresponding cache bypass check in PackageRepository.prototype.fetch."
+          },
+          {
+            "title": "_resolve method cache skipping logic modified incorrectly",
+            "severity": "critical",
+            "file": "lib/core/PackageRepository.js",
+            "line": 178,
+            "explanation": "In PackageRepository.prototype._resolve, the original implementation called _resolveCache.store unless resolver.isNotCacheable() was true. The patch replaces this with a manual check only for resolver._resolution.type === 'branch', skipping cache for branches only, and otherwise storing to cache. This is inconsistent with previous logic that also skipped caching for local file dependencies. This causes local file dependencies to be cached, changing expected behavior and possibly causing incorrec",
+            "suggestion": "Reinstate the cache skipping behavior for all non-cacheable resolvers, not just branches."
+          }
+        ]
+      }
+    ],
+    "withoutContext": {
+      "model": "gpt-4.1-mini",
+      "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+      "usage": {
+        "inputTokens": 1049,
+        "outputTokens": 142,
+        "totalTokens": 1191
+      },
+      "rawFindings": [
+        {
+          "title": "Incorrect handling of caching for branches in _resolve method",
+          "severity": "high",
+          "file": "lib/core/PackageRepository.js",
+          "line": 177,
+          "explanation": "The new code in PackageRepository.prototype._resolve replaces the existing isNotCacheable check with a condition that skips caching only if resolver._resolution.type === 'branch'. This change omits handling local dependencies as non-cacheable, potentially causing local dependencies to be cached, which is incorrect behavior according to previous logic.",
+          "suggestion": "Restore the complete logic from Resolver.prototype.isNotCacheable that checks both for local dependencies and branch targets, or re-implement isNotCacheable method to preserve the original behavior."
+        }
+      ],
+      "acceptedFindings": [
+        {
+          "title": "Incorrect handling of caching for branches in _resolve method",
+          "severity": "high",
+          "file": "lib/core/PackageRepository.js",
+          "line": 177,
+          "explanation": "The new code in PackageRepository.prototype._resolve replaces the existing isNotCacheable check with a condition that skips caching only if resolver._resolution.type === 'branch'. This change omits handling local dependencies as non-cacheable, potentially causing local dependencies to be cached, which is incorrect behavior according to previous logic.",
+          "suggestion": "Restore the complete logic from Resolver.prototype.isNotCacheable that checks both for local dependencies and branch targets, or re-implement isNotCacheable method to preserve the original behavior."
+        }
+      ]
+    }
+  },
+  "complete": true
+}
