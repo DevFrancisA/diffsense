@@ -1,10 +1,10 @@
 {
   "runDate": "2026-10-05",
   "callLimit": 500,
-  "reservedCalls": 212,
-  "completedCalls": 211,
-  "estimatedInputTokens": 2710407,
-  "observedInputTokens": 1917798,
-  "observedOutputTokens": 17790,
-  "observedTotalTokens": 1935588
+  "reservedCalls": 330,
+  "completedCalls": 328,
+  "estimatedInputTokens": 4669228,
+  "observedInputTokens": 3304524,
+  "observedOutputTokens": 31929,
+  "observedTotalTokens": 3336453
 }

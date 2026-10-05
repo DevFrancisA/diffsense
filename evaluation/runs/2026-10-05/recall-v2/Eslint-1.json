@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-1",
+  "project": "Eslint",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+  "buggySha": "4742d82ee9daf68c9095c283ce1d0dab42fe9e32",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "0847065488769f2cb432c0f2a5c6882dbb14edaf9b3c7d88ce4eb6a81543b36f",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 186,
+    "embeddingUsage": {
+      "inputTokens": 177276,
+      "outputTokens": 0,
+      "totalTokens": 177276
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "9a1a1acbf3ce16cc62f5738cd32f9cc508ac9438acda90570cfb883000eae163"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "5e883404183491b59413b544e673370bef9d02452603b6e9f3f1655ef0092a1d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2184d0c36ae059355db97131389723026e255863e2eae47fde6fb8f1e2ba9ff1"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "6ba4794bb0193119faf1cd4da7453c3aa438f0ce28a9d6504f184ac4d6526880"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bac555b5b248028f13a5e4d88551658fb6a52f234ef1467d311ded0ce5b4ce83"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "f6b680b4efd4cbc127df6854f7061e53f55c553079ec944d6910e04b7ef19e74"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 590,
+      "outputTokens": 0,
+      "totalTokens": 590
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5766,
+          "outputTokens": 178,
+          "totalTokens": 5944
+        },
+        "rawFindings": [
+          {
+            "title": "Inconsistent rule and tests regarding 'Reflect' object call prohibition",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule implementation no longer considers 'Reflect' as disallowed to be called as a function, but the documentation and tests had previously included it. The PR removes 'Reflect' from the list in the rule and also removes its test and documentation mentions. This change may cause a behavioral inconsistency if callers expect 'Reflect' calls to be flagged, potentially missing invalid calls to `Reflect()`.",
+            "suggestion": "Ensure that removal of 'Reflect' is intentional and documented clearly. If 'Reflect' calls should remain disallowed, add it back to the rule's disallowed names and update tests and docs consistently. Otherwise, clearly document this behavior change to avoid confusion."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Inconsistent rule and tests regarding 'Reflect' object call prohibition",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule implementation no longer considers 'Reflect' as disallowed to be called as a function, but the documentation and tests had previously included it. The PR removes 'Reflect' from the list in the rule and also removes its test and documentation mentions. This change may cause a behavioral inconsistency if callers expect 'Reflect' calls to be flagged, potentially missing invalid calls to `Reflect()`.",
+            "suggestion": "Ensure that removal of 'Reflect' is intentional and documented clearly. If 'Reflect' calls should remain disallowed, add it back to the rule's disallowed names and update tests and docs consistently. Otherwise, clearly document this behavior change to avoid confusion."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5766,
+          "outputTokens": 402,
+          "totalTokens": 6168
+        },
+        "rawFindings": [
+          {
+            "title": "Removing 'Reflect' from no-obj-calls rule check and documentation",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule no-obj-calls originally disallowed calling 'Math', 'JSON', and 'Reflect' objects as functions. The change removes 'Reflect' from this check, so calls to 'Reflect()' will no longer be flagged by this rule. This modification affects the rule's intended coverage according to the specification.",
+            "suggestion": "If 'Reflect' is non-callable as per ECMAScript specification, it should remain in the no-obj-calls rule to prevent false positives. Re-include the 'Reflect' check if calls to Reflect are invalid."
+          },
+          {
+            "title": "Documentation no longer disallows calling 'Reflect' object",
+            "severity": "medium",
+            "file": "docs/rules/no-obj-calls.md",
+            "line": 8,
+            "explanation": "The documentation is updated to remove references that calling 'Reflect' is disallowed and no longer documents the previous constraint that 'Reflect' is not callable. This makes documentation inconsistent with ES specification that states Reflect cannot be invoked as a function.",
+            "suggestion": "Update the documentation if the removal of 'Reflect' from the rule is intentional; otherwise, restore the documentation to reflect the ES specification that 'Reflect' is not callable."
+          },
+          {
+            "title": "Test case removing checks for calling 'Reflect'",
+            "severity": "high",
+            "file": "tests/lib/rules/no-obj-calls.js",
+            "line": 27,
+            "explanation": "The test case that expects calling 'Reflect()' to be flagged as an error has been removed. This means that the test suite no longer verifies that calls to the non-callable 'Reflect' object are identified as errors, reducing test coverage for this scenario.",
+            "suggestion": "To maintain comprehensive testing, either revert removal of these test cases or add alternative tests validating intended behavior if exclusion of 'Reflect' is deliberate."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Removing 'Reflect' from no-obj-calls rule check and documentation",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule no-obj-calls originally disallowed calling 'Math', 'JSON', and 'Reflect' objects as functions. The change removes 'Reflect' from this check, so calls to 'Reflect()' will no longer be flagged by this rule. This modification affects the rule's intended coverage according to the specification.",
+            "suggestion": "If 'Reflect' is non-callable as per ECMAScript specification, it should remain in the no-obj-calls rule to prevent false positives. Re-include the 'Reflect' check if calls to Reflect are invalid."
+          },
+          {
+            "title": "Test case removing checks for calling 'Reflect'",
+            "severity": "high",
+            "file": "tests/lib/rules/no-obj-calls.js",
+            "line": 27,
+            "explanation": "The test case that expects calling 'Reflect()' to be flagged as an error has been removed. This means that the test suite no longer verifies that calls to the non-callable 'Reflect' object are identified as errors, reducing test coverage for this scenario.",
+            "suggestion": "To maintain comprehensive testing, either revert removal of these test cases or add alternative tests validating intended behavior if exclusion of 'Reflect' is deliberate."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5766,
+          "outputTokens": 349,
+          "totalTokens": 6115
+        },
+        "rawFindings": [
+          {
+            "title": "Missing rule enforcement and test coverage for 'Reflect' object calls in no-obj-calls rule",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The change removes 'Reflect' from the list of disallowed function calls ('Math', 'JSON', 'Reflect'), effectively allowing calls like Reflect() which are invalid and should be disallowed. This leads to incorrect linting behavior, permitting a disallowed pattern.",
+            "suggestion": "Restore 'Reflect' in the list of disallowed objects to be called as functions, ensuring the rule correctly flags calls like Reflect()."
+          },
+          {
+            "title": "Test cases no longer cover calling Reflect object as function",
+            "severity": "high",
+            "file": "tests/lib/rules/no-obj-calls.js",
+            "line": 27,
+            "explanation": "The test case checking that calling 'Reflect()' results in a linting error has been removed, lowering test coverage and allowing potential regressions where improper calls to Reflect are not detected.",
+            "suggestion": "Restore the test case for calling Reflect() to ensure that the no-obj-calls rule correctly detects and reports this usage as an error."
+          },
+          {
+            "title": "Documentation no longer correctly states that calling Reflect() is disallowed",
+            "severity": "medium",
+            "file": "docs/rules/no-obj-calls.md",
+            "line": 8,
+            "explanation": "The documentation previously stated that calling 'Reflect()' is disallowed; this explanation and examples have been removed, which may confuse users about the rule's scope and enforcement regarding Reflect calls.",
+            "suggestion": "Update the documentation to clearly state whether 'Reflect' calls are disallowed or allowed by the rule to keep docs consistent with implementation and avoid misunderstandings."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Missing rule enforcement and test coverage for 'Reflect' object calls in no-obj-calls rule",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The change removes 'Reflect' from the list of disallowed function calls ('Math', 'JSON', 'Reflect'), effectively allowing calls like Reflect() which are invalid and should be disallowed. This leads to incorrect linting behavior, permitting a disallowed pattern.",
+            "suggestion": "Restore 'Reflect' in the list of disallowed objects to be called as functions, ensuring the rule correctly flags calls like Reflect()."
+          },
+          {
+            "title": "Test cases no longer cover calling Reflect object as function",
+            "severity": "high",
+            "file": "tests/lib/rules/no-obj-calls.js",
+            "line": 27,
+            "explanation": "The test case checking that calling 'Reflect()' results in a linting error has been removed, lowering test coverage and allowing potential regressions where improper calls to Reflect are not detected.",
+            "suggestion": "Restore the test case for calling Reflect() to ensure that the no-obj-calls rule correctly detects and reports this usage as an error."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-6",
+  "project": "Hessian.js",
+  "bugId": 6,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "bd14cde77ed746286fbef304076d56c8b37547ff",
+  "buggySha": "4c439be9f4cd477d47f3bd28946cb055fba4432b",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "a611dc52e9b2903f78f62ba2af7a9994f7a89aa5ae02f5322263834b9f953ce7",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "bd14cde77ed746286fbef304076d56c8b37547ff",
+    "maxFiles": 40,
+    "filesIndexed": 25,
+    "chunksIndexed": 117,
+    "embeddingUsage": {
+      "inputTokens": 160256,
+      "outputTokens": 0,
+      "totalTokens": 160256
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "test/decode.circular.test.js",
+        "contentSha256": "aa5f7f151cb339ad2e6ee847c7d8a5f8f4b4b80f53472a2ecbfa6171f1c1643b"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "9b44247c97df1f21092bce65012250f24d8f0e0f83df03ba98390e083fb5af36"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "bc2977f13f73058f29a538e86a884a913b6e9fb13ea1c6cb9813696fd0ce71f4"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "94a9b4e0b83e3b90690ca403463a6c9e7fbde45631bd8931f90cda647d4d7069"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "5f9b855aae61f711ed35a42de4a93e8c59c2c185ecb625dac8a5faf3250f7e0c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1902,
+      "outputTokens": 0,
+      "totalTokens": 1902
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 7407,
+          "outputTokens": 581,
+          "totalTokens": 7988
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect skipping of 'this$\\d+' fields in object decoding for v1",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 414,
+            "explanation": "The original code skipped keys matching the /^this\\$\\d+$/ pattern when populating the decoded object's $ property (seen in commented-out code). This means fields named like 'this$0', 'this$1', etc., were ignored in the decoded result, causing data loss and desync between decoding and expected structure, e.g., a missing field might break object references or expected circular structures.",
+            "suggestion": "Remove the conditional skip so that all fields, including 'this$\\d+', are included in the decoded object. This ensures complete and accurate deserialization."
+          },
+          {
+            "title": "Incorrect skipping of 'this$\\d+' fields in object decoding for v2",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 587,
+            "explanation": "Similar to v1 decoder, the v2 decoder code also skips keys matching /^this\\$\\d+$/ pattern when reading fields into the decoded object. This leads to missing fields that could be essential to object graphs or references, causing incomplete or inconsistent decoded objects.",
+            "suggestion": "Eliminate the condition that excludes 'this$\\d+' keys to preserve all fields during decoding and maintain fidelity to the encoded object."
+          },
+          {
+            "title": "Test deletions remove coverage of critical circular reference decoding",
+            "severity": "medium",
+            "file": "test/decode.circular.test.js",
+            "line": 1,
+            "explanation": "The entire test file 'test/decode.circular.test.js' was deleted. This file contains tests for decoding circular references in Hessian objects (v1 and v2). Deleting these tests reduces coverage for ensuring proper decoding of circular references, which can be subtle and error-prone. The modification in decoder to stop skipping 'this$\\d+' fields may have been motivated by fixing these cases, but deleting tests weakens regression safety.",
+            "suggestion": "Retain or merge these tests into other test files to maintain coverage for circular object decoding scenarios."
+          },
+          {
+            "title": "Object test improvements enable validation of 'this$0' field handling and encoding fidelity",
+            "severity": "low",
+            "file": "test/object.test.js",
+            "line": 62,
+            "explanation": "The test code now includes the 'this$0' fields explicitly in decoded objects and sets the cyclical references (@ jsconnreq.$.ctx.$.this$0 = jsconnreq). Removed comments and enabled assertions on encoded buffer lengths (jsbuf2.should.length and should.eql). This improves coverage and verification of cyclic references and ensures encoded form matches expected input buffers accurately.",
+            "suggestion": "These tests are positive improvements validating the decoder/encoder symmetry on cyclic objects and should be retained and extended to prevent regressions on 'this$0' fields handling."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect skipping of 'this$\\d+' fields in object decoding for v2",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "Similar to v1 decoder, the v2 decoder code also skips keys matching /^this\\$\\d+$/ pattern when reading fields into the decoded object. This leads to missing fields that could be essential to object graphs or references, causing incomplete or inconsistent decoded objects.",
+            "suggestion": "Eliminate the condition that excludes 'this$\\d+' keys to preserve all fields during decoding and maintain fidelity to the encoded object."
+          },
+          {
+            "title": "Object test improvements enable validation of 'this$0' field handling and encoding fidelity",
+            "severity": "low",
+            "file": "test/object.test.js",
+            "line": 63,
+            "explanation": "The test code now includes the 'this$0' fields explicitly in decoded objects and sets the cyclical references (@ jsconnreq.$.ctx.$.this$0 = jsconnreq). Removed comments and enabled assertions on encoded buffer lengths (jsbuf2.should.length and should.eql). This improves coverage and verification of cyclic references and ensures encoded form matches expected input buffers accurately.",
+            "suggestion": "These tests are positive improvements validating the decoder/encoder symmetry on cyclic objects and should be retained and extended to prevent regressions on 'this$0' fields handling."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 7407,
+          "outputTokens": 556,
+          "totalTokens": 7963
+        },
+        "rawFindings": [
+          {
+            "title": "Break of intentional field exclusion for 'this$' prefixed keys in v1 decoder",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "Previously, code avoided including object keys matching /^this$\\d+$/ into the parsed object's $ properties, apparently to skip internal circular references or similar. The change removes this exclusion, now including all keys. This alters behavior by including fields previously skipped, potentially breaking assumptions for code expecting those fields to be missing or handled specially.",
+            "suggestion": "Restore the conditional check to skip keys matching /^this$\\d+$/ if those fields are intended to be omitted during decoding, or carefully audit all downstream uses of these fields to confirm including them has no negative impact."
+          },
+          {
+            "title": "Break of intentional field exclusion for 'this$' prefixed keys in v2 decoder",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 587,
+            "explanation": "Similar to the v1 decoder change, the conditional check preventing keys matching /^this$\\d+$/ from being added to the object's $ properties has been removed. This causes prior skipped fields to now be included, changing object structure and potentially affecting consumers expecting previous behavior.",
+            "suggestion": "Restore the conditional exclusion for /^this$\\d+$/ keys or ensure that including these fields is compatible with existing usage and tests."
+          },
+          {
+            "title": "Test suite deletes 'test/decode.circular.test.js' which covered circular references in decode",
+            "severity": "low",
+            "file": "test/decode.circular.test.js",
+            "line": 1,
+            "explanation": "The entire test file testing circular decoding has been deleted. This might reduce test coverage for circular reference decoding, increasing risk of undetected regressions in recursive deserialization methods.",
+            "suggestion": "Assess if equivalent coverage now exists elsewhere in tests, or consider reintegrating or refactoring these tests to maintain verification of circular decode functionality."
+          },
+          {
+            "title": "Test changes now expect 'this$0' field to be present and match parent circular references",
+            "severity": "medium",
+            "file": "test/object.test.js",
+            "line": 65,
+            "explanation": "Tests for decoding and encoding objects have been changed to expect that 'this$0' fields are included and properly point back to containing objects (circular references). This aligns with decoder changes that stopped omitting these keys. The tests also remove commented out fields and add field explicitly, expecting exact matching and encoding output equality rather than skipping fields. This tightens contract but may break compatibility with older versions that omitted 'this$0'.",
+            "suggestion": "Review consumers relying on prior omission of 'this$0' properties; update documentation and users as needed. Confirm all test cases cover circular references correctly with these fields included."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Break of intentional field exclusion for 'this$' prefixed keys in v1 decoder",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 417,
+            "explanation": "Previously, code avoided including object keys matching /^this$\\d+$/ into the parsed object's $ properties, apparently to skip internal circular references or similar. The change removes this exclusion, now including all keys. This alters behavior by including fields previously skipped, potentially breaking assumptions for code expecting those fields to be missing or handled specially.",
+            "suggestion": "Restore the conditional check to skip keys matching /^this$\\d+$/ if those fields are intended to be omitted during decoding, or carefully audit all downstream uses of these fields to confirm including them has no negative impact."
+          },
+          {
+            "title": "Break of intentional field exclusion for 'this$' prefixed keys in v2 decoder",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "Similar to the v1 decoder change, the conditional check preventing keys matching /^this$\\d+$/ from being added to the object's $ properties has been removed. This causes prior skipped fields to now be included, changing object structure and potentially affecting consumers expecting previous behavior.",
+            "suggestion": "Restore the conditional exclusion for /^this$\\d+$/ keys or ensure that including these fields is compatible with existing usage and tests."
+          },
+          {
+            "title": "Test changes now expect 'this$0' field to be present and match parent circular references",
+            "severity": "medium",
+            "file": "test/object.test.js",
+            "line": 63,
+            "explanation": "Tests for decoding and encoding objects have been changed to expect that 'this$0' fields are included and properly point back to containing objects (circular references). This aligns with decoder changes that stopped omitting these keys. The tests also remove commented out fields and add field explicitly, expecting exact matching and encoding output equality rather than skipping fields. This tightens contract but may break compatibility with older versions that omitted 'this$0'.",
+            "suggestion": "Review consumers relying on prior omission of 'this$0' properties; update documentation and users as needed. Confirm all test cases cover circular references correctly with these fields included."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 7407,
+          "outputTokens": 517,
+          "totalTokens": 7924
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect skipping of fields named like 'this$<number>' in v1 object decoding",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "The original code explicitly ignored fields whose keys matched /^this\\$\\d+$/ regex, skipping these fields during object decoding. The patch removes this check, now including such fields in the decoded object. Skipping these fields could cause incomplete objects, especially when such fields are important references in circular or self-referential data structures (for example, 'this$0' may represent a back reference). Retaining these fields preserves structural integrity.",
+            "suggestion": "Retain the fields named like 'this$<number>' in the decoding result to preserve object structure and references, as done by removing the skipping condition."
+          },
+          {
+            "title": "Incorrect skipping of fields named like 'this$<number>' in v2 object decoding",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 587,
+            "explanation": "Similarly to v1 decoder, the original v2 decoder skipped fields named like 'this$<number>' during object decoding, which would lead to loss of these fields and potential structural inconsistencies in decoded objects. The patch removes the skipping logic, ensuring all fields are included.",
+            "suggestion": "Include all fields during object decoding, regardless of their name, to maintain data integrity and proper object references."
+          },
+          {
+            "title": "Removed test coverage for circular decoding",
+            "severity": "low",
+            "file": "test/decode.circular.test.js",
+            "line": 1,
+            "explanation": "The entire test file for circular decoding was deleted, removing direct tests for circular reference handling in old tests. While tests were simplified, this reduces direct coverage for this edge case in the test suite. However, other tests in object.test.js cover related scenarios.",
+            "suggestion": "Ensure that circular references are still tested adequately in other test files to avoid regressions."
+          },
+          {
+            "title": "Updated tests to reflect new behavior including 'this$0' fields",
+            "severity": "low",
+            "file": "test/object.test.js",
+            "line": 69,
+            "explanation": "Test adjustments show that now the decoded objects keep 'this$0' properties (self-reference fields) rather than skipping them, consistent with decoder changes. The tests also re-enable assertions on the length and exact equality of encoded buffers, implying correct and lossless encoding and decoding of these fields.",
+            "suggestion": "Maintain the updated test assertions to ensure 'this$0' and similar fields are preserved, confirming the correctness of decoding and encoding with circular references."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect skipping of fields named like 'this$<number>' in v1 object decoding",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 417,
+            "explanation": "The original code explicitly ignored fields whose keys matched /^this\\$\\d+$/ regex, skipping these fields during object decoding. The patch removes this check, now including such fields in the decoded object. Skipping these fields could cause incomplete objects, especially when such fields are important references in circular or self-referential data structures (for example, 'this$0' may represent a back reference). Retaining these fields preserves structural integrity.",
+            "suggestion": "Retain the fields named like 'this$<number>' in the decoding result to preserve object structure and references, as done by removing the skipping condition."
+          },
+          {
+            "title": "Incorrect skipping of fields named like 'this$<number>' in v2 object decoding",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "Similarly to v1 decoder, the original v2 decoder skipped fields named like 'this$<number>' during object decoding, which would lead to loss of these fields and potential structural inconsistencies in decoded objects. The patch removes the skipping logic, ensuring all fields are included.",
+            "suggestion": "Include all fields during object decoding, regardless of their name, to maintain data integrity and proper object references."
+          },
+          {
+            "title": "Updated tests to reflect new behavior including 'this$0' fields",
+            "severity": "low",
+            "file": "test/object.test.js",
+            "line": 70,
+            "explanation": "Test adjustments show that now the decoded objects keep 'this$0' properties (self-reference fields) rather than skipping them, consistent with decoder changes. The tests also re-enable assertions on the length and exact equality of encoded buffers, implying correct and lossless encoding and decoding of these fields.",
+            "suggestion": "Maintain the updated test assertions to ensure 'this$0' and similar fields are preserved, confirming the correctness of decoding and encoding with circular references."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-7",
+  "project": "Hessian.js",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "dcdf3132e536702b6d7fa5dd3afbfd63c77f439a",
+  "buggySha": "2dbb2c005738a69cf0e7160bc358e8a92505aa39",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1c0aa3c52b2481ac2d78d39beb08c60201ea22174eac45ee43401c0888c4a250",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "dcdf3132e536702b6d7fa5dd3afbfd63c77f439a",
+    "maxFiles": 40,
+    "filesIndexed": 26,
+    "chunksIndexed": 119,
+    "embeddingUsage": {
+      "inputTokens": 161954,
+      "outputTokens": 0,
+      "totalTokens": 161954
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "bc0f51442c38393dca48500802b336d5639b24c6574c28a75c2fd5d15bf29c4c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "8c15c6884e9daf6f21b131548f1524f0c5767469e12ce1cb47c95ec15fd0b637"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "90fad2f3c9a06fb5bf5117da05172f903b1015a248a9ced1287cb436a23c6495"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "9ab0bef1e9bdde8f3e350d95a11c1934e036a0cd01fd4a9981b183218561bae1"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2870d5af95fc4e1ee15134394e55609ff4bc5f105dbfdec05c76dc475756f0f8"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1470,
+      "outputTokens": 0,
+      "totalTokens": 1470
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 6849,
+          "outputTokens": 234,
+          "totalTokens": 7083
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect Class Name String Comparison for HashMap in V1 Encoder",
+            "severity": "medium",
+            "file": "lib/v1/encoder.js",
+            "line": 330,
+            "explanation": "In the v1 encoder's writeObject method, the code changed from comparing obj.$class against both javaObject.DEFAULT_CLASSNAME.map ('java.util.Map') and javaObject.DEFAULT_CLASSNAME.iMap (likely 'java.util.HashMap') to only against javaObject.DEFAULT_CLASSNAME.map. This means that if obj.$class is 'java.util.HashMap', it will no longer reset className to an empty string and will instead keep the original class name. This is a regression from the previous behavior which treated both Map and HashMap",
+            "suggestion": "Restore the original condition to cover both 'java.util.Map' and 'java.util.HashMap' class names, e.g., keep the check: obj.$class === javaObject.DEFAULT_CLASSNAME.map || obj.$class === javaObject.DEFAULT_CLASSNAME.iMap, to preserve the prior encoding semantics for HashMap."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect Class Name String Comparison for HashMap in V1 Encoder",
+            "severity": "medium",
+            "file": "lib/v1/encoder.js",
+            "line": 330,
+            "explanation": "In the v1 encoder's writeObject method, the code changed from comparing obj.$class against both javaObject.DEFAULT_CLASSNAME.map ('java.util.Map') and javaObject.DEFAULT_CLASSNAME.iMap (likely 'java.util.HashMap') to only against javaObject.DEFAULT_CLASSNAME.map. This means that if obj.$class is 'java.util.HashMap', it will no longer reset className to an empty string and will instead keep the original class name. This is a regression from the previous behavior which treated both Map and HashMap",
+            "suggestion": "Restore the original condition to cover both 'java.util.Map' and 'java.util.HashMap' class names, e.g., keep the check: obj.$class === javaObject.DEFAULT_CLASSNAME.map || obj.$class === javaObject.DEFAULT_CLASSNAME.iMap, to preserve the prior encoding semantics for HashMap."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 6849,
+          "outputTokens": 162,
+          "totalTokens": 7011
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect class name comparison for java.util.HashMap in v1 encoder",
+            "severity": "medium",
+            "file": "lib/v1/encoder.js",
+            "line": 331,
+            "explanation": "The code compares obj.$class to javaObject.DEFAULT_CLASSNAME.map and then always assigns className to such or obj.$class. The original code also compared obj.$class === javaObject.DEFAULT_CLASSNAME.iMap but this was removed. If javaObject.DEFAULT_CLASSNAME.iMap differs from DEFAULT_CLASSNAME.map, this change can cause mismatches for 'java.util.Map' class names and lead to incorrect omission of the className during encoding, potentially producing wrong encoded data.",
+            "suggestion": "Restore the original comparison to include both DEFAULT_CLASSNAME.map and DEFAULT_CLASSNAME.iMap for correct detection."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect class name comparison for java.util.HashMap in v1 encoder",
+            "severity": "medium",
+            "file": "lib/v1/encoder.js",
+            "line": 331,
+            "explanation": "The code compares obj.$class to javaObject.DEFAULT_CLASSNAME.map and then always assigns className to such or obj.$class. The original code also compared obj.$class === javaObject.DEFAULT_CLASSNAME.iMap but this was removed. If javaObject.DEFAULT_CLASSNAME.iMap differs from DEFAULT_CLASSNAME.map, this change can cause mismatches for 'java.util.Map' class names and lead to incorrect omission of the className during encoding, potentially producing wrong encoded data.",
+            "suggestion": "Restore the original comparison to include both DEFAULT_CLASSNAME.map and DEFAULT_CLASSNAME.iMap for correct detection."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 6849,
+          "outputTokens": 6,
+          "totalTokens": 6855
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

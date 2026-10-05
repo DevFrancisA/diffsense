@@ -60,16 +60,35 @@ type ReviewFinding = {
   suggestion: string;
 };
 
+export const reviewPromptRevision = "recall-v2";
+
+const reviewSystemPrompt = "You are a systematic senior code reviewer. Inspect every changed hunk and trace changed behavior through the supplied repository context. Actively check boundary inputs, missing validation, authorization, error paths, state transitions, compatibility, and interactions with callers. Report each defect or evidence-backed conditional risk that could cause incorrect behavior; do not suppress a concrete risk merely because it requires a particular input or execution path. Avoid style preferences and unsupported speculation. For every finding, cite the most relevant changed line and explain the triggering condition, impact, and a concise fix. If you find no issue, return an empty findings array only after checking all changed hunks against the context.";
+const findingAnchorPolicy = "accept-only-same-file-findings-within-two-lines-of-an-added-line; snap-to-nearest-added-line; ties-to-lower-line";
+
+export function anchorFindingToAddedLine<T extends { file: string; line: number }>(finding: T, addedLines: AddedLine[], tolerance = 2): T | null {
+  let closestLine: AddedLine | null = null;
+  let closestDistance = Number.POSITIVE_INFINITY;
+  for (const addedLine of addedLines) {
+    const distance = Math.abs(addedLine.line - finding.line);
+    if (addedLine.path === finding.file && distance <= tolerance
+      && (distance < closestDistance || (distance === closestDistance && closestLine && addedLine.line < closestLine.line))) {
+      closestLine = addedLine;
+      closestDistance = distance;
+    }
+  }
+  return closestLine ? { ...finding, line: closestLine.line } : null;
+}
+
 export async function reviewDiff(diff: string, addedLines: AddedLine[], context: { path: string; content: string }[]) {
   const result = await reviewDiffDetailed(diff, addedLines, context);
   return { findings: result.findings, model: result.model };
 }
 
-const reviewSystemPrompt = "You are a conservative senior code reviewer. Report only concrete defects introduced by this change. Use the supplied repository context to verify behavior. Do not report style preferences, speculative concerns, or issues already present. Each finding must cite an added line from the diff and propose a concise fix. If no actionable defect is supported, return an empty findings array.";
-
 export const reviewPromptHash = createHash("sha256").update(JSON.stringify({
+  revision: reviewPromptRevision,
   system: reviewSystemPrompt,
   schema: reviewSchema,
+  findingAnchorPolicy,
 })).digest("hex");
 
 export async function reviewDiffDetailed(
@@ -106,8 +125,10 @@ export async function reviewDiffDetailed(
 
   if (!response.output_text) throw new Error("The review model returned no structured findings.");
   const parsed = JSON.parse(response.output_text) as { findings: ReviewFinding[] };
-  const addedLineKeys = new Set(addedLines.map(({ path, line }) => `${path}:${line}`));
-  const findings = parsed.findings.filter((finding) => addedLineKeys.has(`${finding.file}:${finding.line}`));
+  const findings = parsed.findings.flatMap((finding) => {
+    const anchored = anchorFindingToAddedLine(finding, addedLines);
+    return anchored ? [anchored] : [];
+  });
   const usage: ApiTokenUsage = {
     inputTokens: response.usage?.input_tokens ?? 0,
     outputTokens: response.usage?.output_tokens ?? 0,
@@ -118,6 +139,7 @@ export async function reviewDiffDetailed(
     findings,
     rawFindings: parsed.findings,
     model: process.env.OPENAI_REVIEW_MODEL ?? "gpt-4.1-mini",
+    promptRevision: reviewPromptRevision,
     promptHash: reviewPromptHash,
     usage,
   };

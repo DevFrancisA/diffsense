@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-2",
+  "project": "Hessian.js",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+  "buggySha": "ed7f966a31c448a62a1414f26196b342631925bb",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1c6eaecbb962a4e53f7aebc5a9605f978944c1ad69d83849a73483ca03ba198a",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+    "maxFiles": 40,
+    "filesIndexed": 27,
+    "chunksIndexed": 123,
+    "embeddingUsage": {
+      "inputTokens": 166982,
+      "outputTokens": 0,
+      "totalTokens": 166982
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "d4e1555e9928700ffd1f4e21a0f285409160b649cd7fb48cc6eddf7272fce55e"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "7a8366fbf0b56d042d4558bb96f533927830a952cda30c26a1842197331ea8d3"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "68cef63dc14d7685650144fdfd65a3e5499bc06f3021929bfcb5dc040fcc754e"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "e4ac088e8ee8cc923f426e6f73a9b16a84ff86b3d06a9eaf942fb9978f379b8a"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "87595a4935247e661ab4f4aa8b61ca8758fa48e7a2dde3628d376f4dea5be99f"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "0b43e4c1e6eda6739f62c810d54b471d06f05a3710f455a82b2eada2c4c9066c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "264f52071d21bf6d178fed63b6faa81d022c546a59eb7ded68514e81e80f7e38"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f073ba8dc7741227e07fa99c5a90b438a7cf995ec7de430f7df5964e4fd5293c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 404,
+      "outputTokens": 0,
+      "totalTokens": 404
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5512,
+          "outputTokens": 486,
+          "totalTokens": 5998
+        },
+        "rawFindings": [
+          {
+            "title": "Unsafe map key assignment in v2 _readMap method",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 729,
+            "explanation": "Previously, the _readMap method unconditionally assigned map[k] = v for every key k read. This risks assigning keys that are objects or other non-string/number types, which in JavaScript converts to '[object Object]' as a key, potentially overwriting keys or causing data corruption. The added type check ensures map[k] = v assignment happens only if the key is string or number, preventing such issues.",
+            "suggestion": "Maintain explicit type checking for keys as string or number before assigning to map to prevent accidental key collisions or overwrites caused by Object-stringified keys."
+          },
+          {
+            "title": "Insufficient map key type validation in v1 readObject",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In readObject, the condition to exclude keys starting with 'this$' was widened to only assign the key if its type is string or number, preventing improper keys like objects from being assigned properties on the resulting object, which would convert to '[object Object]' and overwrite the same key repeatedly, causing incorrect object construction.",
+            "suggestion": "Keep the type check ensuring only string or number keys are assigned to the object properties to avoid accidental key collisions or data corruption."
+          },
+          {
+            "title": "Test expectation update for map key type filtering",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test cases were modified to expect empty objects ({}) instead of objects with key '[object Object]'. This aligns test expectations with the new behavior filtering out keys of types other than string or number, preventing unsafe map assignments.",
+            "suggestion": "Review and update all relevant tests when altering key acceptance conditions to ensure consistency with implementation logic and avoid flaky tests or false positives."
+          },
+          {
+            "title": "Test expectation update for plain object map key filtering",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "Test expectation was changed from an object containing key '[object Object]' to an empty object, reflecting the filter in the implementation change that disallows keys that are objects and avoids assigning them as string keys '[object Object]'.",
+            "suggestion": "Ensure tests accurately reflect the filtering behavior on map key types, maintaining confidence in safe map key handling."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Unsafe map key assignment in v2 _readMap method",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "Previously, the _readMap method unconditionally assigned map[k] = v for every key k read. This risks assigning keys that are objects or other non-string/number types, which in JavaScript converts to '[object Object]' as a key, potentially overwriting keys or causing data corruption. The added type check ensures map[k] = v assignment happens only if the key is string or number, preventing such issues.",
+            "suggestion": "Maintain explicit type checking for keys as string or number before assigning to map to prevent accidental key collisions or overwrites caused by Object-stringified keys."
+          },
+          {
+            "title": "Insufficient map key type validation in v1 readObject",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In readObject, the condition to exclude keys starting with 'this$' was widened to only assign the key if its type is string or number, preventing improper keys like objects from being assigned properties on the resulting object, which would convert to '[object Object]' and overwrite the same key repeatedly, causing incorrect object construction.",
+            "suggestion": "Keep the type check ensuring only string or number keys are assigned to the object properties to avoid accidental key collisions or data corruption."
+          },
+          {
+            "title": "Test expectation update for map key type filtering",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test cases were modified to expect empty objects ({}) instead of objects with key '[object Object]'. This aligns test expectations with the new behavior filtering out keys of types other than string or number, preventing unsafe map assignments.",
+            "suggestion": "Review and update all relevant tests when altering key acceptance conditions to ensure consistency with implementation logic and avoid flaky tests or false positives."
+          },
+          {
+            "title": "Test expectation update for plain object map key filtering",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "Test expectation was changed from an object containing key '[object Object]' to an empty object, reflecting the filter in the implementation change that disallows keys that are objects and avoids assigning them as string keys '[object Object]'.",
+            "suggestion": "Ensure tests accurately reflect the filtering behavior on map key types, maintaining confidence in safe map key handling."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5512,
+          "outputTokens": 473,
+          "totalTokens": 5985
+        },
+        "rawFindings": [
+          {
+            "title": "Improper map key handling in v2 decoder leads to incorrect map contents",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 733,
+            "explanation": "In the method _readMap, the code was modified to only assign map[k] = v if the key k is of type 'string' or 'number'. Previously, it always assigned map[k] = v regardless of type. This change may cause keys of other types (e.g., object keys) to be omitted from the resulting map object properties, potentially losing data when non-string/number keys occur. However, ES6 Map is used to keep all keys regardless of type in map.$map, so the keys are preserved there. The risk is that users relying on th",
+            "suggestion": "Consider carefully if keys other than 'string' or 'number' should be omitted from the plain object or if they should be stringified or handled differently to avoid loss. Document this behavior clearly. If the omission is intentional to prevent object keys from being added as properties, ensure users use the $map property for full map behavior."
+          },
+          {
+            "title": "map.test.js test expects no properties assigned for non-string/number keys in map object",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test expectation was changed from {null:'null'} to empty {} object, consistent with the V2 decoder change that keys not string or number are not added to plain object properties. This test change reflects the code change behavior.",
+            "suggestion": "No code fix needed, test update justifies and documents the changed behavior."
+          },
+          {
+            "title": "map.test.js test expects writing Map with object keys to produce empty plain object",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "Test expectation changed from having a key like '[object Object]' to empty object {}. This matches the decoder change that the plain object only contains keys of type string or number, dropping keys which are objects, while full keys are preserved in $map property. This aligns tests with new decoding behavior.",
+            "suggestion": "No code fix needed, test update correctly reflects changed decoding behavior."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Improper map key handling in v2 decoder leads to incorrect map contents",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 733,
+            "explanation": "In the method _readMap, the code was modified to only assign map[k] = v if the key k is of type 'string' or 'number'. Previously, it always assigned map[k] = v regardless of type. This change may cause keys of other types (e.g., object keys) to be omitted from the resulting map object properties, potentially losing data when non-string/number keys occur. However, ES6 Map is used to keep all keys regardless of type in map.$map, so the keys are preserved there. The risk is that users relying on th",
+            "suggestion": "Consider carefully if keys other than 'string' or 'number' should be omitted from the plain object or if they should be stringified or handled differently to avoid loss. Document this behavior clearly. If the omission is intentional to prevent object keys from being added as properties, ensure users use the $map property for full map behavior."
+          },
+          {
+            "title": "map.test.js test expects no properties assigned for non-string/number keys in map object",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test expectation was changed from {null:'null'} to empty {} object, consistent with the V2 decoder change that keys not string or number are not added to plain object properties. This test change reflects the code change behavior.",
+            "suggestion": "No code fix needed, test update justifies and documents the changed behavior."
+          },
+          {
+            "title": "map.test.js test expects writing Map with object keys to produce empty plain object",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "Test expectation changed from having a key like '[object Object]' to empty object {}. This matches the decoder change that the plain object only contains keys of type string or number, dropping keys which are objects, while full keys are preserved in $map property. This aligns tests with new decoding behavior.",
+            "suggestion": "No code fix needed, test update correctly reflects changed decoding behavior."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5512,
+          "outputTokens": 586,
+          "totalTokens": 6098
+        },
+        "rawFindings": [
+          {
+            "title": "Unconditionally converting non-string/number keys to map properties replaced by conditional handling",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "Before this change, the _readMap function assigned all keys, regardless of their type, to the map object as properties, which could implicitly convert complex object keys to string '[object Object]' keys, causing data loss or collisions. The change added a type check to only assign properties to the map object if the key is a string or number, avoiding unexpected key coercion. This improves correctness but changes the behavior silently for other key types (e.g., object keys) which will no longer",
+            "suggestion": "This change is mostly correct and improves handling of map keys by filtering only string/number keys for object properties. However, verify that consumers of the decoded maps do not rely on object keys being coerced to strings or missing. Add documentation if necessary that keys other than string/number are only stored in the hidden $map property (if ES6 Map support is enabled)."
+          },
+          {
+            "title": "Adding type check for keys in v1 object read to avoid assigning 'this$' keys and non-string/number keys",
+            "severity": "low",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "The code change modifies the condition that filters keys when reading an object: previously keys were skipped only if they matched the /^this\\$\\d+$/ regex. Now keys are additionally checked for type string or number before assignment to the object. This avoids unintentionally assigning keys with other types which could cause unexpected behavior.",
+            "suggestion": "This change limits assigned keys to string or number typed keys excluding special internal keys starting with 'this$'. This is correct and consistent with typical JS object keys. Ensure that the rest of the code base does not expect non-string/number keys in these objects as keys."
+          },
+          {
+            "title": "Tests updated to expect empty object instead of object with stringified key for unexpected input keys",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The test expectations for decoded maps with certain keys have been updated from expecting a stringified '[object Object]' key mapping to a value, to expecting an empty object. This reflects the changed behavior in decoder.js where non-string/number keys are no longer converted to string keys on the object. This reduces possible unintended key collisions but also changes expected outputs.",
+            "suggestion": "Confirm that this test update aligns with the intended library behavior, focused on correct key preservation. This is consistent with the decoder code change and improves semantic correctness."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Unconditionally converting non-string/number keys to map properties replaced by conditional handling",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "Before this change, the _readMap function assigned all keys, regardless of their type, to the map object as properties, which could implicitly convert complex object keys to string '[object Object]' keys, causing data loss or collisions. The change added a type check to only assign properties to the map object if the key is a string or number, avoiding unexpected key coercion. This improves correctness but changes the behavior silently for other key types (e.g., object keys) which will no longer",
+            "suggestion": "This change is mostly correct and improves handling of map keys by filtering only string/number keys for object properties. However, verify that consumers of the decoded maps do not rely on object keys being coerced to strings or missing. Add documentation if necessary that keys other than string/number are only stored in the hidden $map property (if ES6 Map support is enabled)."
+          },
+          {
+            "title": "Adding type check for keys in v1 object read to avoid assigning 'this$' keys and non-string/number keys",
+            "severity": "low",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "The code change modifies the condition that filters keys when reading an object: previously keys were skipped only if they matched the /^this\\$\\d+$/ regex. Now keys are additionally checked for type string or number before assignment to the object. This avoids unintentionally assigning keys with other types which could cause unexpected behavior.",
+            "suggestion": "This change limits assigned keys to string or number typed keys excluding special internal keys starting with 'this$'. This is correct and consistent with typical JS object keys. Ensure that the rest of the code base does not expect non-string/number keys in these objects as keys."
+          },
+          {
+            "title": "Tests updated to expect empty object instead of object with stringified key for unexpected input keys",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The test expectations for decoded maps with certain keys have been updated from expecting a stringified '[object Object]' key mapping to a value, to expecting an empty object. This reflects the changed behavior in decoder.js where non-string/number keys are no longer converted to string keys on the object. This reduces possible unintended key collisions but also changes expected outputs.",
+            "suggestion": "Confirm that this test update aligns with the intended library behavior, focused on correct key preservation. This is consistent with the decoder code change and improves semantic correctness."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

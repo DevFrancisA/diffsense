@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-8",
+  "project": "Eslint",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0a2a7fdf706403989a9c79741e3a54d77d7b2b26",
+  "buggySha": "76c33a94b2e2159e2ac75bae2416e4937b983e43",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "742c0cefceda3f651b7fb59066572dd053626a3cf4727ea61684b4a145714c50",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "0a2a7fdf706403989a9c79741e3a54d77d7b2b26",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 185,
+    "embeddingUsage": {
+      "inputTokens": 176716,
+      "outputTokens": 0,
+      "totalTokens": 176716
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "305d4c07d111b4f15e5b1731bab7b6f47a0d1c2a6237a4463ea8fd4b2c558a54"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "cc3b00323f589d2548dbac23c9b661e64a9ed51d73b1b3a1df43d75748794f92"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "5891d7660de14fbc1dfe0031f44a6d33a3b0ac4da5e56c36919c973cb343ee96"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "9a1a1acbf3ce16cc62f5738cd32f9cc508ac9438acda90570cfb883000eae163"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fb5fd0065c169251dbbc5a1bc43853698d4d57d377e82ea03c89f0a0c730e04f"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "7d0680761a3e53c42cea61ddbf2b2aa9def4d2d5501ae19d903cb46daa569d69"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 267,
+      "outputTokens": 0,
+      "totalTokens": 267
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5103,
+          "outputTokens": 161,
+          "totalTokens": 5264
+        },
+        "rawFindings": [
+          {
+            "title": "Potential incorrect validation of string escape sequences in no-useless-escape rule",
+            "severity": "medium",
+            "file": "lib/rules/no-useless-escape.js",
+            "line": 27,
+            "explanation": "On line 27, the set VALID_STRING_ESCAPES was changed from including Unicode line separator characters \\u2028 and \\u2029 to removing them. This could cause the rule to incorrectly flag escapes involving these characters as useless when they might be valid in some environments.",
+            "suggestion": "Review the impact of removing \\u2028 and \\u2029 from VALID_STRING_ESCAPES. If these Unicode escape characters should be accepted as valid, consider adding them back or handling them explicitly. Also confirm the testing coverage for these cases to avoid false positives."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Potential incorrect validation of string escape sequences in no-useless-escape rule",
+            "severity": "medium",
+            "file": "lib/rules/no-useless-escape.js",
+            "line": 27,
+            "explanation": "On line 27, the set VALID_STRING_ESCAPES was changed from including Unicode line separator characters \\u2028 and \\u2029 to removing them. This could cause the rule to incorrectly flag escapes involving these characters as useless when they might be valid in some environments.",
+            "suggestion": "Review the impact of removing \\u2028 and \\u2029 from VALID_STRING_ESCAPES. If these Unicode escape characters should be accepted as valid, consider adding them back or handling them explicitly. Also confirm the testing coverage for these cases to avoid false positives."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5103,
+          "outputTokens": 167,
+          "totalTokens": 5270
+        },
+        "rawFindings": [
+          {
+            "title": "Removal of valid escapes for Unicode line terminators in no-useless-escape rule",
+            "severity": "medium",
+            "file": "lib/rules/no-useless-escape.js",
+            "line": 27,
+            "explanation": "The code change removes the Unicode line terminator characters \\u2028 and \\u2029 from the set of valid string escapes in the no-useless-escape rule. These Unicode characters are officially recognized line terminators in JavaScript string literals and regexes. Removing them from the valid escapes could cause the rule to incorrectly flag valid uses of these escape sequences as useless escapes, leading to false positives.",
+            "suggestion": "Restore \\u2028 and \\u2029 to the VALID_STRING_ESCAPES set to prevent false positive reports for legitimate Unicode line terminator escapes in strings."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Removal of valid escapes for Unicode line terminators in no-useless-escape rule",
+            "severity": "medium",
+            "file": "lib/rules/no-useless-escape.js",
+            "line": 27,
+            "explanation": "The code change removes the Unicode line terminator characters \\u2028 and \\u2029 from the set of valid string escapes in the no-useless-escape rule. These Unicode characters are officially recognized line terminators in JavaScript string literals and regexes. Removing them from the valid escapes could cause the rule to incorrectly flag valid uses of these escape sequences as useless escapes, leading to false positives.",
+            "suggestion": "Restore \\u2028 and \\u2029 to the VALID_STRING_ESCAPES set to prevent false positive reports for legitimate Unicode line terminator escapes in strings."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5103,
+          "outputTokens": 208,
+          "totalTokens": 5311
+        },
+        "rawFindings": [
+          {
+            "title": "Removal of valid Unicode escape characters from VALID_STRING_ESCAPES set in no-useless-escape.js",
+            "severity": "medium",
+            "file": "lib/rules/no-useless-escape.js",
+            "line": 27,
+            "explanation": "The constant VALID_STRING_ESCAPES originally included the Unicode characters \\u2028 (line separator) and \\u2029 (paragraph separator), which are valid JavaScript string escape sequences. The patch removes these two characters from the set, leaving only \\\"\\\\nrvtbfux\\\" and standard \\n and \\r characters. This change reduces the set of recognized valid escapes when checking strings for useless escapes.",
+            "suggestion": "Carefully review the impact of removing \\u2028 and \\u2029 from the VALID_STRING_ESCAPES set. These characters are valid in string literals to represent line and paragraph separators. Ensure that the rule no longer incorrectly flags these escapes as useless, or adjust the logic to maintain correct behavior for legitimate uses of these escapes."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Removal of valid Unicode escape characters from VALID_STRING_ESCAPES set in no-useless-escape.js",
+            "severity": "medium",
+            "file": "lib/rules/no-useless-escape.js",
+            "line": 27,
+            "explanation": "The constant VALID_STRING_ESCAPES originally included the Unicode characters \\u2028 (line separator) and \\u2029 (paragraph separator), which are valid JavaScript string escape sequences. The patch removes these two characters from the set, leaving only \\\"\\\\nrvtbfux\\\" and standard \\n and \\r characters. This change reduces the set of recognized valid escapes when checking strings for useless escapes.",
+            "suggestion": "Carefully review the impact of removing \\u2028 and \\u2029 from the VALID_STRING_ESCAPES set. These characters are valid in string literals to represent line and paragraph separators. Ensure that the rule no longer incorrectly flags these escapes as useless, or adjust the logic to maintain correct behavior for legitimate uses of these escapes."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

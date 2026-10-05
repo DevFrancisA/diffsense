@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-5",
+  "project": "Eslint",
+  "bugId": 5,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0643bfeff68979044ca57a2b392d855d18be7d08",
+  "buggySha": "bd0514ca9bc9dbb5dafb27085cf9e554573610b0",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "5be8d0efa3cc1dc14616e20d0c83a6eef79a1ac4f383ef7b34fd7e9f9099c0fb",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "0643bfeff68979044ca57a2b392d855d18be7d08",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 180,
+    "embeddingUsage": {
+      "inputTokens": 169518,
+      "outputTokens": 0,
+      "totalTokens": 169518
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "91d9aebe5fbdf0763715f0f408828db9592ee208d86d6cc36a33004a992be2a2"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fb62f9477450bd582a12028aa5327d4ffdb7c65379796b5704e5d616db0f6fe0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "5891d7660de14fbc1dfe0031f44a6d33a3b0ac4da5e56c36919c973cb343ee96"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1e69108f83cc3af28263082500f2dc077b4f414d99a873ec118be7e95cd2ec95"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9befe6fa119456478668875afd11caabc5545199b36a698c77cc3c3608a90801"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bf7e4dba97c3f617dc6b1c56d1c8b00284b9387af56e782195f6ef5f50c3dff0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9c00aa92f9675708584b22de999e3482db13c7fddc8bdc0d6242ced750aff3bc"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "0984f58d80ae9329c208b34e6b1c9dd969f7bfd7fdf9bea0e71853340e139d62"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 768,
+      "outputTokens": 0,
+      "totalTokens": 768
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5804,
+          "outputTokens": 383,
+          "totalTokens": 6187
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect range calculation in indent rule report function due to improper use of lastNodeCheckEndOffset",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The modified 'report' function in the indent rule adjusts the problem range using lastNodeCheckEndOffset but subtracts 1 from the range boundaries without clear justification. If lastNodeCheckEndOffset is non-zero and the subtraction logic is off by one, it can cause inaccurate problem ranges reported, leading to incorrect highlighting of code and potentially invalid fix ranges in ESLint output.",
+            "suggestion": "Review and test range calculation logic carefully with various inputs to ensure that the range correctly matches the intended location in the source code. Adjust the arithmetic to align with 0-based or 1-based indexing as per the AST range specifications. Add unit tests to cover the usage of lastNodeCheckEndOffset values to confirm correctness."
+          },
+          {
+            "title": "Potentially incomplete test coverage after removal of specific indent rule test cases",
+            "severity": "low",
+            "file": "tests/lib/rules/indent.js",
+            "line": 3506,
+            "explanation": "The described PR removes a non-trivial test case that checks indent rule behavior when comments precede code on lines with specific indentation issues. Without these tests, it may be possible that regressions or bugs related to handling of multi-line comments followed by code are introduced unnoticed.",
+            "suggestion": "Evaluate the rationale for removing these tests carefully. If the behavior is intended to change, provide new or updated test cases reflecting the new behavior. Otherwise, retain or refactor the tests to cover the intended bug fixes or features to maintain quality and correctness."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect range calculation in indent rule report function due to improper use of lastNodeCheckEndOffset",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The modified 'report' function in the indent rule adjusts the problem range using lastNodeCheckEndOffset but subtracts 1 from the range boundaries without clear justification. If lastNodeCheckEndOffset is non-zero and the subtraction logic is off by one, it can cause inaccurate problem ranges reported, leading to incorrect highlighting of code and potentially invalid fix ranges in ESLint output.",
+            "suggestion": "Review and test range calculation logic carefully with various inputs to ensure that the range correctly matches the intended location in the source code. Adjust the arithmetic to align with 0-based or 1-based indexing as per the AST range specifications. Add unit tests to cover the usage of lastNodeCheckEndOffset values to confirm correctness."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5804,
+          "outputTokens": 454,
+          "totalTokens": 6258
+        },
+        "rawFindings": [
+          {
+            "title": "Potential incorrect calculation of fix range in indent rule's report function",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The calculation of the fix's range in the 'report' function was adjusted to subtract lastNodeCheckEndOffset. If this offset is not correctly set or validated before usage, there is risk of producing incorrect ranges for fixes, potentially causing invalid or incorrect automatic fixes.",
+            "suggestion": "Validate that lastNodeCheckEndOffset is always a non-negative integer before using it to adjust the fix range. Add defensive checks or assertions to ensure this value is correct. Consider adding comments explaining the purpose and expected values of lastNodeCheckEndOffset to prevent misuse."
+          },
+          {
+            "title": "Lack of validation on lastNodeCheckEndOffset parameter",
+            "severity": "low",
+            "file": "lib/rules/indent.js",
+            "line": 258,
+            "explanation": "The new parameter 'lastNodeCheckEndOffset' added to the 'report' function is defaulted to 0 if falsy, but there is no explicit check for its type or range. Improper or unexpected values could cause unexpected behavior.",
+            "suggestion": "Add explicit parameter validation for lastNodeCheckEndOffset to ensure it is a non-negative integer before using it in range calculations."
+          },
+          {
+            "title": "Removal of test cases covering indent rule bug #7604",
+            "severity": "medium",
+            "file": "tests/lib/rules/indent.js",
+            "line": 3506,
+            "explanation": "The patch deletes several test cases related to GitHub issue #7604, involving indentation of comments followed by code. This risks losing coverage for a previously identified bug, which could allow regressions to slip in.",
+            "suggestion": "If these test cases are removed because the issue is resolved or test is obsolete, ensure that other tests cover these cases adequately. Otherwise, reconsider removing these tests or move them to another suite to maintain coverage."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Potential incorrect calculation of fix range in indent rule's report function",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The calculation of the fix's range in the 'report' function was adjusted to subtract lastNodeCheckEndOffset. If this offset is not correctly set or validated before usage, there is risk of producing incorrect ranges for fixes, potentially causing invalid or incorrect automatic fixes.",
+            "suggestion": "Validate that lastNodeCheckEndOffset is always a non-negative integer before using it to adjust the fix range. Add defensive checks or assertions to ensure this value is correct. Consider adding comments explaining the purpose and expected values of lastNodeCheckEndOffset to prevent misuse."
+          },
+          {
+            "title": "Lack of validation on lastNodeCheckEndOffset parameter",
+            "severity": "low",
+            "file": "lib/rules/indent.js",
+            "line": 258,
+            "explanation": "The new parameter 'lastNodeCheckEndOffset' added to the 'report' function is defaulted to 0 if falsy, but there is no explicit check for its type or range. Improper or unexpected values could cause unexpected behavior.",
+            "suggestion": "Add explicit parameter validation for lastNodeCheckEndOffset to ensure it is a non-negative integer before using it in range calculations."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5804,
+          "outputTokens": 419,
+          "totalTokens": 6223
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect range calculation in indent rule report due to missing lastNodeCheckEndOffset initialization",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 265,
+            "explanation": "The new 'lastNodeCheckEndOffset' parameter in the report() function is not always initialized before use, leading to potentially incorrect calculation of the fix range offsets in lines 270-273. Without the default to zero, this could cause fixes to reference incorrect source ranges, introducing faulty autofixes.",
+            "suggestion": "Initialize 'lastNodeCheckEndOffset' to 0 early in the function (as done in line 265) and ensure all calls supply this parameter to avoid incorrect fix ranges."
+          },
+          {
+            "title": "Potential off-by-one range calculation in fix range for report() method in indent rule",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The code subtracts '1 + lastNodeCheckEndOffset' from node.range[1] to compute the start of the fix range when 'isLastNodeCheck' is true. This adjustment changes the reported fix range potentially by one too many characters. This might be intended to account for offsets but should be carefully verified against all edge cases to avoid autofixing beyond intended range causing broken code.",
+            "suggestion": "Verify correctness of subtracting 1 plus lastNodeCheckEndOffset from the range, especially in contexts involving comment nodes or multi-line nodes, and add clear comments explaining the rationale for these adjustments."
+          },
+          {
+            "title": "Removal of related test cases for indent rule that validate handling of comments adjacent to code",
+            "severity": "medium",
+            "file": "tests/lib/rules/indent.js",
+            "line": 3506,
+            "explanation": "Deletion of test cases involving comments directly followed by code (which previously reported errors and suggested fixes) weakens test coverage for edge cases in indentation rules handling multiline comments. This might cause regressions or unhandled cases later, reducing robustness.",
+            "suggestion": "Consider preserving or replacing the removed test cases with updated equivalents to maintain coverage of comment indentation edge cases."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect range calculation in indent rule report due to missing lastNodeCheckEndOffset initialization",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 265,
+            "explanation": "The new 'lastNodeCheckEndOffset' parameter in the report() function is not always initialized before use, leading to potentially incorrect calculation of the fix range offsets in lines 270-273. Without the default to zero, this could cause fixes to reference incorrect source ranges, introducing faulty autofixes.",
+            "suggestion": "Initialize 'lastNodeCheckEndOffset' to 0 early in the function (as done in line 265) and ensure all calls supply this parameter to avoid incorrect fix ranges."
+          },
+          {
+            "title": "Potential off-by-one range calculation in fix range for report() method in indent rule",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The code subtracts '1 + lastNodeCheckEndOffset' from node.range[1] to compute the start of the fix range when 'isLastNodeCheck' is true. This adjustment changes the reported fix range potentially by one too many characters. This might be intended to account for offsets but should be carefully verified against all edge cases to avoid autofixing beyond intended range causing broken code.",
+            "suggestion": "Verify correctness of subtracting 1 plus lastNodeCheckEndOffset from the range, especially in contexts involving comment nodes or multi-line nodes, and add clear comments explaining the rationale for these adjustments."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

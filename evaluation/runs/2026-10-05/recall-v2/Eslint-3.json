@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-3",
+  "project": "Eslint",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+  "buggySha": "263b7782438899240548d0020cf9a49c2bbe2b5c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "8a1c9483c9284902ff99c46346b399b49e9af4f54c79afe952eefa39bbf7a779",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 117,
+    "embeddingUsage": {
+      "inputTokens": 100108,
+      "outputTokens": 0,
+      "totalTokens": 100108
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "a3d45ae787819b7e5e475fa618ab9aefc5992a33a35dd4617619e7591edf99e8"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "2e89810ffef7629fe4b66836822211d84287d6431cfda0d5f271f4c2478e2077"
+      },
+      {
+        "path": "lib/rules/accessor-pairs.js",
+        "contentSha256": "f0bd759863ccad4ec194dc40245c660f6265b1467844971bac089c0ac384cd17"
+      },
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "7525a20b67ddf8a09051296e118110a4f91af6ce2c822dce00786070e9568dcc"
+      },
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "0048b49697fc11ed4a5949056c6294d57045af02a16dda0e8badb559a5393e75"
+      },
+      {
+        "path": "lib/rules/arrow-spacing.js",
+        "contentSha256": "3e26e2009f945aaf7315366ebbe1502ee6ce22e72d2275cd87dec13a882cc802"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "5cebb981eb41e0ec54ee9bdc278570a2e473a66a91fc46d2bfd49d1252c223bc"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "3faf4db241bcf00365e04303ecfda578417c37f70f5f34eb1aa2cff616260bb4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 370,
+      "outputTokens": 0,
+      "totalTokens": 370
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 4614,
+          "outputTokens": 150,
+          "totalTokens": 4764
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of UnaryExpression nodes in hasNonLiteral function",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The updated hasNonLiteral function no longer checks UnaryExpression nodes recursively (previously it recursively called hasNonLiteral on node.argument if node.type was 'UnaryExpression'). This change means that unary expressions like '+100' will now be treated as non-literals, potentially causing false positives or failing to recognize numeric literals with unary operators properly.",
+            "suggestion": "Restore the recursive handling of UnaryExpression nodes by reintegrating the check: if (node.type === 'UnaryExpression') return hasNonLiteral(node.argument); before the literal type check."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of UnaryExpression nodes in hasNonLiteral function",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The updated hasNonLiteral function no longer checks UnaryExpression nodes recursively (previously it recursively called hasNonLiteral on node.argument if node.type was 'UnaryExpression'). This change means that unary expressions like '+100' will now be treated as non-literals, potentially causing false positives or failing to recognize numeric literals with unary operators properly.",
+            "suggestion": "Restore the recursive handling of UnaryExpression nodes by reintegrating the check: if (node.type === 'UnaryExpression') return hasNonLiteral(node.argument); before the literal type check."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 4614,
+          "outputTokens": 325,
+          "totalTokens": 4939
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of TemplateLiteral nodes in hasNonLiteral function",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The original code recursively checked UnaryExpressions and allowed TemplateLiteral nodes as non-literals (not triggering reports). The modified function simply returns node.type !== 'Literal', which excludes TemplateLiteral node types from being recognized as literals. This causes TemplateLiteral nodes to always count as non-literal, leading to incorrect behavior and potentially false positives or negatives in the prefer-template rule.",
+            "suggestion": "Restore the original recursive handling of UnaryExpression nodes and explicitly allow TemplateLiteral nodes as literals by returning false for 'Literal' and 'TemplateLiteral' node types, for example:\n\nif (node.type === 'UnaryExpression') {"
+          },
+          {
+            "title": "Removal of test cases related to UnaryExpression and multiple template strings",
+            "severity": "medium",
+            "file": "tests/lib/rules/prefer-template.js",
+            "line": 31,
+            "explanation": "The updated tests remove cases involving UnaryExpression (e.g., '+100 + \"yen\"') and multiple template literals concatenated, which were initially present to cover edge cases and bugs (see https://github.com/eslint/eslint/issues/3507). This reduces test coverage and may miss regressions or errors in those scenarios.",
+            "suggestion": "Re-add the removed test cases to maintain coverage of corner cases, especially involving unary operators and multiple adjacent template strings concatenations."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of TemplateLiteral nodes in hasNonLiteral function",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The original code recursively checked UnaryExpressions and allowed TemplateLiteral nodes as non-literals (not triggering reports). The modified function simply returns node.type !== 'Literal', which excludes TemplateLiteral node types from being recognized as literals. This causes TemplateLiteral nodes to always count as non-literal, leading to incorrect behavior and potentially false positives or negatives in the prefer-template rule.",
+            "suggestion": "Restore the original recursive handling of UnaryExpression nodes and explicitly allow TemplateLiteral nodes as literals by returning false for 'Literal' and 'TemplateLiteral' node types, for example:\n\nif (node.type === 'UnaryExpression') {"
+          },
+          {
+            "title": "Removal of test cases related to UnaryExpression and multiple template strings",
+            "severity": "medium",
+            "file": "tests/lib/rules/prefer-template.js",
+            "line": 33,
+            "explanation": "The updated tests remove cases involving UnaryExpression (e.g., '+100 + \"yen\"') and multiple template literals concatenated, which were initially present to cover edge cases and bugs (see https://github.com/eslint/eslint/issues/3507). This reduces test coverage and may miss regressions or errors in those scenarios.",
+            "suggestion": "Re-add the removed test cases to maintain coverage of corner cases, especially involving unary operators and multiple adjacent template strings concatenations."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 4614,
+          "outputTokens": 353,
+          "totalTokens": 4967
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect detection of non-literal parts in template literals",
+            "severity": "medium",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The original function hasNonLiteral correctly handled UnaryExpression cases by recursively inspecting its argument, allowing expressions like unary plus applied to literals (e.g., +100) to be considered literals. The updated function removes this recursion and only allows nodes of type 'Literal' as literals, treating all others including TemplateLiteral and UnaryExpression as non-literals. This will cause expressions like unary plus applied to literals and all template literals to be treated as ",
+            "suggestion": "Revert the change to handling UnaryExpression in hasNonLiteral by restoring the recursive check of node.argument. Also, consider restoring TemplateLiteral checking to avoid breaking legitimate template literal usage detection."
+          },
+          {
+            "title": "Test cases removed for scenarios involving template literals and unary expressions",
+            "severity": "low",
+            "file": "tests/lib/rules/prefer-template.js",
+            "line": 31,
+            "explanation": "Multiple test cases involving template literals and expressions such as unary plus with literals were removed. These tests ensure that the rule handles these cases correctly. Their removal weakens test coverage, especially given changes in the main code that affect these cases.",
+            "suggestion": "Restore removed test cases to ensure coverage of template literal and unary expression scenarios. Adjust tests if code changes are intended, or reconsider code changes to maintain existing behavior."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect detection of non-literal parts in template literals",
+            "severity": "medium",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The original function hasNonLiteral correctly handled UnaryExpression cases by recursively inspecting its argument, allowing expressions like unary plus applied to literals (e.g., +100) to be considered literals. The updated function removes this recursion and only allows nodes of type 'Literal' as literals, treating all others including TemplateLiteral and UnaryExpression as non-literals. This will cause expressions like unary plus applied to literals and all template literals to be treated as ",
+            "suggestion": "Revert the change to handling UnaryExpression in hasNonLiteral by restoring the recursive check of node.argument. Also, consider restoring TemplateLiteral checking to avoid breaking legitimate template literal usage detection."
+          },
+          {
+            "title": "Test cases removed for scenarios involving template literals and unary expressions",
+            "severity": "low",
+            "file": "tests/lib/rules/prefer-template.js",
+            "line": 33,
+            "explanation": "Multiple test cases involving template literals and expressions such as unary plus with literals were removed. These tests ensure that the rule handles these cases correctly. Their removal weakens test coverage, especially given changes in the main code that affect these cases.",
+            "suggestion": "Restore removed test cases to ensure coverage of template literal and unary expression scenarios. Adjust tests if code changes are intended, or reconsider code changes to maintain existing behavior."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

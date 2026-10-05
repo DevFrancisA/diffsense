@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-6",
+  "project": "Eslint",
+  "bugId": 6,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "08fa538bbc130937635dd32cc85d9a26b3b90f0c",
+  "buggySha": "cec65e3f57f47e46b142719bbf0a85c89e3275e6",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "ec71a52f5f5deb40c1dddcb4cda949990c3b2cd38b9b6e7165917e3d037e584b",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "08fa538bbc130937635dd32cc85d9a26b3b90f0c",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 183,
+    "embeddingUsage": {
+      "inputTokens": 171550,
+      "outputTokens": 0,
+      "totalTokens": 171550
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "8e5f3db0b60050d6660a7573db68f1d35ec126e48bb3ae1c447491ad6b98e6d9"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "bb16ca3477b8901ce3b6fe61c030be4f0e582479ddcee2b17cfa23be5a139cc9"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "b02b8e7bcfa73fa66229d2f37eb1c218cbe6ace7d67d0fa935e41bfefbcee15f"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "95299fe8e515dc3fcfe31347d36765582842efc9acfdc874052c134a4cff09d2"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "98261c2716467093416498fc5acd2c964af9d74d9419191fe4dbf2f59a5c610c"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "047f8db2db32dc3cdf46bbb6773441f0a1124057ce8a9e6e17bf97bdc004f189"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "f9bd58feef6e814df09563f8c25e36c9af95f769f9ca59b6228ca3978500140e"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "85b8082b25b776671c5e39aca6b6bb677ab231ee90a276b04a92f01feeb5e9e7"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 631,
+      "outputTokens": 0,
+      "totalTokens": 631
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5137,
+          "outputTokens": 349,
+          "totalTokens": 5486
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect token traversal to find arrow token in arrow function expressions",
+            "severity": "medium",
+            "file": "lib/rules/arrow-spacing.js",
+            "line": 54,
+            "explanation": "The original code attempted to get the arrow token before the body of the arrow function by repeatedly calling sourceCode.getTokenBefore() until it finds the '=>' token, but the replacement code starts from the first token of the node and moves forward by calling getTokenAfter() until it finds the '=>' token. The bug is that the original code moved backward from the body while the new code moves forward from the first token, which may skip over tokens or misidentify the 'before' token position.\n",
+            "suggestion": "Verify the token traversal logic carefully: ensure that the search for the '=>' token and the tokens before and after it correspond correctly to the arrow function syntax across all parse cases. If starting from the first token, ensure that 'before' is handled correctly when the '=>' is the first token; if starting backward from the body token, confirm the consistency. Add guards for undefined 'before' tokens to handle edge cases safely."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect token traversal to find arrow token in arrow function expressions",
+            "severity": "medium",
+            "file": "lib/rules/arrow-spacing.js",
+            "line": 54,
+            "explanation": "The original code attempted to get the arrow token before the body of the arrow function by repeatedly calling sourceCode.getTokenBefore() until it finds the '=>' token, but the replacement code starts from the first token of the node and moves forward by calling getTokenAfter() until it finds the '=>' token. The bug is that the original code moved backward from the body while the new code moves forward from the first token, which may skip over tokens or misidentify the 'before' token position.\n",
+            "suggestion": "Verify the token traversal logic carefully: ensure that the search for the '=>' token and the tokens before and after it correspond correctly to the arrow function syntax across all parse cases. If starting from the first token, ensure that 'before' is handled correctly when the '=>' is the first token; if starting backward from the body token, confirm the consistency. Add guards for undefined 'before' tokens to handle edge cases safely."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5137,
+          "outputTokens": 9,
+          "totalTokens": 5146
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 5137,
+          "outputTokens": 204,
+          "totalTokens": 5341
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect token identification for arrow in arrow-spacing rule",
+            "severity": "medium",
+            "file": "lib/rules/arrow-spacing.js",
+            "line": 54,
+            "explanation": "Previous code attempted to find the '=>' token by calling getTokenBefore(node.body) and stepping backwards until the token is '=>'. This logic is fragile and inaccurate, especially for arrow functions with complex bodies, because the body node can be an expression or block, and tokens before the body may not be the arrow. The new code correctly starts from the first token of the node and advances forward until the '=>' token is found, capturing the token immediately preceding it as 'before'. Thi",
+            "suggestion": "Maintain the new approach of scanning tokens forward from the first token until the '=>' punctuator is found, and capture the token before it. Avoid relying on getTokenBefore(node.body) which can miss or misidentify the arrow token."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect token identification for arrow in arrow-spacing rule",
+            "severity": "medium",
+            "file": "lib/rules/arrow-spacing.js",
+            "line": 54,
+            "explanation": "Previous code attempted to find the '=>' token by calling getTokenBefore(node.body) and stepping backwards until the token is '=>'. This logic is fragile and inaccurate, especially for arrow functions with complex bodies, because the body node can be an expression or block, and tokens before the body may not be the arrow. The new code correctly starts from the first token of the node and advances forward until the '=>' token is found, capturing the token immediately preceding it as 'before'. Thi",
+            "suggestion": "Maintain the new approach of scanning tokens forward from the first token until the '=>' punctuator is found, and capture the token before it. Avoid relying on getTokenBefore(node.body) which can miss or misidentify the arrow token."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -8,17 +8,19 @@ loadEnvConfig(process.cwd());
 
 const root = process.cwd();
 const manifestPath = join(root, "evaluation", "manifest.json");
-const resultsPath = join(root, "evaluation", "results.json");
 const cacheRoot = resolve(process.env.DIFFSENSE_BENCHMARK_CACHE ?? join(tmpdir(), "diffsense-benchmark-cache"));
 const diffRoot = join(cacheRoot, "diffs");
 const runsRoot = join(root, "evaluation", "runs");
 const runDate = process.env.DIFFSENSE_RUN_DATE ?? new Date().toISOString().slice(0, 10);
+const runVariant = process.env.DIFFSENSE_BENCHMARK_VARIANT ?? "baseline";
+const includeNoContext = process.env.DIFFSENSE_NO_CONTEXT !== "false";
 const callLimit = 500;
 const withContextRuns = 3;
 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(runDate) || Number.isNaN(Date.parse(`${runDate}T00:00:00Z`))) {
   throw new Error("DIFFSENSE_RUN_DATE must use YYYY-MM-DD.");
 }
+if (!/^[a-z0-9-]+$/i.test(runVariant)) throw new Error("DIFFSENSE_BENCHMARK_VARIANT may contain only letters, numbers, and hyphens.");
 
 type ManifestCase = {
   project: string;
@@ -176,8 +178,10 @@ async function main() {
   const manifestSha256 = sha256(await readFile(manifestPath));
   const reviewModel = process.env.OPENAI_REVIEW_MODEL ?? "gpt-4.1-mini";
   const embeddingModel = process.env.OPENAI_EMBEDDING_MODEL ?? "text-embedding-3-small";
-  const runDirectory = join(runsRoot, runDate);
-  const budgetPath = join(runDirectory, "budget.json");
+  const dateDirectory = join(runsRoot, runDate);
+  const runDirectory = runVariant === "baseline" ? dateDirectory : join(dateDirectory, runVariant);
+  const budgetPath = join(dateDirectory, "budget.json");
+  const resultsPath = join(root, "evaluation", runVariant === "baseline" ? "results.json" : `results-${runVariant}.json`);
   const existingResults = await readJsonIfExists(resultsPath);
   if (existingResults) throw new Error("evaluation/results.json already exists; refusing to overwrite a completed benchmark.");
 
@@ -195,13 +199,15 @@ async function main() {
     knownDiffChars += value.length;
   }
 
-  const reviewAndContextCalls = manifest.cases.length * (withContextRuns + 2);
+  const reviewAndContextCalls = manifest.cases.length * (withContextRuns + 1 + Number(includeNoContext));
   const minimumIndexEmbeddingCalls = manifest.cases.length;
   console.log(JSON.stringify({
     phase: dryRun ? "benchmark dry-run preflight" : "benchmark preflight",
     date: runDate,
+    variant: runVariant,
     cases: manifest.cases.length,
     reviewAndContextCalls,
+    includesNoContext: includeNoContext,
     minimumIndexEmbeddingCalls,
     minimumOpenAICalls: reviewAndContextCalls + minimumIndexEmbeddingCalls,
     maximumOpenAICalls: callLimit,
@@ -233,7 +239,7 @@ async function main() {
   };
   if (ledger.runDate !== runDate || ledger.callLimit !== callLimit) throw new Error("Existing budget ledger does not match this run configuration.");
 
-  console.log(`Resuming with ${ledger.reservedCalls}/${callLimit} OpenAI calls already reserved.`);
+  console.log(`Resuming ${runVariant} with ${ledger.reservedCalls}/${callLimit} OpenAI calls already reserved.`);
 
   const contextModule = await import("../src/lib/server/context");
   const reviewModule = await import("../src/lib/server/review");
@@ -265,7 +271,7 @@ async function main() {
   };
 
   console.log(`Benchmark model: ${reviewModel}; prompt fingerprint: ${reviewModule.reviewPromptHash}.`);
-  console.log(`Cohort: ${manifest.cases.length} cases; index cap: ${process.env.MAX_INDEX_FILES ?? "40"}; no-context ablation enabled.`);
+  console.log(`Cohort: ${manifest.cases.length} cases; index cap: ${process.env.MAX_INDEX_FILES ?? "40"}; no-context ablation ${includeNoContext ? "enabled" : "omitted for this variant"}.`);
 
   for (const item of manifest.cases) {
     const id = caseId(item);
@@ -359,7 +365,7 @@ async function main() {
       console.log(`RESULT ${id} with-context run ${runNumber}/${withContextRuns}: ${review.findings.length} accepted finding(s), ${review.usage.totalTokens} tokens.`);
     }
 
-    if (!stored.arms.withoutContext) {
+    if (includeNoContext && !stored.arms.withoutContext) {
       const review = await reviewModule.reviewDiffDetailed(diff, addedLines, [], budget);
       if (review.model !== reviewModel || review.promptHash !== stored.promptHash) throw new Error(`Model or prompt fingerprint changed during ${id}.`);
       stored.arms.withoutContext = {
@@ -380,7 +386,7 @@ async function main() {
   const caseResults: StoredCase[] = [];
   for (const item of manifest.cases) {
     const record = await readJsonIfExists<StoredCase>(join(runDirectory, `${caseId(item)}.json`));
-    if (!record?.complete || record.arms.withContext.length !== withContextRuns || !record.arms.withoutContext) {
+    if (!record?.complete || record.arms.withContext.length !== withContextRuns || (includeNoContext && !record.arms.withoutContext)) {
       throw new Error(`Benchmark is incomplete at ${caseId(item)}; raw runs remain resumable and results.json was not written.`);
     }
     caseResults.push(record);
@@ -406,11 +412,16 @@ async function main() {
     const input = makeEvaluationInput((record) => record.arms.withContext[runIndex].acceptedFindings);
     return { runNumber, pullRequests: input.pullRequests, metrics: evaluationModule.evaluate(input) };
   });
-  const withoutContextInput = makeEvaluationInput((record) => record.arms.withoutContext?.acceptedFindings ?? []);
-  const withoutContext = [{ runNumber: 1, pullRequests: withoutContextInput.pullRequests, metrics: evaluationModule.evaluate(withoutContextInput) }];
+  const withoutContext = includeNoContext
+    ? (() => {
+      const input = makeEvaluationInput((record) => record.arms.withoutContext?.acceptedFindings ?? []);
+      return [{ runNumber: 1, pullRequests: input.pullRequests, metrics: evaluationModule.evaluate(input) }];
+    })()
+    : [];
   const result = {
     schemaVersion: 1,
     benchmarkDate: runDate,
+    benchmarkVariant: runVariant,
     dataset: manifest.dataset,
     selection: manifest.selection,
     manifestSha256,

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { evaluate, evaluateBenchmarkArms, evaluationSchema } from "../src/lib/evaluation";
 import { parseGitHubSource } from "../src/lib/server/github";
-import { getAddedLines } from "../src/lib/server/review";
+import { anchorFindingToAddedLine, getAddedLines } from "../src/lib/server/review";
 
 test("parses repository and pull request sources", () => {
   assert.deepEqual(parseGitHubSource("https://github.com/acme/store"), {
@@ -57,6 +57,19 @@ test("tracks added lines across multiple files and hunks", () => {
     { path: "a.ts", line: 2 },
     { path: "b.ts", line: 11 },
   ]);
+});
+
+test("anchors near-line review findings to the nearest added line only", () => {
+  const addedLines = [{ path: "src/a.ts", line: 10 }, { path: "src/a.ts", line: 14 }];
+
+  assert.deepEqual(anchorFindingToAddedLine({ file: "src/a.ts", line: 11, title: "boundary" }, addedLines), {
+    file: "src/a.ts",
+    line: 10,
+    title: "boundary",
+  });
+  assert.deepEqual(anchorFindingToAddedLine({ file: "src/a.ts", line: 12 }, addedLines), { file: "src/a.ts", line: 10 });
+  assert.equal(anchorFindingToAddedLine({ file: "src/a.ts", line: 17 }, addedLines), null);
+  assert.equal(anchorFindingToAddedLine({ file: "src/b.ts", line: 10 }, addedLines), null);
 });
 
 test("computes defect precision, recall, paired median savings, and regression catch rate", () => {

@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-4",
+  "project": "Hessian.js",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+  "buggySha": "d996501c087a3cecc5ce3e470106ebdb90657ca9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c1ddbead0c62f2329329ceff89e32a8c1cf0642e5d120b4a4f0aa200a654ff77",
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 112,
+    "embeddingUsage": {
+      "inputTokens": 148844,
+      "outputTokens": 0,
+      "totalTokens": 148844
+    }
+  },
+  "context": {
+    "chunkRefs": [
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "4a9703ac11552bdc7ffdb82af37418dcbe06c18497770ffab24bce2fdcf1481c"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "52338a1f604c9d5ab739ad5b10708d72c9a80d7510a15e6f1c0ab423acbd46cd"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "16eda6809ee9d217fdc65fb0872699e4eece5c25027c25fce173a68105e25346"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 688,
+      "outputTokens": 0,
+      "totalTokens": 688
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 6328,
+          "outputTokens": 158,
+          "totalTokens": 6486
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect serialization of typed null objects removed",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The code originally treated objects with a $class string and a null or undefined $ property as null and encoded accordingly, e.g., {a: {$class: 'xxx', $: null}}. This special handling was removed, and now such objects are no longer serialized as null but passed through the normal object serialization path. This alters behavior and breaks existing tests relying on this behavior (such as those deleted from test/object.test.js).",
+            "suggestion": "Restore the conditional to treat objects with $class string and null $ value as null, to maintain backward compatibility and behavior consistency for typed null objects."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect serialization of typed null objects removed",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The code originally treated objects with a $class string and a null or undefined $ property as null and encoded accordingly, e.g., {a: {$class: 'xxx', $: null}}. This special handling was removed, and now such objects are no longer serialized as null but passed through the normal object serialization path. This alters behavior and breaks existing tests relying on this behavior (such as those deleted from test/object.test.js).",
+            "suggestion": "Restore the conditional to treat objects with $class string and null $ value as null, to maintain backward compatibility and behavior consistency for typed null objects."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 6328,
+          "outputTokens": 173,
+          "totalTokens": 6501
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of null-like typed objects in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 303,
+            "explanation": "The original code returned early from writeObject if the object was null or undefined, or if it had a string $class with a nullish $ property, returning null prematurely for typed null-like objects. The new code returns early only if the object is null or undefined, thus allowing objects with $class and null $ to be processed further. This fixes potential incorrect serialization of typed null objects such as {$class: 'xxx', $: null} which should be encoded as a typed null, not as plain null.",
+            "suggestion": "Keep the updated condition to only return early for null or undefined, or add explicit tests to verify correct encoding of typed null objects."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of null-like typed objects in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The original code returned early from writeObject if the object was null or undefined, or if it had a string $class with a nullish $ property, returning null prematurely for typed null-like objects. The new code returns early only if the object is null or undefined, thus allowing objects with $class and null $ to be processed further. This fixes potential incorrect serialization of typed null objects such as {$class: 'xxx', $: null} which should be encoded as a typed null, not as plain null.",
+            "suggestion": "Keep the updated condition to only return early for null or undefined, or add explicit tests to verify correct encoding of typed null objects."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "1ff260443908ce7cd770d5e91f5e3a7e962df4b1a8c113392d78d4b938ecc27f",
+        "usage": {
+          "inputTokens": 6328,
+          "outputTokens": 482,
+          "totalTokens": 6810
+        },
+        "rawFindings": [
+          {
+            "title": "Encoder.writeObject overly restrictive null handling for objects with class and $ field",
+            "severity": "medium",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The patch changes the writeObject method to return early (encoding null) only if the entire object is null or undefined. Previously, it also returned early if the object had a $class property and a null or undefined $ property. This means that previously objects like { $class: 'xxx', $: null } were treated as null, which matches some expectations and existing tests. Removing this clause changes behavior, and may cause these objects to be encoded differently or throw errors.",
+            "suggestion": "Review the change in null handling for objects with $class and $ property. Verify if treating such objects as null is desired behavior. If so, restore the previous logic or handle the special cases explicitly with clear comments."
+          },
+          {
+            "title": "Removed test coverage for encoding objects with null $ property",
+            "severity": "low",
+            "file": "test/object.test.js",
+            "line": 23,
+            "explanation": "The PR removes tests that verify encoding behavior for objects like { a: { $class: ..., $: null } }. These tests ensured that such objects were serialized to a specific buffer. Removing these tests reduces coverage on encoding nuances of objects with null $ properties and may miss regressions.",
+            "suggestion": "Consider retaining these test cases or adding new tests reflecting the updated expected behavior after the encoder changes, ensuring the code handles these object types correctly."
+          },
+          {
+            "title": "Removed test for encoding {'java.lang.Long', $: null} to null",
+            "severity": "low",
+            "file": "test/long.test.js",
+            "line": 26,
+            "explanation": "The removed test verifies that an object with $class 'java.lang.Long' and null $ property encodes and decodes to null. This test aligns with the previous encoder behavior and its removal indicates a change in handling such cases.",
+            "suggestion": "If this behavior is no longer supported, add tests for the new expected behavior or clarify the changes in documentation."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Encoder.writeObject overly restrictive null handling for objects with class and $ field",
+            "severity": "medium",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The patch changes the writeObject method to return early (encoding null) only if the entire object is null or undefined. Previously, it also returned early if the object had a $class property and a null or undefined $ property. This means that previously objects like { $class: 'xxx', $: null } were treated as null, which matches some expectations and existing tests. Removing this clause changes behavior, and may cause these objects to be encoded differently or throw errors.",
+            "suggestion": "Review the change in null handling for objects with $class and $ property. Verify if treating such objects as null is desired behavior. If so, restore the previous logic or handle the special cases explicitly with clear comments."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}
