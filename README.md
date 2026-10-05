@@ -42,7 +42,7 @@ Open `http://localhost:3000`. The sample diff can be loaded without credentials;
 ### Review a change
 
 1. Enter a GitHub repository or pull request URL.
-2. Choose **Index repository context**. DiffSense selects up to 40 supported source files, skips files larger than 80 KB, chunks the source, and stores embeddings in PostgreSQL/pgvector.
+2. Choose **Index repository context**. DiffSense selects up to `MAX_INDEX_FILES` supported source files (40 by default), skips files larger than 80 KB, chunks the source, and stores embeddings in PostgreSQL/pgvector.
 3. Paste a unified diff or use a pull request URL, then choose **Analyze change**.
 4. Inspect the candidate findings and verify them against the code before acting.
 
@@ -98,17 +98,36 @@ Precision and recall compare assisted findings with labeled defects; file paths 
 
 For a CLI smoke test, run `npm run evaluate -- tests/fixtures/synthetic-metrics-smoke.json`. That fixture is deliberately synthetic and verifies the calculations; its output is not a benchmark of DiffSense.
 
+## BugsJS benchmark
+
+The committed [selection protocol](evaluation/SELECTION.md) and [manifest](evaluation/manifest.json) define a 30-case cohort from BugsJS 1.0 (MIT). Cases are ordered by project and bug ID, capped at six per project, and labeled from bug-introducing diffs reconstructed by reversing the fix commit. The manifest commit predates any DiffSense model output. No third-party source files or full diffs are committed; `npm run build-dataset` regenerates diffs in the OS temp directory.
+
+Run the retrieval ablation after configuring `.env.local` and starting PostgreSQL:
+
+```powershell
+npm run build-dataset
+npm run benchmark -- --dry-run
+npm run benchmark
+npm run evaluate -- evaluation/results.json
+```
+
+For each case, the benchmark indexes the fixed commit, reviews the reversed diff with retrieved context three times, then reviews it once without context. Repository chunks are replaced case by case because storage is keyed only by repository. The call ledger prints estimated calls and tokens before each OpenAI batch and stops before exceeding 500 calls. Benchmark SDK retries are disabled so the call cap is enforceable. Set `DIFFSENSE_RUN_DATE=YYYY-MM-DD` to resume a run on its original date.
+
+Raw outputs are limited to structured finding fields, model/date, and token usage. Long finding text is clipped; retrieved context is represented only by source path and content hash. Raw runs are stored under `evaluation/runs/<date>/`; aggregate per-run precision/recall and false-positive rows are written to `evaluation/results.json`. The results file is not created until all cases and arms complete.
+
+**Current results:** the baseline has not run yet. Human review findings and paired minutes are unmeasured; the timing-study feature is intentionally not included. The 40 seeded regression scenarios have not been authored or executed, so regression catch rate is also unmeasured. Do not interpret the synthetic metrics fixture or empty UI values as benchmark results.
+
 ## Data handling and deployment limits
 
 Repository source chunks are stored in the configured PostgreSQL database. Source and diff content is sent to OpenAI for embeddings and review. GitHub and OpenAI credentials are read server-side from environment variables; do not commit `.env.local` or index code unless those data flows are approved for your repositories.
 
 This version is intended for local use or a trusted single-operator environment. It has no sign-in, authorization, or tenant isolation, so **do not expose a shared instance to the public internet or use it for multiple users**. Add authentication and repository-level access controls before hosting it as a team service.
 
-Other current limits: GitHub is the only repository provider; indexing is capped at 40 supported source files per run; findings are suggestions, not confirmed defects; and the app does not create GitHub review comments or apply fixes.
+Other current limits: GitHub is the only repository provider; indexing is capped at `MAX_INDEX_FILES` supported source files per run (40 by default); findings are suggestions, not confirmed defects; and the app does not create GitHub review comments or apply fixes.
 
 ## Configuration
 
-See `.env.example` for the complete list. `OPENAI_REVIEW_MODEL` defaults to `gpt-4.1-mini`; `OPENAI_EMBEDDING_MODEL` defaults to `text-embedding-3-small`. `DATABASE_URL` must point to PostgreSQL with the pgvector extension available. The API creates its table and indexes on first use.
+See `.env.example` for the complete list. `OPENAI_REVIEW_MODEL` defaults to `gpt-4.1-mini`; `OPENAI_EMBEDDING_MODEL` defaults to `text-embedding-3-small`; `MAX_INDEX_FILES` defaults to `40`. `DATABASE_URL` must point to PostgreSQL with the pgvector extension available. The API creates its table and indexes on first use.
 
 ## Checks
 
