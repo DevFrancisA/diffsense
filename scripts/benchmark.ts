@@ -28,7 +28,11 @@ const pipelineConfig = {
   retrievalK: Number(process.env.DIFFSENSE_RETRIEVAL_K ?? 8),
   maxIndexFiles: Number(process.env.MAX_INDEX_FILES ?? 40),
   withContextRuns,
+  // Added in Round 2; omitted when at their defaults so earlier variants' stored configs stay identical.
+  ...(process.env.DIFFSENSE_ACCEPTANCE === "remap-removed" ? { acceptance: "remap-removed" as const } : {}),
+  ...(process.env.DIFFSENSE_DIFF_DIRECTION === "forward" ? { direction: "forward" as const } : {}),
 };
+const forward = pipelineConfig.direction === "forward";
 if (!["baseline", "cite-added-line", "cite-added-line-source-focus"].includes(pipelineConfig.promptRevision)) throw new Error("Unknown REVIEW_PROMPT_REVISION.");
 if (!Number.isSafeInteger(pipelineConfig.retrievalK) || pipelineConfig.retrievalK < 1 || pipelineConfig.retrievalK > 32) throw new Error("DIFFSENSE_RETRIEVAL_K must be 1-32.");
 
@@ -130,7 +134,8 @@ function caseId(item: ManifestCase) {
 
 function diffPath(item: ManifestCase) {
   const slug = item.project.replace(/[^a-z0-9]+/gi, "-");
-  return join(diffRoot, `${slug}-${item.bugId}.diff`);
+  // Forward diffs (buggy -> fix) are written by scripts/forward-diffs.ts; reversed diffs (fix -> buggy) by build-dataset.
+  return join(diffRoot, forward ? `${slug}-${item.bugId}.forward.diff` : `${slug}-${item.bugId}.diff`);
 }
 
 function clipText(value: string, lineLimit = 3, charLimit = 500) {
@@ -186,7 +191,7 @@ async function main() {
   const embeddingModel = process.env.OPENAI_EMBEDDING_MODEL ?? "text-embedding-3-small";
   const dateDirectory = join(runsRoot, runDate);
   const runDirectory = runVariant === "baseline" ? dateDirectory : join(dateDirectory, runVariant);
-  const resultsPath = join(root, "evaluation", runVariant === "baseline" ? "results.json" : `results-${runVariant}.json`);
+  const resultsPath = join(root, "evaluation", runVariant === "baseline" ? "results.json" : forward ? `falsealarms-${runVariant}.json` : `results-${runVariant}.json`);
   if (runVariant === "baseline") throw new Error("The baseline benchmark is complete; run post-baseline work under a named DIFFSENSE_BENCHMARK_VARIANT.");
   if ((manifestFile === "manifest-holdout.json") !== runVariant.startsWith("holdout-")) throw new Error("HOLDOUT variants must be named holdout-* and use manifest-holdout.json, and only they may.");
   const existingResults = await readJsonIfExists(resultsPath);
@@ -240,6 +245,7 @@ async function main() {
   console.log(`Resuming ${runVariant} with ${ledger.reservedCalls} session calls already reserved.`);
 
   const contextModule = await import("../src/lib/server/context");
+  const pipelineModule = await import("../src/lib/server/review-pipeline");
   const reviewModule = await import("../src/lib/server/review");
   const databaseModule = await import("../src/lib/server/database");
   const evaluationModule = await import("../src/lib/evaluation");
@@ -273,12 +279,14 @@ async function main() {
       }
     }
 
-    console.log(`CASE ${id}: index fixed commit ${item.fixSha}; reverse-diff labels remain untouched.`);
+    // The index and changed-file text always come from the pre-change side: the fix commit for reversed diffs, its parent for forward diffs.
+    const baseCommit = forward ? item.buggySha : item.fixSha;
+    console.log(`CASE ${id}: index pre-change commit ${baseCommit}${forward ? " (forward fix diff)" : "; reverse-diff labels remain untouched"}.`);
     const addedLines = reviewModule.getAddedLines(diff);
-    if (addedLines.length === 0) throw new Error(`No added lines in the committed defect label diff for ${id}.`);
+    if (addedLines.length === 0 && !forward) throw new Error(`No added lines in the committed defect label diff for ${id}.`);
     const [owner, repositoryName] = item.upstreamRepository.split("/").slice(-2);
-    const index = await contextModule.indexRepository(owner, repositoryName, item.fixSha, budget);
-    if (index.commitSha !== item.fixSha) throw new Error(`Indexed ${index.commitSha} instead of fixed commit ${item.fixSha} for ${id}.`);
+    const index = await contextModule.indexRepository(owner, repositoryName, baseCommit, budget);
+    if (index.commitSha !== baseCommit) throw new Error(`Indexed ${index.commitSha} instead of pre-change commit ${baseCommit} for ${id}.`);
 
     const stored: StoredCase = existing ?? {
       schemaVersion: 1,
@@ -317,10 +325,25 @@ async function main() {
     };
     await writeJsonAtomic(caseFile, stored);
 
-    const retrieved = await contextModule.retrieveRepositoryContextDetailed(index.repository, diff, budget, pipelineConfig.retrievalK);
+    // Same context builder as /api/review (src/lib/server/review-pipeline.ts).
+    const retrieved = await pipelineModule.buildReviewContext({
+      owner,
+      repository: repositoryName,
+      repositoryKey: index.repository,
+      baseCommit,
+      diff,
+      config: {
+        promptRevision: pipelineConfig.promptRevision,
+        includeChangedFiles: pipelineConfig.includeChangedFiles,
+        changedFilesExcludeTests: pipelineConfig.changedFilesExcludeTests === true,
+        retrievalK: pipelineConfig.retrievalK,
+        acceptance: pipelineConfig.acceptance ?? "exact",
+      },
+      budget,
+    });
     if (retrieved.chunks.length === 0) throw new Error(`No context retrieved for ${id}; refusing to label a context arm as complete.`);
-    const changedFiles = pipelineConfig.includeChangedFiles ? await contextModule.getChangedFileContext(owner, repositoryName, item.fixSha, diff, { excludeTests: pipelineConfig.changedFilesExcludeTests === true }) : [];
-    const reviewContext = [...changedFiles.map((file) => ({ path: `${file.path} (full file before this change)`, content: file.content })), ...retrieved.chunks];
+    const changedFiles = retrieved.changedFiles;
+    const reviewContext = retrieved.context;
     stored.context = {
       changedFileRefs: changedFiles.map((file) => ({ path: file.path, contentSha256: sha256(file.content) })),
       chunkRefs: retrieved.chunks.map((chunk: { path: string; content: string }) => ({ path: chunk.path, contentSha256: sha256(chunk.content) })),
@@ -330,7 +353,14 @@ async function main() {
 
     while (stored.arms.withContext.length < withContextRuns) {
       const runNumber = stored.arms.withContext.length + 1;
-      const review = await reviewModule.reviewDiffDetailed(diff, addedLines, reviewContext, budget, pipelineConfig.promptRevision);
+      if (addedLines.length === 0) {
+        // A fix that only deletes lines leaves nothing a finding could be accepted on; no review call is made.
+        stored.arms.withContext.push({ model: reviewModel, promptHash, usage: zeroUsage(), rawFindings: [], acceptedFindings: [], skipped: "no added lines" } as StoredReview);
+        await writeJsonAtomic(caseFile, stored);
+        console.log(`RESULT ${id} run ${runNumber}: skipped (diff adds no lines).`);
+        continue;
+      }
+      const review = await reviewModule.reviewDiffDetailed(diff, addedLines, reviewContext, budget, pipelineConfig.promptRevision, pipelineConfig.acceptance ?? "exact");
       if (review.model !== reviewModel || review.promptHash !== stored.promptHash) throw new Error(`Model or prompt fingerprint changed during ${id}.`);
       stored.arms.withContext.push({
         model: review.model,
@@ -368,6 +398,41 @@ async function main() {
       throw new Error(`Benchmark is incomplete at ${caseId(item)}; raw runs remain resumable and results.json was not written.`);
     }
     caseResults.push(record);
+  }
+
+  if (forward) {
+    // Forward fix diffs have no defect labels: every accepted finding is a potential false alarm (evaluation/ROUND2.md, R2).
+    const testPath = /(?:^|\/)(?:test|tests|__tests__|spec|specs)\/|\.(?:test|spec)\.[^/]+$/i;
+    const cases = caseResults.map((record) => {
+      const findings = record.arms.withContext[0].acceptedFindings.map((finding) => ({ ...finding, isTest: testPath.test(finding.file) }));
+      return { caseId: record.caseId, skipped: (record.arms.withContext[0] as StoredReview & { skipped?: string }).skipped ?? null, findings };
+    });
+    const flagged = cases.filter((item) => item.findings.length > 0);
+    const allFindings = cases.flatMap((item) => item.findings);
+    const output = {
+      schemaVersion: 1,
+      kind: "forward-fix-false-alarms",
+      benchmarkDate: runDate,
+      benchmarkVariant: runVariant,
+      pipelineConfig,
+      manifestSha256,
+      models: { review: reviewModel, embedding: embeddingModel },
+      reviewPromptSha256: promptHash,
+      summary: {
+        cases: cases.length,
+        casesReviewed: cases.filter((item) => !item.skipped).length,
+        casesFlagged: flagged.length,
+        casesFlaggedOnSource: cases.filter((item) => item.findings.some((finding) => !finding.isTest)).length,
+        findings: allFindings.length,
+        sourceFindings: allFindings.filter((finding) => !finding.isTest).length,
+        testFindings: allFindings.filter((finding) => finding.isTest).length,
+      },
+      cases,
+    };
+    await writeJsonAtomic(resultsPath, output);
+    console.log(`RESULTS ${resultsPath}`);
+    console.log(JSON.stringify(output.summary, null, 2));
+    return;
   }
 
   function makeEvaluationInput(findingsForCase: (record: StoredCase) => Finding[]) {

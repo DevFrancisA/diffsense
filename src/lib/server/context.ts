@@ -126,18 +126,34 @@ export async function indexRepository(owner: string, repository: string, ref?: s
 }
 
 export async function retrieveRepositoryContextDetailed(repository: string, diff: string, budget?: OpenAIBudget, limit = 8) {
-  const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
   const query = diff.slice(0, 12_000);
-  await budget?.beforeBatch("context_embedding", 1, estimateTokens(query));
-  const embedding = await openai.embeddings.create({ model: embeddingModel, input: query, dimensions: 1536 });
-  const embeddingUsage = {
-    inputTokens: embedding.usage.prompt_tokens,
-    outputTokens: 0,
-    totalTokens: embedding.usage.total_tokens,
-  };
-  await budget?.recordUsage("context_embedding", embeddingUsage);
-  const vector = `[${embedding.data[0].embedding.join(",")}]`;
   const pool = await ensureDatabaseSchema();
+  const queryKey = createHash("sha256").update(query).digest("hex");
+  const cached = await pool.query<{ embedding: string }>(
+    "SELECT embedding::text AS embedding FROM embedding_cache WHERE model = $1 AND content_sha256 = $2",
+    [embeddingModel, queryKey],
+  );
+  let embeddingUsage: ApiTokenUsage = { inputTokens: 0, outputTokens: 0, totalTokens: 0 };
+  let values: number[];
+  if (cached.rows[0]) {
+    values = JSON.parse(cached.rows[0].embedding) as number[];
+  } else {
+    const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
+    await budget?.beforeBatch("context_embedding", 1, estimateTokens(query));
+    const embedding = await openai.embeddings.create({ model: embeddingModel, input: query, dimensions: 1536 });
+    embeddingUsage = {
+      inputTokens: embedding.usage.prompt_tokens,
+      outputTokens: 0,
+      totalTokens: embedding.usage.total_tokens,
+    };
+    await budget?.recordUsage("context_embedding", embeddingUsage);
+    values = embedding.data[0].embedding;
+    await pool.query(
+      "INSERT INTO embedding_cache (model, content_sha256, embedding) VALUES ($1, $2, $3::vector) ON CONFLICT DO NOTHING",
+      [embeddingModel, queryKey, `[${values.join(",")}]`],
+    );
+  }
+  const vector = `[${values.join(",")}]`;
   const result = await pool.query<{ file_path: string; content: string; distance: number }>(
     `SELECT file_path, content, (embedding <=> $2::vector)::float AS distance
      FROM repository_chunks
