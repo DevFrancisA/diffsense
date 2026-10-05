@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkVariant": "dev-forward-c7",
+  "derivedFrom": {
+    "samples": [
+      "dev-forward-c5",
+      "dev-forward-c5-r2"
+    ],
+    "method": "scripts/union-runs.ts (union of accepted findings, de-duplicated by file:line)"
+  },
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 10,
+    "casesFlaggedOnSource": 10,
+    "findings": 15,
+    "sourceFindings": 13,
+    "testFindings": 2
+  },
+  "cases": [
+    {
+      "caseId": "Bower-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of cache bypass flag in fetch method",
+          "severity": "high",
+          "file": "lib/core/PackageRepository.js",
+          "line": 49,
+          "explanation": "In the fetch method, the check for resolver.isNotCacheable() was moved incorrectly and the force flag check now happens after. This causes local resources (which are not cacheable) to be fetched twice: first in the isNotCacheable block, then potentially again forced by the force flag, leading to redundant or unintended behavior.",
+          "suggestion": "Move the isNotCacheable check before the force flag check to ensure local resources bypass cache immediately, and force flag is only used for cacheable resources.",
+          "failureAfterChange": "Fetching a local resource results in redundant resolution calls. For example, fetching a local file source triggers both cache bypass and force resolve path, causing redundant operations.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "_resolve method incorrectly caches non-cacheable resolvers",
+          "severity": "high",
+          "file": "lib/core/PackageRepository.js",
+          "line": 178,
+          "explanation": "In the _resolve method, the previous check was using resolver._resolution type 'branch' to decide cache bypass. After the change, it uses resolver.isNotCacheable(), but the caching call is always executed even for non-cacheable resolvers, because the store call is moved outside the conditional. This incorrectly caches resolvers that should bypass cache, breaking expected cache logic.",
+          "suggestion": "Place the store call inside an else branch so that non-cacheable resolvers do not get cached.",
+          "failureAfterChange": "Non-cacheable resolvers such as local dependencies get their results cached, which may cause stale or invalid cache usage later.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Bower-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of --saveExact option when saving dependencies in Project.install",
+          "severity": "medium",
+          "file": "lib/core/Project.js",
+          "line": 89,
+          "explanation": "The modified Project.install method now treats --saveExact differently from --save and --saveDev regarding how the dependency version is saved into bower.json. However, the new code incorrectly adds the dependency with the source URL plus '#' plus version, only when saveExact is set, and only adds it to dependencies when save is set. This means if only --saveExact is specified (without save or saveDev), the new entry is not saved to either dependencies or devDependencies, and thus is omitted fro",
+          "suggestion": "Change the logic to ensure that if --saveExact is set, the dependency string is properly saved to dependencies or devDependencies depending on the presence of --save or --saveDev, and when both save and saveDev are false but saveExact is true, still add it sensibly (likely to dependencies).",
+          "failureAfterChange": "Running 'bower install package --save-exact' without --save or --save-dev does not add the package to bower.json dependencies or devDependencies, causing the package not to be saved as expected.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Bower-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect trailing comma detection on multiline objects and arrays",
+          "severity": "medium",
+          "file": "lib/rules/comma-dangle.js",
+          "line": 42,
+          "explanation": "The updated rule logic calculates whether the penultimate token (comma) is on a new line relative to the node's end line, but this does not account correctly for all multiline cases resulting in reporting unexpected trailing commas in valid multiline structures (e.g., trailing commas allowed but nodeIsMultiLine replaced with lastTokenOnNewLine check).",
+          "suggestion": "Restore or adjust the check to base conditions on nodeIsMultiLine (node start line vs end line) instead of lastTokenOnNewLine, ensuring the rule correctly handles trailing commas on multiline objects and arrays per the 'always-multiline' option.",
+          "failureAfterChange": "Input: a multiline object or array with a trailing comma as allowed by 'always-multiline' option.\nResult: The rule incorrectly reports an 'Unexpected trailing comma.' error for valid code.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect router used in HTTP verb method handlers",
+          "severity": "high",
+          "file": "lib/application.js",
+          "line": 407,
+          "explanation": "The change replaces usage of `this._router.route(path)` with `this._baseRoute(path)` in the HTTP verb methods (e.g., app.get, app.post, etc.) and in app.all. The `_baseRoute` method ensures the route is cached and reused, preventing duplicate routes for the same path. However, `_baseRoute` relies on `this._baseRoutes` cache, which is newly added here and initialized in `app.init`. This alters the behavior such that multiple calls to the same HTTP verb and path share the same route, enabling midd",
+          "suggestion": "Review the compatibility impact of switching to `_baseRoute` caching in method handlers. If multiple handlers per verb and path must be supported, consider retaining the previous behavior or documenting that handlers override prior ones.",
+          "failureAfterChange": "With this change, registering multiple app.get('/path', handler) calls will overwrite previous handlers rather than stacking them, causing only the last handler to be executed instead of all handlers.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of object keys in v1 Decoder causing omission of non-string keys",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 429,
+          "explanation": "In v1 Decoder's readObject method, the condition to add properties to the result object was changed from allowing only string or number keys to allowing any key type without type checking. This relaxes the type restriction, which is generally safe as JavaScript coerces keys to strings, but the removal of type check might introduce unexpected behavior if keys are other types like undefined or symbols.",
+          "suggestion": "Restore or explicitly handle key type checks to avoid unexpected keys, or coerce keys to strings before assignment.",
+          "failureAfterChange": "Input an object with keys of non-string/non-number types, such as symbol or undefined keys; these keys might now be blindly assigned, potentially breaking expected object structure.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Incorrect assignment of keys in v2 Decoder _readMap causing all keys to be assigned regardless of type",
+          "severity": "high",
+          "file": "lib/v2/decoder.js",
+          "line": 732,
+          "explanation": "In v2 Decoder's _readMap method, the type check for 'string' or 'number' keys was removed, causing all keys regardless of type to be assigned to the map object. This change may introduce keys that are not strings or numbers, which can cause unexpected behavior during map usage or serialization.",
+          "suggestion": "Restore the type checking for keys before assignment or explicitly coerce keys to strings if necessary.",
+          "failureAfterChange": "Decode a map where keys are of unexpected types (e.g., objects), resulting in keys being object references as keys in a plain object, which is unsupported in JS and can lead to unexpected behavior.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Test expectation updated incorrectly resulting in unexpected map key for Java null key in decoded map",
+          "severity": "critical",
+          "file": "test/map.test.js",
+          "line": 168,
+          "explanation": "The test case expectation for decoding a map with a null key was changed from expecting an empty object {} to an object with a key 'null' and value 'null'. This indicates the code after the change does not treat null keys correctly and instead converts null key to a string 'null', which deviates from expected behavior.",
+          "suggestion": "Fix decoder logic to properly handle null keys without converting them to string 'null' or fix test expectations if the new behavior is intended but inconsistent with spec.",
+          "failureAfterChange": "Input: decode a map containing a null key. Expected: empty object or skipped key. Got: object with string key 'null'.",
+          "alreadyFixedByChange": false,
+          "isTest": true
+        },
+        {
+          "title": "Test expectation updated incorrectly causing plainObject to expect incorrect key String from object key",
+          "severity": "critical",
+          "file": "test/map.test.js",
+          "line": 480,
+          "explanation": "The test changed the expected plainObject from {} to having a key '[object Object]' mapping to a number, indicating that the decoding now treats an object key as string '[object Object]', which is incorrect behavior and likely unintended.",
+          "suggestion": "Fix decoder logic to handle object keys correctly, possibly by not allowing them as keys or by using a Map, or revert test if original behavior is preferred.",
+          "failureAfterChange": "Input: decode a map with an object key. Expected: key is not stringified or map keys preserved properly. Got: key '[object Object]' as string in plain object, corrupting data.",
+          "alreadyFixedByChange": false,
+          "isTest": true
+        },
+        {
+          "title": "Unconditional assignment of keys to map in v2 decoder _readMap may cause unintended property key conversion",
+          "severity": "medium",
+          "file": "lib/v2/decoder.js",
+          "line": 733,
+          "explanation": "Patch removes a typeof check on keys ensuring that only string or number keys are assigned to the map object. After patch, all keys including objects will be assigned as properties on the map object, causing keys to be coerced to strings (e.g., '[object Object]'). This can break maps with non-string keys and cause unexpected behavior.",
+          "suggestion": "Restore the typeof check to only assign string or number keys to map properties. Handle other keys appropriately, such as storing in the hidden ES6 Map if supported.",
+          "failureAfterChange": "Decoding a map with object keys results in keys being coerced to '[object Object]' string, causing key collisions and incorrect map representation.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of object properties with $class string and null $ value in writeObject",
+          "severity": "medium",
+          "file": "lib/v1/encoder.js",
+          "line": 302,
+          "explanation": "In proto.writeObject, the added condition `(is.string(obj.$class) && is.nullOrUndefined(obj.$))` causes objects that have a $class string defined but a null or undefined $ property to be encoded as a null value. This means any nested object property that has this form will be serialized as null instead of as an object, which can cause data loss or incorrect encoding for such patterns.",
+          "suggestion": "Remove the condition `(is.string(obj.$class) && is.nullOrUndefined(obj.$))` from the null check in writeObject, or handle nested properties with $class and null $ values explicitly in the serialization logic to preserve object structure if intended.",
+          "failureAfterChange": "Input `{a: {$class: 'some.Class', $: null}}` encoded by writeObject results in the 'a' property being serialized as null; upon decoding, the original structure with $class info is lost.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hessian-js-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hessian-js-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Missing string conversion for map keys in readObject method",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 415,
+          "explanation": "In the readObject function, the property name 'key' is used as an object key without being converted to string. Hessian map keys can be non-string types (e.g., integers, null), and using them as object keys without string conversion can lead to incorrect decoding results or unexpected behavior.",
+          "suggestion": "Convert the 'key' to string before using it as an object key, for example, add 'key = key.toString();' before assigning 'result.$[key] = this.read(withType);'.",
+          "failureAfterChange": "Decoding a hessian map with a key of null will result in a property key 'null' as string in the object, but without the fix, it may lead to incorrect behavior or an error.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Regex for homepage pagination matching too strictly to end of string",
+          "severity": "low",
+          "file": "lib/plugins/helper/is.js",
+          "line": 34,
+          "explanation": "The modified regex now expects the path to match the pagination directory, a number, followed by optional 'index.html' at the end of the string, anchored by '$'. This may fail to recognize paths that have additional suffixes or query parameters after the pagination folder.",
+          "suggestion": "Consider removing the end-of-string anchor '$' to allow matching paths like 'page/2/index.html?someQuery'. For example: new RegExp('^' + escapeRegExp(paginationDir) + '\\/\\d+\\/(index\\.html)?')",
+          "failureAfterChange": "Paths like 'page/2/index.html?query=1' would not match isHomeHelper(), returning false incorrectly.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect URL path construction in PostAsset.path virtual",
+          "severity": "medium",
+          "file": "lib/models/post_asset.js",
+          "line": 21,
+          "explanation": "The change replaced url.resolve(post.path, this.slug) with path.join(post.path, this.slug). The post.path is typically a URL path (e.g., '/foo/'), not a filesystem path. Using path.join will treat the inputs as filesystem paths and use platform-specific separators (e.g., backslash on Windows), which is incorrect for URL paths. This can lead to incorrect URL construction, especially on Windows platforms where backslashes are used. url.resolve correctly resolves URLs, handling '/' separators and r",
+          "suggestion": "Revert to using url.resolve(post.path, this.slug) for proper URL path construction or explicitly handle URL joining with a utility that respects URL semantics.",
+          "failureAfterChange": "For a post.path of '/foo/' and slug 'bar', the returned path will be '/foo/bar' on POSIX but '\\foo\\bar' on Windows, which is invalid as a URL path. This leads to wrong asset URLs and broken links on Windows hosts.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-8",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Invalid usage of url.resolve causing incorrect image URL resolution for relative paths",
+          "severity": "high",
+          "file": "lib/plugins/helper/open_graph.js",
+          "line": 90,
+          "explanation": "The change replaces direct string concatenation and modification of the path with url.resolve, which is appropriate. However, the replaced code appears to assume 'path' is a string starting with '/'. The new code uses url.resolve with 'url || config.url' as the base, and 'path' as the relative path. If 'url' (current page URL) includes a full URL ending with 'index.html', url.resolve will correctly resolve relative paths against that. However, the test added sets 'postUrl' with a path ending in ",
+          "suggestion": "Ensure 'url' is correctly set to the full current page URL including path component for resolving relative image paths, or provide a fallback that reflects the current page path relative to config.url.",
+          "failureAfterChange": "Given options.images = 'test.jpg' and current page URL 'http://yoursite.com/blog/foo/bar/index.html', the image URL resolves to 'http://yoursite.com/blog/foo/bar/test.jpg' as expected. But if 'url' is null and config.url is 'http://yoursite.com', it resolves to 'http://yoursite.com/test.jpg', which may be incorrect for pages in subdirectories.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-3",
+      "skipped": null,
+      "findings": []
+    }
+  ]
+}

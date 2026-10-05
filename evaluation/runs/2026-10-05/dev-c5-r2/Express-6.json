@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-6",
+  "project": "Express",
+  "bugId": 6,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "31b2e2d7b4774eed16a93f9a8a20a9967e91e524",
+  "buggySha": "8fe8d740565bdedd3cb12bcb6d8f8648e455eccf",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "229af7ff8a420da2f4d63de429ff32feec758fbe98b76e8e0dee7207abb281c1",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "31b2e2d7b4774eed16a93f9a8a20a9967e91e524",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 46,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/application.js",
+        "contentSha256": "852639e0d047fc7ce233a77fb79974f210a6985cd40860f31d2c05cc2d79dcc8"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "2c28ee0dda0c6512168f13bf68188d10d66796c73e72e4826d18f3b1b936e38e"
+      },
+      {
+        "path": "examples/mvc/lib/boot.js",
+        "contentSha256": "474337edbc0c3352d9cd734be38163f2b4cc5a67f6703ed1dba2d781fbc2effc"
+      },
+      {
+        "path": "examples/route-map/index.js",
+        "contentSha256": "8574b698d73e3ff85fc271fe33a90084a3be6e188879ec594ba8942b1060db82"
+      },
+      {
+        "path": "examples/resource/app.js",
+        "contentSha256": "3d48d0262f76949c6e52639a9241828aa6400620b7ed1f675995f1de6d85d541"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "a58493eb77989015283228f603065740c3a5af70cb975ea855a4ed48afaff983"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "d215d7fb8ee8c9130be81437bddaf2a68ac326ab712c1dd06fa8cfcd05468d41"
+      },
+      {
+        "path": "examples/route-separation/index.js",
+        "contentSha256": "dfe8a8bf73b564618897fef6828c7c4feedebb4aeaa92075445b421976161b53"
+      },
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "6833f2ec91dd648fec235f919fd5519bada4eda645d83a96b56a605b5bd6b3ec"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7494,
+          "outputTokens": 227,
+          "totalTokens": 7721
+        },
+        "rawFindings": [
+          {
+            "title": "Removed `_baseRoute` caching breaks multiple handlers on same route",
+            "severity": "high",
+            "file": "lib/application.js",
+            "line": 406,
+            "explanation": "The change removes the `_baseRoute` method and uses `_router.route(path)` directly every time. Previously, `_baseRoute` cached Route instances per path, which ensured multiple handlers on the same path were attached to the same Route object. After removal, each call to `app.VERB(path, ...)` calls `_router.route(path)` which may create distinct Route objects, losing existing handlers, thus breaking the ability to add multiple handlers to the same route.",
+            "suggestion": "Restore the `_baseRoute` method caching Route objects and use it in the HTTP verb methods and in `app.all` to ensure the same Route instance is used per path.",
+            "failureAfterChange": "Adding multiple handlers for the same path with `app.get(path, handler1)` and then `app.get(path, handler2)` results in only one handler being registered instead of both, causing requests to not invoke all expected handlers.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Removed `_baseRoute` caching breaks multiple handlers on same route",
+            "severity": "high",
+            "file": "lib/application.js",
+            "line": 406,
+            "explanation": "The change removes the `_baseRoute` method and uses `_router.route(path)` directly every time. Previously, `_baseRoute` cached Route instances per path, which ensured multiple handlers on the same path were attached to the same Route object. After removal, each call to `app.VERB(path, ...)` calls `_router.route(path)` which may create distinct Route objects, losing existing handlers, thus breaking the ability to add multiple handlers to the same route.",
+            "suggestion": "Restore the `_baseRoute` method caching Route objects and use it in the HTTP verb methods and in `app.all` to ensure the same Route instance is used per path.",
+            "failureAfterChange": "Adding multiple handlers for the same path with `app.get(path, handler1)` and then `app.get(path, handler2)` results in only one handler being registered instead of both, causing requests to not invoke all expected handlers.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

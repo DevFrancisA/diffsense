@@ -71,3 +71,12 @@ The ledger refuses any batch that would pass 1,300 calls or 13M tokens.
 - The second sample is a fresh one-run C5 variant (`dev-c5-r2`, `dev-forward-c5-r2`). C5's own eligibility still uses its preregistered run 1.
 - C7 joins the candidate set under the **same selection rule**: the fewest DEV forward cases flagged, with DEV reversed recall ≥ 26/59.
 - Cost: about 60 DEV calls, and about 120 on HOLDOUT if C7 is chosen (two samples on each arm).
+
+## C7 on DEV, and selection
+
+| DEV | Reversed found / 59 | Forward cases flagged / 30 | Forward findings |
+|---|---:|---:|---:|
+| C5 sample 2 (`dev-c5-r2`) | 22 | 8 | 12 |
+| **C7** = union of C5 samples 1 and 2 | **30** | **10** | 15 |
+
+Under the selection rule, only C4 (16 flagged, recall 26) and C7 (10 flagged, recall 30) clear the recall floor. **C7 is selected.** It makes two review calls per diff, where C4 makes one. A C4 union of two samples was not measured on the forward arm, so part of C7's recall gain over a single C4 run may come from sampling twice.

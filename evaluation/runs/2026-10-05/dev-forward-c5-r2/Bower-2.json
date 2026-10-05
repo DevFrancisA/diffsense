@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-2",
+  "project": "Bower",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "87a041a212a03142e92c56ff832bcf5cbf49a72b",
+  "buggySha": "9c52ec2751d689a2cddb34adb004df41ce7c8a92",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c3c57123572b77a1e9eefe0b7546e30c615ac83a34689c8265856cae3b40077e",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "9c52ec2751d689a2cddb34adb004df41ce7c8a92",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 131,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "2b8caf1f150948712b69839975d808710b0615830754e209b6d8752c99591843"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/commands/install.js",
+        "contentSha256": "6aed989734817914dc80336b8b7a60396cb4f5ff4690f7fbd96db7a19d4f514d"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "714515aa62e7142d9e95743cd3e205e012de7817c02868b8443fcce2cb35b903"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "44d50437b902ddec6dd35d0ca0da71af8f5e67bc17a5e22fbd433b18776a08c7"
+      },
+      {
+        "path": "lib/core/Manager.js",
+        "contentSha256": "bad7a6f048a746d66e52a2d293f70eb1c4f278402bf53df14a58dc6e3be9d603"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "457b2d3cb5108237bfff4e48ffefc5359139aa72b10fd65b0110c103b01f3cce"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "90f1cab162d81493fe693462b11a22bfccf2d614e02c9aec08fdafce9b334b52"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "4971ae6d2616ee020e0ce8b638d8bf41bbb865825e626b2ebfda34f9d1803403"
+      },
+      {
+        "path": "lib/core/scripts.js",
+        "contentSha256": "918b7ac2f2ed191b8aab07f2e856b1578b7684bccd15cb5e79dd5b69f7120f23"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 10936,
+          "outputTokens": 289,
+          "totalTokens": 11225
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of saveExact option when save or saveDev are not set",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The code now includes a condition to process saveExact option along with save and saveDev: `if (that._options.save || that._options.saveDev || that._options.saveExact)`. This encompasses cases where saveExact is true but both save and saveDev are false (not specified). Inside that block, it sets jsonEndpoint with version pinned, but if both save and saveDev are false, no assignment to _json.dependencies or _json.devDependencies occurs, causing the saveExact option to have no effect on the bower.",
+            "suggestion": "Separate the logic of saveExact from save and saveDev so that if saveExact is true but save and saveDev are false, the dependencies or devDependencies are still updated accordingly, for example by also checking for saveExact when assigning to _json.dependencies or _json.devDependencies, or require save or saveDev to be true to consider saveExact.",
+            "failureAfterChange": "Running `bower install` with only --save-exact flag (no --save or --save-dev) does not update bower.json dependencies or devDependencies at all, ignoring the saveExact directive as the code does not assign jsonEndpoint to any dependency object.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of saveExact option when save or saveDev are not set",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The code now includes a condition to process saveExact option along with save and saveDev: `if (that._options.save || that._options.saveDev || that._options.saveExact)`. This encompasses cases where saveExact is true but both save and saveDev are false (not specified). Inside that block, it sets jsonEndpoint with version pinned, but if both save and saveDev are false, no assignment to _json.dependencies or _json.devDependencies occurs, causing the saveExact option to have no effect on the bower.",
+            "suggestion": "Separate the logic of saveExact from save and saveDev so that if saveExact is true but save and saveDev are false, the dependencies or devDependencies are still updated accordingly, for example by also checking for saveExact when assigning to _json.dependencies or _json.devDependencies, or require save or saveDev to be true to consider saveExact.",
+            "failureAfterChange": "Running `bower install` with only --save-exact flag (no --save or --save-dev) does not update bower.json dependencies or devDependencies at all, ignoring the saveExact directive as the code does not assign jsonEndpoint to any dependency object.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

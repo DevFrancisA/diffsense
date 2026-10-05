@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-5",
+  "project": "Hexo",
+  "bugId": 5,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "bccee83d03db5252611e7565507fb376aa82a46f",
+  "buggySha": "4f190623ebe9c73560b2b50625b17ed35ab9c3eb",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "7d0704e4043792f2255c0ce528304b58f0b52ee8d8e357f84473bb806177a16a",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "bccee83d03db5252611e7565507fb376aa82a46f",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 71,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/plugins/helper/is.js",
+        "contentSha256": "7c74d1cfb9d11bb5e029f8c4db4527907f5fd186cac9be8c2e06fc8aec1e9dd1"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/load_config.js",
+        "contentSha256": "0d830122123469cf9adeaa28223b5a9c8f87bc6377f2fa9f910025da74b7b541"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "fad9e7b8945534a6e032fbb1f368f7f582f4c2271371f884c5e7eaafbaf47d20"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "7914cc0bd4f2a9165fee3726b672684a77a831e6942c5f8c2e754b1b29698a1c"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "ce15aa7597774bf846e99d5714d06d9e738b6fa71502ba52fdbe2f51df9d040a"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "df59f9ab8732e5a63461490bb2f6d9ec21e90bbde56e7d75bbe49b35500f7480"
+      },
+      {
+        "path": "lib/hexo/multi_config_path.js",
+        "contentSha256": "efb1d51a8cf3a6f57692b181678f2b9aec583f0e0ad05092af69dc05d42df39f"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "deccb90d78345cfdcfef28dc7036ce6d30ad0024f55f16b38d377fd8e5d78e0c"
+      },
+      {
+        "path": "lib/hexo/default_config.js",
+        "contentSha256": "fc732255906ce55de89cffe1f0e0b62c70037820908dabc41a6071280526f309"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 4605,
+          "outputTokens": 174,
+          "totalTokens": 4779
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of leading slash in isCurrentHelper",
+            "severity": "high",
+            "file": "lib/plugins/helper/is.js",
+            "line": 9,
+            "explanation": "The original code ensured the 'path' and 'this.path' always had a leading '/' by replacing initial characters if missing, allowing consistent comparison. The new code removes this, so paths without a leading slash won't match correctly, causing false negatives on current path checks.",
+            "suggestion": "Restore logic to add a leading slash to 'path' and 'this.path' if missing before comparison in isCurrentHelper.",
+            "failureAfterChange": "Calling is.current with this.path='index.html' and path='index.html' returns false instead of true, because 'index.html' and 'index.html' without leading slash do not match current checks expecting leading slash.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of leading slash in isCurrentHelper",
+            "severity": "high",
+            "file": "lib/plugins/helper/is.js",
+            "line": 9,
+            "explanation": "The original code ensured the 'path' and 'this.path' always had a leading '/' by replacing initial characters if missing, allowing consistent comparison. The new code removes this, so paths without a leading slash won't match correctly, causing false negatives on current path checks.",
+            "suggestion": "Restore logic to add a leading slash to 'path' and 'this.path' if missing before comparison in isCurrentHelper.",
+            "failureAfterChange": "Calling is.current with this.path='index.html' and path='index.html' returns false instead of true, because 'index.html' and 'index.html' without leading slash do not match current checks expecting leading slash.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

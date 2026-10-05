@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-3",
+  "project": "Karma",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "17c2c43a7ce3f6346ddffdeb2b283f286e9e4bb8",
+  "buggySha": "db9682cebce41e2e7fa8408c466c0c01df46bcd4",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "52c10536299e75b682408d589eb5854b8f92392188e4aa8fdc5830b0c058d8fe",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "db9682cebce41e2e7fa8408c466c0c01df46bcd4",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 94,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/reporter.js",
+        "contentSha256": "3f04e089a5cc19808168f3b64e46d081e7707f0b0c26210a7fc3f8d17a845892"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/config.js",
+        "contentSha256": "221dbdbabfbcec3159669c97936cee1ea88f380cf62180e778ef9f023137ee3b"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "d74d0e0043920f8362a640816c2a4bb2799f7057e6f2929cb14608d2dc038db7"
+      },
+      {
+        "path": "config.tpl.js",
+        "contentSha256": "8f5be1fbbfccc52aa36decea17d1c4c628768fff8a9384bf3cc6572359f8d92c"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "36dffceea09423f7e867a38242dbaa0c27d30ffbdb7c127f9cf739303c36f513"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "f67935ecda503d4255b6c47d2e295ad2fe2cc9e89dbe487e363532d46bb366cc"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "e00ebb33245fc6ab5d87b0bbb12650717d20b6f1f2aec55a47dd2cb1e39cd4d2"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "872e9db6ab266149b4f52b0ea297ea57d208e0d0e96bc90a39e998937358f7c0"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "e434a3e392d28b845e7e31e2c5a418ed2ec1f5e686bf5e00161136135e958548"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7391,
+          "outputTokens": 6,
+          "totalTokens": 7397
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

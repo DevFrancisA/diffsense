@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-2",
+  "project": "Bower",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "87a041a212a03142e92c56ff832bcf5cbf49a72b",
+  "buggySha": "9c52ec2751d689a2cddb34adb004df41ce7c8a92",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "5e9c77786495fa261dbc730cb695bd8b7fe81f68feb4fbe88d3fd6199fbdb513",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "87a041a212a03142e92c56ff832bcf5cbf49a72b",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 131,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "fc4fe97ae79e5da1d55737924fce7806f045104ba65c2c933baec67c48f2d677"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/commands/install.js",
+        "contentSha256": "6aed989734817914dc80336b8b7a60396cb4f5ff4690f7fbd96db7a19d4f514d"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "4e5dd51deec7eda6ee017315ca9173999ab5b02a4a083199ae3df7727ddd0008"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "44d50437b902ddec6dd35d0ca0da71af8f5e67bc17a5e22fbd433b18776a08c7"
+      },
+      {
+        "path": "lib/core/Manager.js",
+        "contentSha256": "bad7a6f048a746d66e52a2d293f70eb1c4f278402bf53df14a58dc6e3be9d603"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "be808de84036594988f1cb7527310f39a21c559386ca78fdb8d3c0fef00979f0"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "d7fb0cd8e84500accefb5f34fb53bc2fe74ab15c9ad9fd7327bcb25ed19b6d52"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "435f3572fb1ea40f9a6f9decf1ceb7f5627fe6f10a409e5ae6f53a6cb0953a38"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "0ba07b37a0a8289442935e77c02b26a2a3183b44557ec7f47b380dcbfa5f7291"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 10801,
+          "outputTokens": 627,
+          "totalTokens": 11428
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect condition for saveExact option in install method",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The condition to enter the block handling saveExact, save, and saveDev options is `if (that._options.save || that._options.saveDev)`, which skips processing if only saveExact is passed. This causes the code to not correctly handle the --save-exact option alone, so changes to bower.json are not saved if only --save-exact is set.",
+            "suggestion": "Change the condition to `if (that._options.save || that._options.saveDev || that._options.saveExact)` so the block runs if saveExact is true, even if save or saveDev are false.",
+            "failureAfterChange": "Running `bower install package --save-exact` will not write dependencies to bower.json because the code skips the saving block due to the condition excluding saveExact alone.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Incorrect logic for saving dependencies when saveExact is true",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 96,
+            "explanation": "The code for the saveExact option used to check if `decEndpoint.name !== decEndpoint.source` to decide whether to save the dependency with a version range or just a version. The remove of this condition means that it now always saves just the version (`jsonEndpoint[decEndpoint.name] = decEndpoint.pkgMeta.version;`), removing the source info that was previously included as `source#version`. This breaks the expected behavior where saveExact saves the exact version with source if the source differs",
+            "suggestion": "Restore the prior condition so that if `decEndpoint.name !== decEndpoint.source`, the dependency is saved as `source#version`, else just the version string.",
+            "failureAfterChange": "Running `bower install <local-path> --save-exact` saves only the version in bower.json dependency instead of the correct `source#version`, causing the dependency to be resolved incorrectly or break local path installations.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Wrong handling of --save flag in install method with --saveExact",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 100,
+            "explanation": "The code now only writes to devDependencies if saveDev is set, else it writes to dependencies. However, it does not handle the case correctly when saveExact is true and save is also true or false. Removing the original if/else structure that explicitly checked for save and saveDev removes clarity and might cause unexpected behavior especially when both saveExact and save are set.",
+            "suggestion": "Restore clear branching for options: if saveDev, write to devDependencies; if save, write to dependencies; otherwise do not write. Alternatively, explicitly check conditions to avoid ambiguous writes.",
+            "failureAfterChange": "When running `bower install package --save --save-exact`, the dependency might not be correctly saved to dependencies, or when flags conflict, behavior is unclear and may cause incorrect bower.json modifications.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect condition for saveExact option in install method",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The condition to enter the block handling saveExact, save, and saveDev options is `if (that._options.save || that._options.saveDev)`, which skips processing if only saveExact is passed. This causes the code to not correctly handle the --save-exact option alone, so changes to bower.json are not saved if only --save-exact is set.",
+            "suggestion": "Change the condition to `if (that._options.save || that._options.saveDev || that._options.saveExact)` so the block runs if saveExact is true, even if save or saveDev are false.",
+            "failureAfterChange": "Running `bower install package --save-exact` will not write dependencies to bower.json because the code skips the saving block due to the condition excluding saveExact alone.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Wrong handling of --save flag in install method with --saveExact",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 100,
+            "explanation": "The code now only writes to devDependencies if saveDev is set, else it writes to dependencies. However, it does not handle the case correctly when saveExact is true and save is also true or false. Removing the original if/else structure that explicitly checked for save and saveDev removes clarity and might cause unexpected behavior especially when both saveExact and save are set.",
+            "suggestion": "Restore clear branching for options: if saveDev, write to devDependencies; if save, write to dependencies; otherwise do not write. Alternatively, explicitly check conditions to avoid ambiguous writes.",
+            "failureAfterChange": "When running `bower install package --save --save-exact`, the dependency might not be correctly saved to dependencies, or when flags conflict, behavior is unclear and may cause incorrect bower.json modifications.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

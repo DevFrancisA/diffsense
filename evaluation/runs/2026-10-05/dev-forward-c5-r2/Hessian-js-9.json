@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-9",
+  "project": "Hessian.js",
+  "bugId": 9,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "f22c27617edcba99bdd6a9f1f7c3daa99797d091",
+  "buggySha": "68dd5347b54e4702f6a2f43bea862abc784a9f6c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "24652ccb3b058e9bc64b37cc8f8961086e0689e8518de4cfa316314f28a247d7",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "68dd5347b54e4702f6a2f43bea862abc784a9f6c",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 111,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "7f6b875ef10505143735906fd44d59132577489b0cba8e264cf269cf379fd4e3"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "8bb52aff0da53fe97a56d4d6875a0c95fa0d90087cf1657df7db979b2c9e89bf"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "88143809348a9dff4d6a3ee9f58f23aae0f072ee5de23f8ca2816fac9c3000b8"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2870d5af95fc4e1ee15134394e55609ff4bc5f105dbfdec05c76dc475756f0f8"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "b3d089294a8f436213aa52ddfe73b1aaa2b6af56669e9992cc31094a83afdaf5"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "73d7010fa134b37bdeb25134ca945dd8bde678397868aa98744c784ddd30a2d8"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "22239e66cdb485f16eb63c4ea5ec5e7c797f61c6bf5570c94d4d4cbee08b9069"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 9075,
+          "outputTokens": 264,
+          "totalTokens": 9339
+        },
+        "rawFindings": [
+          {
+            "title": "Missing explicit conversion of map keys to strings in readObject",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In the method readObject, keys of the decoded object properties are not explicitly converted to string type after being read. According to Hessian spec and JavaScript object behavior, keys should be strings. This omission can lead to unexpected behavior when keys are not strings, e.g., when keys are null or other types.",
+            "suggestion": "Explicitly convert the key to string, e.g., by adding 'key = key.toString();' after reading the key in readObject method.",
+            "failureAfterChange": "Input is a Hessian-encoded map with a null key, e.g., Buffer([77, 116, 0, 0, 78, 83, 0, 4, 110, 117, 108, 108, 122]) where 77='M', 116='t', etc. After decoding with the changed code missing key.toString(), the key remains null, resulting in obj[null] as key which is a non-string key in the returned object. This can cause unexpected behavior in user code expecting string keys.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Missing explicit conversion of map keys to strings in readObject",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In the method readObject, keys of the decoded object properties are not explicitly converted to string type after being read. According to Hessian spec and JavaScript object behavior, keys should be strings. This omission can lead to unexpected behavior when keys are not strings, e.g., when keys are null or other types.",
+            "suggestion": "Explicitly convert the key to string, e.g., by adding 'key = key.toString();' after reading the key in readObject method.",
+            "failureAfterChange": "Input is a Hessian-encoded map with a null key, e.g., Buffer([77, 116, 0, 0, 78, 83, 0, 4, 110, 117, 108, 108, 122]) where 77='M', 116='t', etc. After decoding with the changed code missing key.toString(), the key remains null, resulting in obj[null] as key which is a non-string key in the returned object. This can cause unexpected behavior in user code expecting string keys.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}
