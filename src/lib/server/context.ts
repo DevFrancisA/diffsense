@@ -4,7 +4,10 @@ import { getRawRepositoryFile, getRepositoryTree } from "@/lib/server/github";
 
 const supportedSource = /\.(?:c|cc|cpp|cs|go|h|hpp|java|js|jsx|mjs|php|py|rb|rs|sql|svelte|ts|tsx|vue)$/i;
 const ignoredPath = /(?:^|\/)(?:node_modules|vendor|dist|build|\.next|coverage|\.git|\.venv)(?:\/|$)|(?:\.min\.|\.lock\.)/i;
-const maxFiles = 40;
+const maxFiles = Number(process.env.MAX_INDEX_FILES ?? 40);
+if (!Number.isSafeInteger(maxFiles) || maxFiles < 1) {
+  throw new Error("MAX_INDEX_FILES must be a positive integer.");
+}
 const maxFileBytes = 80_000;
 const linesPerChunk = 80;
 const lineOverlap = 10;
@@ -81,7 +84,7 @@ export async function indexRepository(owner: string, repository: string, ref?: s
     client.release();
   }
 
-  return { repository: repositoryKey, commitSha: tree.commitSha, branch: tree.branch, filesIndexed: files.length, chunksIndexed: chunks.length };
+  return { repository: repositoryKey, commitSha: tree.commitSha, branch: tree.branch, maxFiles, filesIndexed: files.length, chunksIndexed: chunks.length };
 }
 
 export async function retrieveRepositoryContext(repository: string, diff: string) {
