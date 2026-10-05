@@ -9,9 +9,9 @@ DiffSense is designed as a review aid: reviewers remain responsible for validati
 ## What it does
 
 - Indexes supported source files from a GitHub repository into PostgreSQL with pgvector embeddings.
-- Retrieves nearby repository context before asking OpenAI to review a diff.
-- Returns structured findings with severity, changed-file line, explanation, and suggested fix. Findings that do not point to added diff lines are discarded.
-- Generates a bounded Playwright plan from the diff and retrieved context. Plans contain browser actions and assertions, not executable model-written code.
+- Reviews a diff with the full pre-change text of each changed source file plus the most relevant indexed chunks (the configuration measured as "C4" below).
+- Returns structured findings with severity, changed-file line, explanation, and suggested fix. A finding that cites a removed line is moved to the nearest added line of the same hunk. Other findings that do not point to added lines are discarded. Test-file findings are skipped unless you turn that off.
+- Generates a bounded Playwright plan that asserts the **pre-change** behavior the diff alters, so the plan should pass on the base build and fail if the change ships. Plans contain browser actions and assertions, not executable model-written code. Invalid scenarios are dropped individually.
 - Calculates review-quality and workflow metrics from a labeled evaluation dataset you provide.
 
 ## Try it locally
@@ -46,11 +46,11 @@ Open `http://localhost:3000`. The sample diff can be loaded without credentials;
 3. Paste a unified diff or use a pull request URL, then choose **Analyze change**.
 4. Inspect the candidate findings and verify them against the code before acting.
 
-For private repositories, set `GITHUB_TOKEN` in `.env.local`. Indexing a pull-request URL targets its head commit; indexing a repository URL uses its default branch. Re-index after the source changes to refresh the stored snapshot.
+For private repositories, set `GITHUB_TOKEN` in `.env.local`. Indexing a pull-request URL targets the pull request's **merge-base** (the code the change applies to), and a review is refused until the index matches that commit. Indexing a repository URL uses its default branch. A pasted diff is checked against the indexed commit: a changed file is given to the model as "before this change" only if the diff's removed and context lines match it. One commit is indexed per repository at a time, so re-index before reviewing a different pull request.
 
 ## Regression tests
 
-Choose **Generate Playwright plan** after indexing the repository and providing a diff or pull request. The generated JSON plan is limited to same-origin navigation, CSS-based interactions, and assertions. Download it from the review desk and run it against your app:
+Choose **Generate Playwright plan** after indexing the repository and providing a diff or pull request. Optionally describe how the app under test looks (for example "signed out, feature flag X off"); the generator only asserts what that environment can show. The generated JSON plan is limited to same-origin navigation, CSS-based interactions, and assertions (visible, hidden, enabled, disabled, text, value, attribute, URL). Run it against the **base** build first and discard scenarios that fail there. Download it from the review desk and run it against your app:
 
 ```powershell
 $env:DIFFSENSE_TEST_PLAN = "C:\path\to\diffsense-playwright-plan.json"
@@ -59,7 +59,7 @@ $env:CI = "1"
 npm run test:e2e
 ```
 
-The plan runner supports a fixed set of actions and rejects external navigation; it never evaluates generated JavaScript. Generated plans are often invalid: in the seeded-regression evaluation below, 38 of 40 plans were unusable, so review a plan before relying on it. CI runs one real generated plan (`tests/fixtures/generated-plan.json`) plus responsive UI checks. To run the browser suite in containers, start Docker Desktop first, then run:
+The plan runner supports a fixed set of actions and rejects external navigation; it never evaluates generated JavaScript. Generated plans can still be wrong: in the HOLDOUT seeded-regression evaluation below, 6 of 20 breaking patches went undetected, so review a plan before relying on it. CI runs one real generated plan (`tests/fixtures/generated-plan.json`) plus responsive UI checks. To run the browser suite in containers, start Docker Desktop first, then run:
 
 ```powershell
 docker compose --profile test up --build --abort-on-container-exit --exit-code-from e2e e2e
@@ -127,84 +127,75 @@ Benchmark variants are set by environment variables (`DIFFSENSE_BENCHMARK_VARIAN
 
 ## Results
 
-All runs use `gpt-4.1-mini` for review and `text-embedding-3-small` for embeddings, dated 2026-10-05. Numbers come from the committed results files; reproduce them with the commands shown.
+All runs use `gpt-4.1-mini` for review and `text-embedding-3-small` for embeddings, dated 2026-10-05. Every number comes from a committed results file, and `npm run check-results` (run in CI) recomputes or cross-checks each one. Round 2 was preregistered in [`evaluation/ROUND2.md`](evaluation/ROUND2.md) before any of its numbers existed; that file also logs the amendments made after measurement.
 
-### Review accuracy: baseline (DEV)
+### Headline (HOLDOUT, the shipped configuration, one run)
 
-`npm run evaluate -- evaluation/results.json`. Prompt `b60c051b…`, 8 retrieved chunks, 40-file index cap.
+| Measure | Original baseline | Shipped config (C4) |
+|---|---|---|
+| Labeled defect ranges found (recall) | 20/56 = 35.7% (24.5–48.8%) | 27/56 = **48.2%** (35.7–61.0%) |
+| …found **and** correctly explained (two blind Claude judges agree) | 14/56 = 25.0% (15.5–37.7%) | 19/56 = **33.9%** (22.9–47.0%) |
+| Labeled precision | 20/22 = 90.9% | 27/27 = 100% |
+| **Correct upstream fixes that were flagged anyway** | 20/30 = 66.7% (48.8–80.8%) | 23/30 = **76.7%** (59.1–88.2%) |
+| Of those flags, judged real defects by both judges | 0/21 | 0/29 |
 
-| Arm | Run | Findings | Labeled defects found | False positives | Precision | Recall |
-|---|---:|---:|---:|---:|---:|---:|
-| With retrieved context | 1 | 18 | 18 / 59 | 0 | 100.0% | 30.5% |
-| With retrieved context | 2 | 18 | 17 / 59 | 1 | 94.4% | 28.8% |
-| With retrieved context | 3 | 18 | 17 / 59 | 1 | 94.4% | 28.8% |
-| No-context ablation | 1 | 14 | 13 / 59 | 1 | 92.9% | 22.0% |
+Intervals are Wilson 95%. The labeled precision is not informative: across every DEV and HOLDOUT run, no finding on a non-test source file was ever scored as a false positive, because labels cover every added source line of a fix. The forward-fix arm measures what precision hides. Shown **correct** code (the real fix), DiffSense still reports at least one finding on most changes, and two independent model judges agreed that none of those 50 flags was a real defect. This is the main open problem.
 
-### Why recall is low
+Paired on the same 56 HOLDOUT ranges (`npm run compare-results`):
 
-[`ERROR_ANALYSIS.md`](evaluation/ERROR_ANALYSIS.md) is a post-hoc diagnostic over the baseline context runs. Of 125 missed range-runs:
+| Comparison | Both found | Only first | Only second | Recall difference (bootstrap 95% CI) | Exact McNemar p |
+|---|---:|---:|---:|---|---:|
+| baseline → C3 | 17 | 3 | 8 | +8.9% (−2.3% to +20.8%) | 0.227 |
+| baseline + remap → C4 | 22 | 3 | 5 | +3.6% (−6.5% to +14.6%) | 0.727 |
+| baseline → C4 | 18 | 2 | 9 | +12.5% (+1.8% to +25.0%) | 0.065 |
 
-- 45 had the defect file outside the 40-file index cap.
-- 39 were wrong-line findings, 23 of them near-misses dropped by the exact-added-line gate.
-- 23 had the defect file retrieved, but the model stayed silent.
-- 18 had the file indexed but not retrieved.
-- None fell beyond the 12,000-character retrieval query.
+Most of C4's gain over the baseline comes from the remap rule (R1), which helps the baseline nearly as much. With a single run per configuration, the improvement is suggestive and not established.
 
-### Improvements tried on DEV, checked on HOLDOUT
+### DEV changes (three runs each, chosen and tuned on DEV)
 
-Three cumulative changes were tried on DEV ([`IMPROVEMENTS.md`](evaluation/IMPROVEMENTS.md)). Each ran 3 times. The final configuration was chosen by a rule preregistered before any DEV run: highest pooled recall with pooled precision ≥ 90%.
+| Config | Change | Found per run (/59) | Pooled recall | Pooled precision |
+|---|---|---|---:|---:|
+| Baseline | 8 retrieved chunks, exact added-line gate | 18, 17, 17 | 29.4% | 96.3% |
+| C1 | + full pre-change text of changed files | 22, 23, 24 | 39.0% | 84.1% |
+| C2 | C1 + prompt asks for the exact `+` line | 22, 23, 29 | 41.8% | 85.1% |
+| C3 | C2, non-test files only, "do not report findings in test files" | 21, 20, 25 | 37.3% | 97.1% |
+| **C4** | C3 + removed-line citations remapped to the hunk's added line (re-scored from saved outputs, no new calls) | 26, 27, 32 | 48.0% | 97.7% |
 
-| DEV config | Found per run (/59) | Pooled recall | Pooled precision |
-|---|---|---:|---:|
-| Baseline | 18, 17, 17 | 29.4% | 96.3% (52/54) |
-| C1: add full pre-change text of changed files | 22, 23, 24 | 39.0% | 84.1% (69/82) |
-| C2: C1 + prompt asks for the exact `+` line | 22, 23, 29 | 41.8% | 85.1% (74/87) |
-| **C3**: C2 with only non-test files' full text + "do not report findings in test files" | 21, 20, 25 | 37.3% | 97.1% (66/68) |
+C3 was redefined after seeing that every C1/C2 false positive was on a test file (a logged deviation). [`ERROR_ANALYSIS.md`](evaluation/ERROR_ANALYSIS.md) motivated C1 and C4. Of the baseline's 125 missed range-runs, 45 had the defect file outside the 40-file index cap and 23 were near-misses dropped by the exact-line gate. Details are in [`IMPROVEMENTS.md`](evaluation/IMPROVEMENTS.md) and [`ROUND2.md`](evaluation/ROUND2.md).
 
-C3 was redefined after seeing that every C1/C2 false positive was a finding on a test file, which BugsJS labels do not cover. This deviation is logged. Suppressing test-file findings fits this benchmark's label scope and is a product trade-off, not a free gain.
-
-HOLDOUT, each configuration run **once** (`npm run compare-results`, Wilson 95% intervals):
-
-| HOLDOUT config | Found / 56 | Predictions | FP | Recall (95% CI) | Precision (95% CI) |
-|---|---:|---:|---:|---|---|
-| Original baseline | 20 | 22 | 2 | 35.7% (24.5–48.8%) | 90.9% (72.2–97.5%) |
-| Final (C3) | 25 | 25 | 0 | 44.6% (32.4–57.6%) | 100.0% (86.7–100.0%) |
-
-The counts are small. With one run per configuration and overlapping intervals, HOLDOUT is consistent with an improvement but does not establish one; C3's DEV run-to-run spread (20–25 found) is as large as the HOLDOUT difference. C3 is a benchmark configuration: the app's review endpoint still uses the baseline pipeline. The app indexes a pull request's head commit, so wiring in "full pre-change file text" needs a base-commit fetch that has not been built.
+The blind audit ([`evaluation/audit/`](evaluation/audit/summary.json)) has two Claude judges per finding, without access to configuration. They agreed on whether the explanation was right for 110 of 113 matched findings. Only 35 of 66 DEV C3 matches correctly explained the defect, and 87 of 113 suggestions amounted to "restore the removed code". Because a reversed fix shows the correct code as deleted lines, part of the measured recall is the model noticing deleted code next to the bug.
 
 ### Regression-test generation (seeded regressions)
 
-[`evaluation/regressions/`](evaluation/regressions/PROTOCOL.md) holds 40 valid seeded scenarios: small behavior-breaking patches to DiffSense's own credential-free UI. **The scenarios were authored with Claude Code assistance; detection is computed by execution.**
+Small behavior-breaking patches to DiffSense's own credential-free UI, plus benign controls. **The patches were authored with Claude Code assistance; detection is computed by executing the generated plans.**
 
-For each scenario, the app's real plan generator (`/api/tests/generate` logic) produced a Playwright plan from the patch diff using context indexed from the pushed base commit. The plan then ran twice on the baseline build and once on the patched build. A scenario counts as detected only if the plan passes on baseline both times and an assertion step fails on the patch.
+| Run | Generator | Protocol | Detected | False alarms on benign patches |
+|---|---|---|---|---|
+| Round 1, 40 patches | v1 | whole plan must pass on baseline | 1/40 = 2.5% (0.4–12.9%) | not measured |
+| v1 plans replayed (post hoc) | v1 | quarantine (below) | 1/16 | not measured |
+| DEV v2: the same 40 patches (already seen) | v2 | quarantine | 24/40 = 60.0% (44.6–73.7%) | not measured |
+| **HOLDOUT v2: 20 new breaking + 10 benign patches** | v2 | quarantine | **14/20 = 70.0% (48.1–85.5%)** | **0/10** (0–27.8%) |
 
-| Measure | Value |
-|---|---|
-| Detected / valid scenarios | **1 / 40 (2.5%)** |
-| Detected / valid plans | 1 / 2 |
-| Invalid plans | 38: 24 rejected by the generator's own validation (13 missing an expected value, 10 with an off-origin `goto`, 1 with more than 12 steps), 14 failed on the unmodified baseline |
-| Not detected | 1 (plan passed on the patched app) |
-| Scenarios replaced for infrastructure failure | 1 (Chromium failed to launch) |
-
-`npm run check-results` validates `evaluation/regressions/results.json` against the per-scenario records. The finding is that plan generation, not execution, is the bottleneck: most generated plans are malformed or encode the patched behavior rather than the baseline behavior. CI runs one real generated plan (scenario r11, unedited) in the Docker e2e job.
+The v2 generator is told that the plan runs on the pre-change build and must assert behavior the patch changes, using strings from the removed lines. It also has state and attribute assertions, receives a description of the credential-free app (in the harness, plus an accessibility snapshot of the baseline page), and drops invalid scenarios one at a time. Under the quarantine protocol, each generated scenario runs twice on the baseline; scenarios that fail there are discarded. A patch is detected when a surviving scenario fails an assertion on the patched build. Replaying the 20 plans that v1 validation rejected through v2 validation alone would have kept 18 of them. The accessibility snapshot is harness-only; in the app, users can only describe their environment in text, so app-side detection may be lower. CI runs one real generated plan (Round-1 scenario r11, unedited) in the Docker e2e job.
 
 ### Not measured
 
-Paired manual-vs-assisted review time and human finding comparability are **unmeasured**. No timing sessions have been run. These are not zeros or estimates.
+Paired manual-vs-assisted review time and human finding comparability are **unmeasured**. No timing sessions have been run, and no human checked any finding or judgment. These are not zeros or estimates.
 
 ### Limitations
 
-- **Reconstructed diffs.** Cases reverse real fix commits. They are not the original bug-introducing pull requests, and the reversed diffs also revert test changes.
-- **Possible memorization.** BugsJS projects and fixes are public and may be in the model's training data. This could inflate every configuration's scores and cannot be ruled out here.
-- **Conservative false positives.** Labels cover only the fixed lines in non-test source. A finding about a real issue elsewhere (including in tests) is scored as a false positive.
-- **Nondeterminism.** Repeated DEV runs of one configuration differed by up to 7 found defects (C2: 22 vs 29). HOLDOUT ran once per configuration.
-- **Small samples.** 59 and 56 labeled ranges, 30 cases per cohort, eight JavaScript projects in total. Confidence intervals are wide. Do not generalize to other languages or repositories without further evaluation.
-- **Post-hoc choices.** C1–C3 were chosen using DEV results, and C3 was amended after seeing DEV false positives. Only HOLDOUT is untouched by those choices.
-- **Seeded regressions** are small single-file UI patches written for this harness, all on one app; 2.5% detection says nothing about larger or non-UI changes.
+- **False alarms on correct code.** On 30 real fixes, the shipped configuration flagged 23, and judges found none of those flags to be real defects. Treat every finding as a candidate.
+- **Model-judged audits.** "Correctly explained" and "real defect" come from two Claude agents per item, not from people. Agreement was high (≥95%), but the judges may share blind spots.
+- **Reconstructed diffs.** Cases reverse real fix commits. They are not the original bug-introducing pull requests; deleted lines show the correct code, and test changes are reverted too.
+- **Possible memorization.** BugsJS projects and fixes are public and may be in the model's training data.
+- **Label scope.** Labels cover only fixed lines in non-test source, so labeled precision cannot detect wrong findings on source files.
+- **Nondeterminism and single runs.** Repeated DEV runs of one configuration differed by up to 7 found defects. Every HOLDOUT number comes from one run.
+- **Small samples.** 59 and 56 labeled ranges, 30 cases per cohort, eight JavaScript projects, and 20 + 10 HOLDOUT regression patches on one app. Intervals are wide; do not generalize to other languages, repositories, or non-UI changes.
+- **Post-hoc choices.** C1–C4 and generator v2 were designed after seeing DEV results; only the HOLDOUT runs are untouched by those choices. C4's remap rule was adopted from saved outputs and applied once to saved HOLDOUT outputs.
 
 ## Usage
 
-The 2026-10-05 baseline completed 211 API calls (1,935,588 tokens). The abandoned recall-v2 experiment completed another 117 calls (1,400,865 tokens); its metrics are not reported. Everything after that (regression harness, DEV C1–C3, HOLDOUT) used 642 completed calls and 4,879,594 tokens ([session ledger](evaluation/ledger/session-2.json)).
+The 2026-10-05 baseline completed 211 API calls (1,935,588 tokens). The abandoned recall-v2 experiment completed another 117 calls (1,400,865 tokens); its metrics are not reported. Everything after that used 880 completed calls and 6,118,371 tokens out of a 1,000-call / 10M-token session cap ([session ledger](evaluation/ledger/session-2.json)). The blind audits and code reviews were done by Claude agents and used no OpenAI calls.
 
 ## Data handling and deployment limits
 

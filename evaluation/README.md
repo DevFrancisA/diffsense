@@ -60,3 +60,13 @@ Result (`regressions/results.json`, checked by `npm run check-results`): **1 det
 ## Empty and synthetic data
 
 An empty evaluation has `null` precision, recall, timing, and regression rates. `tests/fixtures/synthetic-metrics-smoke.json` exists only to exercise the CLI calculations; it is synthetic and must not be mixed into BugsJS results or described as model performance.
+
+## Round 2
+
+Preregistration, amendments, and definitions: [`ROUND2.md`](ROUND2.md). Outputs:
+
+- R1 (remap rule, config C4): `results-dev-c4.json`, `results-holdout-baseline-remap.json`, `results-holdout-final-c4.json`, re-scored with `npm run rescore` from saved raw findings (no new calls).
+- R2 (false alarms on correct code): `falsealarms-holdout-forward-*.json`; source/test precision split, paired McNemar, and bootstrap in `comparison.json` (`npm run compare-results`).
+- R3 (shipping): the app reviews with C4 through `src/lib/server/review-pipeline.ts`, the same builder the benchmark uses. `scripts/verify-changed-files.ts` confirms the later pre-change check keeps every measured file.
+- R4–R6 (plan generator v2, protocol v2): `regressions/replay-validation-v2.json`, and `regressions/v2/` (scenarios, patches, runs, plans, `results-{replay-v1,dev,holdout}.json`).
+- R7 (blind audit) and the judgments of forward-fix flags: `audit/` (`key.json`, `judgments.json`, `summary.json`). Judges are Claude agents, not people.

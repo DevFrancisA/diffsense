@@ -67,11 +67,14 @@ type EvaluationSummary = {
   withoutContext?: { runNumber: number; precision: number | null; recall: number | null; falsePositives: number }[];
   manualReview?: { status: string; reason: string };
   regressionEvaluation?: { status: string; reason: string };
-  regressions?: { validScenarios: number; detected: number; invalidPlans: number; validPlans: number } | null;
+  label?: string;
+  falseAlarms?: { cases: number; casesFlagged: number } | null;
+  regressions?: { validScenarios: number; detected: number; invalidPlans: number; benignValid: number; falseAlarms: number } | null;
 };
 
 function formatPercentRange(range: MetricRange) {
   if (!range) return "—";
+  if (range.min === range.max) return (range.min * 100).toFixed(1);
   return `${(range.min * 100).toFixed(1)}–${(range.max * 100).toFixed(1)}`;
 }
 
@@ -260,10 +263,10 @@ export default function Home() {
           </section>
 
           <section className="metrics-strip" aria-label="Evaluation metrics">
-            <div className="metric-cell"><span className="metric-label">PRECISION · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.precisionRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `${evaluation.cohort} BugsJS cases · ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
-            <div className="metric-cell"><span className="metric-label">RECALL · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.recallRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `Range across ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
+            <div className="metric-cell"><span className="metric-label">PRECISION · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.precisionRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? evaluation.falseAlarms ? `${evaluation.falseAlarms.casesFlagged}/${evaluation.falseAlarms.cases} correct fixes also flagged` : `${evaluation.cohort} BugsJS cases · ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
+            <div className="metric-cell"><span className="metric-label">RECALL · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.recallRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `${evaluation.cohort} BugsJS cases · ${evaluation.withContext?.runs.length} run${evaluation.withContext?.runs.length === 1 ? "" : "s"}` : evaluation ? "No results yet" : "Loading results"}</span></div>
             <div className="metric-cell"><span className="metric-label">REVIEW TIME</span><strong>—<small>min</small></strong><span className="metric-foot"><span className="metric-neutral">Unmeasured</span> · paired human study pending</span></div>
-            <div className="metric-cell metric-last"><span className="metric-label">REGRESSION CATCH RATE</span><strong>{evaluation?.regressions ? ((evaluation.regressions.detected / evaluation.regressions.validScenarios) * 100).toFixed(1) : "—"}<small>%</small></strong><span className="metric-foot">{evaluation?.regressions ? `${evaluation.regressions.detected}/${evaluation.regressions.validScenarios} seeded · ${evaluation.regressions.invalidPlans} invalid plans` : <><span className="metric-neutral">Unmeasured</span> · scenarios not run</>}</span></div>
+            <div className="metric-cell metric-last"><span className="metric-label">REGRESSION CATCH RATE</span><strong>{evaluation?.regressions ? ((evaluation.regressions.detected / evaluation.regressions.validScenarios) * 100).toFixed(1) : "—"}<small>%</small></strong><span className="metric-foot">{evaluation?.regressions ? `${evaluation.regressions.detected}/${evaluation.regressions.validScenarios} seeded · ${evaluation.regressions.falseAlarms}/${evaluation.regressions.benignValid} false alarms` : <><span className="metric-neutral">Unmeasured</span> · scenarios not run</>}</span></div>
           </section>
 
           <form className="review-form" onSubmit={runReview}>
@@ -300,7 +303,7 @@ export default function Home() {
           </form>
 
           <section className="evaluation-panel panel">
-            <div className="evaluation-copy"><span className="evaluation-mark"><Activity size={16} /></span><div><h2>{evaluation?.available ? "BugsJS review baseline" : "Evidence, not vibes"}</h2><p>{evaluation?.available ? `${evaluation.cohort} pre-labeled cases · ${evaluation.reviewModel} · ${evaluation.date}` : "Score reviews against labeled defects and seeded regressions."}</p></div></div>
+            <div className="evaluation-copy"><span className="evaluation-mark"><Activity size={16} /></span><div><h2>{evaluation?.available ? `BugsJS · ${evaluation.label ?? "baseline"}` : "Evidence, not vibes"}</h2><p>{evaluation?.available ? `${evaluation.cohort} pre-labeled cases · ${evaluation.reviewModel} · ${evaluation.date}` : "Score reviews against labeled defects and seeded regressions."}</p></div></div>
             <div className="evaluation-status"><span className="status-dot" />{evaluation?.available ? "Results saved" : evaluation ? "No results yet" : "Loading results"}</div>
             <button className="text-button evaluation-link" type="button" onClick={generateTests} disabled={generatingTests || apiReady !== true || (!diff.trim() && !pullRequestUrl.trim())}>{generatingTests ? <LoaderCircle size={13} className="spin" /> : <ShieldCheck size={14} />}{generatingTests ? "Generating plan…" : "Generate Playwright plan"}</button>
             <input className="test-environment" aria-label="Test environment notes" placeholder="Optional: how the app under test looks (signed-in user, feature flags, …)" value={testEnvironment} onChange={(event) => setTestEnvironment(event.target.value)} />

@@ -3,12 +3,13 @@ import { expect, test } from "@playwright/test";
 test("shows unmeasured evaluation values and loads the example diff", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Review desk" })).toBeVisible();
-  await expect(page.getByText("BugsJS review baseline")).toBeVisible();
-  await expect(page.locator(".metric-cell").nth(0).locator("strong")).toHaveText("94.4–100.0%");
-  await expect(page.locator(".metric-cell").nth(1).locator("strong")).toHaveText("28.8–30.5%");
+  await expect(page.getByText("BugsJS · HOLDOUT · final config")).toBeVisible();
+  await expect(page.locator(".metric-cell").nth(0).locator("strong")).toHaveText("100.0%");
+  await expect(page.locator(".metric-cell").nth(1).locator("strong")).toHaveText("48.2%");
   await expect(page.getByText("Unmeasured").first()).toBeVisible();
-  await expect(page.locator(".metric-cell").nth(3).locator("strong")).toHaveText("2.5%");
-  await expect(page.locator(".metric-cell").nth(3)).toContainText("1/40 seeded");
+  await expect(page.locator(".metric-cell").nth(3).locator("strong")).toHaveText("70.0%");
+  await expect(page.locator(".metric-cell").nth(3)).toContainText("14/20 seeded · 0/10 false alarms");
+  await expect(page.locator(".metric-cell").nth(0)).toContainText("23/30 correct fixes also flagged");
   await page.getByRole("button", { name: "Load example diff" }).click();
   await expect(page.getByRole("textbox", { name: "Unified diff" })).toContainText("Invoice not found");
 });

@@ -30,19 +30,36 @@ const resultsSchema = z.object({
   regressionEvaluation: z.object({ status: z.string(), reason: z.string() }),
 }).passthrough();
 
-const regressionSummarySchema = z.object({
+const v2RegressionSchema = z.object({
   summary: z.object({
-    validScenarios: z.number().int().nonnegative(),
+    breakingValid: z.number().int().nonnegative(),
     detected: z.number().int().nonnegative(),
-    invalidPlans: z.number().int().nonnegative(),
-    validPlans: z.number().int().nonnegative(),
+    invalidPlansBreaking: z.number().int().nonnegative(),
+    benignValid: z.number().int().nonnegative(),
+    falseAlarms: z.number().int().nonnegative(),
   }),
 }).passthrough();
 
+const falseAlarmSchema = z.object({ summary: z.object({ cases: z.number().int().nonnegative(), casesFlagged: z.number().int().nonnegative() }) }).passthrough();
+
+async function readJson(...path: string[]) {
+  return JSON.parse(await readFile(join(process.cwd(), "evaluation", ...path), "utf8")) as unknown;
+}
+
+// Seeded-regression headline: the HOLDOUT run of plan generator v2 (evaluation/ROUND2.md, R5/R6).
 async function readRegressionSummary() {
   try {
-    const contents = await readFile(join(process.cwd(), "evaluation", "regressions", "results.json"), "utf8");
-    return regressionSummarySchema.parse(JSON.parse(contents)).summary;
+    const { summary } = v2RegressionSchema.parse(await readJson("regressions", "v2", "results-holdout.json"));
+    return { validScenarios: summary.breakingValid, detected: summary.detected, invalidPlans: summary.invalidPlansBreaking, benignValid: summary.benignValid, falseAlarms: summary.falseAlarms };
+  } catch {
+    return null;
+  }
+}
+
+// How often the shipped configuration flags real upstream fixes (correct code) on HOLDOUT.
+async function readFalseAlarms() {
+  try {
+    return falseAlarmSchema.parse(await readJson("falsealarms-holdout-forward-final.json")).summary;
   } catch {
     return null;
   }
@@ -56,11 +73,21 @@ function getRange(values: (number | null)[]) {
 
 export async function GET() {
   try {
-    const contents = await readFile(join(process.cwd(), "evaluation", "results.json"), "utf8");
+    // Headline: the shipped configuration (C4) on the held-out cohort; the original baseline if that file is absent.
+    let label = "HOLDOUT · final config";
+    let contents: string;
+    try {
+      contents = await readFile(join(process.cwd(), "evaluation", "results-holdout-final-c4.json"), "utf8");
+    } catch {
+      label = "baseline";
+      contents = await readFile(join(process.cwd(), "evaluation", "results.json"), "utf8");
+    }
     const results = resultsSchema.parse(JSON.parse(contents));
-    const regressions = await readRegressionSummary();
+    const [regressions, falseAlarms] = await Promise.all([readRegressionSummary(), readFalseAlarms()]);
     return NextResponse.json({
       available: true,
+      label,
+      falseAlarms,
       date: results.benchmarkDate,
       cohort: results.selection.selectedCases,
       maxIndexFiles: results.selection.maxIndexFiles,
