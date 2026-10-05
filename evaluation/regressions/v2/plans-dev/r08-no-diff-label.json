@@ -1,0 +1,40 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify 'UNIFIED DIFF' label shows 'No diff loaded' when textarea is empty",
+      "purpose": "Ensure that when no diff text is present, the diff label shows the exact pre-change message 'No diff loaded' to indicate no content is loaded yet.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".field-label.diff-label > .diff-label-right > span:nth-child(3)",
+          "value": "",
+          "expected": "No diff loaded"
+        }
+      ]
+    },
+    {
+      "title": "Verify 'Clear diff' button is disabled when no diff text present",
+      "purpose": "Check that the 'Clear diff' button is disabled if the unified diff textarea is empty, matching the pre-change behavior where clearing is only enabled when there is diff text.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

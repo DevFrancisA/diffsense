@@ -1,0 +1,124 @@
+{
+  "scenarios": [
+    {
+      "title": "Clear diff button resets diff and review URL",
+      "purpose": "Verify that clicking the 'Clear diff' button clears the diff text area, resets the pull request URL input, and clears any results and errors.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "some diff text",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "input#pr-url",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Initial state disables Analyze change button without pull request URL",
+      "purpose": "Check that the 'Analyze change' button is disabled when the pull request URL input is empty even if a diff is present.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "some diff text",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Setup required status is displayed with disconnected pill",
+      "purpose": "Confirm that the connection status pill displays 'Setup required' with disconnected styling when API is not ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Index repository context button is disabled initially",
+      "purpose": "Validate that the 'Index repository context' button is disabled before pull request URL is entered or API is ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Skip findings in test files checkbox is checked by default",
+      "purpose": "Ensure that the 'Skip findings in test files' checkbox is checked initially.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "input[type=\"checkbox\"]",
+          "value": "checked",
+          "expected": "true"
+        }
+      ]
+    }
+  ]
+}

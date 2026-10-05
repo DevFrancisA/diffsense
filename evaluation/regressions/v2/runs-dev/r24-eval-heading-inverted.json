@@ -1,0 +1,138 @@
+{
+  "id": "r24-eval-heading-inverted",
+  "role": "breaking",
+  "intendedBreak": "Evaluation heading is inverted",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9026,
+      "outputTokens": 594,
+      "totalTokens": 9620
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check evaluation panel heading when evaluation is available",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check evaluation panel heading when evaluation is not available",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-panel .evaluation-copy h2')\nExpected substring: \"Evidence, not vibes\"\nReceived string:    \"BugsJS review baseline\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-panel .evaluation-copy h2') with timeout 5000ms\n  - waiting for locator('.evaluation-panel .evaluation-copy h2')\n    14 × locator resolved to <h2>BugsJS review baseline</h2>\n       - unexpected value \"BugsJS review baseline\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Generate Playwright plan' button disabled state without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff and confirm diff content placeholder text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validation of evaluation metrics text range display",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check evaluation panel heading when evaluation is available",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check evaluation panel heading when evaluation is not available",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-panel .evaluation-copy h2')\nExpected substring: \"Evidence, not vibes\"\nReceived string:    \"BugsJS review baseline\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-panel .evaluation-copy h2') with timeout 5000ms\n  - waiting for locator('.evaluation-panel .evaluation-copy h2')\n    14 × locator resolved to <h2>BugsJS review baseline</h2>\n       - unexpected value \"BugsJS review baseline\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Generate Playwright plan' button disabled state without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff and confirm diff content placeholder text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validation of evaluation metrics text range display",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Check evaluation panel heading when evaluation is available",
+    "generated plan: 3. Verify 'Generate Playwright plan' button disabled state without API ready",
+    "generated plan: 4. Load example diff and confirm diff content placeholder text",
+    "generated plan: 5. Validation of evaluation metrics text range display"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Check evaluation panel heading when evaluation is available",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify 'Generate Playwright plan' button disabled state without API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Load example diff and confirm diff content placeholder text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Validation of evaluation metrics text range display",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:03:05.833Z"
+}

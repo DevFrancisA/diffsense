@@ -1,0 +1,124 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify initial connection pill status shows 'Setup required' when API is not ready",
+      "purpose": "Confirm that the topbar connection pill text and styling reflects the API being not ready before the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "header.topbar .connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "header.topbar .connection-pill",
+          "value": "class",
+          "expected": "disconnected"
+        }
+      ]
+    },
+    {
+      "title": "Check that 'Setup required' text is displayed and buttons disabled",
+      "purpose": "Ensure that under the current environment the buttons Index repository context, Analyze change and Generate Playwright plan remain disabled and the setup inline message is visible.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span:has-text(\"Configure OPENAI_API_KEY and DATABASE_URL to enable reviews\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify evaluation metric precision range text is shown as '94.4–100.0%'",
+      "purpose": "Confirm that the evaluation panel shows the stored precision range displayed as the expected pre-patch value.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        }
+      ]
+    },
+    {
+      "title": "Confirm evaluation metric recall range text is shown as '28.8–30.5%'",
+      "purpose": "Confirm that the evaluation panel shows the stored recall range displayed as the expected pre-patch value.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and check unified diff textarea contains 'Invoice not found'",
+      "purpose": "Check that loading the example diff populates the unified diff textarea including the string 'Invoice not found' as per pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    }
+  ]
+}

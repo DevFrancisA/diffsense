@@ -1,0 +1,129 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Setup inline hint visible only when apiReady is false",
+        "purpose": "Verify that the setup inline hint with the message 'Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.' is shown only when apiReady is false and not when true.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": ".setup-inline > span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          },
+          {
+            "action": "expectText",
+            "selector": ".setup-inline > span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          }
+        ]
+      },
+      {
+        "title": "Run button disabled when API is not ready",
+        "purpose": "Ensure that the 'Analyze change' run button is disabled when apiReady is not true despite URL and diff input conditions.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Index and Generate Playwright plan buttons disabled initially",
+        "purpose": "Check that 'Index repository context' and 'Generate Playwright plan' buttons are disabled when pipeline is not configured (apiReady is false).",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:text('Generate Playwright plan')",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Header pill text and class when apiReady false",
+        "purpose": "Assert that the header connection pill text equals 'Setup required' and its CSS class includes 'disconnected' when apiReady is false.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span.connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectAttribute",
+            "selector": "span.connection-pill",
+            "value": "class",
+            "expected": "disconnected"
+          }
+        ]
+      },
+      {
+        "title": "Load example diff button inserts sample diff containing 'Invoice not found' text",
+        "purpose": "Verify that clicking the 'Load example diff' button populates the unified diff textarea with sample text containing the string 'Invoice not found'.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:text('Load example diff')",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label='Unified diff']",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8950,
+      "outputTokens": 532,
+      "totalTokens": 9482
+    }
+  }
+}

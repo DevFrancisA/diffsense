@@ -1,0 +1,123 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify pull request URL input updates value on user typing",
+        "purpose": "Ensure that the GITHUB REPOSITORY OR PR URL input field updates its value when the user types, triggering the onChange event with event parameter before the patch removing event usage.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/index.tsx",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "#pr-url",
+            "value": "https://github.com/test/repo",
+            "expected": ""
+          },
+          {
+            "action": "expectValue",
+            "selector": "#pr-url",
+            "value": "",
+            "expected": "https://github.com/test/repo"
+          }
+        ]
+      },
+      {
+        "title": "Check 'Index repository context' button disabled state depends on URL and API readiness",
+        "purpose": "Validate the 'Index repository context' button is disabled when the input field is empty or API is not ready, as per the pre-patch code that disables the button if pullRequestUrl.trim is empty or apiReady is not true.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/index.tsx",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": "true"
+          },
+          {
+            "action": "fill",
+            "selector": "#pr-url",
+            "value": "https://github.com/owner/repo",
+            "expected": ""
+          },
+          {
+            "action": "expectEnabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": "true"
+          }
+        ]
+      },
+      {
+        "title": "Verify presence of 'Context source' hint next to repository URL input",
+        "purpose": "Confirm the 'Context source' label is visible next to the GITHUB REPOSITORY OR PR URL input field before the patch that removed event parameter from onChange handler.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/index.tsx",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": ".url-hint",
+            "value": "",
+            "expected": "Context source"
+          }
+        ]
+      },
+      {
+        "title": "Check 'Analyze change' button is disabled without API ready and inputs",
+        "purpose": "Ensure the 'Analyze change' button is disabled if apiReady is not true or required inputs are empty, reflecting the pre-patch logic in the run-button disabled attribute.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/index.tsx",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": "true"
+          }
+        ]
+      },
+      {
+        "title": "Confirm inline status pill shows 'Setup required' when API is not ready",
+        "purpose": "Verify that the connection-pill text shows 'Setup required' when the apiReady state is false, as observed in the pre-patch header pill text.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/index.tsx",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span.connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9550,
+      "outputTokens": 547,
+      "totalTokens": 10097
+    }
+  }
+}

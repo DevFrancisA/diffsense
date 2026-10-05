@@ -1,0 +1,196 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify inline setup message and disabled buttons with missing API key and DB URL",
+      "purpose": "Ensure that when setup is incomplete, the interface shows 'Setup required' with the correct message and disables relevant buttons",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Check empty review findings panel before any review",
+      "purpose": "Confirm that the findings panel shows the placeholder text before any review is run",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel.panel p",
+          "value": "",
+          "expected": "Issues are grounded in changed lines and repository context."
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and verify diff textarea content and changed files count",
+      "purpose": "Ensure the sample diff loads correctly into the textarea and file count updates",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.button-secondary",
+          "value": "Load example diff",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": "diff --git a/src/api/invoices/[id]/route.ts b/src/api/invoices/[id]/route.ts"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.diff-label-right span:nth-child(1)",
+          "value": "",
+          "expected": "1 files"
+        }
+      ]
+    },
+    {
+      "title": "Check presence of metrics strip with stored evaluation summary values",
+      "purpose": "Verify that stored evaluation metrics are visible with correct labels and placeholders",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(1) .metric-label",
+          "value": "",
+          "expected": "PRECISION · WITH CONTEXT"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(2) .metric-label",
+          "value": "",
+          "expected": "RECALL · WITH CONTEXT"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell.metric-last strong",
+          "value": "",
+          "expected": "—"
+        }
+      ]
+    },
+    {
+      "title": "Verify Edit buttons and text in Review desk navigation and workspace labels",
+      "purpose": "Check static labels and navigation buttons state in sidebar and topbar",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "aside.sidebar a.brand",
+          "value": "",
+          "expected": "diffsense"
+        },
+        {
+          "action": "expectText",
+          "selector": "aside.sidebar .workspace-copy strong",
+          "value": "",
+          "expected": "Demo workspace"
+        },
+        {
+          "action": "expectText",
+          "selector": "nav.primary-nav button[aria-label='Review desk'] span",
+          "value": "",
+          "expected": "Review desk"
+        },
+        {
+          "action": "expectText",
+          "selector": "nav.primary-nav button[aria-label='Pull requests'] span",
+          "value": "",
+          "expected": "Pull requests"
+        },
+        {
+          "action": "expectText",
+          "selector": "nav.primary-nav button[aria-label='Pull requests'] .nav-count",
+          "value": "",
+          "expected": "0"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.workspace > header.topbar .breadcrumbs strong",
+          "value": "",
+          "expected": "Review desk"
+        }
+      ]
+    }
+  ]
+}

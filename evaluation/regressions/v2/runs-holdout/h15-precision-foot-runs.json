@@ -1,0 +1,138 @@
+{
+  "id": "h15-precision-foot-runs",
+  "role": "breaking",
+  "intendedBreak": "Precision tile drops the run count",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9392,
+      "outputTokens": 472,
+      "totalTokens": 9864
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation metric cohort text before patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.metric-cell')\nExpected: visible\nError: strict mode violation: locator('.metric-cell') resolved to 4 elements:\n    1) <div class=\"metric-cell\">…</div> aka getByText('PRECISION · WITH CONTEXT94.4–')\n    2) <div class=\"metric-cell\">…</div> aka getByText('RECALL · WITH CONTEXT28.8–30.')\n    3) <div class=\"metric-cell\">…</div> aka getByText('REVIEW TIME—minUnmeasured ·')\n    4) <div class=\"metric-cell metric-last\">…</div> aka getByText('REGRESSION CATCH RATE2.5%1/40')\n\nCall log:\n  - Expect \"toBeVisible\" locator('.metric-cell') with tim",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify evaluation metric cohort foot includes runs count",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Validate Regression Catch Rate metric details text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff and verify unified diff text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Ensure Analyze change button is disabled without API ready and input",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation metric cohort text before patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.metric-cell')\nExpected: visible\nError: strict mode violation: locator('.metric-cell') resolved to 4 elements:\n    1) <div class=\"metric-cell\">…</div> aka getByText('PRECISION · WITH CONTEXT94.4–')\n    2) <div class=\"metric-cell\">…</div> aka getByText('RECALL · WITH CONTEXT28.8–30.')\n    3) <div class=\"metric-cell\">…</div> aka getByText('REVIEW TIME—minUnmeasured ·')\n    4) <div class=\"metric-cell metric-last\">…</div> aka getByText('REGRESSION CATCH RATE2.5%1/40')\n\nCall log:\n  - Expect \"toBeVisible\" locator('.metric-cell') with tim",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify evaluation metric cohort foot includes runs count",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Validate Regression Catch Rate metric details text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff and verify unified diff text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Ensure Analyze change button is disabled without API ready and input",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Verify evaluation metric cohort foot includes runs count",
+    "generated plan: 3. Validate Regression Catch Rate metric details text before patch",
+    "generated plan: 4. Load example diff and verify unified diff text before patch",
+    "generated plan: 5. Ensure Analyze change button is disabled without API ready and input"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 2. Verify evaluation metric cohort foot includes runs count",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell:nth-of-type(1) .metric-foot')\nExpected substring: \"30 BugsJS cases · 3 runs\"\nReceived string:    \"30 BugsJS cases\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell:nth-of-type(1) .metric-foot') with timeout 5000ms\n  - waiting for locator('.metric-cell:nth-of-type(1) .metric-foot')\n    - locator resolved to <span class=\"metric-foot\">Loading results</span>\n    - unexpected value \"Loading results\"\n    13 × locator resolved to <span class=\"metric-foot\">30 BugsJS cases</span>\n       - un",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Validate Regression Catch Rate metric details text before patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Load example diff and verify unified diff text before patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Ensure Analyze change button is disabled without API ready and input",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:19:10.576Z"
+}

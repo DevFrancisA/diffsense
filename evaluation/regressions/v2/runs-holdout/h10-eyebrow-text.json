@@ -1,0 +1,58 @@
+{
+  "id": "h10-eyebrow-text",
+  "role": "breaking",
+  "intendedBreak": "Page eyebrow text changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 1,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9050,
+      "outputTokens": 137,
+      "totalTokens": 9187
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify top heading and eyebrow text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify top heading and eyebrow text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify top heading and eyebrow text before patch"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify top heading and eyebrow text before patch",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.page-heading > div > div.eyebrow')\nExpected substring: \"CODE INTELLIGENCE / LOCAL\"\nReceived string:    \"CODE REVIEW / LOCAL\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.page-heading > div > div.eyebrow') with timeout 5000ms\n  - waiting for locator('.page-heading > div > div.eyebrow')\n    14 × locator resolved to <div class=\"eyebrow\">…</div>\n       - unexpected value \"CODE REVIEW / LOCAL\"\n",
+        "outcome": "assertion"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:17:10.156Z"
+}

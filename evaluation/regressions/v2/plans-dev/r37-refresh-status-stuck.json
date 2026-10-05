@@ -1,0 +1,124 @@
+{
+  "scenarios": [
+    {
+      "title": "Footer status and refresh button functionality",
+      "purpose": "Verify the footer displays correct pipeline status and that clicking the refresh button fetches status and updates the pill text accordingly.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "footer .page-footer span:nth-child(2)",
+          "value": "",
+          "expected": "Pipeline status: not configured"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "footer button[title=\"Refresh status\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "footer button[title=\"Refresh status\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "footer .page-footer span:nth-child(2)",
+          "value": "",
+          "expected": "Pipeline status: not configured"
+        }
+      ]
+    },
+    {
+      "title": "Index repository context button disabled state with no PR URL",
+      "purpose": "Ensure the 'Index repository context' button is disabled when no pull request URL is provided or API is not ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Analyze change button disabled state when API not ready and no diff",
+      "purpose": "Verify the 'Analyze change' button is disabled when the API is not ready and no diff or PR URL is entered.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Setup required indication visible when API not ready",
+      "purpose": "Confirm that the 'Setup required' text and hint to configure OPENAI_API_KEY and DATABASE_URL are visible when apiReady is false.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        },
+        {
+          "action": "expectText",
+          "selector": "header .connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Review findings panel empty state text",
+      "purpose": "Check that the review findings panel shows the default message when no review results are available.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel h2",
+          "value": "",
+          "expected": "Review findings"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel p",
+          "value": "",
+          "expected": "Issues are grounded in changed lines and repository context."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "r41-load-sample-keeps-url",
+  "role": "breaking",
+  "intendedBreak": "Loading the example diff no longer clears the repository URL",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8286,
+      "outputTokens": 714,
+      "totalTokens": 9000
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Load example diff clears pull request URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Setup required and disabled buttons with API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Evaluation metrics display stored ranges and unmeasured values",
+          "status": "failed",
+          "failedStep": "plan step 4: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('text=Unmeasured')\nExpected: visible\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toBeVisible\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Initial review findings panel shows issues grounding message and empty state",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel p')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Disabled state on clear diff button when no diff loaded",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Load example diff clears pull request URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Setup required and disabled buttons with API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Evaluation metrics display stored ranges and unmeasured values",
+          "status": "failed",
+          "failedStep": "plan step 4: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('text=Unmeasured')\nExpected: visible\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toBeVisible\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Initial review findings panel shows issues grounding message and empty state",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel p')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Disabled state on clear diff button when no diff loaded",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Load example diff clears pull request URL",
+    "generated plan: 2. Setup required and disabled buttons with API not ready",
+    "generated plan: 5. Disabled state on clear diff button when no diff loaded"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Load example diff clears pull request URL",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Setup required and disabled buttons with API not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Disabled state on clear diff button when no diff loaded",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:12:35.017Z"
+}

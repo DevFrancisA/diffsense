@@ -1,0 +1,136 @@
+{
+  "scenarios": [
+    {
+      "title": "Review button disabled if no PR URL and no diff",
+      "purpose": "Ensure the Analyze change button is disabled when there is no pull request URL and no diff, even if API is not ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": ".run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Review button disabled if no PR URL with diff present",
+      "purpose": "Check that Analyze change button remains disabled if pull request URL is empty even if diff text is present, before patch removes this restriction.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "some diff text",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": ".run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Review button disabled if API not ready",
+      "purpose": "Verify Analyze change button is disabled when API status is not ready (false), indicating setup required state.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectDisabled",
+          "selector": ".run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Setup required message and buttons disabled with missing API keys",
+      "purpose": "Confirm that the setup required pill is shown, the inline setup hint message is present, and key buttons are disabled when API keys are not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Load example diff button populates diff containing 'Invoice not found' text",
+      "purpose": "Verify the Load example diff button loads the sample diff text with string 'Invoice not found' present in the diff text area.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    }
+  ]
+}

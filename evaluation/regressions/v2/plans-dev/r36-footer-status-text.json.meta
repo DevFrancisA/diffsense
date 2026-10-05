@@ -1,0 +1,105 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify initial header pipeline status text (pre-change)",
+        "purpose": "Ensure the pipeline status text in footer shows 'not configured' when API status is false or null before the patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "footer.page-footer span:nth-child(2)",
+            "value": "",
+            "expected": "Pipeline status: not configured"
+          }
+        ]
+      },
+      {
+        "title": "Check Setup required pill when API is not ready",
+        "purpose": "Confirm the header pill text reads 'Setup required' when the API status is false before the patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "header.topbar .connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          }
+        ]
+      },
+      {
+        "title": "Index repository context button disabled when API not ready",
+        "purpose": "Validate that 'Index repository context' button is disabled when apiReady is false before patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Analyze change button disabled when API not ready",
+        "purpose": "Check that 'Analyze change' button is disabled when apiReady is false prior to patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Inline setup hint visibility when API not ready",
+        "purpose": "Verify setup inline message is visible instructing user to configure keys when API not ready.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "div.setup-inline > span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 10012,
+      "outputTokens": 381,
+      "totalTokens": 10393
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Check Load example diff button label and load diff content",
+      "purpose": "Assert the original button label 'Load example diff' and verify the loaded diff content includes original text 'Invoice not found'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "button.button-secondary",
+          "value": "",
+          "expected": "Load example diff"
+        },
+        {
+          "action": "click",
+          "selector": "button.button-secondary",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "3. Verify disabled state of repository and analysis buttons on fresh load",
+      "purpose": "Assert that the 'Index repository context', 'Analyze change', 'Clear diff', and 'Generate Playwright plan' buttons are disabled initially as setup is incomplete.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button:has-text('Generate Playwright plan')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Clear diff')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "4. Check presence of 'Setup required' pill and inline setup hint",
+      "purpose": "Confirm that the UI shows 'Setup required' status and instructs to configure OPENAI_API_KEY and DATABASE_URL for enabling reviews.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

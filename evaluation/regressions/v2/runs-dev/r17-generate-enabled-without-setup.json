@@ -1,0 +1,146 @@
+{
+  "id": "r17-generate-enabled-without-setup",
+  "role": "breaking",
+  "intendedBreak": "Generate-plan button is enabled without setup",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9456,
+      "outputTokens": 646,
+      "totalTokens": 10102
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Generate Playwright plan button disabled when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Generate Playwright plan button disabled with empty diff and URL when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Generate Playwright plan button enabled conditions without API readiness do not enable button",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Page shows 'Setup required' connection pill when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Setup inline hint and buttons disabled when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Generate Playwright plan button disabled when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Generate Playwright plan button disabled with empty diff and URL when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Generate Playwright plan button enabled conditions without API readiness do not enable button",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Page shows 'Setup required' connection pill when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Setup inline hint and buttons disabled when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Generate Playwright plan button disabled when API is not ready",
+    "generated plan: 2. Generate Playwright plan button disabled with empty diff and URL when API is not ready",
+    "generated plan: 3. Generate Playwright plan button enabled conditions without API readiness do not enable button",
+    "generated plan: 4. Page shows 'Setup required' connection pill when API is not ready",
+    "generated plan: 5. Setup inline hint and buttons disabled when API not ready"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Generate Playwright plan button disabled when API is not ready",
+        "status": "failed",
+        "failedStep": "plan step 3: expectDisabled",
+        "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator:  locator('button.text-button.evaluation-link')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.text-button.evaluation-link') with timeout 5000ms\n  - waiting for locator('button.text-button.evaluation-link')\n    14 × locator resolved to <button type=\"button\" class=\"text-button evaluation-link\">…</button>\n       - unexpected value \"enabled\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Generate Playwright plan button disabled with empty diff and URL when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Generate Playwright plan button enabled conditions without API readiness do not enable button",
+        "status": "failed",
+        "failedStep": "plan step 2: expectDisabled",
+        "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator:  locator('button.text-button.evaluation-link')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.text-button.evaluation-link') with timeout 5000ms\n  - waiting for locator('button.text-button.evaluation-link')\n    14 × locator resolved to <button type=\"button\" class=\"text-button evaluation-link\">…</button>\n       - unexpected value \"enabled\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 4. Page shows 'Setup required' connection pill when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Setup inline hint and buttons disabled when API not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:00:45.233Z"
+}

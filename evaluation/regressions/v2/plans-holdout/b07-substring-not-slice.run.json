@@ -1,0 +1,58 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Check presence of setup required in header pill and inline setup hint",
+      "purpose": "Verify that the header pill shows 'Setup required' and inline setup hint is visible on initial page load",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    },
+    {
+      "title": "4. Confirm empty diff watermark and disabled clear diff button",
+      "purpose": "Ensure the diff editor watermark text is shown and clear diff button is disabled if no diff content provided",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.editor-watermark span",
+          "value": "Waiting for a diff",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

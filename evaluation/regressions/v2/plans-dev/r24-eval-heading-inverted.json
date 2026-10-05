@@ -1,0 +1,136 @@
+{
+  "scenarios": [
+    {
+      "title": "Check evaluation panel heading when evaluation is available",
+      "purpose": "Verify that the evaluation panel shows 'BugsJS review baseline' heading before the patch when evaluation data is available.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-panel .evaluation-copy h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".evaluation-panel .evaluation-copy p",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".evaluation-panel .evaluation-status",
+          "value": "",
+          "expected": "Results saved"
+        }
+      ]
+    },
+    {
+      "title": "Check evaluation panel heading when evaluation is not available",
+      "purpose": "Verify that the evaluation panel shows 'Evidence, not vibes' heading before the patch when evaluation data is not available.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-panel .evaluation-copy h2",
+          "value": "",
+          "expected": "Evidence, not vibes"
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-panel .evaluation-copy p",
+          "value": "",
+          "expected": "Score reviews against labeled defects and seeded regressions."
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.text-button.evaluation-link[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify 'Generate Playwright plan' button disabled state without API ready",
+      "purpose": "Ensure the 'Generate Playwright plan' button is disabled when API is not ready and no diff or PR URL is entered, consistent with pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and confirm diff content placeholder text",
+      "purpose": "Check that loading example diff inserts expected sample text containing 'Invoice not found' in the unified diff textarea, consistent with pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Validation of evaluation metrics text range display",
+      "purpose": "Confirm that the precision and recall metric texts display the exact numeric ranges before the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "id": "r39-diff-textarea-frozen",
+  "role": "breaking",
+  "intendedBreak": "Diff editor ignores typing",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9058,
+      "outputTokens": 454,
+      "totalTokens": 9512
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify unified diff textbox is initially editable",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify unified diff textbox updates on user input before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Clear diff' button is disabled when no diff present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Clear diff' button is enabled when diff is present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify placeholder text of unified diff textbox",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify unified diff textbox is initially editable",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify unified diff textbox updates on user input before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Clear diff' button is disabled when no diff present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Clear diff' button is enabled when diff is present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify placeholder text of unified diff textbox",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify unified diff textbox is initially editable",
+    "generated plan: 2. Verify unified diff textbox updates on user input before patch",
+    "generated plan: 3. Verify 'Clear diff' button is disabled when no diff present",
+    "generated plan: 4. Verify 'Clear diff' button is enabled when diff is present",
+    "generated plan: 5. Verify placeholder text of unified diff textbox"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify unified diff textbox is initially editable",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Verify unified diff textbox updates on user input before patch",
+        "status": "failed",
+        "failedStep": "plan step 2: expectValue",
+        "error": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('textarea[aria-label=\"Unified diff\"]')\nExpected: \"some diff text\"\nReceived: \"\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveValue\" locator('textarea[aria-label=\"Unified diff\"]') with timeout 5000ms\n  - waiting for locator('textarea[aria-label=\"Unified diff\"]')\n    14 × locator resolved to <textarea spellcheck=\"false\" aria-label=\"Unified diff\" placeholder=\"Paste a unified diff here, or enter a GitHub pull request URL above.↵↵DiffSense will retrieve repository context before analyzing changed lines.\"></textarea>\n       - une",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Verify 'Clear diff' button is disabled when no diff present",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify 'Clear diff' button is enabled when diff is present",
+        "status": "failed",
+        "failedStep": "plan step 2: expectEnabled",
+        "error": "Error: expect(locator).toBeEnabled() failed\n\nLocator:  locator('button.text-button:has-text(\"Clear diff\")')\nExpected: enabled\nReceived: disabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeEnabled\" locator('button.text-button:has-text(\"Clear diff\")') with timeout 5000ms\n  - waiting for locator('button.text-button:has-text(\"Clear diff\")')\n    14 × locator resolved to <button disabled type=\"button\" class=\"text-button\">…</button>\n       - unexpected value \"disabled\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 5. Verify placeholder text of unified diff textbox",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:11:30.687Z"
+}

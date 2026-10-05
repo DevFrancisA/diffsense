@@ -1,0 +1,146 @@
+{
+  "id": "h05-regression-rate-over-valid-plans",
+  "role": "breaking",
+  "intendedBreak": "Regression rate divides by valid plans",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9596,
+      "outputTokens": 549,
+      "totalTokens": 10145
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify regression catch rate calculation and display",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check presence of 'Unmeasured' label in review time metric",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Validate 'Load example diff' button loads sample diff with legacy error text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Confirm 'Analyze change' button is disabled without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify 'Index repository context' button is disabled without valid PR URL and API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify regression catch rate calculation and display",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check presence of 'Unmeasured' label in review time metric",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Validate 'Load example diff' button loads sample diff with legacy error text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Confirm 'Analyze change' button is disabled without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify 'Index repository context' button is disabled without valid PR URL and API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify regression catch rate calculation and display",
+    "generated plan: 2. Check presence of 'Unmeasured' label in review time metric",
+    "generated plan: 3. Validate 'Load example diff' button loads sample diff with legacy error text",
+    "generated plan: 4. Confirm 'Analyze change' button is disabled without API ready",
+    "generated plan: 5. Verify 'Index repository context' button is disabled without valid PR URL and API ready"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify regression catch rate calculation and display",
+        "status": "failed",
+        "failedStep": "plan step 2: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell.metric-last > strong')\nExpected substring: \"2.5%\"\nReceived string:    \"50.0%\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell.metric-last > strong') with timeout 5000ms\n  - waiting for locator('.metric-cell.metric-last > strong')\n    - locator resolved to <strong>…</strong>\n    - unexpected value \"—%\"\n    13 × locator resolved to <strong>…</strong>\n       - unexpected value \"50.0%\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Check presence of 'Unmeasured' label in review time metric",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Validate 'Load example diff' button loads sample diff with legacy error text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Confirm 'Analyze change' button is disabled without API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify 'Index repository context' button is disabled without valid PR URL and API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:15:02.381Z"
+}

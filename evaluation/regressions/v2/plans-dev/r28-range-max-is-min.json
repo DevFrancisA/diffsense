@@ -1,0 +1,118 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify evaluation page shows correct precision range pre-patch",
+      "purpose": "Ensure the precision range displayed matches the min-max range using Math.max for maximum, before patch changes it to Math.min.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main region Evaluation metrics",
+          "value": "",
+          "expected": "PRECISION · WITH CONTEXT"
+        },
+        {
+          "action": "expectText",
+          "selector": "main region Evaluation metrics strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        }
+      ]
+    },
+    {
+      "title": "Verify evaluation page shows correct recall range pre-patch",
+      "purpose": "Ensure the recall range displayed matches the min-max range using Math.max as max, prior to patch changing max to min.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main region Evaluation metrics",
+          "value": "",
+          "expected": "RECALL · WITH CONTEXT"
+        },
+        {
+          "action": "expectText",
+          "selector": "main region Evaluation metrics strong:nth-of-type(2)",
+          "value": "",
+          "expected": "28.8–30.5%"
+        }
+      ]
+    },
+    {
+      "title": "Verify footer shows pipeline not configured pre-patch",
+      "purpose": "Check that without configured environment, the footer text indicates pipeline is not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main",
+          "value": "",
+          "expected": "DiffSense · private by default Pipeline status: not configured"
+        }
+      ]
+    },
+    {
+      "title": "Verify buttons Index repository context, Analyze change, and Generate Playwright plan are disabled pre-patch",
+      "purpose": "Before patch applied, these essential buttons remain disabled due to missing config as expected.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change ⌘ ↵\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify setup required pill visible in header pre-patch",
+      "purpose": "Confirm the header pill shows 'Setup required' text indicating API and DB are not configured before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main strong:has-text(\"Setup required\")",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    }
+  ]
+}

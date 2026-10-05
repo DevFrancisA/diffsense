@@ -1,0 +1,138 @@
+{
+  "id": "r35-empty-state-title",
+  "role": "breaking",
+  "intendedBreak": "Empty-state title changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9463,
+      "outputTokens": 485,
+      "totalTokens": 9948
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial empty review panel heading text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify initial empty review panel descriptive text",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel .empty-state > p')\nTimeout: 5000ms\n- Expected substring  - 2\n+ Received string     + 1\n\n- Analyze a pull request or diff to see\n- evidence-linked findings.\n+ Analyze a pull request or diff to seeevidence-linked findings.\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel .empty-state > p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel .empty-state > p')\n    14 × locator resolved to <p>…</p>\n       - unexpected value \"Analyze a pull request or d",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify unmeasured evaluation metric text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff and verify content presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify index repository context button disabled and label on empty URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial empty review panel heading text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify initial empty review panel descriptive text",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel .empty-state > p')\nTimeout: 5000ms\n- Expected substring  - 2\n+ Received string     + 1\n\n- Analyze a pull request or diff to see\n- evidence-linked findings.\n+ Analyze a pull request or diff to seeevidence-linked findings.\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel .empty-state > p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel .empty-state > p')\n    14 × locator resolved to <p>…</p>\n       - unexpected value \"Analyze a pull request or d",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify unmeasured evaluation metric text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff and verify content presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify index repository context button disabled and label on empty URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial empty review panel heading text",
+    "generated plan: 3. Verify unmeasured evaluation metric text",
+    "generated plan: 4. Load example diff and verify content presence",
+    "generated plan: 5. Verify index repository context button disabled and label on empty URL"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial empty review panel heading text",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel .empty-state > strong')\nExpected substring: \"Your review starts here\"\nReceived string:    \"Start a review\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel .empty-state > strong') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel .empty-state > strong')\n    14 × locator resolved to <strong>Start a review</strong>\n       - unexpected value \"Start a review\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Verify unmeasured evaluation metric text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Load example diff and verify content presence",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify index repository context button disabled and label on empty URL",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:08:23.690Z"
+}

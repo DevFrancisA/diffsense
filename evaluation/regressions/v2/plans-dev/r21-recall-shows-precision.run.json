@@ -1,0 +1,34 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify evaluation metrics display correct recall value with context",
+      "purpose": "Ensure the recall metric shows the recall percentage range, not mistakenly showing precision range as recall.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "h1",
+          "value": "",
+          "expected": "Review desk"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) span.metric-label",
+          "value": "",
+          "expected": "RECALL · WITH CONTEXT"
+        }
+      ]
+    }
+  ]
+}

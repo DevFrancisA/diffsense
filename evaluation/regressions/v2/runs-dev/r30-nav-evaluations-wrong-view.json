@@ -1,0 +1,146 @@
+{
+  "id": "r30-nav-evaluations-wrong-view",
+  "role": "breaking",
+  "intendedBreak": "Evaluations nav item does not switch views",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8602,
+      "outputTokens": 463,
+      "totalTokens": 9065
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Navigation shows Evaluations button with active view Review desk pre-change",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Navigation shows Review desk button as active pre-change",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Navigation pull requests button visible and shows count zero",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Topbar connection pill shows Setup required when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Setup inline hint visible when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Navigation shows Evaluations button with active view Review desk pre-change",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Navigation shows Review desk button as active pre-change",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Navigation pull requests button visible and shows count zero",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Topbar connection pill shows Setup required when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Setup inline hint visible when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Navigation shows Evaluations button with active view Review desk pre-change",
+    "generated plan: 2. Navigation shows Review desk button as active pre-change",
+    "generated plan: 3. Navigation pull requests button visible and shows count zero",
+    "generated plan: 4. Topbar connection pill shows Setup required when API not ready",
+    "generated plan: 5. Setup inline hint visible when API is not ready"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Navigation shows Evaluations button with active view Review desk pre-change",
+        "status": "failed",
+        "failedStep": "plan step 3: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('header.topbar .breadcrumbs strong')\nExpected substring: \"Evaluations\"\nReceived string:    \"Review desk\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('header.topbar .breadcrumbs strong') with timeout 5000ms\n  - waiting for locator('header.topbar .breadcrumbs strong')\n    14 × locator resolved to <strong>Review desk</strong>\n       - unexpected value \"Review desk\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Navigation shows Review desk button as active pre-change",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Navigation pull requests button visible and shows count zero",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Topbar connection pill shows Setup required when API not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Setup inline hint visible when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:06:35.664Z"
+}

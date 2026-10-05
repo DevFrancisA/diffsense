@@ -1,0 +1,124 @@
+{
+  "id": "r09-watermark-inverted",
+  "role": "breaking",
+  "intendedBreak": "Waiting-for-diff watermark shows only when a diff is loaded",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 4,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8995,
+      "outputTokens": 417,
+      "totalTokens": 9412
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial state of diff editor watermark with empty diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify Clear diff button is disabled when diff is empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify Run button disabled state with empty diff and empty URL and not ready API",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify setup inline message when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial state of diff editor watermark with empty diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify Clear diff button is disabled when diff is empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify Run button disabled state with empty diff and empty URL and not ready API",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify setup inline message when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial state of diff editor watermark with empty diff",
+    "generated plan: 2. Verify Clear diff button is disabled when diff is empty",
+    "generated plan: 3. Verify Run button disabled state with empty diff and empty URL and not ready API",
+    "generated plan: 4. Verify setup inline message when API not ready"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial state of diff editor watermark with empty diff",
+        "status": "failed",
+        "failedStep": "plan step 1: expectVisible",
+        "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.diff-editor .editor-watermark')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.diff-editor .editor-watermark') with timeout 5000ms\n  - waiting for locator('.diff-editor .editor-watermark')\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Verify Clear diff button is disabled when diff is empty",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify Run button disabled state with empty diff and empty URL and not ready API",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify setup inline message when API not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:55:40.297Z"
+}

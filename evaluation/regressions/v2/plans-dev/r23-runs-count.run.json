@@ -1,0 +1,46 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify initial evaluation metrics text and counts",
+      "purpose": "Ensure the evaluation metrics display the expected precision and recall ranges with correct run counts before patch applied.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "h1",
+          "value": "",
+          "expected": "Review desk"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) .metric-foot",
+          "value": "",
+          "expected": "30 BugsJS cases · 3 runs"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) .metric-foot",
+          "value": "",
+          "expected": "Range across 3 runs"
+        }
+      ]
+    }
+  ]
+}

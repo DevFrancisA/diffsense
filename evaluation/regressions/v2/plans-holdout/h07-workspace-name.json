@@ -1,0 +1,148 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify initial workspace label text",
+      "purpose": "Ensure the workspace label text shows 'Demo workspace' before patch, indicating correct default workspace naming.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".workspace-copy strong",
+          "value": "",
+          "expected": "Demo workspace"
+        },
+        {
+          "action": "expectText",
+          "selector": ".workspace-copy small",
+          "value": "",
+          "expected": "Personal plan"
+        }
+      ]
+    },
+    {
+      "title": "Check navigation labels and button states on home page",
+      "purpose": "Confirm navigation buttons and status pill show correct initial states with setup required and disabled review buttons.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "header .connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectEnabled",
+          "selector": "button.settings-item",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Validate Evaluation metrics and presence of 'BugsJS review baseline' header",
+      "purpose": "Assert evaluation metrics range texts and presence of baseline header before patch changes any relevant UI.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip .metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip .metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip .metric-cell:nth-child(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip .metric-cell:nth-child(4) strong",
+          "value": "",
+          "expected": "2.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        }
+      ]
+    },
+    {
+      "title": "Confirm the 'Clear diff' button is initially disabled with empty diff textarea",
+      "purpose": "Ensure the 'Clear diff' button starts disabled as there is no diff loaded initially.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Assert 'Load example diff' loads sample diff containing specific text",
+      "purpose": "Verify clicking 'Load example diff' populates the diff textarea with sample content including 'Invoice not found' text.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "Invoice not found",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

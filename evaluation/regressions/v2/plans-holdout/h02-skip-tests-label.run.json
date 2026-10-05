@@ -1,0 +1,94 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify initial disabled buttons and Setup required pill",
+      "purpose": "Ensure that repository context indexing and plan generation buttons are disabled and setup status is indicated when API is not ready",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "3. Confirm Analyze change button disabled when no PR URL and API not ready",
+      "purpose": "Verify that the Analyze change button is disabled without input or ready API",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "4. Ensure inline setup hint is visible when API is not ready",
+      "purpose": "Check that the inline setup hint is shown instructing configuration without API credentials",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    },
+    {
+      "title": "5. Validate that Clear diff button is disabled when no diff is present",
+      "purpose": "Check clear diff button disables correctly when input is empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

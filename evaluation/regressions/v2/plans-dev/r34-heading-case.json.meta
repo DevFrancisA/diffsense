@@ -1,0 +1,135 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify initial Review desk heading text",
+        "purpose": "Ensure the Review desk heading uses the original capitalization 'Review desk' before the patch changes it to 'Review Desk'.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.page-heading h1",
+            "value": "",
+            "expected": "Review desk"
+          }
+        ]
+      },
+      {
+        "title": "Check metrics and initial evaluation text presence",
+        "purpose": "Validate the presence and content of evaluation metrics and the BugsJS review baseline text before patch changes.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.evaluation-panel h2",
+            "value": "",
+            "expected": "BugsJS review baseline"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.metrics-strip .metric-cell:nth-child(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.metrics-strip .metric-cell:nth-child(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": "text=Unmeasured",
+            "value": "",
+            "expected": "Unmeasured"
+          }
+        ]
+      },
+      {
+        "title": "Load example diff shows snippet text 'Invoice not found'",
+        "purpose": "Confirm that loading the example diff populates the unified diff textarea with content including the phrase 'Invoice not found' before patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Verify that Index repository context button is disabled initially",
+        "purpose": "Ensure that the 'Index repository context' button is disabled when no pull request URL is entered before patch changes.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button:has-text(\"Index repository context\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Ensure Analyze change button is disabled with no input and setup required",
+        "purpose": "Check that the analyze change button is disabled when API is not ready and no diff or PR URL is provided before patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button:has-text(\"Analyze change\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span.connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8436,
+      "outputTokens": 529,
+      "totalTokens": 8965
+    }
+  }
+}

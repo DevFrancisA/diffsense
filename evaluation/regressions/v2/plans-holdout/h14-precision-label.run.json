@@ -1,0 +1,118 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Check original metric label PRECISION · WITH CONTEXT presence",
+      "purpose": "Verify that the metric label on the evaluation metrics strip is 'PRECISION · WITH CONTEXT' before the patch changes it.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) .metric-label",
+          "value": "",
+          "expected": "PRECISION · WITH CONTEXT"
+        }
+      ]
+    },
+    {
+      "title": "2. Verify recall metric label and value format before patch",
+      "purpose": "Ensure the recall metric label and range text remain unchanged before the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) .metric-label",
+          "value": "",
+          "expected": "RECALL · WITH CONTEXT"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        }
+      ]
+    },
+    {
+      "title": "3. Verify regression catch rate metric shows expected value and text",
+      "purpose": "Assert the regression catch rate metric displays '2.5%' and footer text '1/40 seeded · 38 invalid plans' as before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell.metric-last .metric-label",
+          "value": "",
+          "expected": "REGRESSION CATCH RATE"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell.metric-last strong",
+          "value": "",
+          "expected": "2.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell.metric-last",
+          "value": "",
+          "expected": "1/40 seeded"
+        }
+      ]
+    },
+    {
+      "title": "4. Load example diff and verify presence of old diff text",
+      "purpose": "Ensure loading the example diff brings the previous unified diff with the text 'Invoice not found' visible.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "5. Verify analyze change button disabled without API ready",
+      "purpose": "Check that the Analyze change button is disabled when the API is not ready as in the pre-patch environment.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "id": "r18-generate-label",
+  "role": "breaking",
+  "intendedBreak": "Generate-plan button label changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 4,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9154,
+      "outputTokens": 433,
+      "totalTokens": 9587
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation panel initial texts and button label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check evaluation status text and saved results before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Confirm evaluation metrics presence and correct values before patch",
+          "status": "failed",
+          "failedStep": "plan step 4: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.metrics-strip span.metric-neutral')\nExpected substring: \"Unmeasured\"\nError: strict mode violation: locator('section.metrics-strip span.metric-neutral') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toContainText\" locator('section.metrics-strip span.metric-neutral') with timeout 5000ms\n  - waiting for locator('section.metrics-strip span.m",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Ensure 'Analyze change' button is disabled when API not ready and inputs empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation panel initial texts and button label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check evaluation status text and saved results before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Confirm evaluation metrics presence and correct values before patch",
+          "status": "failed",
+          "failedStep": "plan step 4: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.metrics-strip span.metric-neutral')\nExpected substring: \"Unmeasured\"\nError: strict mode violation: locator('section.metrics-strip span.metric-neutral') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toContainText\" locator('section.metrics-strip span.metric-neutral') with timeout 5000ms\n  - waiting for locator('section.metrics-strip span.m",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Ensure 'Analyze change' button is disabled when API not ready and inputs empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify evaluation panel initial texts and button label before patch",
+    "generated plan: 2. Check evaluation status text and saved results before patch",
+    "generated plan: 4. Ensure 'Analyze change' button is disabled when API not ready and inputs empty"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify evaluation panel initial texts and button label before patch",
+        "status": "failed",
+        "failedStep": "plan step 2: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.evaluation-panel button.evaluation-link')\nExpected substring: \"Generate Playwright plan\"\nReceived string:    \"Generate test plan\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('section.evaluation-panel button.evaluation-link') with timeout 5000ms\n  - waiting for locator('section.evaluation-panel button.evaluation-link')\n    14 × locator resolved to <button disabled type=\"button\" class=\"text-button evaluation-link\">…</button>\n       - unexpected value \"Generate test plan\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Check evaluation status text and saved results before patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Ensure 'Analyze change' button is disabled when API not ready and inputs empty",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:01:06.010Z"
+}

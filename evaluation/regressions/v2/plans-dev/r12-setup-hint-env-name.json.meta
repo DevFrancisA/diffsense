@@ -1,0 +1,39 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify setup hint shows 'OPENAI_API_KEY' before patch",
+        "purpose": "Ensure the setup inline hint contains the original environment variable name 'OPENAI_API_KEY' before the patch changes it.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": ".setup-inline",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".setup-inline span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 1,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8950,
+      "outputTokens": 116,
+      "totalTokens": 9066
+    }
+  }
+}

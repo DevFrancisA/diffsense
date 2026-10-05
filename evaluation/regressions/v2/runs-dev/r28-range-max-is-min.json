@@ -1,0 +1,114 @@
+{
+  "id": "r28-range-max-is-min",
+  "role": "breaking",
+  "intendedBreak": "Results API returns min as the range maximum",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 6013,
+      "outputTokens": 509,
+      "totalTokens": 6522
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation page shows correct precision range pre-patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main region Evaluation metrics')\nExpected substring: \"PRECISION · WITH CONTEXT\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main region Evaluation metrics') with timeout 5000ms\n  - waiting for locator('main region Evaluation metrics')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify evaluation page shows correct recall range pre-patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main region Evaluation metrics')\nExpected substring: \"RECALL · WITH CONTEXT\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main region Evaluation metrics') with timeout 5000ms\n  - waiting for locator('main region Evaluation metrics')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify footer shows pipeline not configured pre-patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify buttons Index repository context, Analyze change, and Generate Playwright plan are disabled pre-patch",
+          "status": "failed",
+          "failedStep": "plan step 2: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\"Analyze change ⌘ ↵\")')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Analyze change ⌘ ↵\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Analyze change ⌘ ↵\")')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify setup required pill visible in header pre-patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main strong:has-text(\"Setup required\")')\nExpected substring: \"Setup required\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main strong:has-text(\"Setup required\")') with timeout 5000ms\n  - waiting for locator('main strong:has-text(\"Setup required\")')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation page shows correct precision range pre-patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main region Evaluation metrics')\nExpected substring: \"PRECISION · WITH CONTEXT\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main region Evaluation metrics') with timeout 5000ms\n  - waiting for locator('main region Evaluation metrics')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify evaluation page shows correct recall range pre-patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main region Evaluation metrics')\nExpected substring: \"RECALL · WITH CONTEXT\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main region Evaluation metrics') with timeout 5000ms\n  - waiting for locator('main region Evaluation metrics')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify footer shows pipeline not configured pre-patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify buttons Index repository context, Analyze change, and Generate Playwright plan are disabled pre-patch",
+          "status": "failed",
+          "failedStep": "plan step 2: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\"Analyze change ⌘ ↵\")')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Analyze change ⌘ ↵\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Analyze change ⌘ ↵\")')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify setup required pill visible in header pre-patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main strong:has-text(\"Setup required\")')\nExpected substring: \"Setup required\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main strong:has-text(\"Setup required\")') with timeout 5000ms\n  - waiting for locator('main strong:has-text(\"Setup required\")')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 3. Verify footer shows pipeline not configured pre-patch"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 3. Verify footer shows pipeline not configured pre-patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:05:32.409Z"
+}

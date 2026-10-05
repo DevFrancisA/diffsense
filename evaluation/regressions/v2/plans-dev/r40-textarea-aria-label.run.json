@@ -1,0 +1,88 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify unified diff textarea aria-label before patch",
+      "purpose": "Confirm that the unified diff textarea uses the aria-label 'Unified diff' before the aria-label change in the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "aria-label",
+          "expected": "Unified diff"
+        }
+      ]
+    },
+    {
+      "title": "2. Check diff label presence and absence of fallback",
+      "purpose": "Ensure that the textarea has aria-label 'Unified diff' and that no 'Diff' aria-label exists, asserting pre-patch state.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectHidden",
+          "selector": "textarea[aria-label=\"Diff\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "3. Confirm clear diff button disables when no diff present",
+      "purpose": "Verify the clear diff button is disabled when the diff textarea is empty, matching pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "4. Verify presence of 'Waiting for a diff' watermark when textarea empty",
+      "purpose": "Check that the watermark text 'Waiting for a diff' is visible when the 'Unified diff' textarea is empty, as before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.editor-watermark span:has-text(\"Waiting for a diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

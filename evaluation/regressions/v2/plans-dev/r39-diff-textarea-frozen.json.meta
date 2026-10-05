@@ -1,0 +1,117 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify unified diff textbox is initially editable",
+        "purpose": "Ensure the unified diff text area accepts user input before the patch disables editing.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectEnabled",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify unified diff textbox updates on user input before patch",
+        "purpose": "Confirm that before the patch, typing in the unified diff textarea changes its value.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "some diff text",
+            "expected": ""
+          },
+          {
+            "action": "expectValue",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "some diff text"
+          }
+        ]
+      },
+      {
+        "title": "Verify 'Clear diff' button is disabled when no diff present",
+        "purpose": "Confirm the clear diff button is disabled when the unified diff textarea is empty before the patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.text-button:has-text(\"Clear diff\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify 'Clear diff' button is enabled when diff is present",
+        "purpose": "Confirm the clear diff button enables when there is text in the unified diff textarea before the patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "some diff line",
+            "expected": ""
+          },
+          {
+            "action": "expectEnabled",
+            "selector": "button.text-button:has-text(\"Clear diff\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify placeholder text of unified diff textbox",
+        "purpose": "Ensure the placeholder instructs user on using the unified diff textbox, verifying unchanged text before patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectAttribute",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "placeholder",
+            "expected": "Paste a unified diff here, or enter a GitHub pull request URL above.\n\nDiffSense will retrieve repository context before analyzing changed lines."
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9058,
+      "outputTokens": 454,
+      "totalTokens": 9512
+    }
+  }
+}

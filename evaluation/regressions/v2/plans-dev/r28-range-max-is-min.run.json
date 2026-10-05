@@ -1,0 +1,22 @@
+{
+  "scenarios": [
+    {
+      "title": "3. Verify footer shows pipeline not configured pre-patch",
+      "purpose": "Check that without configured environment, the footer text indicates pipeline is not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main",
+          "value": "",
+          "expected": "DiffSense · private by default Pipeline status: not configured"
+        }
+      ]
+    }
+  ]
+}

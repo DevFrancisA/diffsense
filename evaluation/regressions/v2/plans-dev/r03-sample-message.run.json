@@ -1,0 +1,100 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify inline setup message and disabled buttons with missing API key and DB URL",
+      "purpose": "Ensure that when setup is incomplete, the interface shows 'Setup required' with the correct message and disables relevant buttons",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "4. Check presence of metrics strip with stored evaluation summary values",
+      "purpose": "Verify that stored evaluation metrics are visible with correct labels and placeholders",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(1) .metric-label",
+          "value": "",
+          "expected": "PRECISION · WITH CONTEXT"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(2) .metric-label",
+          "value": "",
+          "expected": "RECALL · WITH CONTEXT"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell.metric-last strong",
+          "value": "",
+          "expected": "—"
+        }
+      ]
+    }
+  ]
+}

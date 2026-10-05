@@ -1,0 +1,154 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify header and workspace text on initial load",
+      "purpose": "Ensure the header pill and workspace labels are shown with setup required and demo workspace as expected before patch",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main > strong",
+          "value": "",
+          "expected": "Demo workspace"
+        },
+        {
+          "action": "expectText",
+          "selector": "main > strong + text",
+          "value": "",
+          "expected": "Personal plan WORKSPACE"
+        },
+        {
+          "action": "expectText",
+          "selector": "main > strong + text + text",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Check button disabled states without API key and database URL",
+      "purpose": "Confirm 'Index repository context', 'Analyze change', and 'Generate Playwright plan' buttons are disabled when pipeline is not configured",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify presence of inline setup hint and footer pipeline status",
+      "purpose": "Assert the setup hint and footer text indicating pipeline is not configured are visible before patch",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        },
+        {
+          "action": "expectText",
+          "selector": "footer.page-footer span:nth-child(2)",
+          "value": "",
+          "expected": "Pipeline status: not configured"
+        }
+      ]
+    },
+    {
+      "title": "Validate review findings panel initial state",
+      "purpose": "Check that the initial review findings panel shows the placeholder text for starting a review before patch",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel h2",
+          "value": "",
+          "expected": "Review findings"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel > div.empty-state strong",
+          "value": "",
+          "expected": "Your review starts here"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel > div.empty-state p",
+          "value": "",
+          "expected": "Analyze a pull request or diff to see"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel > div.empty-state > div.empty-state-footer:first-child span.state-pending",
+          "value": "",
+          "expected": "waiting"
+        }
+      ]
+    },
+    {
+      "title": "Confirm evaluation panel shows saved results with cohort info",
+      "purpose": "Ensure evaluation panel displays saved results with cohort and model info before patch",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel p",
+          "value": "",
+          "expected": "30 pre-labeled cases · gpt-4.1-mini · 2026-10-05"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel div.evaluation-status",
+          "value": "",
+          "expected": "Results saved"
+        }
+      ]
+    }
+  ]
+}

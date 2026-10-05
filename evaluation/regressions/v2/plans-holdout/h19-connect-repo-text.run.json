@@ -1,0 +1,28 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Sidebar repository button label is 'Connect a repository'",
+      "purpose": "Verify the sidebar button to add repository shows 'Connect a repository' with correct subtext before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".repo-empty strong",
+          "value": "",
+          "expected": "Connect a repository"
+        },
+        {
+          "action": "expectText",
+          "selector": ".repo-empty small",
+          "value": "",
+          "expected": "Paste a pull request URL"
+        }
+      ]
+    }
+  ]
+}

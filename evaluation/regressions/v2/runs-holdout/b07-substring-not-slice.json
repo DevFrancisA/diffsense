@@ -1,0 +1,122 @@
+{
+  "id": "b07-substring-not-slice",
+  "role": "benign",
+  "intendedBreak": "Uses substring instead of slice for a non-negative index",
+  "status": "no-alarm",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9458,
+      "outputTokens": 725,
+      "totalTokens": 10183
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify visible UI elements on initial load",
+          "status": "failed",
+          "failedStep": "plan step 4: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('strong')\nExpected substring: \"Demo workspace\"\nError: strict mode violation: locator('strong') resolved to 9 elements:\n    1) <strong>Demo workspace</strong> aka getByText('Demo workspace')\n    2) <strong>Connect a repository</strong> aka getByRole('button', { name: 'Connect a repository Paste a' })\n    3) <strong>Anto Francis</strong> aka getByText('Anto Francis')\n    4) <strong>Review desk</strong> aka getByRole('strong').filter({ hasText: 'Review desk' })\n    5) <strong>…</strong> aka getByText('–100.0%')\n    6) <strong",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check presence of setup required in header pill and inline setup hint",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Review form buttons and inputs disabled state on initial load",
+          "status": "failed",
+          "failedStep": "plan step 1: expectValueContains",
+          "error": "Error: expect(received).toContain(expected) // indexOf\n\nExpected substring: \"https://github.com/owner/repo or /pull/42\"\nReceived string:    \"\"\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Confirm empty diff watermark and disabled clear diff button",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate Review findings panel showing no findings prompt",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel div.empty-state p')\nTimeout: 5000ms\n- Expected substring  - 2\n+ Received string     + 1\n\n- Analyze a pull request or diff to see\n- evidence-linked findings.\n+ Analyze a pull request or diff to seeevidence-linked findings.\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel div.empty-state p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel div.empty-state p')\n    14 × locator resolved to <p>…</p>\n       - unexpected value \"Analyze a pull request o",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify visible UI elements on initial load",
+          "status": "failed",
+          "failedStep": "plan step 4: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('strong')\nExpected substring: \"Demo workspace\"\nError: strict mode violation: locator('strong') resolved to 9 elements:\n    1) <strong>Demo workspace</strong> aka getByText('Demo workspace')\n    2) <strong>Connect a repository</strong> aka getByRole('button', { name: 'Connect a repository Paste a' })\n    3) <strong>Anto Francis</strong> aka getByText('Anto Francis')\n    4) <strong>Review desk</strong> aka getByRole('strong').filter({ hasText: 'Review desk' })\n    5) <strong>…</strong> aka getByText('–100.0%')\n    6) <strong",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check presence of setup required in header pill and inline setup hint",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Review form buttons and inputs disabled state on initial load",
+          "status": "failed",
+          "failedStep": "plan step 1: expectValueContains",
+          "error": "Error: expect(received).toContain(expected) // indexOf\n\nExpected substring: \"https://github.com/owner/repo or /pull/42\"\nReceived string:    \"\"\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Confirm empty diff watermark and disabled clear diff button",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate Review findings panel showing no findings prompt",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel div.empty-state p')\nTimeout: 5000ms\n- Expected substring  - 2\n+ Received string     + 1\n\n- Analyze a pull request or diff to see\n- evidence-linked findings.\n+ Analyze a pull request or diff to seeevidence-linked findings.\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel div.empty-state p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel div.empty-state p')\n    14 × locator resolved to <p>…</p>\n       - unexpected value \"Analyze a pull request o",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Check presence of setup required in header pill and inline setup hint",
+    "generated plan: 4. Confirm empty diff watermark and disabled clear diff button"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Check presence of setup required in header pill and inline setup hint",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Confirm empty diff watermark and disabled clear diff button",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:23:54.701Z"
+}

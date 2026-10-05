@@ -1,0 +1,106 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify 'Index repository context' button disabled state when apiReady is false",
+      "purpose": "Ensure 'Index repository context' button is disabled when API is not ready, matching pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/index.html",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify 'Index repository context' button enabled state with pull request URL and apiReady true",
+      "purpose": "Confirm 'Index repository context' button enables only when there is a pull request URL and apiReady is true before patch applied.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/index.html",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify presence of Setup required pill when API is not ready",
+      "purpose": "Assert that header pill shows 'Setup required' text when API status is false before patch changes behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/index.html",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Verify presence of inline setup hint when API is not ready",
+      "purpose": "Assert inline setup hint with correct text is visible when setup is required before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/index.html",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span:nth-child(2)",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    },
+    {
+      "title": "Verify 'Generate Playwright plan' button is disabled when apiReady is false",
+      "purpose": "Check that 'Generate Playwright plan' button is disabled when API is not ready before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/index.html",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

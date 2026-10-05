@@ -1,0 +1,138 @@
+{
+  "id": "r10-pill-labels-swapped",
+  "role": "breaking",
+  "intendedBreak": "Connection pill reports ready when setup is missing",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8128,
+      "outputTokens": 572,
+      "totalTokens": 8700
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial connection pill status shows 'Setup required' when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 2: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('header.topbar .connection-pill')\nExpected: \"disconnected\"\nReceived: \"connection-pill disconnected\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('header.topbar .connection-pill') with timeout 5000ms\n  - waiting for locator('header.topbar .connection-pill')\n    14 × locator resolved to <span class=\"connection-pill disconnected\">…</span>\n       - unexpected value \"connection-pill disconnected\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check that 'Setup required' text is displayed and buttons disabled",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify evaluation metric precision range text is shown as '94.4–100.0%'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Confirm evaluation metric recall range text is shown as '28.8–30.5%'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Load example diff and check unified diff textarea contains 'Invoice not found'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial connection pill status shows 'Setup required' when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 2: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('header.topbar .connection-pill')\nExpected: \"disconnected\"\nReceived: \"connection-pill disconnected\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('header.topbar .connection-pill') with timeout 5000ms\n  - waiting for locator('header.topbar .connection-pill')\n    14 × locator resolved to <span class=\"connection-pill disconnected\">…</span>\n       - unexpected value \"connection-pill disconnected\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check that 'Setup required' text is displayed and buttons disabled",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify evaluation metric precision range text is shown as '94.4–100.0%'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Confirm evaluation metric recall range text is shown as '28.8–30.5%'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Load example diff and check unified diff textarea contains 'Invoice not found'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Check that 'Setup required' text is displayed and buttons disabled",
+    "generated plan: 3. Verify evaluation metric precision range text is shown as '94.4–100.0%'",
+    "generated plan: 4. Confirm evaluation metric recall range text is shown as '28.8–30.5%'",
+    "generated plan: 5. Load example diff and check unified diff textarea contains 'Invoice not found'"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Check that 'Setup required' text is displayed and buttons disabled",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify evaluation metric precision range text is shown as '94.4–100.0%'",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Confirm evaluation metric recall range text is shown as '28.8–30.5%'",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Load example diff and check unified diff textarea contains 'Invoice not found'",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:56:07.367Z"
+}

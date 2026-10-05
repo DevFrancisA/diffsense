@@ -1,0 +1,146 @@
+{
+  "id": "r33-breadcrumb-static",
+  "role": "breaking",
+  "intendedBreak": "Breadcrumb ignores the active view",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8493,
+      "outputTokens": 556,
+      "totalTokens": 9049
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Topbar breadcrumb shows dynamic workspace path",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Topbar connection pill shows setup required when apiReady false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Buttons for repository context indexing and analysis are disabled when no API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Display of evaluation metrics with stored numbers when no API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Load example diff populates unified diff text area",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Topbar breadcrumb shows dynamic workspace path",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Topbar connection pill shows setup required when apiReady false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Buttons for repository context indexing and analysis are disabled when no API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Display of evaluation metrics with stored numbers when no API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Load example diff populates unified diff text area",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Topbar breadcrumb shows dynamic workspace path",
+    "generated plan: 2. Topbar connection pill shows setup required when apiReady false",
+    "generated plan: 3. Buttons for repository context indexing and analysis are disabled when no API ready",
+    "generated plan: 4. Display of evaluation metrics with stored numbers when no API ready",
+    "generated plan: 5. Load example diff populates unified diff text area"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Topbar breadcrumb shows dynamic workspace path",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Topbar connection pill shows setup required when apiReady false",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Buttons for repository context indexing and analysis are disabled when no API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Display of evaluation metrics with stored numbers when no API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Load example diff populates unified diff text area",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:07:29.960Z"
+}

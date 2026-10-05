@@ -1,0 +1,136 @@
+{
+  "scenarios": [
+    {
+      "title": "Initial page load shows correct default active view",
+      "purpose": "Verify that when the app loads, the default active view displayed is 'Review desk' as a string and is marked active in the navigation.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".nav-item.is-active",
+          "value": "",
+          "expected": "Review desk"
+        },
+        {
+          "action": "expectText",
+          "selector": "header .breadcrumbs strong",
+          "value": "",
+          "expected": "Review desk"
+        }
+      ]
+    },
+    {
+      "title": "Navigation buttons switch active view correctly",
+      "purpose": "Ensure navigation buttons highlight correct active view when clicked, starting from default 'Review desk'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": ".nav-item[aria-label=\"Pull requests\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".nav-item.is-active",
+          "value": "",
+          "expected": "Pull requests"
+        },
+        {
+          "action": "click",
+          "selector": ".nav-item[aria-label=\"Evaluations\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".nav-item.is-active",
+          "value": "",
+          "expected": "Evaluations"
+        },
+        {
+          "action": "click",
+          "selector": ".nav-item[aria-label=\"Review desk\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".nav-item.is-active",
+          "value": "",
+          "expected": "Review desk"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff populates unified diff textarea",
+      "purpose": "Verify that clicking 'Load example diff' button populates the unified diff textarea with the expected sample diff content containing the string 'Invoice not found'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Disabled buttons when API is not ready",
+      "purpose": "Verify that when the API status is not ready, the 'Index repository context' and 'Generate Playwright plan' buttons remain disabled and appropriate setup hints are shown.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span:has-text(\"Configure OPENAI_API_KEY and DATABASE_URL to enable reviews\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

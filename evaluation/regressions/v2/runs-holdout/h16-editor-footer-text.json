@@ -1,0 +1,146 @@
+{
+  "id": "h16-editor-footer-text",
+  "role": "breaking",
+  "intendedBreak": "Editor footer text changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9842,
+      "outputTokens": 592,
+      "totalTokens": 10434
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial Review desk header and metrics",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Load example diff and verify placeholder diff content text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify unified diff watermark and Clear diff button state initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify editor footer lock text pre-change",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify Analyze change button disabled state without URL or diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial Review desk header and metrics",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Load example diff and verify placeholder diff content text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify unified diff watermark and Clear diff button state initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify editor footer lock text pre-change",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify Analyze change button disabled state without URL or diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial Review desk header and metrics",
+    "generated plan: 2. Load example diff and verify placeholder diff content text",
+    "generated plan: 3. Verify unified diff watermark and Clear diff button state initially",
+    "generated plan: 4. Verify editor footer lock text pre-change",
+    "generated plan: 5. Verify Analyze change button disabled state without URL or diff"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial Review desk header and metrics",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Load example diff and verify placeholder diff content text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify unified diff watermark and Clear diff button state initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify editor footer lock text pre-change",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.editor-footer span:has-text(\"Diff content stays in your configured review pipeline\")')\nExpected substring: \"Diff content stays in your configured review pipeline\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('.editor-footer span:has-text(\"Diff content stays in your configured review pipeline\")') with timeout 5000ms\n  - waiting for locator('.editor-footer span:has-text(\"Diff content stays in your configured review pipeline\")')\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 5. Verify Analyze change button disabled state without URL or diff",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:19:32.025Z"
+}

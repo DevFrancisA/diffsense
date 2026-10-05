@@ -1,0 +1,138 @@
+{
+  "id": "r40-textarea-aria-label",
+  "role": "breaking",
+  "intendedBreak": "Diff editor accessible name changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9066,
+      "outputTokens": 457,
+      "totalTokens": 9523
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify unified diff textarea aria-label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check diff label presence and absence of fallback",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Confirm clear diff button disables when no diff present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify presence of 'Waiting for a diff' watermark when textarea empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Check diff line count label updates with no diff loaded",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.diff-label-right span:nth-child(3)')\nExpected substring: \"No diff loaded\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('div.diff-label-right span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('div.diff-label-right span:nth-child(3)')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify unified diff textarea aria-label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check diff label presence and absence of fallback",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Confirm clear diff button disables when no diff present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify presence of 'Waiting for a diff' watermark when textarea empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Check diff line count label updates with no diff loaded",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.diff-label-right span:nth-child(3)')\nExpected substring: \"No diff loaded\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('div.diff-label-right span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('div.diff-label-right span:nth-child(3)')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify unified diff textarea aria-label before patch",
+    "generated plan: 2. Check diff label presence and absence of fallback",
+    "generated plan: 3. Confirm clear diff button disables when no diff present",
+    "generated plan: 4. Verify presence of 'Waiting for a diff' watermark when textarea empty"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify unified diff textarea aria-label before patch",
+        "status": "failed",
+        "failedStep": "plan step 1: expectAttribute",
+        "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('textarea[aria-label=\"Unified diff\"]')\nExpected: \"Unified diff\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('textarea[aria-label=\"Unified diff\"]') with timeout 5000ms\n  - waiting for locator('textarea[aria-label=\"Unified diff\"]')\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Check diff label presence and absence of fallback",
+        "status": "failed",
+        "failedStep": "plan step 1: expectVisible",
+        "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('textarea[aria-label=\"Unified diff\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('textarea[aria-label=\"Unified diff\"]') with timeout 5000ms\n  - waiting for locator('textarea[aria-label=\"Unified diff\"]')\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Confirm clear diff button disables when no diff present",
+        "status": "failed",
+        "failedStep": "plan step 1: expectValue",
+        "error": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator: locator('textarea[aria-label=\"Unified diff\"]')\nExpected: \"\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveValue\" locator('textarea[aria-label=\"Unified diff\"]') with timeout 5000ms\n  - waiting for locator('textarea[aria-label=\"Unified diff\"]')\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 4. Verify presence of 'Waiting for a diff' watermark when textarea empty",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:12:15.609Z"
+}

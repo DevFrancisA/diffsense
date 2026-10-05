@@ -1,0 +1,58 @@
+{
+  "id": "r12-setup-hint-env-name",
+  "role": "breaking",
+  "intendedBreak": "Setup hint names the wrong environment variable",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 1,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8950,
+      "outputTokens": 116,
+      "totalTokens": 9066
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify setup hint shows 'OPENAI_API_KEY' before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify setup hint shows 'OPENAI_API_KEY' before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify setup hint shows 'OPENAI_API_KEY' before patch"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify setup hint shows 'OPENAI_API_KEY' before patch",
+        "status": "failed",
+        "failedStep": "plan step 2: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.setup-inline span')\nExpected substring: \"Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.\"\nReceived string:    \"Configure OPENAI_KEY and DATABASE_URL to enable reviews. See the setup guide.\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.setup-inline span') with timeout 5000ms\n  - waiting for locator('.setup-inline span')\n    14 × locator resolved to <span>…</span>\n       - unexpected value \"Configure OPENAI_KEY and DATABASE_URL to enable reviews. See the setup guide.\"\n",
+        "outcome": "assertion"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:56:56.225Z"
+}

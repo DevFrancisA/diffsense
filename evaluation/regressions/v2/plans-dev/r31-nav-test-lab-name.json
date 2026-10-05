@@ -1,0 +1,100 @@
+{
+  "scenarios": [
+    {
+      "title": "Check disabled state of Index and Generate Playwright plan buttons",
+      "purpose": "Ensure the 'Index repository context' and 'Generate Playwright plan' buttons are disabled when API is not ready before patch is applied.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "section.evaluation-panel button[type='button']:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Validate status pill text for not configured API setup",
+      "purpose": "Confirm that the connection pill in the top bar shows 'Setup required' message when apiReady state is false before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Review evaluation metrics display",
+      "purpose": "Check that evaluation metric cells show expected pre-patch percentage ranges and unmeasured text consistent with saved results.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": "text=Unmeasured",
+          "value": "",
+          "expected": "Unmeasured"
+        }
+      ]
+    },
+    {
+      "title": "Check unified diff area placeholder and clear diff button disabled state",
+      "purpose": "Verify the placeholder text in unified diff textarea and that the 'Clear diff' button is disabled before loading any diff data.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "placeholder",
+          "expected": "Paste a unified diff here, or enter a GitHub pull request URL above.\n\nDiffSense will retrieve repository context before analyzing changed lines."
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

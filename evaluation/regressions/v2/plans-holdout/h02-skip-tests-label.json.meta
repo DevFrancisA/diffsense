@@ -1,0 +1,135 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify initial disabled buttons and Setup required pill",
+        "purpose": "Ensure that repository context indexing and plan generation buttons are disabled and setup status is indicated when API is not ready",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span.connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Check skip test files checkbox label and default state",
+        "purpose": "Validate the label text and checked state of the checkbox before the patch applies",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "label.skip-tests-toggle input[type=\"checkbox\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "label.skip-tests-toggle",
+            "value": "",
+            "expected": "Skip findings in test files"
+          },
+          {
+            "action": "expectAttribute",
+            "selector": "label.skip-tests-toggle input[type=\"checkbox\"]",
+            "value": "checked",
+            "expected": "true"
+          }
+        ]
+      },
+      {
+        "title": "Confirm Analyze change button disabled when no PR URL and API not ready",
+        "purpose": "Verify that the Analyze change button is disabled without input or ready API",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Ensure inline setup hint is visible when API is not ready",
+        "purpose": "Check that the inline setup hint is shown instructing configuration without API credentials",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "div.setup-inline",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "div.setup-inline span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          }
+        ]
+      },
+      {
+        "title": "Validate that Clear diff button is disabled when no diff is present",
+        "purpose": "Check clear diff button disables correctly when input is empty",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.text-button:has-text(\"Clear diff\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 10185,
+      "outputTokens": 472,
+      "totalTokens": 10657
+    }
+  }
+}

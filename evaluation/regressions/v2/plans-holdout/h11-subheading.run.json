@@ -1,0 +1,118 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Load example diff and verify Unified diff content",
+      "purpose": "Load the example diff and verify that the textarea contains pre-patch text about Invoice not found error from sample diff.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "3. Check that 'Analyze change' button is disabled without pull request URL and diff",
+      "purpose": "Confirm initial disabled state of 'Analyze change' button when required inputs are missing and API is not ready yet.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "4. Verify presence and text of setup required connection pill",
+      "purpose": "Ensure the connection status pill shows 'Setup required' before configuration, matching pre-patch wording.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "5. Validate evaluation metrics section shows unmeasured review time and pre-patch statistic ranges",
+      "purpose": "Ensure evaluation metric ranges and 'Unmeasured' text are shown as expected before patch changes the metrics or labels.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "text=Unmeasured",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(4) strong",
+          "value": "",
+          "expected": "2.5%"
+        }
+      ]
+    }
+  ]
+}

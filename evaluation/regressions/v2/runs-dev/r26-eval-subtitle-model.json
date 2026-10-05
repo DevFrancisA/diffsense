@@ -1,0 +1,138 @@
+{
+  "id": "r26-eval-subtitle-model",
+  "role": "breaking",
+  "intendedBreak": "Evaluation subtitle drops the model name",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8814,
+      "outputTokens": 571,
+      "totalTokens": 9385
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation panel shows full pre-change details",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify evaluation panel text when no evaluation data",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.evaluation-panel h2')\nExpected substring: \"Evidence, not vibes\"\nReceived string:    \"BugsJS review baseline\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('section.evaluation-panel h2') with timeout 5000ms\n  - waiting for locator('section.evaluation-panel h2')\n    14 × locator resolved to <h2>BugsJS review baseline</h2>\n       - unexpected value \"BugsJS review baseline\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Generate Playwright plan' button disabled without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Analyze change' button disabled with no PR URL and diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify inline setup hint is visible when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation panel shows full pre-change details",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify evaluation panel text when no evaluation data",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.evaluation-panel h2')\nExpected substring: \"Evidence, not vibes\"\nReceived string:    \"BugsJS review baseline\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('section.evaluation-panel h2') with timeout 5000ms\n  - waiting for locator('section.evaluation-panel h2')\n    14 × locator resolved to <h2>BugsJS review baseline</h2>\n       - unexpected value \"BugsJS review baseline\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Generate Playwright plan' button disabled without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Analyze change' button disabled with no PR URL and diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify inline setup hint is visible when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify evaluation panel shows full pre-change details",
+    "generated plan: 3. Verify 'Generate Playwright plan' button disabled without API ready",
+    "generated plan: 4. Verify 'Analyze change' button disabled with no PR URL and diff",
+    "generated plan: 5. Verify inline setup hint is visible when API not ready"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify evaluation panel shows full pre-change details",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify 'Generate Playwright plan' button disabled without API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify 'Analyze change' button disabled with no PR URL and diff",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify inline setup hint is visible when API not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:03:52.295Z"
+}

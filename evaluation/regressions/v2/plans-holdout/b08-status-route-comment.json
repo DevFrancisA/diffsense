@@ -1,0 +1,154 @@
+{
+  "scenarios": [
+    {
+      "title": "UI initial state without API keys",
+      "purpose": "Verify the initial interface elements indicating that setup is required and buttons are disabled due to missing credentials.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "strong",
+          "value": "Setup required",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "p:has-text('Configure')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Index repository context')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Analyze change')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Generate Playwright plan')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify setup hint and environment variables mentioned",
+      "purpose": "Ensure that the UI shows the setup hint mentioning environment variables OPENAI_API_KEY and DATABASE_URL when not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "code:nth-of-type(1)",
+          "value": "OPENAI_API_KEY",
+          "expected": "OPENAI_API_KEY"
+        },
+        {
+          "action": "expectText",
+          "selector": "code:nth-of-type(2)",
+          "value": "DATABASE_URL",
+          "expected": "DATABASE_URL"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "text=Configure",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Repository context indexing disabled initially",
+      "purpose": "Confirm that the button 'Index repository context' remains disabled before indexing is configured and API keys are missing.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Index repository context')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Diff input area and disabled analyze button",
+      "purpose": "Ensure the unified diff input is empty on load and the Analyze change button is disabled without proper setup.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[placeholder^='Paste a unified diff here']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Analyze change')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Review findings panel initial state and text prompts",
+      "purpose": "Check that the Review findings area shows instructions and waiting messages before any analysis is performed.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "h2:has-text('Review findings')",
+          "value": "Review findings",
+          "expected": "Review findings"
+        },
+        {
+          "action": "expectText",
+          "selector": "p:has-text('Your review starts here')",
+          "value": "Your review starts here",
+          "expected": "Your review starts here"
+        },
+        {
+          "action": "expectText",
+          "selector": "text=Context retrieval waiting",
+          "value": "Context retrieval waiting",
+          "expected": "Context retrieval waiting"
+        },
+        {
+          "action": "expectText",
+          "selector": "text=Regression tests waiting",
+          "value": "Regression tests waiting",
+          "expected": "Regression tests waiting"
+        }
+      ]
+    }
+  ]
+}

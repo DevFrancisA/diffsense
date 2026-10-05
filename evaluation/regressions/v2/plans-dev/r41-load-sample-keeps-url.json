@@ -1,0 +1,160 @@
+{
+  "scenarios": [
+    {
+      "title": "Load example diff clears pull request URL",
+      "purpose": "Verify that clicking 'Load example diff' resets the unified diff and clears the pull request URL input to empty string, asserting pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "input#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "Invoice not found",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Setup required and disabled buttons with API not ready",
+      "purpose": "Verify initial UI shows 'Setup required' pill, inline setup hint, and disabled repository index, analyze change, and generate plan buttons when API is not ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span:has-text(\"Configure OPENAI_API_KEY and DATABASE_URL\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Evaluation metrics display stored ranges and unmeasured values",
+      "purpose": "Verify evaluation metrics panel shows stored precision and recall ranges, and unmeasured review time and regression catch rate represented by dashes and 'Unmeasured' text.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "text=Unmeasured",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Initial review findings panel shows issues grounding message and empty state",
+      "purpose": "Verify the results panel initially displays the message 'Issues are grounded in changed lines and repository context.' and the empty state with 'Your review starts here' text.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel h2",
+          "value": "",
+          "expected": "Review findings"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.results-panel p",
+          "value": "",
+          "expected": "Issues are grounded in changed lines and repository context."
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.results-panel div.empty-state strong:has-text(\"Your review starts here\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Disabled state on clear diff button when no diff loaded",
+      "purpose": "Verify the 'Clear diff' button is disabled initially when no diff is loaded, preventing clearing empty content.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

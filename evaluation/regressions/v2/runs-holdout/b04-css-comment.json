@@ -1,0 +1,146 @@
+{
+  "id": "b04-css-comment",
+  "role": "benign",
+  "intendedBreak": "Adds a CSS comment",
+  "status": "no-alarm",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 10549,
+      "outputTokens": 513,
+      "totalTokens": 11062
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify disabled 'Index repository context' button without PR URL and apiReady false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check header pill shows 'Setup required' with apiReady false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Ensure 'Analyze change' button is disabled by default",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify inline setup hint is visible when reviews are disabled",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Confirm 'Clear diff' button is disabled with no diff loaded",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify disabled 'Index repository context' button without PR URL and apiReady false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check header pill shows 'Setup required' with apiReady false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Ensure 'Analyze change' button is disabled by default",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify inline setup hint is visible when reviews are disabled",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Confirm 'Clear diff' button is disabled with no diff loaded",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify disabled 'Index repository context' button without PR URL and apiReady false",
+    "generated plan: 2. Check header pill shows 'Setup required' with apiReady false",
+    "generated plan: 3. Ensure 'Analyze change' button is disabled by default",
+    "generated plan: 4. Verify inline setup hint is visible when reviews are disabled",
+    "generated plan: 5. Confirm 'Clear diff' button is disabled with no diff loaded"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify disabled 'Index repository context' button without PR URL and apiReady false",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Check header pill shows 'Setup required' with apiReady false",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Ensure 'Analyze change' button is disabled by default",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify inline setup hint is visible when reviews are disabled",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Confirm 'Clear diff' button is disabled with no diff loaded",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:22:45.613Z"
+}

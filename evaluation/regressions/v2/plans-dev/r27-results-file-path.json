@@ -1,0 +1,124 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify evaluation results load from default filename",
+      "purpose": "Ensure the evaluation results API loads data from the pre-change filename 'results.json' and returns available:true with a valid benchmark date.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/api/evaluation/results",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "available\" : true"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "benchmarkDate\""
+        }
+      ]
+    },
+    {
+      "title": "Verify UI shows 'BugsJS review baseline' when evaluation results are present",
+      "purpose": "Confirm the UI displays the heading 'BugsJS review baseline' with cohort count, review model, and benchmark date matching the pre-change evaluation results data.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.evaluation-panel",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify footer pipeline status displays 'not configured'",
+      "purpose": "Check the footer text shows 'Pipeline status: not configured' indicating the API is not ready due to missing config keys, according to the pre-change environment.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "footer.page-footer span:nth-child(2)",
+          "value": "",
+          "expected": "Pipeline status: not configured"
+        }
+      ]
+    },
+    {
+      "title": "Verify buttons are disabled due to setup required status",
+      "purpose": "Ensure that 'Index repository context', 'Analyze change' and 'Generate Playwright plan' buttons remain disabled when API key and database URL are not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Index repository context')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Analyze change ⌘ ↵')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Generate Playwright plan')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify inline setup hint is visible",
+      "purpose": "Confirm that the inline setup hint 'Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.' is visible on the main page before configuration is done.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

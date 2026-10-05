@@ -1,0 +1,130 @@
+{
+  "scenarios": [
+    {
+      "title": "Header Documentation button is enabled and visible",
+      "purpose": "Ensure the documentation button in the topbar is a button element and enabled before the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.icon-button[aria-label='Documentation']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectEnabled",
+          "selector": "button.icon-button[aria-label='Documentation']",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "API Ready Status shows Setup required when not ready",
+      "purpose": "Verify that the connection pill text shows 'Setup required' when the API is not ready in the initial environment.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Disabled buttons on initial load without API keys",
+      "purpose": "Assert Index repository context, Analyze change, and Generate Playwright plan buttons are disabled before patch changes behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Index repository context')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button:has-text('Analyze change')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Generate Playwright plan')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Inline setup hint text is visible with correct content",
+      "purpose": "Check that the inline setup hint about missing API keys is visible with exact text before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline > span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    },
+    {
+      "title": "Load example diff button loads sample diff containing 'Invoice not found' literal",
+      "purpose": "Confirm that loading the example diff populates the Unified diff textarea with text including 'Invoice not found' before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "id": "r04-clear-diff-noop",
+  "role": "breaking",
+  "intendedBreak": "Clear diff no longer clears the editor",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9471,
+      "outputTokens": 465,
+      "totalTokens": 9936
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Clear diff button resets diff input and errors but keeps diff content intact",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValue",
+          "error": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('textarea[aria-label=\"Unified diff\"]')\nExpected: \"some diff content\"\nReceived: \"\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveValue\" locator('textarea[aria-label=\"Unified diff\"]') with timeout 5000ms\n  - waiting for locator('textarea[aria-label=\"Unified diff\"]')\n    14 × locator resolved to <textarea spellcheck=\"false\" aria-label=\"Unified diff\" placeholder=\"Paste a unified diff here, or enter a GitHub pull request URL above.↵↵DiffSense will retrieve repository context before analyzing changed lines.\"></textarea>\n       - ",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Analyze change button is disabled if pull request URL is empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Setup required pill is visible in header when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Index repository context button is disabled without pull request URL or API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Generate Playwright plan button is disabled without API ready or diff input",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Clear diff button resets diff input and errors but keeps diff content intact",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValue",
+          "error": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('textarea[aria-label=\"Unified diff\"]')\nExpected: \"some diff content\"\nReceived: \"\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveValue\" locator('textarea[aria-label=\"Unified diff\"]') with timeout 5000ms\n  - waiting for locator('textarea[aria-label=\"Unified diff\"]')\n    14 × locator resolved to <textarea spellcheck=\"false\" aria-label=\"Unified diff\" placeholder=\"Paste a unified diff here, or enter a GitHub pull request URL above.↵↵DiffSense will retrieve repository context before analyzing changed lines.\"></textarea>\n       - ",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Analyze change button is disabled if pull request URL is empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Setup required pill is visible in header when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Index repository context button is disabled without pull request URL or API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Generate Playwright plan button is disabled without API ready or diff input",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Analyze change button is disabled if pull request URL is empty",
+    "generated plan: 3. Setup required pill is visible in header when API is not ready",
+    "generated plan: 4. Index repository context button is disabled without pull request URL or API ready",
+    "generated plan: 5. Generate Playwright plan button is disabled without API ready or diff input"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Analyze change button is disabled if pull request URL is empty",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Setup required pill is visible in header when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Index repository context button is disabled without pull request URL or API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Generate Playwright plan button is disabled without API ready or diff input",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:53:59.874Z"
+}

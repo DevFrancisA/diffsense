@@ -1,0 +1,130 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify evaluation panel shows full pre-change details",
+      "purpose": "Ensure that when evaluation data is available, the evaluation panel includes the review model string along with cohort and date, as per the pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.evaluation-panel",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel p",
+          "value": "",
+          "expected": "pre-labeled cases ·"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel p",
+          "value": "",
+          "expected": "·"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel p",
+          "value": "",
+          "expected": "·"
+        }
+      ]
+    },
+    {
+      "title": "Verify evaluation panel text when no evaluation data",
+      "purpose": "Check that when no evaluation data is available, the evaluation panel text includes fallback message containing 'Score reviews against labeled defects and seeded regressions.'",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.evaluation-panel",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel h2",
+          "value": "",
+          "expected": "Evidence, not vibes"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel p",
+          "value": "",
+          "expected": "Score reviews against labeled defects and seeded regressions."
+        }
+      ]
+    },
+    {
+      "title": "Verify 'Generate Playwright plan' button disabled without API ready",
+      "purpose": "Ensure that the 'Generate Playwright plan' button is disabled when the API status is not ready, matching pre-change behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "section.evaluation-panel button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify 'Analyze change' button disabled with no PR URL and diff",
+      "purpose": "Check that the 'Analyze change' button is disabled when required inputs are missing and API is not ready, as per pre-change state.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "form.review-form button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify inline setup hint is visible when API not ready",
+      "purpose": "Confirm that the setup hint prompting configuration of OPENAI_API_KEY and DATABASE_URL is visible when API is not ready, consistent with pre-change behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.input-panel div.setup-inline",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

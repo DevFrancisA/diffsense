@@ -1,0 +1,138 @@
+{
+  "id": "r34-heading-case",
+  "role": "breaking",
+  "intendedBreak": "Page heading text changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8436,
+      "outputTokens": 529,
+      "totalTokens": 8965
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial Review desk heading text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check metrics and initial evaluation text presence",
+          "status": "failed",
+          "failedStep": "plan step 4: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('text=Unmeasured')\nExpected substring: \"Unmeasured\"\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toContainText\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Load example diff shows snippet text 'Invoice not found'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify that Index repository context button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Ensure Analyze change button is disabled with no input and setup required",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial Review desk heading text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check metrics and initial evaluation text presence",
+          "status": "failed",
+          "failedStep": "plan step 4: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('text=Unmeasured')\nExpected substring: \"Unmeasured\"\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toContainText\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Load example diff shows snippet text 'Invoice not found'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify that Index repository context button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Ensure Analyze change button is disabled with no input and setup required",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial Review desk heading text",
+    "generated plan: 3. Load example diff shows snippet text 'Invoice not found'",
+    "generated plan: 4. Verify that Index repository context button is disabled initially",
+    "generated plan: 5. Ensure Analyze change button is disabled with no input and setup required"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial Review desk heading text",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.page-heading h1')\nExpected substring: \"Review desk\"\nReceived string:    \"Review Desk\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('section.page-heading h1') with timeout 5000ms\n  - waiting for locator('section.page-heading h1')\n    14 × locator resolved to <h1>Review Desk</h1>\n       - unexpected value \"Review Desk\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Load example diff shows snippet text 'Invoice not found'",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify that Index repository context button is disabled initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Ensure Analyze change button is disabled with no input and setup required",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:07:52.422Z"
+}

@@ -1,0 +1,154 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify setup required pill and header text",
+      "purpose": "Confirm that when environment variables OPENAI_API_KEY and DATABASE_URL are missing, the header pill displays 'Setup required' and relevant texts appear.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main strong",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "main strong:has-text('Setup required')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Validate disabled state of repository buttons without config",
+      "purpose": "Check that the 'Index repository context', 'Analyze change', and 'Generate Playwright plan' buttons are disabled when setup is incomplete.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Index repository context')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Analyze change ⌘ ↵')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Generate Playwright plan')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Check visibility of inline setup hint",
+      "purpose": "Ensure the inline setup instructions referencing OPENAI_API_KEY and DATABASE_URL are visible on the main page without config.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main",
+          "value": "",
+          "expected": "Configure"
+        },
+        {
+          "action": "expectText",
+          "selector": "main code:nth-of-type(1)",
+          "value": "",
+          "expected": "OPENAI_API_KEY"
+        },
+        {
+          "action": "expectText",
+          "selector": "main code:nth-of-type(2)",
+          "value": "",
+          "expected": "DATABASE_URL"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "main:has-text('Configure')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify evaluation panel shows stored numbers",
+      "purpose": "Check that evaluation metrics section displays fixed numeric values as stored results when no live data is available.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "region[aria-label='Evaluation metrics'] strong:nth-of-type(1)",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": "region[aria-label='Evaluation metrics'] strong:nth-of-type(2)",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": "region[aria-label='Evaluation metrics'] strong:nth-of-type(3)",
+          "value": "",
+          "expected": "—min"
+        },
+        {
+          "action": "expectText",
+          "selector": "region[aria-label='Evaluation metrics'] strong:nth-of-type(4)",
+          "value": "",
+          "expected": "2.5%"
+        }
+      ]
+    },
+    {
+      "title": "Confirm skip test files checkbox is checked by default",
+      "purpose": "Verify that the check box labeled 'Skip findings in test files' is checked initially.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "input[type='checkbox'][aria-label='Skip findings in test files']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "input[type='checkbox'][aria-label='Skip findings in test files']",
+          "value": "checked",
+          "expected": "true"
+        }
+      ]
+    }
+  ]
+}

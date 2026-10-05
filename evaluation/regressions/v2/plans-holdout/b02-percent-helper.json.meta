@@ -1,0 +1,141 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Evaluation metrics display with unmeasured review time and regression catch rate",
+        "purpose": "Verify that key evaluation metrics display as expected on the Review desk before any setup and regression evaluation.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(3) strong",
+            "value": "",
+            "expected": "—"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(3) .metric-foot .metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last strong",
+            "value": "",
+            "expected": "2.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last",
+            "value": "",
+            "expected": "1/40 seeded"
+          }
+        ]
+      },
+      {
+        "title": "Load example diff and verify unified diff textbox contains invoice error snippet",
+        "purpose": "Ensure the Load example diff button populates the unified diff textarea with sample data including 'Invoice not found' string.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Review desk navigation and active view button visually indicated",
+        "purpose": "Check that 'Review desk' nav button is active on page load and others show correct text and counts.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav > button.nav-item.is-active",
+            "value": "",
+            "expected": "Review desk"
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav > button[aria-label=\"Pull requests\"] .nav-count",
+            "value": "",
+            "expected": "0"
+          }
+        ]
+      },
+      {
+        "title": "Check disabled state of critical action buttons on initial page load",
+        "purpose": "Verify that repository context indexing, analyze change, and generate Playwright plan buttons are disabled as per setup requirements.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.text-button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 4,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9929,
+      "outputTokens": 550,
+      "totalTokens": 10479
+    }
+  }
+}

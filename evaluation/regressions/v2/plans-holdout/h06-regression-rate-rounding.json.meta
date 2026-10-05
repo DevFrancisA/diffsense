@@ -1,0 +1,129 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify evaluation panel displays pre-change regression catch rate format",
+        "purpose": "Ensure the regression catch rate percentage is shown with one decimal place, as before the patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last .metric-label",
+            "value": "",
+            "expected": "REGRESSION CATCH RATE"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last strong",
+            "value": "",
+            "expected": "2.5"
+          }
+        ]
+      },
+      {
+        "title": "Check regression catch rate footnote visibility and content",
+        "purpose": "Confirm the regression catch rate footnote shows seeded and invalid plan counts as before the patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last .metric-foot",
+            "value": "",
+            "expected": "1/40 seeded · 38 invalid plans"
+          }
+        ]
+      },
+      {
+        "title": "Confirm 'Load example diff' button loads example diff containing old string",
+        "purpose": "Verify the example diff area contains the exact pre-change string 'Invoice not found'.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Ensure 'Analyze change' button is disabled due to API setup state",
+        "purpose": "Verify the 'Analyze change' button is disabled because the API is not ready (pre-change behavior).",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Check sidebar repository connection prompt text and button states",
+        "purpose": "Validate that the 'Connect a repository' button and related labels appear as pre-patch and are interactive or disabled appropriately.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "button.repo-empty span strong",
+            "value": "",
+            "expected": "Connect a repository"
+          },
+          {
+            "action": "expectText",
+            "selector": "button.repo-empty span small",
+            "value": "",
+            "expected": "Paste a pull request URL"
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9598,
+      "outputTokens": 480,
+      "totalTokens": 10078
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "id": "h03-test-env-aria-label",
+  "role": "breaking",
+  "intendedBreak": "Test environment input accessible name changes",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 2,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9930,
+      "outputTokens": 340,
+      "totalTokens": 10270
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation header and button labels before patch",
+          "status": "failed",
+          "failedStep": "plan step 3: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('input[test-environment]')\nExpected: \"Optional: how the app under test looks (signed-in user, feature flags, …)\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('input[test-environment]') with timeout 5000ms\n  - waiting for locator('input[test-environment]')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check 'Setup required' connection pill and disabled buttons pre-patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation header and button labels before patch",
+          "status": "failed",
+          "failedStep": "plan step 3: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('input[test-environment]')\nExpected: \"Optional: how the app under test looks (signed-in user, feature flags, …)\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('input[test-environment]') with timeout 5000ms\n  - waiting for locator('input[test-environment]')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check 'Setup required' connection pill and disabled buttons pre-patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Check 'Setup required' connection pill and disabled buttons pre-patch"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Check 'Setup required' connection pill and disabled buttons pre-patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:14:22.437Z"
+}

@@ -1,0 +1,146 @@
+{
+  "id": "h18-evaluation-status-text",
+  "role": "breaking",
+  "intendedBreak": "Evaluation status text changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9488,
+      "outputTokens": 394,
+      "totalTokens": 9882
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation status text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify generate Playwright plan button disabled state without diff or PR URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Analyze change' button disabled when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify setup required pill text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify inline setup hint presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation status text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify generate Playwright plan button disabled state without diff or PR URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Analyze change' button disabled when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify setup required pill text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify inline setup hint presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify evaluation status text before patch",
+    "generated plan: 2. Verify generate Playwright plan button disabled state without diff or PR URL",
+    "generated plan: 3. Verify 'Analyze change' button disabled when API is not ready",
+    "generated plan: 4. Verify setup required pill text",
+    "generated plan: 5. Verify inline setup hint presence"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify evaluation status text before patch",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-status')\nExpected substring: \"Results saved\"\nReceived string:    \"Saved\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-status') with timeout 5000ms\n  - waiting for locator('.evaluation-status')\n    - locator resolved to <div class=\"evaluation-status\">…</div>\n    - unexpected value \"Loading results\"\n    13 × locator resolved to <div class=\"evaluation-status\">…</div>\n       - unexpected value \"Saved\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Verify generate Playwright plan button disabled state without diff or PR URL",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify 'Analyze change' button disabled when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify setup required pill text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify inline setup hint presence",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:20:29.239Z"
+}

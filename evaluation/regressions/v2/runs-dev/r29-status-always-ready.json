@@ -1,0 +1,114 @@
+{
+  "id": "r29-status-always-ready",
+  "role": "breaking",
+  "intendedBreak": "Status API reports ready without credentials",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 4962,
+      "outputTokens": 662,
+      "totalTokens": 5624
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify API status response when environment variables are missing",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check Setup required pill and related UI elements visibility",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main > strong')\nExpected substring: \"Setup required\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main > strong') with timeout 5000ms\n  - waiting for locator('main > strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Validate disabled states of critical buttons when setup incomplete",
+          "status": "failed",
+          "failedStep": "plan step 2: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\"Analyze change ⌘ ↵\")')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Analyze change ⌘ ↵\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Analyze change ⌘ ↵\")')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Verify evaluation metrics panel displays stored metrics",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section[aria-label=\"Evaluation metrics\"] strong:nth-of-type(1)')\nExpected substring: \"94.4–100.0%\"\nError: strict mode violation: locator('section[aria-label=\"Evaluation metrics\"] strong:nth-of-type(1)') resolved to 4 elements:\n    1) <strong>…</strong> aka getByText('–100.0%')\n    2) <strong>…</strong> aka getByText('–30.5%')\n    3) <strong>…</strong> aka getByText('—min')\n    4) <strong>…</strong> aka getByText('—%')\n\nCall log:\n  - Expect \"toContainText\" locator('section[aria-label=\"Evaluation metrics\"] strong:nth-of-typ",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Confirm the status of the review desk and diff input constraints",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('p')\nExpected substring: \"Start with a public pull request or paste a unified diff.\"\nError: strict mode violation: locator('p') resolved to 5 elements:\n    1) <p>Understand the change. Catch what matters.</p> aka getByText('Understand the change. Catch')\n    2) <p>Start with a public pull request or paste a unifi…</p> aka getByText('Start with a public pull')\n    3) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    4) <p>…</p> aka getByText('Analyze a pull request or')\n  ",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify API status response when environment variables are missing",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check Setup required pill and related UI elements visibility",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main > strong')\nExpected substring: \"Setup required\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main > strong') with timeout 5000ms\n  - waiting for locator('main > strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Validate disabled states of critical buttons when setup incomplete",
+          "status": "failed",
+          "failedStep": "plan step 2: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\"Analyze change ⌘ ↵\")')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Analyze change ⌘ ↵\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Analyze change ⌘ ↵\")')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Verify evaluation metrics panel displays stored metrics",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section[aria-label=\"Evaluation metrics\"] strong:nth-of-type(1)')\nExpected substring: \"94.4–100.0%\"\nError: strict mode violation: locator('section[aria-label=\"Evaluation metrics\"] strong:nth-of-type(1)') resolved to 4 elements:\n    1) <strong>…</strong> aka getByText('–100.0%')\n    2) <strong>…</strong> aka getByText('–30.5%')\n    3) <strong>…</strong> aka getByText('—min')\n    4) <strong>…</strong> aka getByText('—%')\n\nCall log:\n  - Expect \"toContainText\" locator('section[aria-label=\"Evaluation metrics\"] strong:nth-of-typ",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Confirm the status of the review desk and diff input constraints",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('p')\nExpected substring: \"Start with a public pull request or paste a unified diff.\"\nError: strict mode violation: locator('p') resolved to 5 elements:\n    1) <p>Understand the change. Catch what matters.</p> aka getByText('Understand the change. Catch')\n    2) <p>Start with a public pull request or paste a unifi…</p> aka getByText('Start with a public pull')\n    3) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    4) <p>…</p> aka getByText('Analyze a pull request or')\n  ",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify API status response when environment variables are missing"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify API status response when environment variables are missing",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('body')\nExpected substring: \"\\\"ready\\\":false\"\nReceived string:    \"{\\\"ready\\\":true,\\\"missing\\\":[\\\"OPENAI_API_KEY\\\",\\\"DATABASE_URL\\\"]}\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('body') with timeout 5000ms\n  - waiting for locator('body')\n    14 × locator resolved to <body>…</body>\n       - unexpected value \"{\"ready\":true,\"missing\":[\"OPENAI_API_KEY\",\"DATABASE_URL\"]}\"\n",
+        "outcome": "assertion"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:06:15.239Z"
+}

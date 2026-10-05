@@ -1,0 +1,159 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify initial workspace page elements and disabled controls",
+        "purpose": "Ensure that with the pipeline not configured and no credentials, the workspace shows 'Setup required' and buttons are disabled as expected.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "main section.workspace header.topbar .connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "main section.workspace section.review-form section.input-panel div.index-context-row span[role='status']",
+            "value": "",
+            "expected": "Required before the first review"
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.text-button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Check main navigation pull requests count is zero before patch",
+        "purpose": "Validate that the pull requests button shows count zero, confirming pre-patch behavior.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav button[aria-label='Pull requests'] span.nav-count",
+            "value": "",
+            "expected": "0"
+          }
+        ]
+      },
+      {
+        "title": "Load example diff and verify unified diff content",
+        "purpose": "Load a sample diff and confirm the unified diff textarea contains expected example 'Invoice not found' error message snippet",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label='Unified diff']",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Verify evaluation metrics values on initial load before patch",
+        "purpose": "Ensure evaluation metrics are displayed with expected unmeasured values matching those before patch",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(3) strong",
+            "value": "",
+            "expected": "—"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(4) strong",
+            "value": "",
+            "expected": "2.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(4)",
+            "value": "",
+            "expected": "1/40 seeded"
+          }
+        ]
+      },
+      {
+        "title": "Verify loading the workspace in a narrow mobile viewport does not overflow",
+        "purpose": "Check that the page content width is constrained to viewport width 375px to prevent horizontal scrolling",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "main.app-frame",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9237,
+      "outputTokens": 622,
+      "totalTokens": 9859
+    }
+  }
+}

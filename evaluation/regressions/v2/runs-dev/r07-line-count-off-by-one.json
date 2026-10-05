@@ -1,0 +1,138 @@
+{
+  "id": "r07-line-count-off-by-one",
+  "role": "breaking",
+  "intendedBreak": "Diff line counter is off by one",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9204,
+      "outputTokens": 434,
+      "totalTokens": 9638
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify unified diff lines count display before patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.diff-label-right > span:nth-child(3)')\nExpected substring: \"0 lines\"\nReceived string:    \"No diff loaded\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.diff-label-right > span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('.diff-label-right > span:nth-child(3)')\n    14 × locator resolved to <span>No diff loaded</span>\n       - unexpected value \"No diff loaded\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify 'Index repository context' button enablement requires valid PR URL and apiReady true",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify header pill text and connection pill status before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Analyze change' button default disabled state before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify no actionable findings message before any review",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify unified diff lines count display before patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.diff-label-right > span:nth-child(3)')\nExpected substring: \"0 lines\"\nReceived string:    \"No diff loaded\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.diff-label-right > span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('.diff-label-right > span:nth-child(3)')\n    14 × locator resolved to <span>No diff loaded</span>\n       - unexpected value \"No diff loaded\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify 'Index repository context' button enablement requires valid PR URL and apiReady true",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify header pill text and connection pill status before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Analyze change' button default disabled state before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify no actionable findings message before any review",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Verify 'Index repository context' button enablement requires valid PR URL and apiReady true",
+    "generated plan: 3. Verify header pill text and connection pill status before patch",
+    "generated plan: 4. Verify 'Analyze change' button default disabled state before patch",
+    "generated plan: 5. Verify no actionable findings message before any review"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Verify 'Index repository context' button enablement requires valid PR URL and apiReady true",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify header pill text and connection pill status before patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify 'Analyze change' button default disabled state before patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify no actionable findings message before any review",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:55:03.145Z"
+}

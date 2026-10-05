@@ -1,0 +1,130 @@
+{
+  "id": "r27-results-file-path",
+  "role": "breaking",
+  "intendedBreak": "Results API reads a misspelled file and reports no results",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 5789,
+      "outputTokens": 558,
+      "totalTokens": 6347
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation results load from default filename",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('body')\nExpected substring: \"available\\\" : true\"\nReceived string:    \"{\\\"available\\\":true,\\\"date\\\":\\\"2026-10-05\\\",\\\"cohort\\\":30,\\\"maxIndexFiles\\\":40,\\\"reviewModel\\\":\\\"gpt-4.1-mini\\\",\\\"withContext\\\":{\\\"runs\\\":[{\\\"runNumber\\\":1,\\\"precision\\\":1,\\\"recall\\\":0.3050847457627119,\\\"falsePositives\\\":0},{\\\"runNumber\\\":2,\\\"precision\\\":0.9444444444444444,\\\"recall\\\":0.288135593220339,\\\"falsePositives\\\":1},{\\\"runNumber\\\":3,\\\"precision\\\":0.9444444444444444,\\\"recall\\\":0.288135593220339,\\\"falsePositives\\\":1}],\\\"precisionRange\\\":{\\\"min\\\":0.9",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify UI shows 'BugsJS review baseline' when evaluation results are present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify footer pipeline status displays 'not configured'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify buttons are disabled due to setup required status",
+          "status": "failed",
+          "failedStep": "plan step 2: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\\'Analyze change ⌘ ↵\\')')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\\'Analyze change ⌘ ↵\\')') with timeout 5000ms\n  - waiting for locator('button:has-text(\\'Analyze change ⌘ ↵\\')')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify inline setup hint is visible",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation results load from default filename",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('body')\nExpected substring: \"available\\\" : true\"\nReceived string:    \"{\\\"available\\\":true,\\\"date\\\":\\\"2026-10-05\\\",\\\"cohort\\\":30,\\\"maxIndexFiles\\\":40,\\\"reviewModel\\\":\\\"gpt-4.1-mini\\\",\\\"withContext\\\":{\\\"runs\\\":[{\\\"runNumber\\\":1,\\\"precision\\\":1,\\\"recall\\\":0.3050847457627119,\\\"falsePositives\\\":0},{\\\"runNumber\\\":2,\\\"precision\\\":0.9444444444444444,\\\"recall\\\":0.288135593220339,\\\"falsePositives\\\":1},{\\\"runNumber\\\":3,\\\"precision\\\":0.9444444444444444,\\\"recall\\\":0.288135593220339,\\\"falsePositives\\\":1}],\\\"precisionRange\\\":{\\\"min\\\":0.9",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify UI shows 'BugsJS review baseline' when evaluation results are present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify footer pipeline status displays 'not configured'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify buttons are disabled due to setup required status",
+          "status": "failed",
+          "failedStep": "plan step 2: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\\'Analyze change ⌘ ↵\\')')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\\'Analyze change ⌘ ↵\\')') with timeout 5000ms\n  - waiting for locator('button:has-text(\\'Analyze change ⌘ ↵\\')')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify inline setup hint is visible",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Verify UI shows 'BugsJS review baseline' when evaluation results are present",
+    "generated plan: 3. Verify footer pipeline status displays 'not configured'",
+    "generated plan: 5. Verify inline setup hint is visible"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 2. Verify UI shows 'BugsJS review baseline' when evaluation results are present",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.evaluation-panel h2')\nExpected substring: \"BugsJS review baseline\"\nReceived string:    \"Evidence, not vibes\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('section.evaluation-panel h2') with timeout 5000ms\n  - waiting for locator('section.evaluation-panel h2')\n    14 × locator resolved to <h2>Evidence, not vibes</h2>\n       - unexpected value \"Evidence, not vibes\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Verify footer pipeline status displays 'not configured'",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify inline setup hint is visible",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:04:35.143Z"
+}

@@ -1,0 +1,146 @@
+{
+  "id": "h14-precision-label",
+  "role": "breaking",
+  "intendedBreak": "Precision tile label changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9399,
+      "outputTokens": 510,
+      "totalTokens": 9909
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check original metric label PRECISION · WITH CONTEXT presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify recall metric label and value format before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify regression catch rate metric shows expected value and text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff and verify presence of old diff text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify analyze change button disabled without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check original metric label PRECISION · WITH CONTEXT presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify recall metric label and value format before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify regression catch rate metric shows expected value and text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff and verify presence of old diff text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify analyze change button disabled without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Check original metric label PRECISION · WITH CONTEXT presence",
+    "generated plan: 2. Verify recall metric label and value format before patch",
+    "generated plan: 3. Verify regression catch rate metric shows expected value and text",
+    "generated plan: 4. Load example diff and verify presence of old diff text",
+    "generated plan: 5. Verify analyze change button disabled without API ready"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Check original metric label PRECISION · WITH CONTEXT presence",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell:nth-child(1) .metric-label')\nExpected substring: \"PRECISION · WITH CONTEXT\"\nReceived string:    \"PRECISION\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell:nth-child(1) .metric-label') with timeout 5000ms\n  - waiting for locator('.metric-cell:nth-child(1) .metric-label')\n    14 × locator resolved to <span class=\"metric-label\">PRECISION</span>\n       - unexpected value \"PRECISION\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Verify recall metric label and value format before patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify regression catch rate metric shows expected value and text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Load example diff and verify presence of old diff text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify analyze change button disabled without API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:18:49.278Z"
+}

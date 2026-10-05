@@ -1,0 +1,58 @@
+{
+  "id": "r23-runs-count",
+  "role": "breaking",
+  "intendedBreak": "Recall footnote shows the ablation run count",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 1,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9540,
+      "outputTokens": 194,
+      "totalTokens": 9734
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial evaluation metrics text and counts",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial evaluation metrics text and counts",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial evaluation metrics text and counts"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial evaluation metrics text and counts",
+        "status": "failed",
+        "failedStep": "plan step 5: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell:nth-child(2) .metric-foot')\nExpected substring: \"Range across 3 runs\"\nReceived string:    \"Range across 1 runs\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell:nth-child(2) .metric-foot') with timeout 5000ms\n  - waiting for locator('.metric-cell:nth-child(2) .metric-foot')\n    14 × locator resolved to <span class=\"metric-foot\">Range across 1 runs</span>\n       - unexpected value \"Range across 1 runs\"\n",
+        "outcome": "assertion"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:02:38.491Z"
+}

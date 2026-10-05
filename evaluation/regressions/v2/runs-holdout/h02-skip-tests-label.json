@@ -1,0 +1,138 @@
+{
+  "id": "h02-skip-tests-label",
+  "role": "breaking",
+  "intendedBreak": "Skip-test-files toggle label changes",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 10185,
+      "outputTokens": 472,
+      "totalTokens": 10657
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial disabled buttons and Setup required pill",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check skip test files checkbox label and default state",
+          "status": "failed",
+          "failedStep": "plan step 3: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('label.skip-tests-toggle input[type=\"checkbox\"]')\nExpected: \"true\"\nReceived: \"\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('label.skip-tests-toggle input[type=\"checkbox\"]') with timeout 5000ms\n  - waiting for locator('label.skip-tests-toggle input[type=\"checkbox\"]')\n    14 × locator resolved to <input checked type=\"checkbox\"/>\n       - unexpected value \"\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Confirm Analyze change button disabled when no PR URL and API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Ensure inline setup hint is visible when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate that Clear diff button is disabled when no diff is present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial disabled buttons and Setup required pill",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check skip test files checkbox label and default state",
+          "status": "failed",
+          "failedStep": "plan step 3: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('label.skip-tests-toggle input[type=\"checkbox\"]')\nExpected: \"true\"\nReceived: \"\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('label.skip-tests-toggle input[type=\"checkbox\"]') with timeout 5000ms\n  - waiting for locator('label.skip-tests-toggle input[type=\"checkbox\"]')\n    14 × locator resolved to <input checked type=\"checkbox\"/>\n       - unexpected value \"\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Confirm Analyze change button disabled when no PR URL and API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Ensure inline setup hint is visible when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate that Clear diff button is disabled when no diff is present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial disabled buttons and Setup required pill",
+    "generated plan: 3. Confirm Analyze change button disabled when no PR URL and API not ready",
+    "generated plan: 4. Ensure inline setup hint is visible when API is not ready",
+    "generated plan: 5. Validate that Clear diff button is disabled when no diff is present"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial disabled buttons and Setup required pill",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Confirm Analyze change button disabled when no PR URL and API not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Ensure inline setup hint is visible when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Validate that Clear diff button is disabled when no diff is present",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:13:58.493Z"
+}

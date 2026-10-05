@@ -1,0 +1,146 @@
+{
+  "id": "h12-input-panel-title",
+  "role": "breaking",
+  "intendedBreak": "Input panel title changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9476,
+      "outputTokens": 387,
+      "totalTokens": 9863
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify header title in input panel before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check 'Analyze change' button disabled with no API key setup",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Confirm 'Index repository context' button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify presence and text of setup required pill in header",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate inline setup instructions visibility",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify header title in input panel before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check 'Analyze change' button disabled with no API key setup",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Confirm 'Index repository context' button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify presence and text of setup required pill in header",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate inline setup instructions visibility",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify header title in input panel before patch",
+    "generated plan: 2. Check 'Analyze change' button disabled with no API key setup",
+    "generated plan: 3. Confirm 'Index repository context' button is disabled initially",
+    "generated plan: 4. Verify presence and text of setup required pill in header",
+    "generated plan: 5. Validate inline setup instructions visibility"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify header title in input panel before patch",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.input-panel .panel-heading .panel-title h2')\nExpected substring: \"Change under review\"\nReceived string:    \"Change\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.input-panel .panel-heading .panel-title h2') with timeout 5000ms\n  - waiting for locator('.input-panel .panel-heading .panel-title h2')\n    14 × locator resolved to <h2>Change</h2>\n       - unexpected value \"Change\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Check 'Analyze change' button disabled with no API key setup",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Confirm 'Index repository context' button is disabled initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify presence and text of setup required pill in header",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Validate inline setup instructions visibility",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:17:57.036Z"
+}

@@ -1,0 +1,138 @@
+{
+  "id": "r05-clear-diff-disabled-inverted",
+  "role": "breaking",
+  "intendedBreak": "Clear diff is enabled only when the editor is empty",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9210,
+      "outputTokens": 712,
+      "totalTokens": 9922
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial setup required state and disabled buttons",
+          "status": "failed",
+          "failedStep": "plan step 4: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\"Analyze change ⌘ ↵\")')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Analyze change ⌘ ↵\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Analyze change ⌘ ↵\")')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check evaluation metrics display with unmeasured values",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Load example diff and verify unified diff contains old sample text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify Clear diff button is disabled when no diff is present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify Clear diff button is enabled when diff is present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial setup required state and disabled buttons",
+          "status": "failed",
+          "failedStep": "plan step 4: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\"Analyze change ⌘ ↵\")')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Analyze change ⌘ ↵\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Analyze change ⌘ ↵\")')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check evaluation metrics display with unmeasured values",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Load example diff and verify unified diff contains old sample text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify Clear diff button is disabled when no diff is present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify Clear diff button is enabled when diff is present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Check evaluation metrics display with unmeasured values",
+    "generated plan: 3. Load example diff and verify unified diff contains old sample text",
+    "generated plan: 4. Verify Clear diff button is disabled when no diff is present",
+    "generated plan: 5. Verify Clear diff button is enabled when diff is present"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 2. Check evaluation metrics display with unmeasured values",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Load example diff and verify unified diff contains old sample text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify Clear diff button is disabled when no diff is present",
+        "status": "failed",
+        "failedStep": "plan step 1: expectDisabled",
+        "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator:  locator('button:has-text(\"Clear diff\")')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Clear diff\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Clear diff\")')\n    14 × locator resolved to <button type=\"button\" class=\"text-button\">…</button>\n       - unexpected value \"enabled\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 5. Verify Clear diff button is enabled when diff is present",
+        "status": "failed",
+        "failedStep": "plan step 2: expectEnabled",
+        "error": "Error: expect(locator).toBeEnabled() failed\n\nLocator:  locator('button:has-text(\"Clear diff\")')\nExpected: enabled\nReceived: disabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeEnabled\" locator('button:has-text(\"Clear diff\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Clear diff\")')\n    14 × locator resolved to <button disabled type=\"button\" class=\"text-button\">…</button>\n       - unexpected value \"disabled\"\n",
+        "outcome": "assertion"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:54:37.729Z"
+}

@@ -1,0 +1,138 @@
+{
+  "id": "h13-results-panel-title",
+  "role": "breaking",
+  "intendedBreak": "Results panel title changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 10820,
+      "outputTokens": 519,
+      "totalTokens": 11339
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial review findings panel title text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify review findings panel subtitle text when no result",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Check presence of findings list and no actionable findings message",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.empty-result strong')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.empty-result strong') with timeout 5000ms\n  - waiting for locator('.empty-result strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Verify presence and text of clear diff button disabled state",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify that 'Analyze change' button is disabled initially and shows correct label",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial review findings panel title text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify review findings panel subtitle text when no result",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Check presence of findings list and no actionable findings message",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.empty-result strong')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.empty-result strong') with timeout 5000ms\n  - waiting for locator('.empty-result strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Verify presence and text of clear diff button disabled state",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify that 'Analyze change' button is disabled initially and shows correct label",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial review findings panel title text",
+    "generated plan: 2. Verify review findings panel subtitle text when no result",
+    "generated plan: 4. Verify presence and text of clear diff button disabled state",
+    "generated plan: 5. Verify that 'Analyze change' button is disabled initially and shows correct label"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial review findings panel title text",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.results-heading h2')\nExpected substring: \"Review findings\"\nReceived string:    \"Findings\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.results-heading h2') with timeout 5000ms\n  - waiting for locator('.results-heading h2')\n    14 × locator resolved to <h2>Findings</h2>\n       - unexpected value \"Findings\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Verify review findings panel subtitle text when no result",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify presence and text of clear diff button disabled state",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify that 'Analyze change' button is disabled initially and shows correct label",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:18:28.574Z"
+}

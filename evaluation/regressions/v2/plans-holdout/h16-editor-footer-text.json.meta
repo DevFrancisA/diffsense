@@ -1,0 +1,153 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify initial Review desk header and metrics",
+        "purpose": "Ensure the Review desk page loads with correct header and evaluation metric values before patch",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "h1:has-text(\"Review desk\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "text=BugsJS review baseline",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "text=Unmeasured",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(4) strong",
+            "value": "",
+            "expected": "2.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(4)",
+            "value": "",
+            "expected": "1/40 seeded"
+          }
+        ]
+      },
+      {
+        "title": "Load example diff and verify placeholder diff content text",
+        "purpose": "Ensure clicking Load example diff populates the unified diff textbox with expected example text including specific phrase",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Verify unified diff watermark and Clear diff button state initially",
+        "purpose": "Check that the editor-watermark text and Clear diff button disabled state are correct when no diff is entered",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": ".editor-watermark span:has-text(\"Waiting for a diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Clear diff\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify editor footer lock text pre-change",
+        "purpose": "Assert that the editor footer lock text is \"Diff content stays in your configured review pipeline\" before patch",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".editor-footer span:has-text(\"Diff content stays in your configured review pipeline\")",
+            "value": "",
+            "expected": "Diff content stays in your configured review pipeline"
+          }
+        ]
+      },
+      {
+        "title": "Verify Analyze change button disabled state without URL or diff",
+        "purpose": "Ensure Analyze change button is disabled when neither pullRequestUrl nor diff is provided",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button:has-text(\"Analyze change\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9842,
+      "outputTokens": 592,
+      "totalTokens": 10434
+    }
+  }
+}

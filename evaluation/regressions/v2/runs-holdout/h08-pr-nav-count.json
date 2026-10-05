@@ -1,0 +1,138 @@
+{
+  "id": "h08-pr-nav-count",
+  "role": "breaking",
+  "intendedBreak": "Pull-request nav count shows a dash",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9237,
+      "outputTokens": 622,
+      "totalTokens": 9859
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial workspace page elements and disabled controls",
+          "status": "failed",
+          "failedStep": "plan step 2: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('main section.workspace section.review-form section.input-panel div.index-context-row span[role=\\'status\\']')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('main section.workspace section.review-form section.input-panel div.index-context-row span[role=\\'status\\']') with timeout 5000ms\n  - waiting for locator('main section.workspace section.review-form section.input-panel div.index-context-row span[role=\\'status\\']')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check main navigation pull requests count is zero before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Load example diff and verify unified diff content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify evaluation metrics values on initial load before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify loading the workspace in a narrow mobile viewport does not overflow",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial workspace page elements and disabled controls",
+          "status": "failed",
+          "failedStep": "plan step 2: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('main section.workspace section.review-form section.input-panel div.index-context-row span[role=\\'status\\']')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('main section.workspace section.review-form section.input-panel div.index-context-row span[role=\\'status\\']') with timeout 5000ms\n  - waiting for locator('main section.workspace section.review-form section.input-panel div.index-context-row span[role=\\'status\\']')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check main navigation pull requests count is zero before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Load example diff and verify unified diff content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify evaluation metrics values on initial load before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify loading the workspace in a narrow mobile viewport does not overflow",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Check main navigation pull requests count is zero before patch",
+    "generated plan: 3. Load example diff and verify unified diff content",
+    "generated plan: 4. Verify evaluation metrics values on initial load before patch",
+    "generated plan: 5. Verify loading the workspace in a narrow mobile viewport does not overflow"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 2. Check main navigation pull requests count is zero before patch",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('nav.primary-nav button[aria-label=\\'Pull requests\\'] span.nav-count')\nExpected substring: \"0\"\nReceived string:    \"—\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('nav.primary-nav button[aria-label=\\'Pull requests\\'] span.nav-count') with timeout 5000ms\n  - waiting for locator('nav.primary-nav button[aria-label=\\'Pull requests\\'] span.nav-count')\n    14 × locator resolved to <span class=\"nav-count\">—</span>\n       - unexpected value \"—\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Load example diff and verify unified diff content",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify evaluation metrics values on initial load before patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify loading the workspace in a narrow mobile viewport does not overflow",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:16:17.606Z"
+}

@@ -1,0 +1,82 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Analyze change button is disabled if pull request URL is empty",
+      "purpose": "Verify that the analyze change run button is disabled when the pull request URL input is empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "3. Setup required pill is visible in header when API is not ready",
+      "purpose": "Verify that the header pill shows 'Setup required' when the API is not ready",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "4. Index repository context button is disabled without pull request URL or API ready",
+      "purpose": "Verify that the 'Index repository context' button is disabled without a pull request URL or API readiness",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "5. Generate Playwright plan button is disabled without API ready or diff input",
+      "purpose": "Verify that the 'Generate Playwright plan' button is disabled when API is not ready or diff input is empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

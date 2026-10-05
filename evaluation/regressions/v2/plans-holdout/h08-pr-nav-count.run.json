@@ -1,0 +1,106 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Check main navigation pull requests count is zero before patch",
+      "purpose": "Validate that the pull requests button shows count zero, confirming pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "nav.primary-nav button[aria-label='Pull requests'] span.nav-count",
+          "value": "",
+          "expected": "0"
+        }
+      ]
+    },
+    {
+      "title": "3. Load example diff and verify unified diff content",
+      "purpose": "Load a sample diff and confirm the unified diff textarea contains expected example 'Invoice not found' error message snippet",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "4. Verify evaluation metrics values on initial load before patch",
+      "purpose": "Ensure evaluation metrics are displayed with expected unmeasured values matching those before patch",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(4) strong",
+          "value": "",
+          "expected": "2.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(4)",
+          "value": "",
+          "expected": "1/40 seeded"
+        }
+      ]
+    },
+    {
+      "title": "5. Verify loading the workspace in a narrow mobile viewport does not overflow",
+      "purpose": "Check that the page content width is constrained to viewport width 375px to prevent horizontal scrolling",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "main.app-frame",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

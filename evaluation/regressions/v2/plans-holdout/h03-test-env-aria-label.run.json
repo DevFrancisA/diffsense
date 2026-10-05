@@ -1,0 +1,40 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Check 'Setup required' connection pill and disabled buttons pre-patch",
+      "purpose": "Ensure the topbar connection pill displays 'Setup required' and certain buttons remain disabled without configuration before the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

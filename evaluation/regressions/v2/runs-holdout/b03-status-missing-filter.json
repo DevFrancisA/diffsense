@@ -1,0 +1,114 @@
+{
+  "id": "b03-status-missing-filter",
+  "role": "benign",
+  "intendedBreak": "Builds the missing list with a filter (same order and values)",
+  "status": "no-alarm",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 5175,
+      "outputTokens": 662,
+      "totalTokens": 5837
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify setup required pill and header text",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main strong')\nExpected substring: \"Setup required\"\nError: strict mode violation: locator('main strong') resolved to 9 elements:\n    1) <strong>Demo workspace</strong> aka getByText('Demo workspace')\n    2) <strong>Connect a repository</strong> aka getByRole('button', { name: 'Connect a repository Paste a' })\n    3) <strong>Anto Francis</strong> aka getByText('Anto Francis')\n    4) <strong>Review desk</strong> aka getByRole('strong').filter({ hasText: 'Review desk' })\n    5) <strong>…</strong> aka getByText('–100.0%')\n    ",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Validate disabled state of repository buttons without config",
+          "status": "failed",
+          "failedStep": "plan step 2: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\\'Analyze change ⌘ ↵\\')')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\\'Analyze change ⌘ ↵\\')') with timeout 5000ms\n  - waiting for locator('button:has-text(\\'Analyze change ⌘ ↵\\')')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Check visibility of inline setup hint",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify evaluation panel shows stored numbers",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('region[aria-label=\\'Evaluation metrics\\'] strong:nth-of-type(1)')\nExpected substring: \"94.4–100.0%\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('region[aria-label=\\'Evaluation metrics\\'] strong:nth-of-type(1)') with timeout 5000ms\n  - waiting for locator('region[aria-label=\\'Evaluation metrics\\'] strong:nth-of-type(1)')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Confirm skip test files checkbox is checked by default",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('input[type=\\'checkbox\\'][aria-label=\\'Skip findings in test files\\']')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('input[type=\\'checkbox\\'][aria-label=\\'Skip findings in test files\\']') with timeout 5000ms\n  - waiting for locator('input[type=\\'checkbox\\'][aria-label=\\'Skip findings in test files\\']')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify setup required pill and header text",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main strong')\nExpected substring: \"Setup required\"\nError: strict mode violation: locator('main strong') resolved to 9 elements:\n    1) <strong>Demo workspace</strong> aka getByText('Demo workspace')\n    2) <strong>Connect a repository</strong> aka getByRole('button', { name: 'Connect a repository Paste a' })\n    3) <strong>Anto Francis</strong> aka getByText('Anto Francis')\n    4) <strong>Review desk</strong> aka getByRole('strong').filter({ hasText: 'Review desk' })\n    5) <strong>…</strong> aka getByText('–100.0%')\n    ",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Validate disabled state of repository buttons without config",
+          "status": "failed",
+          "failedStep": "plan step 2: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\\'Analyze change ⌘ ↵\\')')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\\'Analyze change ⌘ ↵\\')') with timeout 5000ms\n  - waiting for locator('button:has-text(\\'Analyze change ⌘ ↵\\')')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Check visibility of inline setup hint",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify evaluation panel shows stored numbers",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('region[aria-label=\\'Evaluation metrics\\'] strong:nth-of-type(1)')\nExpected substring: \"94.4–100.0%\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('region[aria-label=\\'Evaluation metrics\\'] strong:nth-of-type(1)') with timeout 5000ms\n  - waiting for locator('region[aria-label=\\'Evaluation metrics\\'] strong:nth-of-type(1)')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Confirm skip test files checkbox is checked by default",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('input[type=\\'checkbox\\'][aria-label=\\'Skip findings in test files\\']')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('input[type=\\'checkbox\\'][aria-label=\\'Skip findings in test files\\']') with timeout 5000ms\n  - waiting for locator('input[type=\\'checkbox\\'][aria-label=\\'Skip findings in test files\\']')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 3. Check visibility of inline setup hint"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 3. Check visibility of inline setup hint",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:22:30.097Z"
+}

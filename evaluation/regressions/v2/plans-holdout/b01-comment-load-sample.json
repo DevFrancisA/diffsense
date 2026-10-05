@@ -1,0 +1,142 @@
+{
+  "scenarios": [
+    {
+      "title": "Check initial UI states and header connectivity pill",
+      "purpose": "Verify that when API is not ready, header shows 'Setup required' with correct class, and buttons are disabled appropriately.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Validate evaluation metrics display with unmeasured review time and regression catch rate",
+      "purpose": "Confirm metrics strip shows precise text and statistics matching pre-change state",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".metric-cell:nth-of-type(3) .metric-neutral",
+          "value": "",
+          "expected": "Unmeasured"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(4) strong",
+          "value": "",
+          "expected": "2.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(4)",
+          "value": "",
+          "expected": "1/40 seeded"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and check that the unified diff text area contains sample content",
+      "purpose": "Ensure Load example diff button populates the unified diff editor with bundled sample diff content including 'Invoice not found'",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Ensure clear diff button is disabled initially and becomes enabled after loading a diff",
+      "purpose": "Verify clear diff button enabled state changes with diff content presence preventing user clearing when empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectEnabled",
+          "selector": "button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

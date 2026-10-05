@@ -1,0 +1,146 @@
+{
+  "id": "r32-settings-view-name",
+  "role": "breaking",
+  "intendedBreak": "Settings breadcrumb is misspelled",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8450,
+      "outputTokens": 537,
+      "totalTokens": 8987
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify Settings button label and aria-label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify Settings button usage before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify sidebar profile text presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify setup required state and button disables",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify example diff loading and content includes 'Invoice not found'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify Settings button label and aria-label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify Settings button usage before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify sidebar profile text presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify setup required state and button disables",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify example diff loading and content includes 'Invoice not found'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify Settings button label and aria-label before patch",
+    "generated plan: 2. Verify Settings button usage before patch",
+    "generated plan: 3. Verify sidebar profile text presence",
+    "generated plan: 4. Verify setup required state and button disables",
+    "generated plan: 5. Verify example diff loading and content includes 'Invoice not found'"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify Settings button label and aria-label before patch",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Verify Settings button usage before patch",
+        "status": "failed",
+        "failedStep": "plan step 2: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.breadcrumbs > strong')\nExpected substring: \"Settings\"\nReceived string:    \"Setting\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('div.breadcrumbs > strong') with timeout 5000ms\n  - waiting for locator('div.breadcrumbs > strong')\n    14 × locator resolved to <strong>Setting</strong>\n       - unexpected value \"Setting\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Verify sidebar profile text presence",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify setup required state and button disables",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify example diff loading and content includes 'Invoice not found'",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:07:14.205Z"
+}

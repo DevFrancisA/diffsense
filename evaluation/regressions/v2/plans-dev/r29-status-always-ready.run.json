@@ -1,0 +1,34 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify API status response when environment variables are missing",
+      "purpose": "Ensure that the API /api/status endpoint returns a ready state of false along with missing environment variables when OPENAI_API_KEY and DATABASE_URL are not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/api/status",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "\"ready\":false"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "OPENAI_API_KEY"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "DATABASE_URL"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "id": "r22-cohort-count",
+  "role": "breaking",
+  "intendedBreak": "Cohort size shows the run count",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 4,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9549,
+      "outputTokens": 505,
+      "totalTokens": 10054
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check evaluation metrics details on homepage",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell .metric-foot')\nExpected substring: \"94.4–100.0%\"\nError: strict mode violation: locator('.metric-cell .metric-foot') resolved to 4 elements:\n    1) <span class=\"metric-foot\">30 BugsJS cases · 3 runs</span> aka getByText('BugsJS cases · 3 runs')\n    2) <span class=\"metric-foot\">Range across 3 runs</span> aka getByText('Range across 3 runs')\n    3) <span class=\"metric-foot\">…</span> aka getByText('Unmeasured · paired human')\n    4) <span class=\"metric-foot\">…</span> aka getByText('Unmeasured · scenarios not run'",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify Setup Required state with environment variables missing",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Check Load example diff populates diff with original sample text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Review findings panel default text presence",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.results-panel.panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('.results-panel.panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('.results-panel.panel p') with timeout 5000ms\n  - waiting for locator('.results-panel.panel p')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check evaluation metrics details on homepage",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell .metric-foot')\nExpected substring: \"94.4–100.0%\"\nError: strict mode violation: locator('.metric-cell .metric-foot') resolved to 4 elements:\n    1) <span class=\"metric-foot\">30 BugsJS cases · 3 runs</span> aka getByText('BugsJS cases · 3 runs')\n    2) <span class=\"metric-foot\">Range across 3 runs</span> aka getByText('Range across 3 runs')\n    3) <span class=\"metric-foot\">…</span> aka getByText('Unmeasured · paired human')\n    4) <span class=\"metric-foot\">…</span> aka getByText('Unmeasured · scenarios not run'",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify Setup Required state with environment variables missing",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Check Load example diff populates diff with original sample text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Review findings panel default text presence",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.results-panel.panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('.results-panel.panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('.results-panel.panel p') with timeout 5000ms\n  - waiting for locator('.results-panel.panel p')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Verify Setup Required state with environment variables missing",
+    "generated plan: 3. Check Load example diff populates diff with original sample text"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Verify Setup Required state with environment variables missing",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Check Load example diff populates diff with original sample text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:02:20.501Z"
+}

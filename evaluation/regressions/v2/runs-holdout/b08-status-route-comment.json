@@ -1,0 +1,122 @@
+{
+  "id": "b08-status-route-comment",
+  "role": "benign",
+  "intendedBreak": "Adds a comment",
+  "status": "no-alarm",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 6408,
+      "outputTokens": 613,
+      "totalTokens": 7021
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. UI initial state without API keys",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('strong')\nExpected substring: \"Setup required\"\nError: strict mode violation: locator('strong') resolved to 9 elements:\n    1) <strong>Demo workspace</strong> aka getByText('Demo workspace')\n    2) <strong>Connect a repository</strong> aka getByRole('button', { name: 'Connect a repository Paste a' })\n    3) <strong>Anto Francis</strong> aka getByText('Anto Francis')\n    4) <strong>Review desk</strong> aka getByRole('strong').filter({ hasText: 'Review desk' })\n    5) <strong>…</strong> aka getByText('–100.0%')\n    6) <strong",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify setup hint and environment variables mentioned",
+          "status": "failed",
+          "failedStep": "plan step 3: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('text=Configure')\nExpected: visible\nError: strict mode violation: locator('text=Configure') resolved to 3 elements:\n    1) <span>…</span> aka getByText('Diff content stays in your')\n    2) <span>…</span> aka getByText('Configure OPENAI_API_KEY and')\n    3) <span>…</span> aka getByText('Pipeline status: not')\n\nCall log:\n  - Expect \"toBeVisible\" locator('text=Configure') with timeout 5000ms\n  - waiting for locator('text=Configure')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Repository context indexing disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Diff input area and disabled analyze button",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Review findings panel initial state and text prompts",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('p:has-text(\\'Your review starts here\\')')\nExpected substring: \"Your review starts here\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('p:has-text(\\'Your review starts here\\')') with timeout 5000ms\n  - waiting for locator('p:has-text(\\'Your review starts here\\')')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. UI initial state without API keys",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('strong')\nExpected substring: \"Setup required\"\nError: strict mode violation: locator('strong') resolved to 9 elements:\n    1) <strong>Demo workspace</strong> aka getByText('Demo workspace')\n    2) <strong>Connect a repository</strong> aka getByRole('button', { name: 'Connect a repository Paste a' })\n    3) <strong>Anto Francis</strong> aka getByText('Anto Francis')\n    4) <strong>Review desk</strong> aka getByRole('strong').filter({ hasText: 'Review desk' })\n    5) <strong>…</strong> aka getByText('–100.0%')\n    6) <strong",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify setup hint and environment variables mentioned",
+          "status": "failed",
+          "failedStep": "plan step 3: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('text=Configure')\nExpected: visible\nError: strict mode violation: locator('text=Configure') resolved to 3 elements:\n    1) <span>…</span> aka getByText('Diff content stays in your')\n    2) <span>…</span> aka getByText('Configure OPENAI_API_KEY and')\n    3) <span>…</span> aka getByText('Pipeline status: not')\n\nCall log:\n  - Expect \"toBeVisible\" locator('text=Configure') with timeout 5000ms\n  - waiting for locator('text=Configure')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Repository context indexing disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Diff input area and disabled analyze button",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Review findings panel initial state and text prompts",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('p:has-text(\\'Your review starts here\\')')\nExpected substring: \"Your review starts here\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('p:has-text(\\'Your review starts here\\')') with timeout 5000ms\n  - waiting for locator('p:has-text(\\'Your review starts here\\')')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 3. Repository context indexing disabled initially",
+    "generated plan: 4. Diff input area and disabled analyze button"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 3. Repository context indexing disabled initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Diff input area and disabled analyze button",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:24:21.887Z"
+}

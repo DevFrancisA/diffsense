@@ -1,0 +1,130 @@
+{
+  "id": "b09-format-range-doc",
+  "role": "benign",
+  "intendedBreak": "Adds a doc comment",
+  "status": "no-alarm",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9551,
+      "outputTokens": 647,
+      "totalTokens": 10198
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify header and workspace text on initial load",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main > strong')\nExpected substring: \"Demo workspace\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main > strong') with timeout 5000ms\n  - waiting for locator('main > strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check button disabled states without API key and database URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify presence of inline setup hint and footer pipeline status",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Validate review findings panel initial state",
+          "status": "failed",
+          "failedStep": "plan step 4: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel > div.empty-state > div.empty-state-footer:first-child span.state-pending')\nExpected substring: \"waiting\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel > div.empty-state > div.empty-state-footer:first-child span.state-pending') with timeout 5000ms\n  - waiting for locator('section.results-panel > div.empty-state > div.empty-state-footer:first-child span.state-pending')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Confirm evaluation panel shows saved results with cohort info",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify header and workspace text on initial load",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('main > strong')\nExpected substring: \"Demo workspace\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('main > strong') with timeout 5000ms\n  - waiting for locator('main > strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check button disabled states without API key and database URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify presence of inline setup hint and footer pipeline status",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Validate review findings panel initial state",
+          "status": "failed",
+          "failedStep": "plan step 4: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel > div.empty-state > div.empty-state-footer:first-child span.state-pending')\nExpected substring: \"waiting\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel > div.empty-state > div.empty-state-footer:first-child span.state-pending') with timeout 5000ms\n  - waiting for locator('section.results-panel > div.empty-state > div.empty-state-footer:first-child span.state-pending')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Confirm evaluation panel shows saved results with cohort info",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Check button disabled states without API key and database URL",
+    "generated plan: 3. Verify presence of inline setup hint and footer pipeline status",
+    "generated plan: 5. Confirm evaluation panel shows saved results with cohort info"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Check button disabled states without API key and database URL",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify presence of inline setup hint and footer pipeline status",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Confirm evaluation panel shows saved results with cohort info",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:24:58.979Z"
+}

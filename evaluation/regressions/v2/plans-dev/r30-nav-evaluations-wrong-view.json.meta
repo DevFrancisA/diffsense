@@ -1,0 +1,123 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Navigation shows Evaluations button with active view Review desk pre-change",
+        "purpose": "Verify that the Evaluations button is enabled and clicking it sets active view to Evaluations before the patch changes it to Review desk",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectEnabled",
+            "selector": "nav.primary-nav > button[aria-label=\"Evaluations\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "nav.primary-nav > button[aria-label=\"Evaluations\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "header.topbar .breadcrumbs strong",
+            "value": "",
+            "expected": "Evaluations"
+          }
+        ]
+      },
+      {
+        "title": "Navigation shows Review desk button as active pre-change",
+        "purpose": "Verify that on initial load the Review desk button is active before patch",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "nav.primary-nav > button.is-active[aria-label=\"Review desk\"]",
+            "value": "",
+            "expected": "Review desk"
+          }
+        ]
+      },
+      {
+        "title": "Navigation pull requests button visible and shows count zero",
+        "purpose": "Verify Pull requests button is visible with count 0 before patch",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav > button[aria-label=\"Pull requests\"] .nav-count",
+            "value": "",
+            "expected": "0"
+          }
+        ]
+      },
+      {
+        "title": "Topbar connection pill shows Setup required when API not ready",
+        "purpose": "Verify connection pill text and class when API is not ready before patch behavior",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".connection-pill.disconnected",
+            "value": "",
+            "expected": "Setup required"
+          }
+        ]
+      },
+      {
+        "title": "Setup inline hint visible when API is not ready",
+        "purpose": "Verify setup hint text and visibility before patch behavior disables reviews",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "section.input-panel .setup-inline",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.input-panel .setup-inline span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8602,
+      "outputTokens": 463,
+      "totalTokens": 9065
+    }
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "id": "h06-regression-rate-rounding",
+  "role": "breaking",
+  "intendedBreak": "Regression rate loses its decimal",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9598,
+      "outputTokens": 480,
+      "totalTokens": 10078
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation panel displays pre-change regression catch rate format",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check regression catch rate footnote visibility and content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Confirm 'Load example diff' button loads example diff containing old string",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Ensure 'Analyze change' button is disabled due to API setup state",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Check sidebar repository connection prompt text and button states",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation panel displays pre-change regression catch rate format",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check regression catch rate footnote visibility and content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Confirm 'Load example diff' button loads example diff containing old string",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Ensure 'Analyze change' button is disabled due to API setup state",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Check sidebar repository connection prompt text and button states",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify evaluation panel displays pre-change regression catch rate format",
+    "generated plan: 2. Check regression catch rate footnote visibility and content",
+    "generated plan: 3. Confirm 'Load example diff' button loads example diff containing old string",
+    "generated plan: 4. Ensure 'Analyze change' button is disabled due to API setup state",
+    "generated plan: 5. Check sidebar repository connection prompt text and button states"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify evaluation panel displays pre-change regression catch rate format",
+        "status": "failed",
+        "failedStep": "plan step 2: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell.metric-last strong')\nExpected substring: \"2.5\"\nReceived string:    \"3%\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell.metric-last strong') with timeout 5000ms\n  - waiting for locator('.metric-cell.metric-last strong')\n    - locator resolved to <strong>…</strong>\n    - unexpected value \"—%\"\n    13 × locator resolved to <strong>…</strong>\n       - unexpected value \"3%\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Check regression catch rate footnote visibility and content",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Confirm 'Load example diff' button loads example diff containing old string",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Ensure 'Analyze change' button is disabled due to API setup state",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Check sidebar repository connection prompt text and button states",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:15:23.011Z"
+}

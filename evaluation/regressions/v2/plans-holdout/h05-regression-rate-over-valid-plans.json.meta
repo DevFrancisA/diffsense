@@ -1,0 +1,129 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify regression catch rate calculation and display",
+        "purpose": "Ensure the regression catch rate uses the pre-patch denominator 'validScenarios' and displays correct text when evaluation data is present.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last > .metric-label",
+            "value": "",
+            "expected": "REGRESSION CATCH RATE"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last > strong",
+            "value": "",
+            "expected": "2.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last",
+            "value": "",
+            "expected": "1/40 seeded"
+          }
+        ]
+      },
+      {
+        "title": "Check presence of 'Unmeasured' label in review time metric",
+        "purpose": "Confirm the review time metric shows '—min' with the label 'Unmeasured' and paired human study pending message as before the patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(3) > strong",
+            "value": "",
+            "expected": "—"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(3)",
+            "value": "",
+            "expected": "Unmeasured · paired human study pending"
+          }
+        ]
+      },
+      {
+        "title": "Validate 'Load example diff' button loads sample diff with legacy error text",
+        "purpose": "Ensure the Load example diff button loads the sample diff containing 'Invoice not found' error text as in pre-patch UI.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "textarea[aria-label='Unified diff']",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Confirm 'Analyze change' button is disabled without API ready",
+        "purpose": "Ensure the Analyze change button is disabled when API is not ready and no pull request URL or diff is entered, matching pre-patch behavior.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button:has-text(\"Analyze change\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify 'Index repository context' button is disabled without valid PR URL and API ready",
+        "purpose": "Check that the 'Index repository context' button is disabled when no pull request URL is entered or API is not ready, consistent with pre-patch behavior.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button:has-text(\"Index repository context\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9596,
+      "outputTokens": 549,
+      "totalTokens": 10145
+    }
+  }
+}

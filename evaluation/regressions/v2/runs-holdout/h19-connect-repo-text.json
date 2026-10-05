@@ -1,0 +1,63 @@
+{
+  "id": "h19-connect-repo-text",
+  "role": "breaking",
+  "intendedBreak": "Sidebar repository prompt changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 1,
+    "dropped": [
+      {
+        "title": "Sidebar repository button click focuses on URL input",
+        "reason": "Generated test plan is missing an expected value."
+      }
+    ],
+    "usage": {
+      "inputTokens": 9187,
+      "outputTokens": 189,
+      "totalTokens": 9376
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Sidebar repository button label is 'Connect a repository'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Sidebar repository button label is 'Connect a repository'",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Sidebar repository button label is 'Connect a repository'"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Sidebar repository button label is 'Connect a repository'",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.repo-empty strong')\nExpected substring: \"Connect a repository\"\nReceived string:    \"Add a repository\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.repo-empty strong') with timeout 5000ms\n  - waiting for locator('.repo-empty strong')\n    14 × locator resolved to <strong>Add a repository</strong>\n       - unexpected value \"Add a repository\"\n",
+        "outcome": "assertion"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:20:48.462Z"
+}

@@ -1,0 +1,45 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify top heading and eyebrow text before patch",
+        "purpose": "Confirm the pre-patch 'eyebrow' text label is 'CODE INTELLIGENCE / LOCAL' on the Review desk page.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".page-heading > div > div.eyebrow",
+            "value": "",
+            "expected": "CODE INTELLIGENCE / LOCAL"
+          },
+          {
+            "action": "expectText",
+            "selector": "h1",
+            "value": "",
+            "expected": "Review desk"
+          },
+          {
+            "action": "expectText",
+            "selector": ".page-heading p",
+            "value": "",
+            "expected": "Understand the change. Catch what matters."
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 1,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9050,
+      "outputTokens": 137,
+      "totalTokens": 9187
+    }
+  }
+}

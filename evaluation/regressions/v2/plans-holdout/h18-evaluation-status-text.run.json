@@ -1,0 +1,100 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify evaluation status text before patch",
+      "purpose": "Ensure the evaluation status text displays 'Results saved' when evaluation is available, reflecting pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-status",
+          "value": "",
+          "expected": "Results saved"
+        }
+      ]
+    },
+    {
+      "title": "2. Verify generate Playwright plan button disabled state without diff or PR URL",
+      "purpose": "Assert the Generate Playwright plan button is disabled when no diff or PR URL is provided and API is not ready (setup required environment).",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "3. Verify 'Analyze change' button disabled when API is not ready",
+      "purpose": "Check that the 'Analyze change' button is disabled when API is not ready (setup required).",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "4. Verify setup required pill text",
+      "purpose": "Ensure the connection pill shows 'Setup required' when API is not ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "5. Verify inline setup hint presence",
+      "purpose": "Confirm the inline setup hint about missing OPENAI_API_KEY and DATABASE_URL is visible before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

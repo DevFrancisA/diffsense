@@ -1,0 +1,146 @@
+{
+  "id": "r25-eval-status-wrong",
+  "role": "breaking",
+  "intendedBreak": "Evaluation status says loading after results load",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8762,
+      "outputTokens": 452,
+      "totalTokens": 9214
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check evaluation status panel shows 'Results saved' when evaluation data is available",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Load example diff and verify diff editor contains sample text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Generate Playwright plan' button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Analyze change' button is disabled without valid inputs or apiReady",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Check topbar connection pill text shows 'Setup required' when apiReady is false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check evaluation status panel shows 'Results saved' when evaluation data is available",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Load example diff and verify diff editor contains sample text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Generate Playwright plan' button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Analyze change' button is disabled without valid inputs or apiReady",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Check topbar connection pill text shows 'Setup required' when apiReady is false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Check evaluation status panel shows 'Results saved' when evaluation data is available",
+    "generated plan: 2. Load example diff and verify diff editor contains sample text",
+    "generated plan: 3. Verify 'Generate Playwright plan' button is disabled initially",
+    "generated plan: 4. Verify 'Analyze change' button is disabled without valid inputs or apiReady",
+    "generated plan: 5. Check topbar connection pill text shows 'Setup required' when apiReady is false"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Check evaluation status panel shows 'Results saved' when evaluation data is available",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-status')\nExpected substring: \"Results saved\"\nReceived string:    \"Loading results\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-status') with timeout 5000ms\n  - waiting for locator('.evaluation-status')\n    14 × locator resolved to <div class=\"evaluation-status\">…</div>\n       - unexpected value \"Loading results\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Load example diff and verify diff editor contains sample text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify 'Generate Playwright plan' button is disabled initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify 'Analyze change' button is disabled without valid inputs or apiReady",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Check topbar connection pill text shows 'Setup required' when apiReady is false",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:03:26.267Z"
+}

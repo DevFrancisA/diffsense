@@ -1,0 +1,138 @@
+{
+  "id": "h01-skip-tests-default-off",
+  "role": "breaking",
+  "intendedBreak": "Skip-test-files toggle starts unchecked",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8613,
+      "outputTokens": 583,
+      "totalTokens": 9196
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial setup pill and disabled buttons",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify skip test files checkbox is checked by default",
+          "status": "failed",
+          "failedStep": "plan step 1: expectEnabled",
+          "error": "Error: expect(locator).toBeEnabled() failed\n\nLocator: locator('input[type=checkbox][aria-label=\"Skip findings in test files\"]:checked')\nExpected: enabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeEnabled\" locator('input[type=checkbox][aria-label=\"Skip findings in test files\"]:checked') with timeout 5000ms\n  - waiting for locator('input[type=checkbox][aria-label=\"Skip findings in test files\"]:checked')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify evaluation metrics are visible with stored numbers",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify Load example diff button sets sample diff text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify clear diff button is initially disabled",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial setup pill and disabled buttons",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify skip test files checkbox is checked by default",
+          "status": "failed",
+          "failedStep": "plan step 1: expectEnabled",
+          "error": "Error: expect(locator).toBeEnabled() failed\n\nLocator: locator('input[type=checkbox][aria-label=\"Skip findings in test files\"]:checked')\nExpected: enabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeEnabled\" locator('input[type=checkbox][aria-label=\"Skip findings in test files\"]:checked') with timeout 5000ms\n  - waiting for locator('input[type=checkbox][aria-label=\"Skip findings in test files\"]:checked')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify evaluation metrics are visible with stored numbers",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify Load example diff button sets sample diff text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify clear diff button is initially disabled",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial setup pill and disabled buttons",
+    "generated plan: 3. Verify evaluation metrics are visible with stored numbers",
+    "generated plan: 4. Verify Load example diff button sets sample diff text",
+    "generated plan: 5. Verify clear diff button is initially disabled"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial setup pill and disabled buttons",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify evaluation metrics are visible with stored numbers",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify Load example diff button sets sample diff text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify clear diff button is initially disabled",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:13:32.478Z"
+}

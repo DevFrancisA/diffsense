@@ -1,0 +1,147 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Load example diff sets diff text",
+        "purpose": "Verify that clicking 'Load example diff' button inserts the known sample diff text into the Unified diff textbox.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "diff --git a/src/api/invoices/[id]/route.ts b/src/api/invoices/[id]/route.ts",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Setup required status pill and messages",
+        "purpose": "Confirm the pipeline status pill and setup messages reflect API not ready state before patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span.connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "div.setup-inline span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          }
+        ]
+      },
+      {
+        "title": "Disabled buttons before indexing and valid PR URL",
+        "purpose": "Ensure that 'Index repository context', 'Analyze change', and 'Generate Playwright plan' buttons are disabled when prerequisites are not met or API not ready.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Index repository context\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Analyze change\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Review findings panel displays initial placeholder text",
+        "purpose": "Verify that before any review is run, the findings panel shows the placeholder text indicating no issues found yet.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.results-panel.panel p",
+            "value": "",
+            "expected": "Issues are grounded in changed lines and repository context."
+          }
+        ]
+      },
+      {
+        "title": "Evaluation metrics show stored ranges and unmeasured values",
+        "purpose": "Validate that evaluation metric tiles display correct stored numerical ranges and 'Unmeasured' indicators before patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(3) .metric-foot .metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(4) .metric-foot .metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8292,
+      "outputTokens": 610,
+      "totalTokens": 8902
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify initial setup required state and disabled buttons",
+      "purpose": "Ensure that with no API key and no database URL configured, the UI correctly shows setup required and disables main action buttons",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change ⌘ ↵\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Check evaluation metrics display with unmeasured values",
+      "purpose": "Verify that the evaluation metrics panel shows the stored percent ranges and unmeasured indicators before patch",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip div.metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip div.metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip div.metric-cell:nth-child(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip div.metric-cell:nth-child(4) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip div.metric-cell:nth-child(3) span.metric-foot span.metric-neutral",
+          "value": "",
+          "expected": "Unmeasured"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.metrics-strip div.metric-cell:nth-child(4) span.metric-foot span.metric-neutral",
+          "value": "",
+          "expected": "Unmeasured"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and verify unified diff contains old sample text",
+      "purpose": "Ensure clicking load example diff fills the unified diff textarea with the sampleDiff content containing no added invoice error message",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "diff --git a/src/api/invoices/[id]/route.ts b/src/api/invoices/[id]/route.ts"
+        }
+      ]
+    },
+    {
+      "title": "Verify Clear diff button is disabled when no diff is present",
+      "purpose": "Check that the Clear diff button is disabled initially when the unified diff is empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify Clear diff button is enabled when diff is present",
+      "purpose": "Check that the Clear diff button becomes enabled when unified diff is non-empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectEnabled",
+          "selector": "button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify topbar breadcrumb uses slash before patch",
+      "purpose": "Ensure the breadcrumb separator before patch remains '/', indicating pre-change breadcrumb style.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".breadcrumbs",
+          "value": "",
+          "expected": "Workspace / Review desk"
+        }
+      ]
+    },
+    {
+      "title": "Verify topbar breadcrumb changes after patch",
+      "purpose": "Demonstrate breadcrumb separator changes from '/' to '›' and fail post-patch if old '/' is still present.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".breadcrumbs",
+          "value": "",
+          "expected": "Workspace / Review desk"
+        }
+      ]
+    },
+    {
+      "title": "Check connection pill text presence",
+      "purpose": "Confirm correct connection pill text appears indicating setup status before patch applies.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff shows 'Invoice not found' message",
+      "purpose": "Verify example diff loaded contains original string 'Invoice not found' in the unified diff area.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Analyze change button is disabled without API ready",
+      "purpose": "Ensure 'Analyze change' button is disabled initially due to missing credentials and setup incomplete.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

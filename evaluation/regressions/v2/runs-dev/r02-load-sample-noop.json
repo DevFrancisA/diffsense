@@ -1,0 +1,138 @@
+{
+  "id": "r02-load-sample-noop",
+  "role": "breaking",
+  "intendedBreak": "Loading the example diff leaves the editor unchanged",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8292,
+      "outputTokens": 610,
+      "totalTokens": 8902
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Load example diff sets diff text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Setup required status pill and messages",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Disabled buttons before indexing and valid PR URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Review findings panel displays initial placeholder text",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel.panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel p",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Evaluation metrics show stored ranges and unmeasured values",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Load example diff sets diff text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Setup required status pill and messages",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Disabled buttons before indexing and valid PR URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Review findings panel displays initial placeholder text",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel.panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel p",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Evaluation metrics show stored ranges and unmeasured values",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Load example diff sets diff text",
+    "generated plan: 2. Setup required status pill and messages",
+    "generated plan: 3. Disabled buttons before indexing and valid PR URL",
+    "generated plan: 5. Evaluation metrics show stored ranges and unmeasured values"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Load example diff sets diff text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Setup required status pill and messages",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Disabled buttons before indexing and valid PR URL",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Evaluation metrics show stored ranges and unmeasured values",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:53:05.029Z"
+}

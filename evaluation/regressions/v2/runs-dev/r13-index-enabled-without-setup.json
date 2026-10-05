@@ -1,0 +1,101 @@
+{
+  "id": "r13-index-enabled-without-setup",
+  "role": "breaking",
+  "intendedBreak": "Index button is enabled without setup",
+  "status": "invalid-plan",
+  "reason": "no scenario passed both baseline runs",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9165,
+      "outputTokens": 458,
+      "totalTokens": 9623
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify 'Index repository context' button disabled state when apiReady is false",
+          "status": "failed",
+          "failedStep": "plan step 1: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button.index-button')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.index-button') with timeout 5000ms\n  - waiting for locator('button.index-button')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify 'Index repository context' button enabled state with pull request URL and apiReady true",
+          "status": "timedOut",
+          "failedStep": "plan step 1: fill",
+          "error": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('input#pr-url')\n",
+          "outcome": "action"
+        },
+        {
+          "title": "generated plan: 3. Verify presence of Setup required pill when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('span.connection-pill.disconnected')\nExpected substring: \"Setup required\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('span.connection-pill.disconnected') with timeout 5000ms\n  - waiting for locator('span.connection-pill.disconnected')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Verify presence of inline setup hint when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('div.setup-inline')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('div.setup-inline') with timeout 5000ms\n  - waiting for locator('div.setup-inline')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify 'Generate Playwright plan' button is disabled when apiReady is false",
+          "status": "failed",
+          "failedStep": "plan step 1: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button.text-button.evaluation-link')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.text-button.evaluation-link') with timeout 5000ms\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify 'Index repository context' button disabled state when apiReady is false",
+          "status": "failed",
+          "failedStep": "plan step 1: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button.index-button')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.index-button') with timeout 5000ms\n  - waiting for locator('button.index-button')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify 'Index repository context' button enabled state with pull request URL and apiReady true",
+          "status": "timedOut",
+          "failedStep": "plan step 1: fill",
+          "error": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('input#pr-url')\n",
+          "outcome": "action"
+        },
+        {
+          "title": "generated plan: 3. Verify presence of Setup required pill when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('span.connection-pill.disconnected')\nExpected substring: \"Setup required\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('span.connection-pill.disconnected') with timeout 5000ms\n  - waiting for locator('span.connection-pill.disconnected')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Verify presence of inline setup hint when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('div.setup-inline')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('div.setup-inline') with timeout 5000ms\n  - waiting for locator('div.setup-inline')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify 'Generate Playwright plan' button is disabled when apiReady is false",
+          "status": "failed",
+          "failedStep": "plan step 1: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button.text-button.evaluation-link')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.text-button.evaluation-link') with timeout 5000ms\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T11:58:50.239Z"
+}

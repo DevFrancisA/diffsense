@@ -1,0 +1,46 @@
+{
+  "scenarios": [
+    {
+      "title": "3. Repository context indexing disabled initially",
+      "purpose": "Confirm that the button 'Index repository context' remains disabled before indexing is configured and API keys are missing.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Index repository context')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "4. Diff input area and disabled analyze button",
+      "purpose": "Ensure the unified diff input is empty on load and the Analyze change button is disabled without proper setup.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[placeholder^='Paste a unified diff here']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Analyze change')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

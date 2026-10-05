@@ -1,0 +1,165 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify API status response when environment variables are missing",
+        "purpose": "Ensure that the API /api/status endpoint returns a ready state of false along with missing environment variables when OPENAI_API_KEY and DATABASE_URL are not configured.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/api/status",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "body",
+            "value": "",
+            "expected": "\"ready\":false"
+          },
+          {
+            "action": "expectText",
+            "selector": "body",
+            "value": "",
+            "expected": "OPENAI_API_KEY"
+          },
+          {
+            "action": "expectText",
+            "selector": "body",
+            "value": "",
+            "expected": "DATABASE_URL"
+          }
+        ]
+      },
+      {
+        "title": "Check Setup required pill and related UI elements visibility",
+        "purpose": "Ensure that the header pill reads 'Setup required', the inline setup hint is visible, and pipeline not configured message is present when the environment is not ready.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "main > strong",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "main:has-text(\"Configure\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "main",
+            "value": "",
+            "expected": "Pipeline status: not configured"
+          }
+        ]
+      },
+      {
+        "title": "Validate disabled states of critical buttons when setup incomplete",
+        "purpose": "Verify that 'Index repository context', 'Analyze change', and 'Generate Playwright plan' buttons are disabled when environment variables are not configured.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Index repository context\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Analyze change ⌘ ↵\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify evaluation metrics panel displays stored metrics",
+        "purpose": "Check that evaluation metrics panel shows metric ranges and labels from stored data independent of live environment status.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section[aria-label=\"Evaluation metrics\"] strong:nth-of-type(1)",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": "section[aria-label=\"Evaluation metrics\"] strong:nth-of-type(2)",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": "section[aria-label=\"Evaluation metrics\"] strong:nth-of-type(3)",
+            "value": "",
+            "expected": "—min"
+          }
+        ]
+      },
+      {
+        "title": "Confirm the status of the review desk and diff input constraints",
+        "purpose": "Ensure that the review desk heading, diff input placeholders, and helper text appear correctly when setup is incomplete and no diff is loaded.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "h1",
+            "value": "",
+            "expected": "Review desk"
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[placeholder*=\"Paste a unified diff here\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "p",
+            "value": "",
+            "expected": "Start with a public pull request or paste a unified diff."
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 4962,
+      "outputTokens": 662,
+      "totalTokens": 5624
+    }
+  }
+}

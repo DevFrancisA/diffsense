@@ -1,0 +1,146 @@
+{
+  "id": "h20-help-button-label",
+  "role": "breaking",
+  "intendedBreak": "Help button name changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8313,
+      "outputTokens": 575,
+      "totalTokens": 8888
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify header help button label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify header connection pill text when app is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Load example diff' button and unified diff placeholder",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Analyze change' button disabled state without inputs and api ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify evaluation metrics display unmeasured values and regression data",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify header help button label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify header connection pill text when app is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Load example diff' button and unified diff placeholder",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify 'Analyze change' button disabled state without inputs and api ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify evaluation metrics display unmeasured values and regression data",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify header help button label before patch",
+    "generated plan: 2. Verify header connection pill text when app is not ready",
+    "generated plan: 3. Verify 'Load example diff' button and unified diff placeholder",
+    "generated plan: 4. Verify 'Analyze change' button disabled state without inputs and api ready",
+    "generated plan: 5. Verify evaluation metrics display unmeasured values and regression data"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify header help button label before patch",
+        "status": "failed",
+        "failedStep": "plan step 1: expectAttribute",
+        "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('.topbar-right > button[aria-label=\\'Help\\']')\nExpected: \"Help\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('.topbar-right > button[aria-label=\\'Help\\']') with timeout 5000ms\n  - waiting for locator('.topbar-right > button[aria-label=\\'Help\\']')\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Verify header connection pill text when app is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Verify 'Load example diff' button and unified diff placeholder",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify 'Analyze change' button disabled state without inputs and api ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify evaluation metrics display unmeasured values and regression data",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:21:10.711Z"
+}

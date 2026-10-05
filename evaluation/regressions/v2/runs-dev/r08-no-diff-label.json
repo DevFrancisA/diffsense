@@ -1,0 +1,80 @@
+{
+  "id": "r08-no-diff-label",
+  "role": "breaking",
+  "intendedBreak": "Empty-editor label changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 2,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9200,
+      "outputTokens": 207,
+      "totalTokens": 9407
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify 'UNIFIED DIFF' label shows 'No diff loaded' when textarea is empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify 'Clear diff' button is disabled when no diff text present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify 'UNIFIED DIFF' label shows 'No diff loaded' when textarea is empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Verify 'Clear diff' button is disabled when no diff text present",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify 'UNIFIED DIFF' label shows 'No diff loaded' when textarea is empty",
+    "generated plan: 2. Verify 'Clear diff' button is disabled when no diff text present"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify 'UNIFIED DIFF' label shows 'No diff loaded' when textarea is empty",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.field-label.diff-label > .diff-label-right > span:nth-child(3)')\nExpected substring: \"No diff loaded\"\nReceived string:    \"Empty\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.field-label.diff-label > .diff-label-right > span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('.field-label.diff-label > .diff-label-right > span:nth-child(3)')\n    14 × locator resolved to <span>Empty</span>\n       - unexpected value \"Empty\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Verify 'Clear diff' button is disabled when no diff text present",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:55:20.500Z"
+}

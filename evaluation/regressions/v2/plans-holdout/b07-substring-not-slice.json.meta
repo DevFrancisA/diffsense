@@ -1,0 +1,189 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify visible UI elements on initial load",
+        "purpose": "Ensure that initial UI elements from the DiffSense home page are visible with correct states before patch changes",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "a.brand[aria-label=\"DiffSense home\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span.brand-name",
+            "value": "",
+            "expected": "diffsense"
+          },
+          {
+            "action": "expectText",
+            "selector": "span.workspace-avatar",
+            "value": "",
+            "expected": "D"
+          },
+          {
+            "action": "expectText",
+            "selector": "strong",
+            "value": "",
+            "expected": "Demo workspace"
+          },
+          {
+            "action": "expectText",
+            "selector": "button.nav-item[aria-label=\"Review desk\"]",
+            "value": "",
+            "expected": "Review desk 1"
+          },
+          {
+            "action": "expectText",
+            "selector": "button.nav-item[aria-label=\"Pull requests\"]",
+            "value": "",
+            "expected": "Pull requests 0"
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Check presence of setup required in header pill and inline setup hint",
+        "purpose": "Verify that the header pill shows 'Setup required' and inline setup hint is visible on initial page load",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span.connection-pill.disconnected",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "div.setup-inline",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "div.setup-inline span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          }
+        ]
+      },
+      {
+        "title": "Review form buttons and inputs disabled state on initial load",
+        "purpose": "Assert that buttons for indexing, analyzing, and generating tests are disabled initially and input placeholders are correct",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "input#pr-url",
+            "value": "placeholder",
+            "expected": "https://github.com/owner/repo or /pull/42"
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.text-button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Confirm empty diff watermark and disabled clear diff button",
+        "purpose": "Ensure the diff editor watermark text is shown and clear diff button is disabled if no diff content provided",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "div.editor-watermark span",
+            "value": "Waiting for a diff",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.text-button:has-text(\"Clear diff\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Validate Review findings panel showing no findings prompt",
+        "purpose": "Check that before any review is run, the review findings panel shows appropriate empty state text",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.results-panel.panel div.empty-state strong",
+            "value": "",
+            "expected": "Your review starts here"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.results-panel.panel div.empty-state p",
+            "value": "",
+            "expected": "Analyze a pull request or diff to see\nevidence-linked findings."
+          },
+          {
+            "action": "expectText",
+            "selector": "div.empty-state-footer span.state-pending",
+            "value": "",
+            "expected": "waiting"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9458,
+      "outputTokens": 725,
+      "totalTokens": 10183
+    }
+  }
+}

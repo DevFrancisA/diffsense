@@ -1,0 +1,106 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify evaluation metric cohort text before patch",
+      "purpose": "Ensure that the PRECISION · WITH CONTEXT metric foot text includes the number of BugsJS cases and number of runs as before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".metric-cell",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) .metric-foot",
+          "value": "",
+          "expected": "30 BugsJS cases · 3 runs"
+        }
+      ]
+    },
+    {
+      "title": "Verify evaluation metric cohort foot includes runs count",
+      "purpose": "Check that the metric foot text for PRECISION · WITH CONTEXT shows the count of runs in addition to BugsJS cases pre-patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) .metric-foot",
+          "value": "",
+          "expected": "30 BugsJS cases · 3 runs"
+        }
+      ]
+    },
+    {
+      "title": "Validate Regression Catch Rate metric details text before patch",
+      "purpose": "Ensure the regression catch rate metric foot text includes seeded cases and invalid plans count as text.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell.metric-last .metric-foot",
+          "value": "",
+          "expected": "1/40 seeded · 38 invalid plans"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and verify unified diff text before patch",
+      "purpose": "Click the Load example diff button and verify that the Unified diff textbox contains error message string from sample diff pre-patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Ensure Analyze change button is disabled without API ready and input",
+      "purpose": "Check that the Analyze change button is disabled when API is not ready and no pull request URL or diff is entered.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button[type=submit]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

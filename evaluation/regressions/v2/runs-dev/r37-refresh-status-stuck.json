@@ -1,0 +1,130 @@
+{
+  "id": "r37-refresh-status-stuck",
+  "role": "breaking",
+  "intendedBreak": "Refresh status leaves the pill stuck on Checking setup",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 10200,
+      "outputTokens": 513,
+      "totalTokens": 10713
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Footer status and refresh button functionality",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('footer .page-footer span:nth-child(2)')\nExpected substring: \"Pipeline status: not configured\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('footer .page-footer span:nth-child(2)') with timeout 5000ms\n  - waiting for locator('footer .page-footer span:nth-child(2)')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Index repository context button disabled state with no PR URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Analyze change button disabled state when API not ready and no diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Setup required indication visible when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Review findings panel empty state text",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel p')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Footer status and refresh button functionality",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('footer .page-footer span:nth-child(2)')\nExpected substring: \"Pipeline status: not configured\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('footer .page-footer span:nth-child(2)') with timeout 5000ms\n  - waiting for locator('footer .page-footer span:nth-child(2)')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Index repository context button disabled state with no PR URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Analyze change button disabled state when API not ready and no diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Setup required indication visible when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Review findings panel empty state text",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel p')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Index repository context button disabled state with no PR URL",
+    "generated plan: 3. Analyze change button disabled state when API not ready and no diff",
+    "generated plan: 4. Setup required indication visible when API not ready"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Index repository context button disabled state with no PR URL",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Analyze change button disabled state when API not ready and no diff",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Setup required indication visible when API not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:09:08.912Z"
+}

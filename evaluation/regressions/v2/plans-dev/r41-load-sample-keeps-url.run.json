@@ -1,0 +1,94 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Load example diff clears pull request URL",
+      "purpose": "Verify that clicking 'Load example diff' resets the unified diff and clears the pull request URL input to empty string, asserting pre-patch behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "input#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "Invoice not found",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "2. Setup required and disabled buttons with API not ready",
+      "purpose": "Verify initial UI shows 'Setup required' pill, inline setup hint, and disabled repository index, analyze change, and generate plan buttons when API is not ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span:has-text(\"Configure OPENAI_API_KEY and DATABASE_URL\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "5. Disabled state on clear diff button when no diff loaded",
+      "purpose": "Verify the 'Clear diff' button is disabled initially when no diff is loaded, preventing clearing empty content.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

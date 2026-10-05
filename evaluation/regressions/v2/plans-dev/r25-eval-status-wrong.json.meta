@@ -1,0 +1,111 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Check evaluation status panel shows 'Results saved' when evaluation data is available",
+        "purpose": "Verify that when evaluation data is available, the evaluation status text displays 'Results saved' as expected before the patch changes it.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".evaluation-status",
+            "value": "",
+            "expected": "Results saved"
+          }
+        ]
+      },
+      {
+        "title": "Load example diff and verify diff editor contains sample text",
+        "purpose": "Confirm that loading the example diff populates the unified diff textarea with expected sample text including 'Invoice not found'.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Verify 'Generate Playwright plan' button is disabled initially",
+        "purpose": "Ensure that the 'Generate Playwright plan' button is disabled if no diff or pull request URL is provided and apiReady is not true, consistent with pre-patch behavior.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify 'Analyze change' button is disabled without valid inputs or apiReady",
+        "purpose": "Confirm that the 'Analyze change' button is disabled when pull request URL is empty or apiReady is not true, matching pre-patch behavior.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Check topbar connection pill text shows 'Setup required' when apiReady is false",
+        "purpose": "Validate that the header pill displays 'Setup required' when the API is not ready, consistent with the state before the patch.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".connection-pill.disconnected",
+            "value": "",
+            "expected": "Setup required"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8762,
+      "outputTokens": 452,
+      "totalTokens": 9214
+    }
+  }
+}

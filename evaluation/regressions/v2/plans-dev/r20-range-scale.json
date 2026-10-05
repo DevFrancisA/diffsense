@@ -1,0 +1,106 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify evaluation metric precision range text formatting",
+      "purpose": "Confirm that the precision range in evaluation metrics section is displayed using original formatting multiplying max by 100 (not 10)",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        }
+      ]
+    },
+    {
+      "title": "Validate recall range text formatting in evaluation metrics",
+      "purpose": "Ensure recall range shows original formatting with max multiplied by 100, not 10",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        }
+      ]
+    },
+    {
+      "title": "Ensure 'Setup required' connection pill is visible when API not ready",
+      "purpose": "Check that the header pill displays 'Setup required' when apiReady is false (pre patch behavior)",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Check buttons are disabled due to lack of configuration",
+      "purpose": "Verify that 'Index repository context', 'Analyze change', and 'Generate Playwright plan' buttons are disabled before configuration is done",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Index repository context')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Analyze change')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text('Generate Playwright plan')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Validate inline setup hint is visible when API is not ready",
+      "purpose": "Confirm that the inline hint 'Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.' is visible when apiReady is false",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

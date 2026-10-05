@@ -1,0 +1,88 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify initial state of diff editor watermark with empty diff",
+      "purpose": "Ensure that when no diff is loaded, the editor watermark with text 'Waiting for a diff' is visible exactly as before the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".diff-editor .editor-watermark",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".diff-editor .editor-watermark span",
+          "value": "Waiting for a diff",
+          "expected": "Waiting for a diff"
+        }
+      ]
+    },
+    {
+      "title": "Verify Clear diff button is disabled when diff is empty",
+      "purpose": "Ensure that the Clear diff button is disabled if the diff textarea is empty, confirming unchanged behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:text('Clear diff')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify Run button disabled state with empty diff and empty URL and not ready API",
+      "purpose": "Verify that the Analyze change (Run) button is disabled when both diff and pull request URL inputs are empty and apiReady is false, matching the previous behavior exactly.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify setup inline message when API not ready",
+      "purpose": "Confirm that when apiReady is false, the inline setup message containing exact text about configuring OPENAI_API_KEY and DATABASE_URL is visible as before the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span",
+          "value": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

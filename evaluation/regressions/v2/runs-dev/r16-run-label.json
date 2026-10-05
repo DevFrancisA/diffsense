@@ -1,0 +1,130 @@
+{
+  "id": "r16-run-label",
+  "role": "breaking",
+  "intendedBreak": "Analyze button label changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9181,
+      "outputTokens": 614,
+      "totalTokens": 9795
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial page setup required indication and disabled review controls",
+          "status": "failed",
+          "failedStep": "plan step 4: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\"Analyze change ⌘ ↵\")')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Analyze change ⌘ ↵\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Analyze change ⌘ ↵\")')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check review run button label text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Validate sample diff loading displays expected invoice API diff text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify evaluation metrics initial values",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify 'Clear diff' button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial page setup required indication and disabled review controls",
+          "status": "failed",
+          "failedStep": "plan step 4: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button:has-text(\"Analyze change ⌘ ↵\")')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button:has-text(\"Analyze change ⌘ ↵\")') with timeout 5000ms\n  - waiting for locator('button:has-text(\"Analyze change ⌘ ↵\")')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check review run button label text before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Validate sample diff loading displays expected invoice API diff text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify evaluation metrics initial values",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell:nth-of-type(1) strong')\nExpected substring: \"94.4–100.0%\"\nReceived string:    \"—%\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell:nth-of-type(1) strong') with timeout 5000ms\n  - waiting for locator('.metric-cell:nth-of-type(1) strong')\n    14 × locator resolved to <strong>…</strong>\n       - unexpected value \"—%\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify 'Clear diff' button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Check review run button label text before patch",
+    "generated plan: 3. Validate sample diff loading displays expected invoice API diff text",
+    "generated plan: 5. Verify 'Clear diff' button is disabled initially"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 2. Check review run button label text before patch",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('button.run-button')\nExpected substring: \"Analyze change⌘ ↵\"\nReceived string:    \"Analyze⌘ ↵\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('button.run-button') with timeout 5000ms\n  - waiting for locator('button.run-button')\n    14 × locator resolved to <button disabled type=\"submit\" class=\"run-button\">…</button>\n       - unexpected value \"Analyze⌘ ↵\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Validate sample diff loading displays expected invoice API diff text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify 'Clear diff' button is disabled initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:00:15.344Z"
+}

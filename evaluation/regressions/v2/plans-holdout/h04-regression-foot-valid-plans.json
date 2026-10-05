@@ -1,0 +1,58 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify regression catch rate metric and label before patch",
+      "purpose": "Check that the Regression Catch Rate metric shows 2.5% and the footnote uses '38 invalid plans' exactly as before the patch, reflecting pre-change evaluation display.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell.metric-last .metric-label",
+          "value": "",
+          "expected": "REGRESSION CATCH RATE"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell.metric-last strong",
+          "value": "",
+          "expected": "2.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell.metric-last .metric-foot",
+          "value": "",
+          "expected": "1/40 seeded · 38 invalid plans"
+        }
+      ]
+    },
+    {
+      "title": "Check inline setup message when API is not ready",
+      "purpose": "Validate that the inline setup message shows 'Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.' when apiReady is false, confirming pre-patch messaging correctness.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

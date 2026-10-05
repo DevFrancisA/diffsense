@@ -1,0 +1,130 @@
+{
+  "scenarios": [
+    {
+      "title": "Topbar breadcrumb shows dynamic workspace path",
+      "purpose": "Verify that the breadcrumb text dynamically updates to reflect the active view name in the workspace header.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "header.topbar > div.breadcrumbs > strong",
+          "value": "",
+          "expected": "Review desk"
+        }
+      ]
+    },
+    {
+      "title": "Topbar connection pill shows setup required when apiReady false",
+      "purpose": "Check that the connection pill text reads 'Setup required' when the API is not ready and relevant environment variables are not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "Buttons for repository context indexing and analysis are disabled when no API ready",
+      "purpose": "Assert that the 'Index repository context', 'Analyze change', and 'Generate Playwright plan' buttons are disabled when the API is not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Display of evaluation metrics with stored numbers when no API ready",
+      "purpose": "Verify the displayed evaluation metric ranges match the stored pre-change values when API is not configured.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(4) strong",
+          "value": "",
+          "expected": "—"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff populates unified diff text area",
+      "purpose": "Test the Load example diff button inserts the sample diff including 'Invoice not found' text in the unified diff textbox.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    }
+  ]
+}

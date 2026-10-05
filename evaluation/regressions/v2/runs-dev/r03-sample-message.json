@@ -1,0 +1,122 @@
+{
+  "id": "r03-sample-message",
+  "role": "breaking",
+  "intendedBreak": "Example diff content changes",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8269,
+      "outputTokens": 809,
+      "totalTokens": 9078
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify inline setup message and disabled buttons with missing API key and DB URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check empty review findings panel before any review",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel.panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel p",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Load example diff and verify diff textarea content and changed files count",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.diff-label-right span:nth-child(1)')\nExpected substring: \"1 files\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('div.diff-label-right span:nth-child(1)') with timeout 5000ms\n  - waiting for locator('div.diff-label-right span:nth-child(1)')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Check presence of metrics strip with stored evaluation summary values",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify Edit buttons and text in Review desk navigation and workspace labels",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('nav.primary-nav button[aria-label=\\'Review desk\\'] span')\nExpected substring: \"Review desk\"\nError: strict mode violation: locator('nav.primary-nav button[aria-label=\\'Review desk\\'] span') resolved to 2 elements:\n    1) <span>Review desk</span> aka getByRole('button', { name: 'Review desk' })\n    2) <span class=\"nav-key\">1</span> aka getByRole('button', { name: 'Review desk' })\n\nCall log:\n  - Expect \"toContainText\" locator('nav.primary-nav button[aria-label=\\'Review desk\\'] span') with timeout 5000ms\n  - waiting for locat",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify inline setup message and disabled buttons with missing API key and DB URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check empty review findings panel before any review",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel.panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel p",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Load example diff and verify diff textarea content and changed files count",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.diff-label-right span:nth-child(1)')\nExpected substring: \"1 files\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('div.diff-label-right span:nth-child(1)') with timeout 5000ms\n  - waiting for locator('div.diff-label-right span:nth-child(1)')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Check presence of metrics strip with stored evaluation summary values",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify Edit buttons and text in Review desk navigation and workspace labels",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('nav.primary-nav button[aria-label=\\'Review desk\\'] span')\nExpected substring: \"Review desk\"\nError: strict mode violation: locator('nav.primary-nav button[aria-label=\\'Review desk\\'] span') resolved to 2 elements:\n    1) <span>Review desk</span> aka getByRole('button', { name: 'Review desk' })\n    2) <span class=\"nav-key\">1</span> aka getByRole('button', { name: 'Review desk' })\n\nCall log:\n  - Expect \"toContainText\" locator('nav.primary-nav button[aria-label=\\'Review desk\\'] span') with timeout 5000ms\n  - waiting for locat",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify inline setup message and disabled buttons with missing API key and DB URL",
+    "generated plan: 4. Check presence of metrics strip with stored evaluation summary values"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify inline setup message and disabled buttons with missing API key and DB URL",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Check presence of metrics strip with stored evaluation summary values",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:53:33.662Z"
+}

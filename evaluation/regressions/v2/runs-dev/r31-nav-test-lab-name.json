@@ -1,0 +1,121 @@
+{
+  "id": "r31-nav-test-lab-name",
+  "role": "breaking",
+  "intendedBreak": "Test lab breadcrumb shows the wrong name",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 4,
+    "dropped": [
+      {
+        "title": "Verify navigation button labels and states on initial load",
+        "reason": "Too big: expected array to have <=12 items"
+      }
+    ],
+    "usage": {
+      "inputTokens": 8848,
+      "outputTokens": 898,
+      "totalTokens": 9746
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check disabled state of Index and Generate Playwright plan buttons",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Validate status pill text for not configured API setup",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Review evaluation metrics display",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('text=Unmeasured')\nExpected substring: \"Unmeasured\"\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toContainText\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Check unified diff area placeholder and clear diff button disabled state",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check disabled state of Index and Generate Playwright plan buttons",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Validate status pill text for not configured API setup",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Review evaluation metrics display",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('text=Unmeasured')\nExpected substring: \"Unmeasured\"\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toContainText\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Check unified diff area placeholder and clear diff button disabled state",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Check disabled state of Index and Generate Playwright plan buttons",
+    "generated plan: 2. Validate status pill text for not configured API setup",
+    "generated plan: 4. Check unified diff area placeholder and clear diff button disabled state"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Check disabled state of Index and Generate Playwright plan buttons",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Validate status pill text for not configured API setup",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Check unified diff area placeholder and clear diff button disabled state",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:06:53.733Z"
+}

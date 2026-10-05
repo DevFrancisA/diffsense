@@ -1,0 +1,138 @@
+{
+  "id": "h11-subheading",
+  "role": "breaking",
+  "intendedBreak": "Page subheading changes",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9012,
+      "outputTokens": 613,
+      "totalTokens": 9625
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify default heading and description text on Review desk page",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.page-heading > div > div > p')\nExpected substring: \"Understand the change. Catch what matters.\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('section.page-heading > div > div > p') with timeout 5000ms\n  - waiting for locator('section.page-heading > div > div > p')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Load example diff and verify Unified diff content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Check that 'Analyze change' button is disabled without pull request URL and diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify presence and text of setup required connection pill",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate evaluation metrics section shows unmeasured review time and pre-patch statistic ranges",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify default heading and description text on Review desk page",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.page-heading > div > div > p')\nExpected substring: \"Understand the change. Catch what matters.\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('section.page-heading > div > div > p') with timeout 5000ms\n  - waiting for locator('section.page-heading > div > div > p')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Load example diff and verify Unified diff content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Check that 'Analyze change' button is disabled without pull request URL and diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify presence and text of setup required connection pill",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate evaluation metrics section shows unmeasured review time and pre-patch statistic ranges",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Load example diff and verify Unified diff content",
+    "generated plan: 3. Check that 'Analyze change' button is disabled without pull request URL and diff",
+    "generated plan: 4. Verify presence and text of setup required connection pill",
+    "generated plan: 5. Validate evaluation metrics section shows unmeasured review time and pre-patch statistic ranges"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Load example diff and verify Unified diff content",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Check that 'Analyze change' button is disabled without pull request URL and diff",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify presence and text of setup required connection pill",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Validate evaluation metrics section shows unmeasured review time and pre-patch statistic ranges",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:17:36.796Z"
+}

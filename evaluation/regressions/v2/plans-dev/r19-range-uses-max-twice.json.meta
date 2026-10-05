@@ -1,0 +1,117 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify displayed evaluation precision range before patch",
+        "purpose": "Ensure that the precision range text shows the minimum to maximum range before the patch changes it to max to max.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          }
+        ]
+      },
+      {
+        "title": "Verify displayed evaluation recall range before patch",
+        "purpose": "Ensure that the recall range text shows the minimum to maximum range before the patch changes it to max to max.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          }
+        ]
+      },
+      {
+        "title": "Verify 'Setup required' pill visible on initial load",
+        "purpose": "Check that with missing configs, the header pill reads 'Setup required' reflecting the pre-patch behavior.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          }
+        ]
+      },
+      {
+        "title": "Verify generate playwright plan button is disabled initially",
+        "purpose": "Ensure 'Generate Playwright plan' button is disabled before patch where the patch potentially affects enabling logic.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:text('Generate Playwright plan')",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify sidebar navigation main buttons and counts",
+        "purpose": "Confirm presence and initial state of main navigation buttons including pull request count '0' before any changes.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "nav.primary-nav button[aria-label='Review desk']",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "nav.primary-nav button[aria-label='Pull requests']",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav button[aria-label='Pull requests'] span.nav-count",
+            "value": "",
+            "expected": "0"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9217,
+      "outputTokens": 442,
+      "totalTokens": 9659
+    }
+  }
+}

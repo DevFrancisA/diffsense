@@ -1,0 +1,70 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Verify UI shows 'BugsJS review baseline' when evaluation results are present",
+      "purpose": "Confirm the UI displays the heading 'BugsJS review baseline' with cohort count, review model, and benchmark date matching the pre-change evaluation results data.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.evaluation-panel",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "3. Verify footer pipeline status displays 'not configured'",
+      "purpose": "Check the footer text shows 'Pipeline status: not configured' indicating the API is not ready due to missing config keys, according to the pre-change environment.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "footer.page-footer span:nth-child(2)",
+          "value": "",
+          "expected": "Pipeline status: not configured"
+        }
+      ]
+    },
+    {
+      "title": "5. Verify inline setup hint is visible",
+      "purpose": "Confirm that the inline setup hint 'Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.' is visible on the main page before configuration is done.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

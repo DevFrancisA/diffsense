@@ -1,0 +1,146 @@
+{
+  "id": "r14-index-status-placeholder",
+  "role": "breaking",
+  "intendedBreak": "Index status hint is blank",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9164,
+      "outputTokens": 425,
+      "totalTokens": 9589
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Index repository context button status and message before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Index repository context button enables with PR URL and apiReady true",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Index repository context span role=status shows default message if indexMessage is empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Index repository context span role=status updates indexMessage text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Analyze change button disabled when apiReady is false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Index repository context button status and message before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Index repository context button enables with PR URL and apiReady true",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Index repository context span role=status shows default message if indexMessage is empty",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Index repository context span role=status updates indexMessage text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Analyze change button disabled when apiReady is false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Index repository context button status and message before patch",
+    "generated plan: 2. Index repository context button enables with PR URL and apiReady true",
+    "generated plan: 3. Index repository context span role=status shows default message if indexMessage is empty",
+    "generated plan: 4. Index repository context span role=status updates indexMessage text",
+    "generated plan: 5. Analyze change button disabled when apiReady is false"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Index repository context button status and message before patch",
+        "status": "failed",
+        "failedStep": "plan step 2: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.index-context-row > span[role=status]')\nExpected substring: \"Required before the first review\"\nReceived string:    \"\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('div.index-context-row > span[role=status]') with timeout 5000ms\n  - waiting for locator('div.index-context-row > span[role=status]')\n    14 × locator resolved to <span role=\"status\"></span>\n       - unexpected value \"\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Index repository context button enables with PR URL and apiReady true",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Index repository context span role=status shows default message if indexMessage is empty",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.index-context-row > span[role=status]')\nExpected substring: \"Required before the first review\"\nReceived string:    \"\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('div.index-context-row > span[role=status]') with timeout 5000ms\n  - waiting for locator('div.index-context-row > span[role=status]')\n    14 × locator resolved to <span role=\"status\"></span>\n       - unexpected value \"\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 4. Index repository context span role=status updates indexMessage text",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.index-context-row > span[role=status]')\nExpected substring: \"Required before the first review\"\nReceived string:    \"\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('div.index-context-row > span[role=status]') with timeout 5000ms\n  - waiting for locator('div.index-context-row > span[role=status]')\n    14 × locator resolved to <span role=\"status\"></span>\n       - unexpected value \"\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 5. Analyze change button disabled when apiReady is false",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:59:22.237Z"
+}

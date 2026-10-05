@@ -1,0 +1,189 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify initial disabled state of repository and review buttons",
+        "purpose": "Ensure that without configuration, the repository context indexing and review action are disabled as expected.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Index repository context\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Analyze change\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Confirm presence of setup required pill and inline setup hint",
+        "purpose": "Validate UI elements indicating setup is required before reviews can run.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "span.connection-pill.disconnected",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "div.setup-inline span:has-text(\"Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Verify left sidebar workspace and navigation labels",
+        "purpose": "Check sidebar static UI elements for correct labels and presence.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "aside.sidebar a.brand[aria-label=\"DiffSense home\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "aside.sidebar .workspace-copy strong",
+            "value": "",
+            "expected": "Demo workspace"
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav button:has-text(\"Review desk\") > span",
+            "value": "",
+            "expected": "Review desk"
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav button:has-text(\"Pull requests\") > span",
+            "value": "",
+            "expected": "Pull requests"
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav button:has-text(\"Evaluations\") > span",
+            "value": "",
+            "expected": "Evaluations"
+          },
+          {
+            "action": "expectText",
+            "selector": "nav.primary-nav button:has-text(\"Test lab\") > span",
+            "value": "",
+            "expected": "Test lab"
+          }
+        ]
+      },
+      {
+        "title": "Validate evaluation metrics display with unmeasured review time and regression catch rate",
+        "purpose": "Confirm that evaluation metrics show expected placeholder ranges and texts before setup.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.metrics-strip .metric-cell:nth-of-type(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.metrics-strip .metric-cell:nth-of-type(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.metrics-strip .metric-cell:nth-of-type(3) strong",
+            "value": "",
+            "expected": "—"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.metrics-strip .metric-cell:nth-of-type(3) span.metric-foot span.metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.metrics-strip .metric-cell.metric-last strong",
+            "value": "",
+            "expected": "2.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.metrics-strip .metric-cell.metric-last span.metric-foot span.metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          }
+        ]
+      },
+      {
+        "title": "Verify 'Load example diff' button loads sample diff with expected content",
+        "purpose": "Ensure example diff loads and the textarea contains the indicative placeholder text from the sample.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8290,
+      "outputTokens": 765,
+      "totalTokens": 9055
+    }
+  }
+}

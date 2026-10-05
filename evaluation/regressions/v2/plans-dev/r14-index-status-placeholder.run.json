@@ -1,0 +1,106 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Index repository context button status and message before patch",
+      "purpose": "Verify that the index repository context button is disabled without a PR URL and displays the default required message",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.index-context-row > span[role=status]",
+          "value": "",
+          "expected": "Required before the first review"
+        }
+      ]
+    },
+    {
+      "title": "2. Index repository context button enables with PR URL and apiReady true",
+      "purpose": "Check button enables if PR URL typed and apiReady is true",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "3. Index repository context span role=status shows default message if indexMessage is empty",
+      "purpose": "Ensure status span shows default 'Required before the first review' text if indexMessage is empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.index-context-row > span[role=status]",
+          "value": "",
+          "expected": "Required before the first review"
+        }
+      ]
+    },
+    {
+      "title": "4. Index repository context span role=status updates indexMessage text",
+      "purpose": "Verify that the status message span text updates to indexMessage content when set is non-empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.index-context-row > span[role=status]",
+          "value": "",
+          "expected": "Required before the first review"
+        }
+      ]
+    },
+    {
+      "title": "5. Analyze change button disabled when apiReady is false",
+      "purpose": "Verify the analyze change button is disabled when apiReady is not true",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify Settings button label and aria-label before patch",
+      "purpose": "Ensure the Settings button text and aria-label remain exactly 'Settings' before applying the patch that changes them.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "button.nav-item.settings-item > span",
+          "value": "",
+          "expected": "Settings"
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "button.nav-item.settings-item",
+          "value": "aria-label",
+          "expected": "Settings"
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "button.nav-item.settings-item",
+          "value": "title",
+          "expected": "Settings"
+        }
+      ]
+    },
+    {
+      "title": "Verify Settings button usage before patch",
+      "purpose": "Check that clicking the Settings button sets the active view to 'Settings' (before patch changes label and view state).",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.nav-item.settings-item",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.breadcrumbs > strong",
+          "value": "",
+          "expected": "Settings"
+        }
+      ]
+    },
+    {
+      "title": "Verify sidebar profile text presence",
+      "purpose": "Ensure profile row text areas show 'Anto Francis' and 'Local environment' before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.profile-row strong",
+          "value": "",
+          "expected": "Anto Francis"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.profile-row small",
+          "value": "",
+          "expected": "Local environment"
+        }
+      ]
+    },
+    {
+      "title": "Verify setup required state and button disables",
+      "purpose": "Confirm 'Setup required' text and that index, analyze, generate plan buttons are disabled as per pre-patch environment.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify example diff loading and content includes 'Invoice not found'",
+      "purpose": "Click 'Load example diff' and check that the unified diff textbox contains the exact string 'Invoice not found' before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    }
+  ]
+}

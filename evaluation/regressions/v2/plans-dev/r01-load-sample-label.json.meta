@@ -1,0 +1,177 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Load page and check initial evaluation metrics and labels",
+        "purpose": "Verify displayed evaluation metrics and UI texts before patch changes the sample diff button label.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "h1",
+            "value": "",
+            "expected": "Review desk"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "text=BugsJS review baseline",
+            "value": "",
+            "expected": "BugsJS review baseline"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": "text=Unmeasured",
+            "value": "",
+            "expected": "Unmeasured"
+          }
+        ]
+      },
+      {
+        "title": "Check Load example diff button label and load diff content",
+        "purpose": "Assert the original button label 'Load example diff' and verify the loaded diff content includes original text 'Invoice not found'.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "button.button-secondary",
+            "value": "",
+            "expected": "Load example diff"
+          },
+          {
+            "action": "click",
+            "selector": "button.button-secondary",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label='Unified diff']",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Verify disabled state of repository and analysis buttons on fresh load",
+        "purpose": "Assert that the 'Index repository context', 'Analyze change', 'Clear diff', and 'Generate Playwright plan' buttons are disabled initially as setup is incomplete.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.text-button:has-text('Generate Playwright plan')",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text('Clear diff')",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Check presence of 'Setup required' pill and inline setup hint",
+        "purpose": "Confirm that the UI shows 'Setup required' status and instructs to configure OPENAI_API_KEY and DATABASE_URL for enabling reviews.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "div.setup-inline",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          }
+        ]
+      },
+      {
+        "title": "Verify that review results panel shows placeholder text initially",
+        "purpose": "Assert that before running review, the results panel instructs user to analyze a pull request or diff to see findings.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.results-panel.panel p",
+            "value": "",
+            "expected": "Issues are grounded in changed lines and repository context."
+          },
+          {
+            "action": "expectText",
+            "selector": "section.results-panel.panel .empty-state strong",
+            "value": "",
+            "expected": "Your review starts here"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.results-panel.panel .empty-state p",
+            "value": "",
+            "expected": "Analyze a pull request or diff to see evidence-linked findings."
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8416,
+      "outputTokens": 699,
+      "totalTokens": 9115
+    }
+  }
+}

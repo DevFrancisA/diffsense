@@ -1,0 +1,135 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Check evaluation metrics details on homepage",
+        "purpose": "Verify the evaluation metrics text before patch changes the cohort number display.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell .metric-foot",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell .metric-foot",
+            "value": "",
+            "expected": "30 BugsJS cases · 3 runs"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell .metric-foot",
+            "value": "",
+            "expected": "Range across 3 runs"
+          }
+        ]
+      },
+      {
+        "title": "Verify Setup Required state with environment variables missing",
+        "purpose": "Confirm that the setup required pill and inline message are visible and buttons are disabled without credentials.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectVisible",
+            "selector": ".setup-inline span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Index repository context\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Analyze change\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Check Load example diff populates diff with original sample text",
+        "purpose": "Load example diff and verify diff textarea contains pre-patch sample content including 'Invoice not found' error message.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Review findings panel default text presence",
+        "purpose": "Validate the default message in 'Review findings' panel when no review result is present, before patch changes any UI text.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".results-panel.panel h2",
+            "value": "",
+            "expected": "Review findings"
+          },
+          {
+            "action": "expectText",
+            "selector": ".results-panel.panel p",
+            "value": "",
+            "expected": "Issues are grounded in changed lines and repository context."
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 4,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9549,
+      "outputTokens": 505,
+      "totalTokens": 10054
+    }
+  }
+}

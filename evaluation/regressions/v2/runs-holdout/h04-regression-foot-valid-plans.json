@@ -1,0 +1,80 @@
+{
+  "id": "h04-regression-foot-valid-plans",
+  "role": "breaking",
+  "intendedBreak": "Regression tile reports valid plans as invalid plans",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 2,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9597,
+      "outputTokens": 276,
+      "totalTokens": 9873
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify regression catch rate metric and label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check inline setup message when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify regression catch rate metric and label before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check inline setup message when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify regression catch rate metric and label before patch",
+    "generated plan: 2. Check inline setup message when API is not ready"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify regression catch rate metric and label before patch",
+        "status": "failed",
+        "failedStep": "plan step 3: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell.metric-last .metric-foot')\nExpected substring: \"1/40 seeded · 38 invalid plans\"\nReceived string:    \"1/40 seeded · 2 invalid plans\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell.metric-last .metric-foot') with timeout 5000ms\n  - waiting for locator('.metric-cell.metric-last .metric-foot')\n    14 × locator resolved to <span class=\"metric-foot\">1/40 seeded · 2 invalid plans</span>\n       - unexpected value \"1/40 seeded · 2 invalid plans\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Check inline setup message when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:14:40.686Z"
+}

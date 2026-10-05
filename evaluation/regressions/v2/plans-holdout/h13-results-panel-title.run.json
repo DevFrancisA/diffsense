@@ -1,0 +1,94 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify initial review findings panel title text",
+      "purpose": "Ensure that before the patch, the review findings panel heading displays the exact text 'Review findings', indicating pre-change UI state.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".results-heading h2",
+          "value": "",
+          "expected": "Review findings"
+        }
+      ]
+    },
+    {
+      "title": "2. Verify review findings panel subtitle text when no result",
+      "purpose": "Check that the subtitle under the review findings heading shows the exact pre-change instructional text when no review results exist.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".results-heading p",
+          "value": "",
+          "expected": "Issues are grounded in changed lines and repository context."
+        }
+      ]
+    },
+    {
+      "title": "4. Verify presence and text of clear diff button disabled state",
+      "purpose": "Validate that the 'Clear diff' button is present and disabled when no diff content is loaded, matching pre-change behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "5. Verify that 'Analyze change' button is disabled initially and shows correct label",
+      "purpose": "Ensure the analyze button is disabled initially due to missing API readiness and diff, and the label is exactly 'Analyze change' with the keyboard shortcut shown as '⌘ ↵'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": "Analyze change⌘ ↵"
+        }
+      ]
+    }
+  ]
+}

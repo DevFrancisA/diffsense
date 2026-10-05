@@ -1,0 +1,64 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Check review run button label text before patch",
+      "purpose": "Verify that the analyze change button text is 'Analyze change' before the patch removes 'change' word.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": "Analyze change⌘ ↵"
+        }
+      ]
+    },
+    {
+      "title": "3. Validate sample diff loading displays expected invoice API diff text",
+      "purpose": "Confirm that loading the example diff inserts diff text containing the exact pre-patch snippet related to invoice API including 'Invoice not found' string.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "5. Verify 'Clear diff' button is disabled initially",
+      "purpose": "Check that the Clear diff button is disabled when no diff text is present.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

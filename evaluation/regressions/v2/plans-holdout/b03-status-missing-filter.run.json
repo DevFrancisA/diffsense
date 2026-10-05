@@ -1,0 +1,40 @@
+{
+  "scenarios": [
+    {
+      "title": "3. Check visibility of inline setup hint",
+      "purpose": "Ensure the inline setup instructions referencing OPENAI_API_KEY and DATABASE_URL are visible on the main page without config.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "main",
+          "value": "",
+          "expected": "Configure"
+        },
+        {
+          "action": "expectText",
+          "selector": "main code:nth-of-type(1)",
+          "value": "",
+          "expected": "OPENAI_API_KEY"
+        },
+        {
+          "action": "expectText",
+          "selector": "main code:nth-of-type(2)",
+          "value": "",
+          "expected": "DATABASE_URL"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "main:has-text('Configure')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

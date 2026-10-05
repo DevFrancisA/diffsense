@@ -1,0 +1,138 @@
+{
+  "id": "r19-range-uses-max-twice",
+  "role": "breaking",
+  "intendedBreak": "Metric ranges show max-max",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9217,
+      "outputTokens": 442,
+      "totalTokens": 9659
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify displayed evaluation precision range before patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell strong')\nExpected substring: \"94.4–100.0%\"\nError: strict mode violation: locator('.metric-cell strong') resolved to 4 elements:\n    1) <strong>…</strong> aka getByText('–100.0%')\n    2) <strong>…</strong> aka getByText('–30.5%')\n    3) <strong>…</strong> aka getByText('—min')\n    4) <strong>…</strong> aka getByText('—%')\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell strong') with timeout 5000ms\n  - waiting for locator('.metric-cell strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify displayed evaluation recall range before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Setup required' pill visible on initial load",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify generate playwright plan button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify sidebar navigation main buttons and counts",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify displayed evaluation precision range before patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell strong')\nExpected substring: \"94.4–100.0%\"\nError: strict mode violation: locator('.metric-cell strong') resolved to 4 elements:\n    1) <strong>…</strong> aka getByText('–100.0%')\n    2) <strong>…</strong> aka getByText('–30.5%')\n    3) <strong>…</strong> aka getByText('—min')\n    4) <strong>…</strong> aka getByText('—%')\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell strong') with timeout 5000ms\n  - waiting for locator('.metric-cell strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify displayed evaluation recall range before patch",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify 'Setup required' pill visible on initial load",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Verify generate playwright plan button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify sidebar navigation main buttons and counts",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Verify displayed evaluation recall range before patch",
+    "generated plan: 3. Verify 'Setup required' pill visible on initial load",
+    "generated plan: 4. Verify generate playwright plan button is disabled initially",
+    "generated plan: 5. Verify sidebar navigation main buttons and counts"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 2. Verify displayed evaluation recall range before patch",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell:nth-child(2) strong')\nExpected substring: \"28.8–30.5%\"\nReceived string:    \"30.5–30.5%\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell:nth-child(2) strong') with timeout 5000ms\n  - waiting for locator('.metric-cell:nth-child(2) strong')\n    - locator resolved to <strong>…</strong>\n    - unexpected value \"—%\"\n    13 × locator resolved to <strong>…</strong>\n       - unexpected value \"30.5–30.5%\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Verify 'Setup required' pill visible on initial load",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Verify generate playwright plan button is disabled initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify sidebar navigation main buttons and counts",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:01:26.875Z"
+}

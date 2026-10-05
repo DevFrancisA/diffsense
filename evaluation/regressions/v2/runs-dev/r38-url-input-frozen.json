@@ -1,0 +1,101 @@
+{
+  "id": "r38-url-input-frozen",
+  "role": "breaking",
+  "intendedBreak": "Repository URL input ignores typing",
+  "status": "invalid-plan",
+  "reason": "no scenario passed both baseline runs",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9550,
+      "outputTokens": 547,
+      "totalTokens": 10097
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify pull request URL input updates value on user typing",
+          "status": "timedOut",
+          "failedStep": "plan step 1: fill",
+          "error": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('#pr-url')\n",
+          "outcome": "action"
+        },
+        {
+          "title": "generated plan: 2. Check 'Index repository context' button disabled state depends on URL and API readiness",
+          "status": "failed",
+          "failedStep": "plan step 1: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button.index-button')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.index-button') with timeout 5000ms\n  - waiting for locator('button.index-button')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify presence of 'Context source' hint next to repository URL input",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.url-hint')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.url-hint') with timeout 5000ms\n  - waiting for locator('.url-hint')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Check 'Analyze change' button is disabled without API ready and inputs",
+          "status": "failed",
+          "failedStep": "plan step 1: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button.run-button')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.run-button') with timeout 5000ms\n  - waiting for locator('button.run-button')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Confirm inline status pill shows 'Setup required' when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('span.connection-pill')\nExpected substring: \"Setup required\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('span.connection-pill') with timeout 5000ms\n  - waiting for locator('span.connection-pill')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify pull request URL input updates value on user typing",
+          "status": "timedOut",
+          "failedStep": "plan step 1: fill",
+          "error": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('#pr-url')\n",
+          "outcome": "action"
+        },
+        {
+          "title": "generated plan: 2. Check 'Index repository context' button disabled state depends on URL and API readiness",
+          "status": "failed",
+          "failedStep": "plan step 1: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button.index-button')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.index-button') with timeout 5000ms\n  - waiting for locator('button.index-button')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Verify presence of 'Context source' hint next to repository URL input",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.url-hint')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.url-hint') with timeout 5000ms\n  - waiting for locator('.url-hint')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Check 'Analyze change' button is disabled without API ready and inputs",
+          "status": "failed",
+          "failedStep": "plan step 1: expectDisabled",
+          "error": "Error: expect(locator).toBeDisabled() failed\n\nLocator: locator('button.run-button')\nExpected: disabled\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeDisabled\" locator('button.run-button') with timeout 5000ms\n  - waiting for locator('button.run-button')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Confirm inline status pill shows 'Setup required' when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('span.connection-pill')\nExpected substring: \"Setup required\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('span.connection-pill') with timeout 5000ms\n  - waiting for locator('span.connection-pill')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T12:11:04.788Z"
+}

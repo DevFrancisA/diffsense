@@ -1,0 +1,142 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify initial setup pill and disabled buttons",
+      "purpose": "Ensure that with no API key and database URL, the UI shows 'Setup required' and disables repository and analysis buttons",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span.connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify skip test files checkbox is checked by default",
+      "purpose": "Ensure that the 'Skip findings in test files' checkbox is checked by default in the initial state",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectEnabled",
+          "selector": "input[type=checkbox][aria-label=\"Skip findings in test files\"]:checked",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify evaluation metrics are visible with stored numbers",
+      "purpose": "Check the stored evaluation summary metrics are displayed correctly on page load",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(4) strong",
+          "value": "",
+          "expected": "2.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-of-type(4)",
+          "value": "",
+          "expected": "1/40 seeded"
+        }
+      ]
+    },
+    {
+      "title": "Verify Load example diff button sets sample diff text",
+      "purpose": "Ensure that clicking 'Load example diff' populates the unified diff textarea with sample content including specific old text",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "invoice"
+        }
+      ]
+    },
+    {
+      "title": "Verify clear diff button is initially disabled",
+      "purpose": "Confirm that the 'Clear diff' button is disabled when no diff text is entered",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

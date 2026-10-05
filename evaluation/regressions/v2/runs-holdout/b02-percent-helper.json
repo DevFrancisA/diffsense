@@ -1,0 +1,124 @@
+{
+  "id": "b02-percent-helper",
+  "role": "benign",
+  "intendedBreak": "Extracts a percent helper with identical output",
+  "status": "no-alarm",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 4,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9929,
+      "outputTokens": 550,
+      "totalTokens": 10479
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Evaluation metrics display with unmeasured review time and regression catch rate",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Load example diff and verify unified diff textbox contains invoice error snippet",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Review desk navigation and active view button visually indicated",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Check disabled state of critical action buttons on initial page load",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Evaluation metrics display with unmeasured review time and regression catch rate",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Load example diff and verify unified diff textbox contains invoice error snippet",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Review desk navigation and active view button visually indicated",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Check disabled state of critical action buttons on initial page load",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Evaluation metrics display with unmeasured review time and regression catch rate",
+    "generated plan: 2. Load example diff and verify unified diff textbox contains invoice error snippet",
+    "generated plan: 3. Review desk navigation and active view button visually indicated",
+    "generated plan: 4. Check disabled state of critical action buttons on initial page load"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Evaluation metrics display with unmeasured review time and regression catch rate",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Load example diff and verify unified diff textbox contains invoice error snippet",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Review desk navigation and active view button visually indicated",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Check disabled state of critical action buttons on initial page load",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:21:41.968Z"
+}

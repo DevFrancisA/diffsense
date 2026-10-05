@@ -1,0 +1,100 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify header title in input panel before patch",
+      "purpose": "Ensure the panel title reads 'Change under review' before the patch applies",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".input-panel .panel-heading .panel-title h2",
+          "value": "",
+          "expected": "Change under review"
+        }
+      ]
+    },
+    {
+      "title": "2. Check 'Analyze change' button disabled with no API key setup",
+      "purpose": "Confirm that with missing OPENAI_API_KEY and DATABASE_URL, 'Analyze change' button is disabled",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "3. Confirm 'Index repository context' button is disabled initially",
+      "purpose": "Ensure the index context button is disabled initially when pull request URL is empty and API is not ready",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "4. Verify presence and text of setup required pill in header",
+      "purpose": "Ensure the connection pill shows 'Setup required' before patch change",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "5. Validate inline setup instructions visibility",
+      "purpose": "Confirm the inline setup hint with message about OPENAI_API_KEY and DATABASE_URL is visible and correct",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

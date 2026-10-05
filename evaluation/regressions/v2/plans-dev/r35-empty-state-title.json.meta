@@ -1,0 +1,123 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify initial empty review panel heading text",
+        "purpose": "Ensure that the review findings empty state heading text is 'Your review starts here' before the patch changes it.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.results-panel.panel .empty-state > strong",
+            "value": "",
+            "expected": "Your review starts here"
+          }
+        ]
+      },
+      {
+        "title": "Verify initial empty review panel descriptive text",
+        "purpose": "Confirm that the descriptive text of the empty review findings panel instructs to analyze a pull request or diff.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.results-panel.panel .empty-state > p",
+            "value": "",
+            "expected": "Analyze a pull request or diff to see\nevidence-linked findings."
+          }
+        ]
+      },
+      {
+        "title": "Verify unmeasured evaluation metric text",
+        "purpose": "Check initial display of evaluation metrics including unmeasured review time and regression catch rate before patch changes.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(3) .metric-foot span.metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(4) .metric-foot span.metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          }
+        ]
+      },
+      {
+        "title": "Load example diff and verify content presence",
+        "purpose": "Ensure the 'Load example diff' button loads the diff containing 'Invoice not found' before patch changes behavior.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Verify index repository context button disabled and label on empty URL",
+        "purpose": "Confirm the 'Index repository context' button is disabled with no pull request URL and shows correct status message before patch changes.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span[role=\"status\"]",
+            "value": "",
+            "expected": "Required before the first review"
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9463,
+      "outputTokens": 485,
+      "totalTokens": 9948
+    }
+  }
+}

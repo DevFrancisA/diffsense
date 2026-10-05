@@ -1,0 +1,129 @@
+{
+  "id": "b01-comment-load-sample",
+  "role": "benign",
+  "intendedBreak": "Adds a comment",
+  "status": "no-alarm",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 4,
+    "dropped": [
+      {
+        "title": "Verify presence and text of sidebar workspace label and navigation buttons",
+        "reason": "Generated test plan is missing an expected value."
+      }
+    ],
+    "usage": {
+      "inputTokens": 8561,
+      "outputTokens": 759,
+      "totalTokens": 9320
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check initial UI states and header connectivity pill",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Validate evaluation metrics display with unmeasured review time and regression catch rate",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Load example diff and check that the unified diff text area contains sample content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Ensure clear diff button is disabled initially and becomes enabled after loading a diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Check initial UI states and header connectivity pill",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Validate evaluation metrics display with unmeasured review time and regression catch rate",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Load example diff and check that the unified diff text area contains sample content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Ensure clear diff button is disabled initially and becomes enabled after loading a diff",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Check initial UI states and header connectivity pill",
+    "generated plan: 2. Validate evaluation metrics display with unmeasured review time and regression catch rate",
+    "generated plan: 3. Load example diff and check that the unified diff text area contains sample content",
+    "generated plan: 4. Ensure clear diff button is disabled initially and becomes enabled after loading a diff"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Check initial UI states and header connectivity pill",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Validate evaluation metrics display with unmeasured review time and regression catch rate",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Load example diff and check that the unified diff text area contains sample content",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Ensure clear diff button is disabled initially and becomes enabled after loading a diff",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:21:26.912Z"
+}

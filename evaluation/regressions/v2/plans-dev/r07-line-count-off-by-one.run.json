@@ -1,0 +1,88 @@
+{
+  "scenarios": [
+    {
+      "title": "2. Verify 'Index repository context' button enablement requires valid PR URL and apiReady true",
+      "purpose": "Check that the 'Index repository context' button is disabled if no PR URL or apiReady is not true before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/example/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "3. Verify header pill text and connection pill status before patch",
+      "purpose": "Confirm the header pill and connection pill show 'Setup required' and 'disconnected' when API is not ready before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "header .connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "4. Verify 'Analyze change' button default disabled state before patch",
+      "purpose": "Check that the 'Analyze change' button is disabled when pullRequestUrl is empty and API is not ready, before patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "5. Verify no actionable findings message before any review",
+      "purpose": "Ensure the review findings panel shows the empty state message when no review has been done.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".results-panel .empty-state strong",
+          "value": "",
+          "expected": "Your review starts here"
+        }
+      ]
+    }
+  ]
+}

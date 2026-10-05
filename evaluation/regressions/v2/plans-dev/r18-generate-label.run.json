@@ -1,0 +1,64 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify evaluation panel initial texts and button label before patch",
+      "purpose": "Ensure the evaluation panel shows the old heading and button label before the patch which changes the button text from 'Generate Playwright plan' to 'Generate test plan'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel button.evaluation-link",
+          "value": "",
+          "expected": "Generate Playwright plan"
+        }
+      ]
+    },
+    {
+      "title": "2. Check evaluation status text and saved results before patch",
+      "purpose": "Confirm the evaluation status reads 'Results saved' when evaluation is available, matching pre-change behavior.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel div.evaluation-status",
+          "value": "",
+          "expected": "Results saved"
+        }
+      ]
+    },
+    {
+      "title": "4. Ensure 'Analyze change' button is disabled when API not ready and inputs empty",
+      "purpose": "Validate that the analyze change button is disabled as expected before patch when API is not ready or no inputs are provided.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

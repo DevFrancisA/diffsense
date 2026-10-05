@@ -1,0 +1,138 @@
+{
+  "id": "r11-setup-hint-hidden",
+  "role": "breaking",
+  "intendedBreak": "Setup instructions disappear when setup is missing",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8950,
+      "outputTokens": 532,
+      "totalTokens": 9482
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Setup inline hint visible only when apiReady is false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Run button disabled when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Index and Generate Playwright plan buttons disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Header pill text and class when apiReady false",
+          "status": "failed",
+          "failedStep": "plan step 2: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('span.connection-pill')\nExpected: \"disconnected\"\nReceived: \"connection-pill disconnected\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('span.connection-pill') with timeout 5000ms\n  - waiting for locator('span.connection-pill')\n    14 × locator resolved to <span class=\"connection-pill disconnected\">…</span>\n       - unexpected value \"connection-pill disconnected\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Load example diff button inserts sample diff containing 'Invoice not found' text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Setup inline hint visible only when apiReady is false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Run button disabled when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Index and Generate Playwright plan buttons disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Header pill text and class when apiReady false",
+          "status": "failed",
+          "failedStep": "plan step 2: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('span.connection-pill')\nExpected: \"disconnected\"\nReceived: \"connection-pill disconnected\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('span.connection-pill') with timeout 5000ms\n  - waiting for locator('span.connection-pill')\n    14 × locator resolved to <span class=\"connection-pill disconnected\">…</span>\n       - unexpected value \"connection-pill disconnected\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Load example diff button inserts sample diff containing 'Invoice not found' text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Setup inline hint visible only when apiReady is false",
+    "generated plan: 2. Run button disabled when API is not ready",
+    "generated plan: 3. Index and Generate Playwright plan buttons disabled initially",
+    "generated plan: 5. Load example diff button inserts sample diff containing 'Invoice not found' text"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Setup inline hint visible only when apiReady is false",
+        "status": "failed",
+        "failedStep": "plan step 1: expectVisible",
+        "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.setup-inline > span')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.setup-inline > span') with timeout 5000ms\n  - waiting for locator('.setup-inline > span')\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Run button disabled when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Index and Generate Playwright plan buttons disabled initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Load example diff button inserts sample diff containing 'Invoice not found' text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:56:39.234Z"
+}

@@ -1,0 +1,138 @@
+{
+  "id": "r20-range-scale",
+  "role": "breaking",
+  "intendedBreak": "Metric range upper bound is scaled wrong",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9216,
+      "outputTokens": 472,
+      "totalTokens": 9688
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation metric precision range text formatting",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell strong')\nExpected substring: \"94.4–100.0%\"\nError: strict mode violation: locator('.metric-cell strong') resolved to 4 elements:\n    1) <strong>…</strong> aka getByText('–100.0%')\n    2) <strong>…</strong> aka getByText('–30.5%')\n    3) <strong>…</strong> aka getByText('—min')\n    4) <strong>…</strong> aka getByText('—%')\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell strong') with timeout 5000ms\n  - waiting for locator('.metric-cell strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Validate recall range text formatting in evaluation metrics",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Ensure 'Setup required' connection pill is visible when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Check buttons are disabled due to lack of configuration",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate inline setup hint is visible when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify evaluation metric precision range text formatting",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell strong')\nExpected substring: \"94.4–100.0%\"\nError: strict mode violation: locator('.metric-cell strong') resolved to 4 elements:\n    1) <strong>…</strong> aka getByText('–100.0%')\n    2) <strong>…</strong> aka getByText('–30.5%')\n    3) <strong>…</strong> aka getByText('—min')\n    4) <strong>…</strong> aka getByText('—%')\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell strong') with timeout 5000ms\n  - waiting for locator('.metric-cell strong')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Validate recall range text formatting in evaluation metrics",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Ensure 'Setup required' connection pill is visible when API not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Check buttons are disabled due to lack of configuration",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Validate inline setup hint is visible when API is not ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Validate recall range text formatting in evaluation metrics",
+    "generated plan: 3. Ensure 'Setup required' connection pill is visible when API not ready",
+    "generated plan: 4. Check buttons are disabled due to lack of configuration",
+    "generated plan: 5. Validate inline setup hint is visible when API is not ready"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 2. Validate recall range text formatting in evaluation metrics",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.metric-cell:nth-of-type(2) strong')\nExpected substring: \"28.8–30.5%\"\nReceived string:    \"28.8–3.1%\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.metric-cell:nth-of-type(2) strong') with timeout 5000ms\n  - waiting for locator('.metric-cell:nth-of-type(2) strong')\n    - locator resolved to <strong>…</strong>\n    - unexpected value \"—%\"\n    13 × locator resolved to <strong>…</strong>\n       - unexpected value \"28.8–3.1%\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Ensure 'Setup required' connection pill is visible when API not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Check buttons are disabled due to lack of configuration",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Validate inline setup hint is visible when API is not ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:01:48.536Z"
+}

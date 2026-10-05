@@ -1,0 +1,130 @@
+{
+  "id": "h17-clear-diff-clears-url",
+  "role": "breaking",
+  "intendedBreak": "Clear diff also clears the repository URL",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9615,
+      "outputTokens": 506,
+      "totalTokens": 10121
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Clear diff button resets diff and review URL",
+          "status": "failed",
+          "failedStep": "plan step 5: expectValue",
+          "error": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('input#pr-url')\nExpected: \"\"\nReceived: \"https://github.com/owner/repo\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveValue\" locator('input#pr-url') with timeout 5000ms\n  - waiting for locator('input#pr-url')\n    14 × locator resolved to <input type=\"url\" id=\"pr-url\" required=\"\" value=\"https://github.com/owner/repo\" placeholder=\"https://github.com/owner/repo or /pull/42\"/>\n       - unexpected value \"https://github.com/owner/repo\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Initial state disables Analyze change button without pull request URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Setup required status is displayed with disconnected pill",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Index repository context button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Skip findings in test files checkbox is checked by default",
+          "status": "failed",
+          "failedStep": "plan step 1: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('input[type=\"checkbox\"]')\nExpected: \"true\"\nReceived: \"\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('input[type=\"checkbox\"]') with timeout 5000ms\n  - waiting for locator('input[type=\"checkbox\"]')\n    14 × locator resolved to <input checked type=\"checkbox\"/>\n       - unexpected value \"\"\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Clear diff button resets diff and review URL",
+          "status": "failed",
+          "failedStep": "plan step 5: expectValue",
+          "error": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('input#pr-url')\nExpected: \"\"\nReceived: \"https://github.com/owner/repo\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveValue\" locator('input#pr-url') with timeout 5000ms\n  - waiting for locator('input#pr-url')\n    14 × locator resolved to <input type=\"url\" id=\"pr-url\" required=\"\" value=\"https://github.com/owner/repo\" placeholder=\"https://github.com/owner/repo or /pull/42\"/>\n       - unexpected value \"https://github.com/owner/repo\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Initial state disables Analyze change button without pull request URL",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Setup required status is displayed with disconnected pill",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Index repository context button is disabled initially",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Skip findings in test files checkbox is checked by default",
+          "status": "failed",
+          "failedStep": "plan step 1: expectAttribute",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('input[type=\"checkbox\"]')\nExpected: \"true\"\nReceived: \"\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('input[type=\"checkbox\"]') with timeout 5000ms\n  - waiting for locator('input[type=\"checkbox\"]')\n    14 × locator resolved to <input checked type=\"checkbox\"/>\n       - unexpected value \"\"\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Initial state disables Analyze change button without pull request URL",
+    "generated plan: 3. Setup required status is displayed with disconnected pill",
+    "generated plan: 4. Index repository context button is disabled initially"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 2. Initial state disables Analyze change button without pull request URL",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Setup required status is displayed with disconnected pill",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Index repository context button is disabled initially",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:20:08.483Z"
+}

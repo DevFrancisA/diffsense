@@ -1,0 +1,130 @@
+{
+  "id": "h09-breadcrumb-separator",
+  "role": "breaking",
+  "intendedBreak": "Breadcrumb separator changes",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8344,
+      "outputTokens": 369,
+      "totalTokens": 8713
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify topbar breadcrumb uses slash before patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.breadcrumbs')\nExpected substring: \"Workspace / Review desk\"\nReceived string:    \"Workspace/Review desk\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.breadcrumbs') with timeout 5000ms\n  - waiting for locator('.breadcrumbs')\n    14 × locator resolved to <div class=\"breadcrumbs\">…</div>\n       - unexpected value \"Workspace/Review desk\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify topbar breadcrumb changes after patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.breadcrumbs')\nExpected substring: \"Workspace / Review desk\"\nReceived string:    \"Workspace/Review desk\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.breadcrumbs') with timeout 5000ms\n  - waiting for locator('.breadcrumbs')\n    14 × locator resolved to <div class=\"breadcrumbs\">…</div>\n       - unexpected value \"Workspace/Review desk\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Check connection pill text presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff shows 'Invoice not found' message",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Analyze change button is disabled without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify topbar breadcrumb uses slash before patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.breadcrumbs')\nExpected substring: \"Workspace / Review desk\"\nReceived string:    \"Workspace/Review desk\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.breadcrumbs') with timeout 5000ms\n  - waiting for locator('.breadcrumbs')\n    14 × locator resolved to <div class=\"breadcrumbs\">…</div>\n       - unexpected value \"Workspace/Review desk\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Verify topbar breadcrumb changes after patch",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.breadcrumbs')\nExpected substring: \"Workspace / Review desk\"\nReceived string:    \"Workspace/Review desk\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.breadcrumbs') with timeout 5000ms\n  - waiting for locator('.breadcrumbs')\n    14 × locator resolved to <div class=\"breadcrumbs\">…</div>\n       - unexpected value \"Workspace/Review desk\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 3. Check connection pill text presence",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Load example diff shows 'Invoice not found' message",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Analyze change button is disabled without API ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 3. Check connection pill text presence",
+    "generated plan: 4. Load example diff shows 'Invoice not found' message",
+    "generated plan: 5. Analyze change button is disabled without API ready"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 3. Check connection pill text presence",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Load example diff shows 'Invoice not found' message",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Analyze change button is disabled without API ready",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:16:53.815Z"
+}

@@ -1,0 +1,130 @@
+{
+  "id": "r01-load-sample-label",
+  "role": "breaking",
+  "intendedBreak": "Example-diff button label changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8416,
+      "outputTokens": 699,
+      "totalTokens": 9115
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Load page and check initial evaluation metrics and labels",
+          "status": "failed",
+          "failedStep": "plan step 5: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('text=Unmeasured')\nExpected substring: \"Unmeasured\"\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toContainText\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check Load example diff button label and load diff content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify disabled state of repository and analysis buttons on fresh load",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Check presence of 'Setup required' pill and inline setup hint",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify that review results panel shows placeholder text initially",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel.panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel p",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Load page and check initial evaluation metrics and labels",
+          "status": "failed",
+          "failedStep": "plan step 5: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('text=Unmeasured')\nExpected substring: \"Unmeasured\"\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toContainText\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 2. Check Load example diff button label and load diff content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify disabled state of repository and analysis buttons on fresh load",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Check presence of 'Setup required' pill and inline setup hint",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Verify that review results panel shows placeholder text initially",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.results-panel.panel p')\nExpected substring: \"Issues are grounded in changed lines and repository context.\"\nError: strict mode violation: locator('section.results-panel.panel p') resolved to 2 elements:\n    1) <p>Issues are grounded in changed lines and reposito…</p> aka getByText('Issues are grounded in')\n    2) <p>…</p> aka getByText('Analyze a pull request or')\n\nCall log:\n  - Expect \"toContainText\" locator('section.results-panel.panel p') with timeout 5000ms\n  - waiting for locator('section.results-panel.panel p",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 2. Check Load example diff button label and load diff content",
+    "generated plan: 3. Verify disabled state of repository and analysis buttons on fresh load",
+    "generated plan: 4. Check presence of 'Setup required' pill and inline setup hint"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 2. Check Load example diff button label and load diff content",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('button.button-secondary')\nExpected substring: \"Load example diff\"\nReceived string:    \" Load sample diff\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('button.button-secondary') with timeout 5000ms\n  - waiting for locator('button.button-secondary')\n    14 × locator resolved to <button class=\"button-secondary\">…</button>\n       - unexpected value \" Load sample diff\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 3. Verify disabled state of repository and analysis buttons on fresh load",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Check presence of 'Setup required' pill and inline setup hint",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:52:48.862Z"
+}

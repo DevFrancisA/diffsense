@@ -1,0 +1,82 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify initial disabled state of repository and review buttons",
+      "purpose": "Ensure that without configuration, the repository context indexing and review action are disabled as expected.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Index repository context\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Analyze change\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "2. Confirm presence of setup required pill and inline setup hint",
+      "purpose": "Validate UI elements indicating setup is required before reviews can run.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline span:has-text(\"Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide.\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "5. Verify 'Load example diff' button loads sample diff with expected content",
+      "purpose": "Ensure example diff loads and the textarea contains the indicative placeholder text from the sample.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    }
+  ]
+}

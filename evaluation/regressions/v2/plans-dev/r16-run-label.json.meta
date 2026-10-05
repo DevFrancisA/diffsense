@@ -1,0 +1,153 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Verify initial page setup required indication and disabled review controls",
+        "purpose": "Ensure the application displays setup required status and disables review-related buttons when API is not ready.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "span.connection-pill",
+            "value": "",
+            "expected": "Setup required"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "div.setup-inline span",
+            "value": "",
+            "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Index repository context\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Analyze change ⌘ ↵\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button:has-text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Check review run button label text before patch",
+        "purpose": "Verify that the analyze change button text is 'Analyze change' before the patch removes 'change' word.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "button.run-button",
+            "value": "",
+            "expected": "Analyze change⌘ ↵"
+          }
+        ]
+      },
+      {
+        "title": "Validate sample diff loading displays expected invoice API diff text",
+        "purpose": "Confirm that loading the example diff inserts diff text containing the exact pre-patch snippet related to invoice API including 'Invoice not found' string.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Verify evaluation metrics initial values",
+        "purpose": "Ensure evaluation metrics show the exact expected pre-patch precision and recall ranges and unmeasured review time and regression catch rate text.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-of-type(3) span.metric-foot .metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell.metric-last span.metric-foot .metric-neutral",
+            "value": "",
+            "expected": "Unmeasured"
+          }
+        ]
+      },
+      {
+        "title": "Verify 'Clear diff' button is disabled initially",
+        "purpose": "Check that the Clear diff button is disabled when no diff text is present.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectDisabled",
+            "selector": "button.text-button:has-text(\"Clear diff\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9181,
+      "outputTokens": 614,
+      "totalTokens": 9795
+    }
+  }
+}

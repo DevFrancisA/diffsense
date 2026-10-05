@@ -1,0 +1,82 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify evaluation header and button labels before patch",
+      "purpose": "Assert the evaluation section headings and the environment notes input placeholder are as expected pre-change, to catch label changes in the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-copy h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-copy p",
+          "value": "",
+          "expected": "30 pre-labeled cases · gpt-4.1-mini · 2026-10-05"
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "input[test-environment]",
+          "value": "placeholder",
+          "expected": "Optional: how the app under test looks (signed-in user, feature flags, …)"
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "input[test-environment]",
+          "value": "aria-label",
+          "expected": "Test environment notes"
+        },
+        {
+          "action": "expectText",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": "Generate Playwright plan"
+        }
+      ]
+    },
+    {
+      "title": "Check 'Setup required' connection pill and disabled buttons pre-patch",
+      "purpose": "Ensure the topbar connection pill displays 'Setup required' and certain buttons remain disabled without configuration before the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill",
+          "value": "",
+          "expected": "Setup required"
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

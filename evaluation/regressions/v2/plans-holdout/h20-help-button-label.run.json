@@ -1,0 +1,130 @@
+{
+  "scenarios": [
+    {
+      "title": "1. Verify header help button label before patch",
+      "purpose": "Ensure the help button in header is labeled 'Help' before patch changes label to 'Support'",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectAttribute",
+          "selector": ".topbar-right > button[aria-label='Help']",
+          "value": "title",
+          "expected": "Help"
+        },
+        {
+          "action": "expectAttribute",
+          "selector": ".topbar-right > button[aria-label='Help']",
+          "value": "aria-label",
+          "expected": "Help"
+        }
+      ]
+    },
+    {
+      "title": "2. Verify header connection pill text when app is not ready",
+      "purpose": "Check that when API is not ready, the connection pill shows 'Setup required'",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".connection-pill.disconnected",
+          "value": "",
+          "expected": "Setup required"
+        }
+      ]
+    },
+    {
+      "title": "3. Verify 'Load example diff' button and unified diff placeholder",
+      "purpose": "Check that sample diff loader button exists and unified diff textarea shows correct placeholder before patch",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectAttribute",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "placeholder",
+          "expected": "Paste a unified diff here, or enter a GitHub pull request URL above.\n\nDiffSense will retrieve repository context before analyzing changed lines."
+        }
+      ]
+    },
+    {
+      "title": "4. Verify 'Analyze change' button disabled state without inputs and api ready",
+      "purpose": "Ensure the analyze change button is disabled when no PR URL and diff provided and API is not ready",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectDisabled",
+          "selector": "button.run-button:has-text('Analyze change')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "5. Verify evaluation metrics display unmeasured values and regression data",
+      "purpose": "Confirm that evaluation metrics show provided numeric ranges and regression catch rate before patch",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(3) strong",
+          "value": "",
+          "expected": "—"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(4) strong",
+          "value": "",
+          "expected": "2.5%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(4)",
+          "value": "",
+          "expected": "1/40 seeded"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "b10-css-property-order",
+  "role": "benign",
+  "intendedBreak": "Reorders two CSS declarations",
+  "status": "no-alarm",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 8290,
+      "outputTokens": 765,
+      "totalTokens": 9055
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial disabled state of repository and review buttons",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Confirm presence of setup required pill and inline setup hint",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify left sidebar workspace and navigation labels",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('nav.primary-nav button:has-text(\"Review desk\") > span')\nExpected substring: \"Review desk\"\nError: strict mode violation: locator('nav.primary-nav button:has-text(\"Review desk\") > span') resolved to 2 elements:\n    1) <span>Review desk</span> aka getByRole('button', { name: 'Review desk' })\n    2) <span class=\"nav-key\">1</span> aka getByRole('button', { name: 'Review desk' })\n\nCall log:\n  - Expect \"toContainText\" locator('nav.primary-nav button:has-text(\"Review desk\") > span') with timeout 5000ms\n  - waiting for locator('na",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Validate evaluation metrics display with unmeasured review time and regression catch rate",
+          "status": "failed",
+          "failedStep": "plan step 6: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.metrics-strip .metric-cell.metric-last span.metric-foot span.metric-neutral')\nExpected substring: \"Unmeasured\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('section.metrics-strip .metric-cell.metric-last span.metric-foot span.metric-neutral') with timeout 5000ms\n  - waiting for locator('section.metrics-strip .metric-cell.metric-last span.metric-foot span.metric-neutral')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify 'Load example diff' button loads sample diff with expected content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial disabled state of repository and review buttons",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Confirm presence of setup required pill and inline setup hint",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Verify left sidebar workspace and navigation labels",
+          "status": "failed",
+          "failedStep": "plan step 3: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('nav.primary-nav button:has-text(\"Review desk\") > span')\nExpected substring: \"Review desk\"\nError: strict mode violation: locator('nav.primary-nav button:has-text(\"Review desk\") > span') resolved to 2 elements:\n    1) <span>Review desk</span> aka getByRole('button', { name: 'Review desk' })\n    2) <span class=\"nav-key\">1</span> aka getByRole('button', { name: 'Review desk' })\n\nCall log:\n  - Expect \"toContainText\" locator('nav.primary-nav button:has-text(\"Review desk\") > span') with timeout 5000ms\n  - waiting for locator('na",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 4. Validate evaluation metrics display with unmeasured review time and regression catch rate",
+          "status": "failed",
+          "failedStep": "plan step 6: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('section.metrics-strip .metric-cell.metric-last span.metric-foot span.metric-neutral')\nExpected substring: \"Unmeasured\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('section.metrics-strip .metric-cell.metric-last span.metric-foot span.metric-neutral') with timeout 5000ms\n  - waiting for locator('section.metrics-strip .metric-cell.metric-last span.metric-foot span.metric-neutral')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: 5. Verify 'Load example diff' button loads sample diff with expected content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial disabled state of repository and review buttons",
+    "generated plan: 2. Confirm presence of setup required pill and inline setup hint",
+    "generated plan: 5. Verify 'Load example diff' button loads sample diff with expected content"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial disabled state of repository and review buttons",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 2. Confirm presence of setup required pill and inline setup hint",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Verify 'Load example diff' button loads sample diff with expected content",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:25:28.614Z"
+}

@@ -1,0 +1,146 @@
+{
+  "id": "h07-workspace-name",
+  "role": "breaking",
+  "intendedBreak": "Workspace switcher name changes",
+  "status": "detected",
+  "reason": "a surviving scenario failed an assertion on the patched app",
+  "generation": {
+    "scenarios": 5,
+    "dropped": [],
+    "usage": {
+      "inputTokens": 9116,
+      "outputTokens": 598,
+      "totalTokens": 9714
+    }
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial workspace label text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check navigation labels and button states on home page",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Validate Evaluation metrics and presence of 'BugsJS review baseline' header",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Confirm the 'Clear diff' button is initially disabled with empty diff textarea",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Assert 'Load example diff' loads sample diff containing specific text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: 1. Verify initial workspace label text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 2. Check navigation labels and button states on home page",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 3. Validate Evaluation metrics and presence of 'BugsJS review baseline' header",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 4. Confirm the 'Clear diff' button is initially disabled with empty diff textarea",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: 5. Assert 'Load example diff' loads sample diff containing specific text",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: 1. Verify initial workspace label text",
+    "generated plan: 2. Check navigation labels and button states on home page",
+    "generated plan: 3. Validate Evaluation metrics and presence of 'BugsJS review baseline' header",
+    "generated plan: 4. Confirm the 'Clear diff' button is initially disabled with empty diff textarea",
+    "generated plan: 5. Assert 'Load example diff' loads sample diff containing specific text"
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: 1. Verify initial workspace label text",
+        "status": "failed",
+        "failedStep": "plan step 1: expectText",
+        "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.workspace-copy strong')\nExpected substring: \"Demo workspace\"\nReceived string:    \"Workspace\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.workspace-copy strong') with timeout 5000ms\n  - waiting for locator('.workspace-copy strong')\n    14 × locator resolved to <strong>Workspace</strong>\n       - unexpected value \"Workspace\"\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: 2. Check navigation labels and button states on home page",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 3. Validate Evaluation metrics and presence of 'BugsJS review baseline' header",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 4. Confirm the 'Clear diff' button is initially disabled with empty diff textarea",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: 5. Assert 'Load example diff' loads sample diff containing specific text",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T12:15:45.209Z"
+}
