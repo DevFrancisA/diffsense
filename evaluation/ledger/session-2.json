@@ -1,0 +1,35 @@
+{
+  "session": "session-2",
+  "callLimit": 1000,
+  "tokenLimit": 10000000,
+  "reservedCalls": 1,
+  "completedCalls": 1,
+  "estimatedInputTokens": 48469,
+  "observedInputTokens": 35649,
+  "observedOutputTokens": 0,
+  "observedTotalTokens": 35649,
+  "byLabel": {
+    "regressions/index_embeddings": {
+      "calls": 1,
+      "totalTokens": 35649
+    }
+  },
+  "log": [
+    {
+      "at": "2026-10-05T10:30:02.297Z",
+      "label": "regressions/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 48469
+    },
+    {
+      "at": "2026-10-05T10:30:03.211Z",
+      "label": "regressions/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 35649,
+        "outputTokens": 0,
+        "totalTokens": 35649
+      }
+    }
+  ]
+}

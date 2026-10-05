@@ -1,0 +1,14 @@
+{
+  "repository": "devfrancisa/diffsense",
+  "commitSha": "33994c4d548867064ded3d4eccfa3d7d6c50ce4c",
+  "branch": "33994c4d548867064ded3d4eccfa3d7d6c50ce4c",
+  "maxFiles": 40,
+  "filesIndexed": 27,
+  "chunksIndexed": 56,
+  "embeddingUsage": {
+    "inputTokens": 35649,
+    "outputTokens": 0,
+    "totalTokens": 35649
+  },
+  "indexedAt": "2026-10-05T10:30:03.353Z"
+}

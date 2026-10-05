@@ -39,3 +39,7 @@ Scenario status:
 ## Budget
 
 OpenAI usage is recorded in `evaluation/ledger/session-2.json`. The session cap is 1,000 calls and 10M tokens, and the ledger refuses any batch that would exceed it. Estimate: 1–2 index embedding calls, then 2 calls per scenario (one retrieval embedding, one plan generation), so at most 102 calls.
+
+## Execution log
+
+- Attempt 1 (harness bug, discarded): `git apply` was spawned through a Windows shell, so the patch path (which contains spaces) was split and all 50 patches failed to apply before any plan was generated or run. No scenario outcome was observed. The only OpenAI usage was the one-time index of the base commit (1 embedding call, 35,649 tokens, recorded in the session ledger), which is reused. The 50 "patch did not apply" records were deleted, `git` is now spawned without a shell, and the run was restarted from scenario 1 with no change to scenarios, order, or definitions.

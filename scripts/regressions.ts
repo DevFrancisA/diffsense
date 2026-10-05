@@ -62,7 +62,8 @@ function credentialFreeEnv(port?: number) {
 }
 
 function run(command: string, args: string[], cwd: string, env: NodeJS.ProcessEnv = credentialFreeEnv()) {
-  const result = spawnSync(command, args, { cwd, env, encoding: "utf8", shell: isWindows, maxBuffer: 64 * 1024 * 1024 });
+  // npm/npx are .cmd shims on Windows and need a shell; git must not use one because paths contain spaces.
+  const result = spawnSync(command, args, { cwd, env, encoding: "utf8", shell: isWindows && command !== "git", maxBuffer: 64 * 1024 * 1024 });
   return { ok: result.status === 0, output: `${result.stdout ?? ""}${result.stderr ?? ""}` };
 }
 
