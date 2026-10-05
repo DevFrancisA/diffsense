@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..c5fc607 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -232,7 +232,7 @@ export default function Home() {
+         </button>
+ 
+         <div className="sidebar-spacer" />
+-        <div className="sidebar-note"><span className="note-icon"><CircleHelp size={15} /></span><span>Reviews are suggestions.<br />Verify findings before merging.</span></div>
++        <div className="sidebar-note"><span className="note-icon"><CircleHelp size={15} /></span><span>Reviews are suggestions.<br />Findings are final.</span></div>
+         <button className="nav-item settings-item" aria-label="Settings" title="Settings" onClick={() => setActiveView("Settings")}><Settings2 size={17} /><span>Settings</span></button>
+         <div className="profile-row"><span className="profile-avatar">AF</span><span className="profile-copy"><strong>Anto Francis</strong><small>Local environment</small></span><ChevronDown size={15} /></div>
+       </aside>

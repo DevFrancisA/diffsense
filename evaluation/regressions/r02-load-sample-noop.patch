@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..d493261 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -192,7 +192,7 @@ export default function Home() {
+   }
+ 
+   function loadSample() {
+-    setDiff(sampleDiff.replace("\n++++ b/", "\n+++ b/"));
++    setDiff(diff);
+     setPullRequestUrl("");
+     setResult(null);
+     setError("");

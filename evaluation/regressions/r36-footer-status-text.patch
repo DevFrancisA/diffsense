@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..f6e1764 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -301,7 +301,7 @@ export default function Home() {
+           {planError && <p className="plan-error" role="alert">{planError}</p>}
+           {generatedPlan && <section className="generated-plan panel"><div className="generated-plan-header"><div><h2>Regression test plan</h2><p>Structured Playwright actions, ready for the plan runner.</p></div><button className="button-secondary" type="button" onClick={downloadPlan}><ArrowDownToLine size={14} /> Download JSON</button></div>{generatedPlan.scenarios.map((scenario) => <article className="plan-scenario" key={scenario.title}><strong>{scenario.title}</strong><p>{scenario.purpose}</p><ol>{scenario.steps.map((step, index) => <li key={`${scenario.title}-${index}`}>{step.action.replace(/[A-Z]/g, (letter) => ` ${letter.toLowerCase()}`)}{step.selector ? ` ${step.selector}` : ""}{step.expected ? ` → ${step.expected}` : step.value ? ` → ${step.value}` : ""}</li>)}</ol></article>)}</section>}
+ 
+-          <footer className="page-footer"><span>DiffSense <b>·</b> private by default</span><span><span className="footer-online" /> Pipeline status: {apiReady ? "ready" : "not configured"}</span><button title="Refresh status" aria-label="Refresh status" onClick={() => { setApiReady(null); fetch("/api/status").then((response) => response.json()).then((status: { ready?: boolean }) => setApiReady(Boolean(status.ready))).catch(() => setApiReady(false)); }}><RefreshCw size={13} /></button></footer>
++          <footer className="page-footer"><span>DiffSense <b>·</b> private by default</span><span><span className="footer-online" /> Pipeline status: {apiReady ? "ready" : "offline"}</span><button title="Refresh status" aria-label="Refresh status" onClick={() => { setApiReady(null); fetch("/api/status").then((response) => response.json()).then((status: { ready?: boolean }) => setApiReady(Boolean(status.ready))).catch(() => setApiReady(false)); }}><RefreshCw size={13} /></button></footer>
+         </div>
+       </section>
+     </main>

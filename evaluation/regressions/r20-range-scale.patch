@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..65bfc07 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -68,7 +68,7 @@ type EvaluationSummary = {
+ 
+ function formatPercentRange(range: MetricRange) {
+   if (!range) return "—";
+-  return `${(range.min * 100).toFixed(1)}–${(range.max * 100).toFixed(1)}`;
++  return `${(range.min * 100).toFixed(1)}–${(range.max * 10).toFixed(1)}`;
+ }
+ 
+ const sampleDiff = `diff --git a/src/api/invoices/[id]/route.ts b/src/api/invoices/[id]/route.ts

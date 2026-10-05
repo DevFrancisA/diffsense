@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..19b0eb6 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -257,7 +257,7 @@ export default function Home() {
+             <div className="metric-cell"><span className="metric-label">PRECISION · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.precisionRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `${evaluation.cohort} BugsJS cases · ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
+             <div className="metric-cell"><span className="metric-label">RECALL · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.recallRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `Range across ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
+             <div className="metric-cell"><span className="metric-label">REVIEW TIME</span><strong>—<small>min</small></strong><span className="metric-foot"><span className="metric-neutral">Unmeasured</span> · paired human study pending</span></div>
+-            <div className="metric-cell metric-last"><span className="metric-label">REGRESSION CATCH RATE</span><strong>—<small>%</small></strong><span className="metric-foot"><span className="metric-neutral">Unmeasured</span> · scenarios not run</span></div>
++            <div className="metric-cell metric-last"><span className="metric-label">REGRESSION RATE</span><strong>—<small>%</small></strong><span className="metric-foot"><span className="metric-neutral">Unmeasured</span> · scenarios not run</span></div>
+           </section>
+ 
+           <form className="review-form" onSubmit={runReview}>

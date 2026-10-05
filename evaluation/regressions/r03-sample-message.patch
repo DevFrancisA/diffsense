@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..fb5e334 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -80,7 +80,7 @@ index 62e14fc..d0a31b4 100644
+    const invoice = await db.invoice.findUnique({ where: { id } });
+ ${" "}
+ +  if (!invoice) {
+-+    return Response.json({ error: "Invoice not found" }, { status: 404 });
+++    return Response.json({ error: "Invoice missing" }, { status: 404 });
+ +  }
+ +
+    return Response.json(invoice);

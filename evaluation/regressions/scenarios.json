@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 1,
+  "primaryCount": 40,
+  "note": "Order fixed before any run. Scenarios 1-40 are primary; 41-50 are reserves used strictly in order, only to replace scenarios that are invalid because of infrastructure failures.",
+  "scenarios": [
+    {
+      "id": "r01-load-sample-label",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "<Play size={15} fill=\"currentColor\" /> Load example diff</button>",
+      "replace": "<Play size={15} fill=\"currentColor\" /> Load sample diff</button>",
+      "intendedBreak": "Example-diff button label changes"
+    },
+    {
+      "id": "r02-load-sample-noop",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "setDiff(sampleDiff.replace(\"\\n++++ b/\", \"\\n+++ b/\"));",
+      "replace": "setDiff(diff);",
+      "intendedBreak": "Loading the example diff leaves the editor unchanged"
+    },
+    {
+      "id": "r03-sample-message",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "\"Invoice not found\"",
+      "replace": "\"Invoice missing\"",
+      "intendedBreak": "Example diff content changes"
+    },
+    {
+      "id": "r04-clear-diff-noop",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "onClick={() => { setDiff(\"\"); setResult(null); setError(\"\"); }} disabled={!diff}",
+      "replace": "onClick={() => { setResult(null); setError(\"\"); }} disabled={!diff}",
+      "intendedBreak": "Clear diff no longer clears the editor"
+    },
+    {
+      "id": "r05-clear-diff-disabled-inverted",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "disabled={!diff}>Clear diff",
+      "replace": "disabled={Boolean(diff)}>Clear diff",
+      "intendedBreak": "Clear diff is enabled only when the editor is empty"
+    },
+    {
+      "id": "r06-file-count-regex",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "diff.match(/^\\+\\+\\+ b\\/(.+)$/gm)",
+      "replace": "diff.match(/^\\+\\+\\+ a\\/(.+)$/gm)",
+      "intendedBreak": "Changed-file counter stays at 0"
+    },
+    {
+      "id": "r07-line-count-off-by-one",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "${diff.split(\"\\n\").length} lines",
+      "replace": "${diff.split(\"\\n\").length - 1} lines",
+      "intendedBreak": "Diff line counter is off by one"
+    },
+    {
+      "id": "r08-no-diff-label",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "\"No diff loaded\"",
+      "replace": "\"Empty\"",
+      "intendedBreak": "Empty-editor label changes"
+    },
+    {
+      "id": "r09-watermark-inverted",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "{!diff && <div className=\"editor-watermark\">",
+      "replace": "{diff && <div className=\"editor-watermark\">",
+      "intendedBreak": "Waiting-for-diff watermark shows only when a diff is loaded"
+    },
+    {
+      "id": "r10-pill-labels-swapped",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "apiReady ? \"Review engine ready\" : \"Setup required\"",
+      "replace": "apiReady ? \"Setup required\" : \"Review engine ready\"",
+      "intendedBreak": "Connection pill reports ready when setup is missing"
+    },
+    {
+      "id": "r11-setup-hint-hidden",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "{apiReady === false && <div className=\"setup-inline\">",
+      "replace": "{apiReady === true && <div className=\"setup-inline\">",
+      "intendedBreak": "Setup instructions disappear when setup is missing"
+    },
+    {
+      "id": "r12-setup-hint-env-name",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "Configure <code>OPENAI_API_KEY</code>",
+      "replace": "Configure <code>OPENAI_KEY</code>",
+      "intendedBreak": "Setup hint names the wrong environment variable"
+    },
+    {
+      "id": "r13-index-enabled-without-setup",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "disabled={indexing || !pullRequestUrl.trim() || apiReady !== true}",
+      "replace": "disabled={indexing || !pullRequestUrl.trim()}",
+      "intendedBreak": "Index button is enabled without setup"
+    },
+    {
+      "id": "r14-index-status-placeholder",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "{indexMessage || \"Required before the first review\"}",
+      "replace": "{indexMessage}",
+      "intendedBreak": "Index status hint is blank"
+    },
+    {
+      "id": "r15-run-enabled-without-setup",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "disabled={busy || !pullRequestUrl.trim() || (!diff.trim() && !pullRequestUrl.trim()) || apiReady !== true}",
+      "replace": "disabled={busy || !pullRequestUrl.trim() || (!diff.trim() && !pullRequestUrl.trim())}",
+      "intendedBreak": "Analyze button is enabled without setup"
+    },
+    {
+      "id": "r16-run-label",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "\"Reviewing change…\" : \"Analyze change\"",
+      "replace": "\"Reviewing change…\" : \"Analyze\"",
+      "intendedBreak": "Analyze button label changes"
+    },
+    {
+      "id": "r17-generate-enabled-without-setup",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "disabled={generatingTests || apiReady !== true || (!diff.trim() && !pullRequestUrl.trim())}",
+      "replace": "disabled={generatingTests || (!diff.trim() && !pullRequestUrl.trim())}",
+      "intendedBreak": "Generate-plan button is enabled without setup"
+    },
+    {
+      "id": "r18-generate-label",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "\"Generating plan…\" : \"Generate Playwright plan\"",
+      "replace": "\"Generating plan…\" : \"Generate test plan\"",
+      "intendedBreak": "Generate-plan button label changes"
+    },
+    {
+      "id": "r19-range-uses-max-twice",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "${(range.min * 100).toFixed(1)}–",
+      "replace": "${(range.max * 100).toFixed(1)}–",
+      "intendedBreak": "Metric ranges show max-max"
+    },
+    {
+      "id": "r20-range-scale",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "–${(range.max * 100).toFixed(1)}",
+      "replace": "–${(range.max * 10).toFixed(1)}",
+      "intendedBreak": "Metric range upper bound is scaled wrong"
+    },
+    {
+      "id": "r21-recall-shows-precision",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "formatPercentRange(evaluation?.withContext?.recallRange ?? null)",
+      "replace": "formatPercentRange(evaluation?.withContext?.precisionRange ?? null)",
+      "intendedBreak": "Recall cell shows the precision range"
+    },
+    {
+      "id": "r22-cohort-count",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "${evaluation.cohort} BugsJS cases",
+      "replace": "${evaluation.withContext?.runs.length} BugsJS cases",
+      "intendedBreak": "Cohort size shows the run count"
+    },
+    {
+      "id": "r23-runs-count",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "`Range across ${evaluation.withContext?.runs.length} runs`",
+      "replace": "`Range across ${evaluation.withoutContext?.length} runs`",
+      "intendedBreak": "Recall footnote shows the ablation run count"
+    },
+    {
+      "id": "r24-eval-heading-inverted",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "{evaluation?.available ? \"BugsJS review baseline\" : \"Evidence, not vibes\"}",
+      "replace": "{evaluation?.available ? \"Evidence, not vibes\" : \"BugsJS review baseline\"}",
+      "intendedBreak": "Evaluation heading is inverted"
+    },
+    {
+      "id": "r25-eval-status-wrong",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "{evaluation?.available ? \"Results saved\" :",
+      "replace": "{evaluation?.available ? \"Loading results\" :",
+      "intendedBreak": "Evaluation status says loading after results load"
+    },
+    {
+      "id": "r26-eval-subtitle-model",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "${evaluation.cohort} pre-labeled cases · ${evaluation.reviewModel} · ${evaluation.date}",
+      "replace": "${evaluation.cohort} pre-labeled cases · ${evaluation.date}",
+      "intendedBreak": "Evaluation subtitle drops the model name"
+    },
+    {
+      "id": "r27-results-file-path",
+      "role": "primary",
+      "file": "src/app/api/evaluation/results/route.ts",
+      "find": "join(process.cwd(), \"evaluation\", \"results.json\")",
+      "replace": "join(process.cwd(), \"evaluation\", \"result.json\")",
+      "intendedBreak": "Results API reads a misspelled file and reports no results"
+    },
+    {
+      "id": "r28-range-max-is-min",
+      "role": "primary",
+      "file": "src/app/api/evaluation/results/route.ts",
+      "find": "max: Math.max(...present)",
+      "replace": "max: Math.min(...present)",
+      "intendedBreak": "Results API returns min as the range maximum"
+    },
+    {
+      "id": "r29-status-always-ready",
+      "role": "primary",
+      "file": "src/app/api/status/route.ts",
+      "find": "return NextResponse.json({ ready: missing.length === 0, missing });",
+      "replace": "return NextResponse.json({ ready: true, missing });",
+      "intendedBreak": "Status API reports ready without credentials"
+    },
+    {
+      "id": "r30-nav-evaluations-wrong-view",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "onClick={() => setActiveView(\"Evaluations\")}",
+      "replace": "onClick={() => setActiveView(\"Review desk\")}",
+      "intendedBreak": "Evaluations nav item does not switch views"
+    },
+    {
+      "id": "r31-nav-test-lab-name",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "onClick={() => setActiveView(\"Test lab\")}",
+      "replace": "onClick={() => setActiveView(\"Tests\")}",
+      "intendedBreak": "Test lab breadcrumb shows the wrong name"
+    },
+    {
+      "id": "r32-settings-view-name",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "onClick={() => setActiveView(\"Settings\")}",
+      "replace": "onClick={() => setActiveView(\"Setting\")}",
+      "intendedBreak": "Settings breadcrumb is misspelled"
+    },
+    {
+      "id": "r33-breadcrumb-static",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "<strong>{activeView}</strong>",
+      "replace": "<strong>Review desk</strong>",
+      "intendedBreak": "Breadcrumb ignores the active view"
+    },
+    {
+      "id": "r34-heading-case",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "<h1>Review desk</h1>",
+      "replace": "<h1>Review Desk</h1>",
+      "intendedBreak": "Page heading text changes"
+    },
+    {
+      "id": "r35-empty-state-title",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "<strong>Your review starts here</strong>",
+      "replace": "<strong>Start a review</strong>",
+      "intendedBreak": "Empty-state title changes"
+    },
+    {
+      "id": "r36-footer-status-text",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "{apiReady ? \"ready\" : \"not configured\"}",
+      "replace": "{apiReady ? \"ready\" : \"offline\"}",
+      "intendedBreak": "Footer status text changes"
+    },
+    {
+      "id": "r37-refresh-status-stuck",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "onClick={() => { setApiReady(null); fetch(\"/api/status\").then((response) => response.json()).then((status: { ready?: boolean }) => setApiReady(Boolean(status.ready))).catch(() => setApiReady(false)); }}",
+      "replace": "onClick={() => { setApiReady(null); }}",
+      "intendedBreak": "Refresh status leaves the pill stuck on Checking setup"
+    },
+    {
+      "id": "r38-url-input-frozen",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "onChange={(event) => { setPullRequestUrl(event.target.value); setIndexMessage(\"\"); }}",
+      "replace": "onChange={() => { setIndexMessage(\"\"); }}",
+      "intendedBreak": "Repository URL input ignores typing"
+    },
+    {
+      "id": "r39-diff-textarea-frozen",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "onChange={(event) => setDiff(event.target.value)}",
+      "replace": "onChange={() => undefined}",
+      "intendedBreak": "Diff editor ignores typing"
+    },
+    {
+      "id": "r40-textarea-aria-label",
+      "role": "primary",
+      "file": "src/app/page.tsx",
+      "find": "aria-label=\"Unified diff\"",
+      "replace": "aria-label=\"Diff\"",
+      "intendedBreak": "Diff editor accessible name changes"
+    },
+    {
+      "id": "r41-load-sample-keeps-url",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "    setPullRequestUrl(\"\");\n",
+      "replace": "",
+      "intendedBreak": "Loading the example diff no longer clears the repository URL"
+    },
+    {
+      "id": "r42-step-indicator",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "<span className=\"step-indicator\"><span>02</span> / 02</span>",
+      "replace": "<span className=\"step-indicator\"><span>02</span> / 03</span>",
+      "intendedBreak": "Results step indicator shows the wrong total"
+    },
+    {
+      "id": "r43-url-field-label",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "GITHUB REPOSITORY OR PR URL <span>",
+      "replace": "REPOSITORY URL <span>",
+      "intendedBreak": "Repository field label changes"
+    },
+    {
+      "id": "r44-diff-field-label",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "<span>UNIFIED DIFF</span>",
+      "replace": "<span>DIFF</span>",
+      "intendedBreak": "Diff field label changes"
+    },
+    {
+      "id": "r45-index-button-label",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "\"Indexing repository…\" : \"Index repository context\"",
+      "replace": "\"Indexing repository…\" : \"Index repository\"",
+      "intendedBreak": "Index button label changes"
+    },
+    {
+      "id": "r46-empty-state-pending",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "Context retrieval</span><span className=\"state-pending\">waiting</span>",
+      "replace": "Context retrieval</span><span className=\"state-pending\">pending</span>",
+      "intendedBreak": "Empty-state context status text changes"
+    },
+    {
+      "id": "r47-regression-metric-label",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "REGRESSION CATCH RATE",
+      "replace": "REGRESSION RATE",
+      "intendedBreak": "Regression metric label changes"
+    },
+    {
+      "id": "r48-sidebar-note",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "Verify findings before merging.",
+      "replace": "Findings are final.",
+      "intendedBreak": "Sidebar safety note changes"
+    },
+    {
+      "id": "r49-status-missing-name",
+      "role": "reserve",
+      "file": "src/app/api/status/route.ts",
+      "find": "missing.push(\"OPENAI_API_KEY\");",
+      "replace": "missing.push(\"OPENAI_KEY\");",
+      "intendedBreak": "Status API names the wrong missing variable"
+    },
+    {
+      "id": "r50-pill-class-swapped",
+      "role": "reserve",
+      "file": "src/app/page.tsx",
+      "find": "${apiReady ? \"connected\" : \"disconnected\"}",
+      "replace": "${apiReady ? \"disconnected\" : \"connected\"}",
+      "intendedBreak": "Connection pill uses the connected style without setup"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..a39e968 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -250,7 +250,7 @@ export default function Home() {
+         <div className="page-content">
+           <section className="page-heading">
+             <div><div className="eyebrow"><span className="eyebrow-dot" />CODE INTELLIGENCE <span className="eyebrow-divider">/</span> LOCAL</div><h1>Review desk</h1><p>Understand the change. Catch what matters.</p></div>
+-            <button className="button-secondary" onClick={loadSample}><Play size={15} fill="currentColor" /> Load example diff</button>
++            <button className="button-secondary" onClick={loadSample}><Play size={15} fill="currentColor" /> Load sample diff</button>
+           </section>
+ 
+           <section className="metrics-strip" aria-label="Evaluation metrics">

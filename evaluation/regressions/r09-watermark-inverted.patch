@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..ae0cdca 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -273,7 +273,7 @@ export default function Home() {
+               <div className="diff-editor">
+                 <div className="editor-gutter"><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span></div>
+                 <textarea aria-label="Unified diff" spellCheck={false} value={diff} onChange={(event) => setDiff(event.target.value)} placeholder={'Paste a unified diff here, or enter a GitHub pull request URL above.\n\nDiffSense will retrieve repository context before analyzing changed lines.'} />
+-                {!diff && <div className="editor-watermark"><FileCode2 size={19} /><span>Waiting for a diff</span></div>}
++                {diff && <div className="editor-watermark"><FileCode2 size={19} /><span>Waiting for a diff</span></div>}
+               </div>
+               <div className="editor-footer"><span><LockKeyhole size={13} /> Diff content stays in your configured review pipeline</span><button type="button" className="text-button" onClick={() => { setDiff(""); setResult(null); setError(""); }} disabled={!diff}>Clear diff <X size={13} /></button></div>
+               <button className="run-button" type="submit" disabled={busy || !pullRequestUrl.trim() || (!diff.trim() && !pullRequestUrl.trim()) || apiReady !== true}>

@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..adcc704 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -272,7 +272,7 @@ export default function Home() {
+               <div className="field-label diff-label"><span>UNIFIED DIFF</span><span className="diff-label-right"><span>{changedFiles.length || 0} files</span><span className="label-separator">·</span><span>{diff ? `${diff.split("\n").length} lines` : "No diff loaded"}</span></span></div>
+               <div className="diff-editor">
+                 <div className="editor-gutter"><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span></div>
+-                <textarea aria-label="Unified diff" spellCheck={false} value={diff} onChange={(event) => setDiff(event.target.value)} placeholder={'Paste a unified diff here, or enter a GitHub pull request URL above.\n\nDiffSense will retrieve repository context before analyzing changed lines.'} />
++                <textarea aria-label="Unified diff" spellCheck={false} value={diff} onChange={() => undefined} placeholder={'Paste a unified diff here, or enter a GitHub pull request URL above.\n\nDiffSense will retrieve repository context before analyzing changed lines.'} />
+                 {!diff && <div className="editor-watermark"><FileCode2 size={19} /><span>Waiting for a diff</span></div>}
+               </div>
+               <div className="editor-footer"><span><LockKeyhole size={13} /> Diff content stays in your configured review pipeline</span><button type="button" className="text-button" onClick={() => { setDiff(""); setResult(null); setError(""); }} disabled={!diff}>Clear diff <X size={13} /></button></div>

@@ -1,0 +1,13 @@
+diff --git a/src/app/api/evaluation/results/route.ts b/src/app/api/evaluation/results/route.ts
+index f332de2..28065be 100644
+--- a/src/app/api/evaluation/results/route.ts
++++ b/src/app/api/evaluation/results/route.ts
+@@ -33,7 +33,7 @@ const resultsSchema = z.object({
+ function getRange(values: (number | null)[]) {
+   const present = values.filter((value): value is number => value !== null && Number.isFinite(value));
+   if (present.length === 0) return null;
+-  return { min: Math.min(...present), max: Math.max(...present) };
++  return { min: Math.min(...present), max: Math.min(...present) };
+ }
+ 
+ export async function GET() {

@@ -1,0 +1,13 @@
+diff --git a/src/app/api/evaluation/results/route.ts b/src/app/api/evaluation/results/route.ts
+index f332de2..daaea7e 100644
+--- a/src/app/api/evaluation/results/route.ts
++++ b/src/app/api/evaluation/results/route.ts
+@@ -38,7 +38,7 @@ function getRange(values: (number | null)[]) {
+ 
+ export async function GET() {
+   try {
+-    const contents = await readFile(join(process.cwd(), "evaluation", "results.json"), "utf8");
++    const contents = await readFile(join(process.cwd(), "evaluation", "result.json"), "utf8");
+     const results = resultsSchema.parse(JSON.parse(contents));
+     return NextResponse.json({
+       available: true,

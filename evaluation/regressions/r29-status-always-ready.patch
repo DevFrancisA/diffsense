@@ -1,0 +1,11 @@
+diff --git a/src/app/api/status/route.ts b/src/app/api/status/route.ts
+index 6d3314a..0103e49 100644
+--- a/src/app/api/status/route.ts
++++ b/src/app/api/status/route.ts
+@@ -16,5 +16,5 @@ export async function GET() {
+     }
+   }
+ 
+-  return NextResponse.json({ ready: missing.length === 0, missing });
++  return NextResponse.json({ ready: true, missing });
+ }

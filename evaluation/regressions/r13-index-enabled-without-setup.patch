@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..a834f81 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -268,7 +268,7 @@ export default function Home() {
+               </div>
+               <label className="field-label" htmlFor="pr-url">GITHUB REPOSITORY OR PR URL <span>REQUIRED FOR CONTEXT</span></label>
+               <div className="url-field"><GitFork size={17} /><input id="pr-url" type="url" required placeholder="https://github.com/owner/repo or /pull/42" value={pullRequestUrl} onChange={(event) => { setPullRequestUrl(event.target.value); setIndexMessage(""); }} /><span className="url-hint">Context source</span></div>
+-              <div className="index-context-row"><button className="index-button" type="button" onClick={indexContext} disabled={indexing || !pullRequestUrl.trim() || apiReady !== true}>{indexing ? <LoaderCircle size={13} className="spin" /> : <RefreshCw size={13} />}{indexing ? "Indexing repository…" : "Index repository context"}</button><span role="status">{indexMessage || "Required before the first review"}</span></div>
++              <div className="index-context-row"><button className="index-button" type="button" onClick={indexContext} disabled={indexing || !pullRequestUrl.trim()}>{indexing ? <LoaderCircle size={13} className="spin" /> : <RefreshCw size={13} />}{indexing ? "Indexing repository…" : "Index repository context"}</button><span role="status">{indexMessage || "Required before the first review"}</span></div>
+               <div className="field-label diff-label"><span>UNIFIED DIFF</span><span className="diff-label-right"><span>{changedFiles.length || 0} files</span><span className="label-separator">·</span><span>{diff ? `${diff.split("\n").length} lines` : "No diff loaded"}</span></span></div>
+               <div className="diff-editor">
+                 <div className="editor-gutter"><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span><span>⋯</span></div>

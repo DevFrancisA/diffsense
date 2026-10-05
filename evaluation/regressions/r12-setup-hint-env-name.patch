@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..b177b62 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -279,7 +279,7 @@ export default function Home() {
+               <button className="run-button" type="submit" disabled={busy || !pullRequestUrl.trim() || (!diff.trim() && !pullRequestUrl.trim()) || apiReady !== true}>
+                 {busy ? <LoaderCircle size={16} className="spin" /> : <Sparkles size={16} />}{busy ? "Reviewing change…" : "Analyze change"}<span className="run-shortcut">⌘ ↵</span>
+               </button>
+-              {apiReady === false && <div className="setup-inline"><AlertCircle size={15} /><span>Configure <code>OPENAI_API_KEY</code> and <code>DATABASE_URL</code> to enable reviews. See the setup guide.</span></div>}
++              {apiReady === false && <div className="setup-inline"><AlertCircle size={15} /><span>Configure <code>OPENAI_KEY</code> and <code>DATABASE_URL</code> to enable reviews. See the setup guide.</span></div>}
+               {error && <div className="error-inline" role="alert"><AlertCircle size={15} /><span>{error}</span></div>}
+             </section>
+ 

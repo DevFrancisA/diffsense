@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 95fb7fb..8511c1e 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -294,7 +294,7 @@ export default function Home() {
+ 
+           <section className="evaluation-panel panel">
+             <div className="evaluation-copy"><span className="evaluation-mark"><Activity size={16} /></span><div><h2>{evaluation?.available ? "BugsJS review baseline" : "Evidence, not vibes"}</h2><p>{evaluation?.available ? `${evaluation.cohort} pre-labeled cases · ${evaluation.reviewModel} · ${evaluation.date}` : "Score reviews against labeled defects and seeded regressions."}</p></div></div>
+-            <div className="evaluation-status"><span className="status-dot" />{evaluation?.available ? "Results saved" : evaluation ? "No results yet" : "Loading results"}</div>
++            <div className="evaluation-status"><span className="status-dot" />{evaluation?.available ? "Loading results" : evaluation ? "No results yet" : "Loading results"}</div>
+             <button className="text-button evaluation-link" type="button" onClick={generateTests} disabled={generatingTests || apiReady !== true || (!diff.trim() && !pullRequestUrl.trim())}>{generatingTests ? <LoaderCircle size={13} className="spin" /> : <ShieldCheck size={14} />}{generatingTests ? "Generating plan…" : "Generate Playwright plan"}</button>
+           </section>
+ 
