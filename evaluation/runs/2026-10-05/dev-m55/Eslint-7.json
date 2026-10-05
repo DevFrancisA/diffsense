@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-7",
+  "project": "Eslint",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "09594ef29673c206641d291ff5d0f45c6e03716b",
+  "buggySha": "311295c6f8867b83263a9fe8744809b0c56b8c28",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "6cadc88a0b9ed316e487abece6b3d31185165a517dd68e1cd48e6a274c79258d",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "09594ef29673c206641d291ff5d0f45c6e03716b",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 111,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "781edebbfd16694e743e9972acf4e6938ffb6f3965bdf1f789d315df06f8d944"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "1ea05e45143703e66005acbd9285367376105100da64aca91fb4e7df5df0f5ca"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "1ba80027c7817a8ecdf4233790eb60c5212186b564b8a42ab9af47e391992e12"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "00cd6a559616a267da5a5cff7904f031ed5b6b4c275654c1c1a0ce3e7c95bc0b"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "c4eed0ad1fd072e94eb880efa64242188eaeba21d252a8d75d911d8ad5fedde1"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "3b403ee7e13deb3e3ada242bbd377577877e19705c238a1080bec38129b9d58d"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "f97c8f20d28a031fc8d6a7ef368d17225f1a131b8fec0184d15c27f86e68d139"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "76b5fef49b7ffe70b08031fdb3b8e40712f6cf0f317e6228d11c5558037d2bb2"
+      },
+      {
+        "path": "lib/rules/dot-location.js",
+        "contentSha256": "faac2349c32780d387546b5b259f997b09453086d31f0a284ce7ef46904890dc"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5843,
+          "outputTokens": 6000,
+          "totalTokens": 11843
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

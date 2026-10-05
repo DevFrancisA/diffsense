@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-3",
+  "project": "Hexo",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "343cd322092d7b9bc6f6a24935df169bec3ee15e",
+  "buggySha": "7c7674ef214ae4217991b2dce13421e057721133",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "4a57fd7f480cad3342f3196632abfdfbd247373e30188066d6cfcdd6685bdaa4",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.4-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "343cd322092d7b9bc6f6a24935df169bec3ee15e",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 68,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/plugins/helper/is.js",
+        "contentSha256": "a62d89000cfc56492fb551dd622574d19f8bd696e05ad5b962ae92ee17f5fb9b"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/load_config.js",
+        "contentSha256": "f39c6e2ce43bc982aaf854521637c02b068c0dba4b851a37ce0bd2ed3f84b4c6"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "d00d467e06e5d5e17c7e8ae8d6781feb2a8fe6a84724f878238c2a50eb4de7b7"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "45a3d2044ff3ff1f38d0827dbaf76f9b7150772ac977e7544a666c16649e3d28"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "c8923abd8c314842ce9e0d4b0cf56d863be97f335c5ad8234c6cd201a4509204"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "fabc49655553974aec0a00904ce0142dd3dd9b9f5b35f482a3f0f30512431910"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "35352991f07403833ec99cdffa2962bc07d150c58b4896f1f3dc17ae9557b1e2"
+      },
+      {
+        "path": "lib/cli/find_pkg.js",
+        "contentSha256": "54a84707ff3bfa264b2907f0719359ba4f9676bd2154ecd1e4b85607ddaec3a8"
+      },
+      {
+        "path": "lib/hexo/default_config.js",
+        "contentSha256": "e36fb58f57bd901b3bd261ea84ab08e5f53f37fc3a869558e5cd443483819085"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.4-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 4730,
+          "outputTokens": 184,
+          "totalTokens": 4914
+        },
+        "rawFindings": [
+          {
+            "title": "Pagination pages without a trailing slash no longer count as home pages",
+            "severity": "high",
+            "file": "lib/plugins/helper/is.js",
+            "line": 32,
+            "explanation": "The new regex only matches paths like `page/2/` and no longer matches the canonical rendered path `page/2/index.html`. As a result, `is_home()` returns false on actual paginated home pages when `this.path` includes the file name.",
+            "suggestion": "Restore support for the `index.html` suffix, e.g. make the regex accept `(?:index\\.html)?$` or normalize `this.path` before testing.",
+            "failureAfterChange": "With `pagination_dir = 'page'` and `this.path = 'page/2/index.html'`, `is.home()` now returns false instead of true.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Pagination pages without a trailing slash no longer count as home pages",
+            "severity": "high",
+            "file": "lib/plugins/helper/is.js",
+            "line": 32,
+            "explanation": "The new regex only matches paths like `page/2/` and no longer matches the canonical rendered path `page/2/index.html`. As a result, `is_home()` returns false on actual paginated home pages when `this.path` includes the file name.",
+            "suggestion": "Restore support for the `index.html` suffix, e.g. make the regex accept `(?:index\\.html)?$` or normalize `this.path` before testing.",
+            "failureAfterChange": "With `pagination_dir = 'page'` and `this.path = 'page/2/index.html'`, `is.home()` now returns false instead of true.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

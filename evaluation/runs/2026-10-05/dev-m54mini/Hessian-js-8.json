@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-8",
+  "project": "Hessian.js",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "ed102d096883428073795c61777b57efabef8517",
+  "buggySha": "dd8a485d524c96d20b0384e7d81da3ff9b3bfd16",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c7319e595024a922d28a64bcc8cfaabd83b130ced617741cb128ced2d7525944",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.4-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "ed102d096883428073795c61777b57efabef8517",
+    "maxFiles": 40,
+    "filesIndexed": 26,
+    "chunksIndexed": 119,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/utils.js",
+        "contentSha256": "b3fcf6e8ce30b8d032f1cd12dade9007049a786ffce99b667fe62580bcd723b0"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "13ca45f66540e4e864a83c1fd9b67778a547a8d36afcb37039547c8948383731"
+      },
+      {
+        "path": "test/int.test.js",
+        "contentSha256": "34253e0410f4eff4788d891788e0f44524493d11c464229bc6e1f70c7393a990"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "50fd2a49fb9029d5df52fa832b44a42379ee7346441584bd5a9faa85f0943cc2"
+      },
+      {
+        "path": "test/int.test.js",
+        "contentSha256": "ce275a01d09e98e01adf919c9c5f8a5b3b6b2978f0286014e031d52b6c802688"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "a813f66daa456ee1278de020c7ee3ef976c17ca53498870a524683b93a155b50"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "1e7027830c72bb343821364148791c6b83003bbe78650a1067ef9313f408e2c3"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "9f60d491b453e592f5ab65bae8b81ade43227a360bbbe000f53efc1c3bb5bbfb"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.4-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 9917,
+          "outputTokens": 234,
+          "totalTokens": 10151
+        },
+        "rawFindings": [
+          {
+            "title": "Unsafe longs above 2^53 are now misclassified as safe",
+            "severity": "high",
+            "file": "lib/utils.js",
+            "line": 45,
+            "explanation": "`handleLong` now decides safety from `val.high`/`val.low` alone, but the new threshold check is off by one for negative values. A Long representing `-9007199254740992` (`high === -MAX_INT_HIGH`, `low === 0`) is not flagged and will be converted with `toNumber()`, which cannot preserve that value exactly.",
+            "suggestion": "Use the Long library's safe-range comparison again, or correct the boundary test to include the exact negative limit and verify with a concrete Long test for `-9007199254740992`.",
+            "failureAfterChange": "Decoding Hessian long `-9007199254740992` now returns the JS number `-9007199254740992` via `toNumber()` instead of the string representation used for out-of-safe-range longs, causing silent precision loss for this boundary value.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Unsafe longs above 2^53 are now misclassified as safe",
+            "severity": "high",
+            "file": "lib/utils.js",
+            "line": 45,
+            "explanation": "`handleLong` now decides safety from `val.high`/`val.low` alone, but the new threshold check is off by one for negative values. A Long representing `-9007199254740992` (`high === -MAX_INT_HIGH`, `low === 0`) is not flagged and will be converted with `toNumber()`, which cannot preserve that value exactly.",
+            "suggestion": "Use the Long library's safe-range comparison again, or correct the boundary test to include the exact negative limit and verify with a concrete Long test for `-9007199254740992`.",
+            "failureAfterChange": "Decoding Hessian long `-9007199254740992` now returns the JS number `-9007199254740992` via `toNumber()` instead of the string representation used for out-of-safe-range longs, causing silent precision loss for this boundary value.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

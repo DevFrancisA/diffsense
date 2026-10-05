@@ -43,3 +43,11 @@ Written and committed before any Round-4 model call. The evaluator, labels, matc
 | **Total** | **≈1,040** of the 1,226 remaining |
 
 Two blind Claude judges (no OpenAI calls) audit TEST findings with the Round-2 rubric.
+
+## Execution log
+
+- **Phase A, attempt 1 (interrupted).** A shell loop overwrote its positional parameters, so all but the first run per model were sent with a manifest file name as the model name. Those calls failed with HTTP 404 before producing anything. Their run directories, which held no outputs, were deleted. The two correctly configured runs are kept:
+  - `dev-m54mini`: complete, `gpt-5.4-mini`, 27/59 found on DEV reversed;
+  - `dev-m55`: 18 of 30 cases complete and resumable, `gpt-5.5`.
+- **Stopped: the OpenAI account ran out of credits** (HTTP 429 "no credits remaining") at 1,329 reserved calls / 9,211,326 tokens. No further runs are possible until credits are added.
+- No phase-A result has been used for any decision yet. The forward (false-alarm) arm has not run for either new model.

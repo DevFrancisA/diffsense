@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-4",
+  "project": "Hessian.js",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+  "buggySha": "d996501c087a3cecc5ce3e470106ebdb90657ca9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c1ddbead0c62f2329329ceff89e32a8c1cf0642e5d120b4a4f0aa200a654ff77",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.4-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 112,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/encoder.js",
+        "contentSha256": "e0299cdc07b6d461644873b9fe25693253a8a986993f221fb002853e4ae60fc8"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "4a9703ac11552bdc7ffdb82af37418dcbe06c18497770ffab24bce2fdcf1481c"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "52338a1f604c9d5ab739ad5b10708d72c9a80d7510a15e6f1c0ab423acbd46cd"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "16eda6809ee9d217fdc65fb0872699e4eece5c25027c25fce173a68105e25346"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.4-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 9913,
+          "outputTokens": 237,
+          "totalTokens": 10150
+        },
+        "rawFindings": [
+          {
+            "title": "Nested typed values with null payload no longer encode as null",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "After this change, `writeObject()` only special-cases a top-level `null` object. For a property value like `{ $class: 'java.lang.Long', $: null }`, the encoder now falls through to `_writeObject()` and writes an object wrapper instead of the required Hessian `N` null token.",
+            "suggestion": "Restore the null-payload check for typed values and return `writeNull()` when `obj.$class` is a string and `obj.$` is null/undefined.",
+            "failureAfterChange": "`hessian.encode({ $class: 'xxx.xxx', $: { a: { $class: 'yyy.yyy', $: null } } }, '1.0')` now emits an encoded object for `a` instead of `...530001614e7a`, so the decoder sees an empty object/typed object instead of `null`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Nested typed values with null payload no longer encode as null",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "After this change, `writeObject()` only special-cases a top-level `null` object. For a property value like `{ $class: 'java.lang.Long', $: null }`, the encoder now falls through to `_writeObject()` and writes an object wrapper instead of the required Hessian `N` null token.",
+            "suggestion": "Restore the null-payload check for typed values and return `writeNull()` when `obj.$class` is a string and `obj.$` is null/undefined.",
+            "failureAfterChange": "`hessian.encode({ $class: 'xxx.xxx', $: { a: { $class: 'yyy.yyy', $: null } } }, '1.0')` now emits an encoded object for `a` instead of `...530001614e7a`, so the decoder sees an empty object/typed object instead of `null`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

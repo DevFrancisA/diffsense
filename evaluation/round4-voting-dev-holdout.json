@@ -1,0 +1,54 @@
+{
+  "cohorts": [
+    "dev",
+    "holdout"
+  ],
+  "identity": "file:line",
+  "rows": [
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 1,
+      "k": 1,
+      "found": 43,
+      "ranges": 115,
+      "recall": 0.3739130434782609,
+      "reversedFindings": 43,
+      "forwardFindings": 19,
+      "combinedPrecision": 0.6935483870967742,
+      "f1": 0.48587570621468923,
+      "fixesFlagged": 14,
+      "fixes": 60,
+      "callsPerDiff": 1
+    },
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 2,
+      "k": 1,
+      "found": 54,
+      "ranges": 115,
+      "recall": 0.46956521739130436,
+      "reversedFindings": 54,
+      "forwardFindings": 31,
+      "combinedPrecision": 0.6352941176470588,
+      "f1": 0.54,
+      "fixesFlagged": 23,
+      "fixes": 60,
+      "callsPerDiff": 2
+    },
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 2,
+      "k": 2,
+      "found": 31,
+      "ranges": 115,
+      "recall": 0.26956521739130435,
+      "reversedFindings": 31,
+      "forwardFindings": 12,
+      "combinedPrecision": 0.7209302325581395,
+      "f1": 0.3924050632911392,
+      "fixesFlagged": 10,
+      "fixes": 60,
+      "callsPerDiff": 2
+    }
+  ]
+}

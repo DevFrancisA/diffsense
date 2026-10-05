@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-3",
+  "project": "Eslint",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+  "buggySha": "263b7782438899240548d0020cf9a49c2bbe2b5c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "8a1c9483c9284902ff99c46346b399b49e9af4f54c79afe952eefa39bbf7a779",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 117,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/prefer-template.js",
+        "contentSha256": "b2faa6e12744e751e0169c3e546d28b82e3d2dc56ce24c979fb181431efa14a6"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "a3d45ae787819b7e5e475fa618ab9aefc5992a33a35dd4617619e7591edf99e8"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "2e89810ffef7629fe4b66836822211d84287d6431cfda0d5f271f4c2478e2077"
+      },
+      {
+        "path": "lib/rules/accessor-pairs.js",
+        "contentSha256": "f0bd759863ccad4ec194dc40245c660f6265b1467844971bac089c0ac384cd17"
+      },
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "7525a20b67ddf8a09051296e118110a4f91af6ce2c822dce00786070e9568dcc"
+      },
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "0048b49697fc11ed4a5949056c6294d57045af02a16dda0e8badb559a5393e75"
+      },
+      {
+        "path": "lib/rules/arrow-spacing.js",
+        "contentSha256": "3e26e2009f945aaf7315366ebbe1502ee6ce22e72d2275cd87dec13a882cc802"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "5cebb981eb41e0ec54ee9bdc278570a2e473a66a91fc46d2bfd49d1252c223bc"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "3faf4db241bcf00365e04303ecfda578417c37f70f5f34eb1aa2cff616260bb4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5182,
+          "outputTokens": 2129,
+          "totalTokens": 7311
+        },
+        "rawFindings": [
+          {
+            "title": "Literal-only concatenations are now reported as template candidates",
+            "severity": "low",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The new fallback treats any non-`Literal` AST node as a non-literal value. That makes semantically literal operands such as unary numeric literals and no-substitution template literals count as dynamic, so the rule reports concatenations that contain no variable/expression interpolation and were previously considered valid literal-only concatenations.",
+            "suggestion": "Restore literal-like handling in `hasNonLiteral`, e.g. recurse into `UnaryExpression` operands and treat template literals with no expressions as literals before falling back to `node.type !== \"Literal\"`.",
+            "failureAfterChange": "With `prefer-template` enabled, `var foo = +100 + 'yen';` now reports `Unexpected string concatenation.` even though all operands are constant literals; likewise ``var foo = `foo` + \"bar\";`` reports despite being literal-only.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Literal-only concatenations are now reported as template candidates",
+            "severity": "low",
+            "file": "lib/rules/prefer-template.js",
+            "line": 34,
+            "explanation": "The new fallback treats any non-`Literal` AST node as a non-literal value. That makes semantically literal operands such as unary numeric literals and no-substitution template literals count as dynamic, so the rule reports concatenations that contain no variable/expression interpolation and were previously considered valid literal-only concatenations.",
+            "suggestion": "Restore literal-like handling in `hasNonLiteral`, e.g. recurse into `UnaryExpression` operands and treat template literals with no expressions as literals before falling back to `node.type !== \"Literal\"`.",
+            "failureAfterChange": "With `prefer-template` enabled, `var foo = +100 + 'yen';` now reports `Unexpected string concatenation.` even though all operands are constant literals; likewise ``var foo = `foo` + \"bar\";`` reports despite being literal-only.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

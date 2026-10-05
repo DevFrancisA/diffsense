@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-1",
+  "project": "Eslint",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+  "buggySha": "4742d82ee9daf68c9095c283ce1d0dab42fe9e32",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "0847065488769f2cb432c0f2a5c6882dbb14edaf9b3c7d88ce4eb6a81543b36f",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.4-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 186,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/no-obj-calls.js",
+        "contentSha256": "c01c51faec74d62e04e3a6cb5e9030dbc8d4c7f8a55bcb850b6d8856628a2f9c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "9a1a1acbf3ce16cc62f5738cd32f9cc508ac9438acda90570cfb883000eae163"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "5e883404183491b59413b544e673370bef9d02452603b6e9f3f1655ef0092a1d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2184d0c36ae059355db97131389723026e255863e2eae47fde6fb8f1e2ba9ff1"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "6ba4794bb0193119faf1cd4da7453c3aa438f0ce28a9d6504f184ac4d6526880"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bac555b5b248028f13a5e4d88551658fb6a52f234ef1467d311ded0ce5b4ce83"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "f6b680b4efd4cbc127df6854f7061e53f55c553079ec944d6910e04b7ef19e74"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.4-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6102,
+          "outputTokens": 172,
+          "totalTokens": 6274
+        },
+        "rawFindings": [
+          {
+            "title": "Reflect calls are no longer reported by no-obj-calls",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule now only checks for `Math` and `JSON`, so `Reflect()` is accepted even though the rule still documents disallowing global object calls and previously flagged `Reflect` as invalid.",
+            "suggestion": "Add `Reflect` back to the identifier check, or update the rule’s documented/expected scope everywhere if Reflect should be exempted.",
+            "failureAfterChange": "`Reflect()` no longer triggers a lint error, so code like `var x = Reflect();` passes this rule instead of reporting `\"'Reflect' is not a function.\"`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Reflect calls are no longer reported by no-obj-calls",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule now only checks for `Math` and `JSON`, so `Reflect()` is accepted even though the rule still documents disallowing global object calls and previously flagged `Reflect` as invalid.",
+            "suggestion": "Add `Reflect` back to the identifier check, or update the rule’s documented/expected scope everywhere if Reflect should be exempted.",
+            "failureAfterChange": "`Reflect()` no longer triggers a lint error, so code like `var x = Reflect();` passes this rule instead of reporting `\"'Reflect' is not a function.\"`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

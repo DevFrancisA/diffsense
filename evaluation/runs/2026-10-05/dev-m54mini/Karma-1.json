@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-1",
+  "project": "Karma",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+  "buggySha": "4673116a6f7310a6390025618a4a6c7215e3b793",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "0b58b67c952edfb17e7cf2b17e0436530dd06ac2688959fc5a89e3a8745349bb",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.4-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 82,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/reporter.js",
+        "contentSha256": "97e2ecc1732cc9caa0062826672689d38153c14ae852f1b384319dc1c50fa5d0"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "7b5226b64e19578f70429b75083b0f8a2324bf566373a72ab55f59fabbd67e9f"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "1679a24276d8964eebc7dc16f23a446871879c5f1f8ad48da9d3bcc0a664db96"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "3d03e5b9c80351bb45fb5315f3e3aaa9a8c3fb77e21f1d5e8e07ece6fecf87fe"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "0ce0f0fdb3add867cb6b9f91bc3807650af1a0ffad425865462b378f1ee76628"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "d9731c53104530b883816a185e3769317415040cea98078dafd5feb257877a91"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "f36c17834c39947e383abe9bf17a6d681c2d739f9003e3eeb0b4c3b2db113cbe"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "11aad1e5af03508430c39a71f3b85add0cb37241d9b7cc10be53dc252ea465c8"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "cea387ddcb7fc0be734e4568a71a95a0590ffd0c4791dc84d90bcf33f2383ec3"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.4-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6287,
+          "outputTokens": 198,
+          "totalTokens": 6485
+        },
+        "rawFindings": [
+          {
+            "title": "Relative stack-trace URLs no longer get rewritten",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The new regular expression only matches absolute `http://.../base/...` or `http://.../absolute/...` URLs. Stack traces emitted by the browser runner commonly use bare `/base/...` paths, so those entries now bypass `formatError` rewriting entirely.",
+            "suggestion": "Restore support for optional scheme/host prefixes, or add a second match for bare `/base/...` and `/absolute/...` URLs so these paths still normalize to served file paths.",
+            "failureAfterChange": "Given an error like `at /base/b.js:2:6`, `formatError()` now returns `at /base/b.js:2:6\\n` instead of resolving it to the served file and source-mapped original location.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Relative stack-trace URLs no longer get rewritten",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The new regular expression only matches absolute `http://.../base/...` or `http://.../absolute/...` URLs. Stack traces emitted by the browser runner commonly use bare `/base/...` paths, so those entries now bypass `formatError` rewriting entirely.",
+            "suggestion": "Restore support for optional scheme/host prefixes, or add a second match for bare `/base/...` and `/absolute/...` URLs so these paths still normalize to served file paths.",
+            "failureAfterChange": "Given an error like `at /base/b.js:2:6`, `formatError()` now returns `at /base/b.js:2:6\\n` instead of resolving it to the served file and source-mapped original location.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

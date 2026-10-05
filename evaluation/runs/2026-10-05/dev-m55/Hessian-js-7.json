@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-7",
+  "project": "Hessian.js",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "dcdf3132e536702b6d7fa5dd3afbfd63c77f439a",
+  "buggySha": "2dbb2c005738a69cf0e7160bc358e8a92505aa39",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1c0aa3c52b2481ac2d78d39beb08c60201ea22174eac45ee43401c0888c4a250",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "dcdf3132e536702b6d7fa5dd3afbfd63c77f439a",
+    "maxFiles": 40,
+    "filesIndexed": 26,
+    "chunksIndexed": 119,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/object.js",
+        "contentSha256": "8918878803320cb7f78169cee577bc038fcf05324da3737fb11f5f55a735922b"
+      },
+      {
+        "path": "lib/v1/encoder.js",
+        "contentSha256": "3aad897d0bb563aadfbd5198819cd4d3032ea7d430dbdd5909cb849b5a89af07"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "bc0f51442c38393dca48500802b336d5639b24c6574c28a75c2fd5d15bf29c4c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "8c15c6884e9daf6f21b131548f1524f0c5767469e12ce1cb47c95ec15fd0b637"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "90fad2f3c9a06fb5bf5117da05172f903b1015a248a9ced1287cb436a23c6495"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "9ab0bef1e9bdde8f3e350d95a11c1934e036a0cd01fd4a9981b183218561bae1"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2870d5af95fc4e1ee15134394e55609ff4bc5f105dbfdec05c76dc475756f0f8"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [],
+    "withoutContext": null
+  },
+  "complete": false
+}

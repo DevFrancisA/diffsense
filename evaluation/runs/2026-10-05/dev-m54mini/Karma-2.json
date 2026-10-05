@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-2",
+  "project": "Karma",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "05616a2f4ceca7e86f35a921ab26fe571db33cc9",
+  "buggySha": "8ef475f7d1a06562e659347dcc53c2e474cbddc7",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "19b15f6f9ebbbac0f12f0769b09c8b3a7e081b202603a1033fe3d106a873174f",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.4-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "05616a2f4ceca7e86f35a921ab26fe571db33cc9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 86,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "aa84a12e5a968811831f123d16b00fe525c85ba8e17cd07e6d920f8b8c49e2bf"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "526a928b7cc1b48e61473eea4f06c2695820cc796b02f11f5662ba65883ad3a1"
+      },
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "d10b36aa74a59bcf4a88185837f658afaf3646eff2bb16c3928d0e9335e945d2"
+      },
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "efc466a20b97f951f1bbe9d257cda5c438b30865092e84432105b1e0f68c53f7"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "cd3bd4a535f1dc39f7332de5c2506e709c6fc1f2f10e66c771f5350839ee3ae2"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "ab222d68c0079cf91d3e0ecfd8206161ac2db477087106302aed38a0200a9690"
+      },
+      {
+        "path": "lib/middleware/source_files.js",
+        "contentSha256": "8bc8f254ea672bb330a7d9e0872f50f9bfa63c2f2376989767ea0592a1097e13"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "a9d6a06a327e58b3eab8e3b0d24cbdf18c8db49107225c50fb30949ca40e64f0"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "af468eb5f21e64271a983147caa8e8dbc81ea998ccad534274202ecc10cfb665"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.4-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5840,
+          "outputTokens": 245,
+          "totalTokens": 6085
+        },
+        "rawFindings": [
+          {
+            "title": "HTTPS proxy targets without an explicit port now ignore the target scheme when config.port is set",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The new `port` expression prefers `config.port` before falling back to the scheme-derived default. For a target like `https://krinkle.dev/w` with `config.port = 9877`, the proxy now connects to port `9877` instead of `443`, even though the target URL is HTTPS and has no explicit port.",
+            "suggestion": "Preserve the previous precedence: use `proxyDetails.port` if present, otherwise use the scheme default when `proxyDetails.protocol` is set, and only fall back to `config.port` when the target URL has no protocol.",
+            "failureAfterChange": "Given `config = {port: 9877, hostname: 'localhost'}` and `proxies = {'/w': 'https://krinkle.dev/w'}`, the created proxy record uses `port: '9877'` and forwards to the wrong upstream port instead of `443`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "HTTPS proxy targets without an explicit port now ignore the target scheme when config.port is set",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The new `port` expression prefers `config.port` before falling back to the scheme-derived default. For a target like `https://krinkle.dev/w` with `config.port = 9877`, the proxy now connects to port `9877` instead of `443`, even though the target URL is HTTPS and has no explicit port.",
+            "suggestion": "Preserve the previous precedence: use `proxyDetails.port` if present, otherwise use the scheme default when `proxyDetails.protocol` is set, and only fall back to `config.port` when the target URL has no protocol.",
+            "failureAfterChange": "Given `config = {port: 9877, hostname: 'localhost'}` and `proxies = {'/w': 'https://krinkle.dev/w'}`, the created proxy record uses `port: '9877'` and forwards to the wrong upstream port instead of `443`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

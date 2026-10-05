@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-6",
+  "project": "Hessian.js",
+  "bugId": 6,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "bd14cde77ed746286fbef304076d56c8b37547ff",
+  "buggySha": "4c439be9f4cd477d47f3bd28946cb055fba4432b",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "a611dc52e9b2903f78f62ba2af7a9994f7a89aa5ae02f5322263834b9f953ce7",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "bd14cde77ed746286fbef304076d56c8b37547ff",
+    "maxFiles": 40,
+    "filesIndexed": 25,
+    "chunksIndexed": 117,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "858342f446e5839bd6f5fe9aa57f8b315fb63768edbe9b7de4a3922a6a49c7e8"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "4718fd87c1f1697ed42db51670a8bef9a199778b88f0540fa2c24dba3878345c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/decode.circular.test.js",
+        "contentSha256": "aa5f7f151cb339ad2e6ee847c7d8a5f8f4b4b80f53472a2ecbfa6171f1c1643b"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "9b44247c97df1f21092bce65012250f24d8f0e0f83df03ba98390e083fb5af36"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "bc2977f13f73058f29a538e86a884a913b6e9fb13ea1c6cb9813696fd0ce71f4"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "94a9b4e0b83e3b90690ca403463a6c9e7fbde45631bd8931f90cda647d4d7069"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "5f9b855aae61f711ed35a42de4a93e8c59c2c185ecb625dac8a5faf3250f7e0c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 17936,
+          "outputTokens": 2812,
+          "totalTokens": 20748
+        },
+        "rawFindings": [
+          {
+            "title": "Decoded Java inner objects now expose circular synthetic outer-reference fields",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 417,
+            "explanation": "This added assignment stores Java compiler synthetic fields such as `this$0` in the decoded object instead of only consuming their value. Hessian payloads produced from non-static Java inner classes commonly contain `this$0` as a reference back to the enclosing object, so the plain decoded result becomes circular and contains an implementation-detail field that callers previously did not receive.",
+            "suggestion": "Read the value to advance the buffer, but skip assigning keys matching `/^this\\$\\d+$/`, as before.",
+            "failureAfterChange": "Decoding the v1 payload from the removed circular decode test returns an object where `versions[0].this$0` references the root object; `JSON.stringify(hessian.decode(data))` now throws `TypeError: Converting circular structure to JSON` instead of producing `{\"module\":\"a\",\"desc\":\"b\",\"versions\":[{\"version\":\"c\",\"assets\":[\"i\"]}]}`.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Decoded Hessian 2 inner objects now include circular synthetic fields",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "This added assignment stores fields named like `this$0` from compact object definitions. For Java inner-class payloads those fields are synthetic back-references to the outer instance, so the decoded plain object now gains an enumerable circular property instead of the expected DTO fields only.",
+            "suggestion": "Read the field value unconditionally, but only assign it when the field name does not match `/^this\\$\\d+$/`.",
+            "failureAfterChange": "Decoding `utils.bytes('v2/object/ConnectionRequest')` with `hessian.decode(javabuf, '2.0')` now produces `connreq.ctx.this$0 === connreq`; `JSON.stringify(connreq)` throws `TypeError: Converting circular structure to JSON` instead of producing `{\"ctx\":{\"id\":101}}`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Decoded Java inner objects now expose circular synthetic outer-reference fields",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 417,
+            "explanation": "This added assignment stores Java compiler synthetic fields such as `this$0` in the decoded object instead of only consuming their value. Hessian payloads produced from non-static Java inner classes commonly contain `this$0` as a reference back to the enclosing object, so the plain decoded result becomes circular and contains an implementation-detail field that callers previously did not receive.",
+            "suggestion": "Read the value to advance the buffer, but skip assigning keys matching `/^this\\$\\d+$/`, as before.",
+            "failureAfterChange": "Decoding the v1 payload from the removed circular decode test returns an object where `versions[0].this$0` references the root object; `JSON.stringify(hessian.decode(data))` now throws `TypeError: Converting circular structure to JSON` instead of producing `{\"module\":\"a\",\"desc\":\"b\",\"versions\":[{\"version\":\"c\",\"assets\":[\"i\"]}]}`.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Decoded Hessian 2 inner objects now include circular synthetic fields",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "This added assignment stores fields named like `this$0` from compact object definitions. For Java inner-class payloads those fields are synthetic back-references to the outer instance, so the decoded plain object now gains an enumerable circular property instead of the expected DTO fields only.",
+            "suggestion": "Read the field value unconditionally, but only assign it when the field name does not match `/^this\\$\\d+$/`.",
+            "failureAfterChange": "Decoding `utils.bytes('v2/object/ConnectionRequest')` with `hessian.decode(javabuf, '2.0')` now produces `connreq.ctx.this$0 === connreq`; `JSON.stringify(connreq)` throws `TypeError: Converting circular structure to JSON` instead of producing `{\"ctx\":{\"id\":101}}`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

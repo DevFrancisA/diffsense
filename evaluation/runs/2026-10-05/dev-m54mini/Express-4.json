@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-4",
+  "project": "Express",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "2de6514b4b4cc7e9629664faa56859da7e597265",
+  "buggySha": "d07c06363f00647ab0553ef227b9b65cb4a04ae9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "cc05257e656abafaa1cbcfaa728fa0c7a8921ed86d3860a959f2e6023ff57f77",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.4-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "2de6514b4b4cc7e9629664faa56859da7e597265",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/request.js",
+        "contentSha256": "049e9cc1b0a282a9ebc6eca057cb35de26f0d2558d265f0a308733ab1edd4033"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/cookies/app.js",
+        "contentSha256": "71d245f27ad27d788c6352b72afe7e638fa7b2334ba2fc94c08e868afd64c2ea"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "cc988ca789ff7ee675585aa1114b069b8fc8544cbd56cad8acf7f34f7c06c09e"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "d5e1ffbfabb0c2f21e1ab0ec5d1d618079bfbdf6e79b507c386e06fd4c715471"
+      },
+      {
+        "path": "examples/resource/app.js",
+        "contentSha256": "ad23b11bad1e3b8c5371affdc06671d59418f05da217a92e368496306d1304fd"
+      },
+      {
+        "path": "examples/content-negotiation/index.js",
+        "contentSha256": "899b2a0a7377118ee8717bd0173326927be4474fedec28847f1ff3936043da6b"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "cde26b9eff2aff149e0d5c4c5fd38304f389988a074b0b06bc984693081d9340"
+      },
+      {
+        "path": "examples/params/app.js",
+        "contentSha256": "080af371787bbb58be905dc4e7d4500728fda011e3d7d450af6d4417b5d926b4"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "edef9b7b1c440501f7e72586ce3a8ebded2eaba6304ef074dc4bad0cc2157fa4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.4-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7543,
+          "outputTokens": 244,
+          "totalTokens": 7787
+        },
+        "rawFindings": [
+          {
+            "title": "IP literal hosts now split into fake subdomains",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 460,
+            "explanation": "After this change, `req.subdomains` always does `host.split('.')`, so IP hosts are no longer treated as a single host token. For example, with `Host: 127.0.0.1` and the default subdomain offset, `req.subdomains` becomes `['0','0','1','127']` instead of `[]`, and with `Host: [::1]` it returns `['[::1]']` only by accident of no dots. This breaks code that relies on IP literals yielding no subdomains, which is the documented behavior before this patch.",
+            "suggestion": "Restore the IP-literal check and return `[host]` for IP addresses before splitting on dots.",
+            "failureAfterChange": "A request with `Host: 127.0.0.1` and `app.get('subdomain offset') === 2` now produces `['0','0']` instead of `[]`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "IP literal hosts now split into fake subdomains",
+            "severity": "high",
+            "file": "lib/request.js",
+            "line": 457,
+            "explanation": "After this change, `req.subdomains` always does `host.split('.')`, so IP hosts are no longer treated as a single host token. For example, with `Host: 127.0.0.1` and the default subdomain offset, `req.subdomains` becomes `['0','0','1','127']` instead of `[]`, and with `Host: [::1]` it returns `['[::1]']` only by accident of no dots. This breaks code that relies on IP literals yielding no subdomains, which is the documented behavior before this patch.",
+            "suggestion": "Restore the IP-literal check and return `[host]` for IP addresses before splitting on dots.",
+            "failureAfterChange": "A request with `Host: 127.0.0.1` and `app.get('subdomain offset') === 2` now produces `['0','0']` instead of `[]`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}
