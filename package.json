@@ -12,7 +12,8 @@
     "evaluate": "tsx scripts/evaluate.ts",
     "build-dataset": "tsx scripts/build-dataset.ts",
     "benchmark": "tsx scripts/benchmark.ts",
-    "error-analysis": "tsx scripts/error-analysis.ts"
+    "error-analysis": "tsx scripts/error-analysis.ts",
+    "check-results": "tsx scripts/check-results.ts"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",

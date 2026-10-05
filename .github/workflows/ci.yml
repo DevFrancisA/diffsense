@@ -17,6 +17,7 @@ jobs:
       - run: npm run lint
       - run: npm run test:unit
       - run: npm run build
+      - run: npm run check-results
       - run: docker compose --profile test up --build --abort-on-container-exit --exit-code-from e2e e2e
       - if: always()
         run: docker compose --profile test down -v

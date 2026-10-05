@@ -1,20 +1,58 @@
 {
+  "provenance": {
+    "source": "evaluation/regressions/plans/r11-setup-hint-hidden.json",
+    "generatedBy": "generateRegressionPlan (same logic as /api/tests/generate), gpt-4.1-mini, unedited",
+    "scenario": "r11-setup-hint-hidden (detected: passed twice on the credential-free baseline, failed an assertion on the patched app)",
+    "baseSha": "33994c4d548867064ded3d4eccfa3d7d6c50ce4c",
+    "note": "Model-written purpose text is kept verbatim; the second scenario purpose contradicts its own steps, which assert that the setup message is visible."
+  },
   "scenarios": [
     {
-      "title": "Review desk opens",
-      "purpose": "The review workspace is available to reviewers.",
+      "title": "Setup message visibility when API is ready",
+      "purpose": "Ensure that the setup configuration message is shown only when apiReady state is true, reflecting the changed condition in rendering.",
       "steps": [
-        { "action": "goto", "selector": "", "value": "/", "expected": "" },
-        { "action": "expectText", "selector": "h1", "value": "", "expected": "Review desk" }
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
       ]
     },
     {
-      "title": "Example diff can be loaded",
-      "purpose": "The diff intake offers a usable sample for review setup.",
+      "title": "Setup message absence when API is false or null",
+      "purpose": "Verify that the setup message is not shown when apiReady is false or null, as the condition was changed from apiReady === false to apiReady === true.",
       "steps": [
-        { "action": "goto", "selector": "", "value": "/", "expected": "" },
-        { "action": "click", "selector": "button.button-secondary", "value": "", "expected": "" },
-        { "action": "expectValueContains", "selector": "textarea[aria-label=\"Unified diff\"]", "value": "", "expected": "Invoice not found" }
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
       ]
     }
   ]
