@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-11",
+  "project": "Karma",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6cf795576bd6d77decac68ecc4838871b6df4836",
+  "buggySha": "449b0f5686dffcf4bde2c47b56ef17bd49c1c58c",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "b0119d6841808cdff3ebafc449b0a9eca58bb5d8a0eedb58e488831a9a84271b",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "6cf795576bd6d77decac68ecc4838871b6df4836",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 85,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "12cf15d6051519673d0aff337fa9f26e3f25c5b0aada86d4bb98119533aed401"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "5edbd9164264debf5603c5a22fb366d207006ef52f6a23c1f87ac91bbd43c787"
+      },
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "53afca2245d5f0ee6751e637e7052791367f15911e58bbf8379cc35417af0c8e"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "17c59e0ff175bf3a1e41f390a885cabb2311c504a5eeacf97c087ee13762c9e7"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "3b120dfe77fa6fc1bcbad75d0d30f975d4077c4b3b2752b6ea97ae20169bb054"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "7444e7e982e11aa47c1398cc778f3ae31695e098847df2e0f0d4faf016610d1c"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "c33a5339ad804675530634acef3dfd1cb9c37b4c983b588030cfecbc7b7e9ab7"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "b8c1e536551eec06304b160c1fda2e98eecfa882039ea2d023b59879cdbf8dc0"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "2c9bc2e6b91e6456cd830c2e33009455be7398991c7941e297a8f4956c7811e6"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 418,
+      "outputTokens": 0,
+      "totalTokens": 418
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6384,
+          "outputTokens": 261,
+          "totalTokens": 6645
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect SHA hash computation for processed file content",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 54,
+            "explanation": "After reading the file, the SHA hash is computed from the raw buffer and assigned to file.sha at line 96. However, if preprocessors are used, the SHA hash should reflect the processed content, but the code at line 54 (removed in this change) updated file.sha prematurely and incorrectly from the unprocessed content in the previous version. The current code computes file.sha only after all preprocessors have run via the call at line 54 that was removed, which was correct. The removal causes file.s",
+            "suggestion": "Restore the assignment \"file.sha = sha1(content);\" inside the nextPreprocessor function when there are no more preprocessors left to run, so that file.sha reflects the final processed content, not the raw buffer.",
+            "failureAfterChange": "If a preprocessor modifies the file content before it is assigned to file.content, then file.sha does not reflect that change and remains the SHA of the raw file buffer, causing inconsistency and potential cache issues or false negatives in file change detection.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

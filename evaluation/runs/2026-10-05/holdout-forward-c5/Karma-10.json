@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-10",
+  "project": "Karma",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+  "buggySha": "ee8303cc3ffa45a8d233e781bd14d0dd8b108300",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "4e3da6352965ddc15df6aa83ed08d5364a540d122d9912f4c41ac1e9487c7015",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "ee8303cc3ffa45a8d233e781bd14d0dd8b108300",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "2702a09677912502043d5d2f4a6a2c9b05b073cf297d290c3c6bdb780c648565"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "fd24b77e50f09cf024889b17d63a8e9f01239144f88a148a147c209d2715b465"
+      },
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "afac32f652d7d2bd614df746216ecb59c905239c05a16c0e668bf38f07ee121f"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "c51c353fdc503775b1e4ae5bf272f20bd7564f64a828a047b43526b4a05b2970"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "022fbae7b79fc4583235efd0bfd9653726502691c8fa14bd810fc00c5792d755"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "ca6391a7232e90355d6df04c511a07a3bed6786bdc6862d273d8ede104227127"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "99bbebb4d55f16f624605b469f5a866fa8833c659ec88ccc5d89fa21ec4210bf"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "31ec52399f2a01f78a0ab65a0d2f4df1223196d5a894c82ac4a5a2457b96c42b"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "d2513c137fbd2b976d63ee31c28af7946afc6c9c46fab86f165b8c003d216360"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6605,
+          "outputTokens": 416,
+          "totalTokens": 7021
+        },
+        "rawFindings": [
+          {
+            "title": "Pattern handling in watchPatterns expects pattern objects but is passed array of strings",
+            "severity": "critical",
+            "file": "lib/watcher.js",
+            "line": 21,
+            "explanation": "In watchPatterns function, the code expects each item in 'patterns' to be a pattern object with a 'pattern' property and a 'watched' boolean. However, the diff changes this to iterate over patterns as simple strings, which breaks the 'pattern.watched' check because strings don't have 'watched' properties.",
+            "suggestion": "Ensure that watchPatterns receives an array of pattern objects, not strings, or adjust the function to handle string patterns correctly without accessing 'watched' property.",
+            "failureAfterChange": "Calling watchPatterns with an array of pattern objects causes the function to skip important 'watched' checks leading to improper watching or errors because of accessing undefined properties on strings.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "createIgnore function expects patterns and excludes arrays but is called with excludes only",
+            "severity": "critical",
+            "file": "lib/watcher.js",
+            "line": 40,
+            "explanation": "The new createIgnore function requires two parameters: patterns (an array of watched patterns) and excludes. It uses patterns to reject files not matching any watched pattern. However, in exports.watch, createIgnore is called as createIgnore(watchedPatterns, excludes), but previously it was called only with excludes. The patch fixes this call, but the updated createIgnore function uses patterns and excludes, which affects the logic that ignores files not matching watched patterns and excludes fi",
+            "suggestion": "Make sure to pass the correct filtered watched patterns array and excludes array to createIgnore, and that these parameters correctly represent the files to watch and exclude.",
+            "failureAfterChange": "Files that do not match any pattern in watchedPatterns are ignored by chokidar watcher, which is intended but if watchedPatterns array construction is wrong, some files may be ignored unexpectedly.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Pattern handling in watchPatterns expects pattern objects but is passed array of strings",
+            "severity": "critical",
+            "file": "lib/watcher.js",
+            "line": 20,
+            "explanation": "In watchPatterns function, the code expects each item in 'patterns' to be a pattern object with a 'pattern' property and a 'watched' boolean. However, the diff changes this to iterate over patterns as simple strings, which breaks the 'pattern.watched' check because strings don't have 'watched' properties.",
+            "suggestion": "Ensure that watchPatterns receives an array of pattern objects, not strings, or adjust the function to handle string patterns correctly without accessing 'watched' property.",
+            "failureAfterChange": "Calling watchPatterns with an array of pattern objects causes the function to skip important 'watched' checks leading to improper watching or errors because of accessing undefined properties on strings.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

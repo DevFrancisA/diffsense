@@ -248,6 +248,97 @@
       "sourceFalsePositives": 0,
       "testFalsePositives": 0,
       "sourcePredictions": 27
+    },
+    {
+      "cohort": "DEV",
+      "config": "C5 (post-change)",
+      "file": "results-dev-c5.json",
+      "run": 1,
+      "found": 23,
+      "known": 59,
+      "predictions": 23,
+      "falsePositives": 0,
+      "sourceFalsePositives": 0,
+      "testFalsePositives": 0,
+      "sourcePredictions": 23
+    },
+    {
+      "cohort": "DEV",
+      "config": "C6 (C5 + verifier)",
+      "file": "results-dev-c6.json",
+      "run": 1,
+      "found": 23,
+      "known": 59,
+      "predictions": 23,
+      "falsePositives": 0,
+      "sourceFalsePositives": 0,
+      "testFalsePositives": 0,
+      "sourcePredictions": 23
+    },
+    {
+      "cohort": "DEV",
+      "config": "C5 sample 2",
+      "file": "results-dev-c5-r2.json",
+      "run": 1,
+      "found": 22,
+      "known": 59,
+      "predictions": 22,
+      "falsePositives": 0,
+      "sourceFalsePositives": 0,
+      "testFalsePositives": 0,
+      "sourcePredictions": 22
+    },
+    {
+      "cohort": "DEV",
+      "config": "C7 (union of two C5 samples)",
+      "file": "results-dev-c7.json",
+      "run": 1,
+      "found": 30,
+      "known": 59,
+      "predictions": 30,
+      "falsePositives": 0,
+      "sourceFalsePositives": 0,
+      "testFalsePositives": 0,
+      "sourcePredictions": 30
+    },
+    {
+      "cohort": "HOLDOUT",
+      "config": "C5 sample 1",
+      "file": "results-holdout-c5.json",
+      "run": 1,
+      "found": 20,
+      "known": 56,
+      "predictions": 20,
+      "falsePositives": 0,
+      "sourceFalsePositives": 0,
+      "testFalsePositives": 0,
+      "sourcePredictions": 20
+    },
+    {
+      "cohort": "HOLDOUT",
+      "config": "C5 sample 2",
+      "file": "results-holdout-c5-r2.json",
+      "run": 1,
+      "found": 20,
+      "known": 56,
+      "predictions": 20,
+      "falsePositives": 0,
+      "sourceFalsePositives": 0,
+      "testFalsePositives": 0,
+      "sourcePredictions": 20
+    },
+    {
+      "cohort": "HOLDOUT",
+      "config": "C7 (final, Round 3)",
+      "file": "results-holdout-c7.json",
+      "run": 1,
+      "found": 24,
+      "known": 56,
+      "predictions": 24,
+      "falsePositives": 0,
+      "sourceFalsePositives": 0,
+      "testFalsePositives": 0,
+      "sourcePredictions": 24
     }
   ],
   "pairs": [
@@ -298,6 +389,38 @@
         "low": 0.017857142857142856,
         "high": 0.25
       }
+    },
+    {
+      "base": "results-holdout-final-c4.json",
+      "other": "results-holdout-c7.json",
+      "cells": {
+        "both": 20,
+        "baseOnly": 7,
+        "otherOnly": 4,
+        "neither": 25
+      },
+      "mcnemarExactP": 0.548828125,
+      "recallDifference": -0.05357142857142857,
+      "bootstrap95": {
+        "low": -0.1702127659574468,
+        "high": 0.061224489795918366
+      }
+    },
+    {
+      "base": "results-holdout-baseline.json",
+      "other": "results-holdout-c7.json",
+      "cells": {
+        "both": 16,
+        "baseOnly": 4,
+        "otherOnly": 8,
+        "neither": 28
+      },
+      "mcnemarExactP": 0.3876953125,
+      "recallDifference": 0.07142857142857142,
+      "bootstrap95": {
+        "low": -0.046511627906976744,
+        "high": 0.21568627450980393
+      }
     }
   ],
   "falseAlarms": [
@@ -338,6 +461,158 @@
         "low": 0.555520383048111,
         "high": 0.8581733668040368
       }
+    },
+    {
+      "label": "HOLDOUT C5",
+      "file": "falsealarms-holdout-forward-c5.json",
+      "cases": 30,
+      "casesReviewed": 30,
+      "casesFlagged": 8,
+      "casesFlaggedOnSource": 8,
+      "findings": 10,
+      "sourceFindings": 10,
+      "testFindings": 0,
+      "casesFlaggedWilson": {
+        "low": 0.14182663319596317,
+        "high": 0.4444796169518888
+      },
+      "casesFlaggedOnSourceWilson": {
+        "low": 0.14182663319596317,
+        "high": 0.4444796169518888
+      }
+    },
+    {
+      "label": "DEV C4",
+      "file": "falsealarms-dev-forward-c4.json",
+      "cases": 30,
+      "casesReviewed": 30,
+      "casesFlagged": 16,
+      "casesFlaggedOnSource": 16,
+      "findings": 22,
+      "sourceFindings": 20,
+      "testFindings": 2,
+      "casesFlaggedWilson": {
+        "low": 0.36142299619873297,
+        "high": 0.6976761109230025
+      },
+      "casesFlaggedOnSourceWilson": {
+        "low": 0.36142299619873297,
+        "high": 0.6976761109230025
+      }
+    },
+    {
+      "label": "DEV C5",
+      "file": "falsealarms-dev-forward-c5.json",
+      "cases": 30,
+      "casesReviewed": 30,
+      "casesFlagged": 6,
+      "casesFlaggedOnSource": 6,
+      "findings": 9,
+      "sourceFindings": 7,
+      "testFindings": 2,
+      "casesFlaggedWilson": {
+        "low": 0.0950510717728987,
+        "high": 0.3730569641314825
+      },
+      "casesFlaggedOnSourceWilson": {
+        "low": 0.0950510717728987,
+        "high": 0.3730569641314825
+      }
+    },
+    {
+      "label": "DEV C6",
+      "file": "falsealarms-dev-forward-c6.json",
+      "cases": 30,
+      "casesReviewed": 30,
+      "casesFlagged": 6,
+      "casesFlaggedOnSource": 6,
+      "findings": 9,
+      "sourceFindings": 7,
+      "testFindings": 2,
+      "casesFlaggedWilson": {
+        "low": 0.0950510717728987,
+        "high": 0.3730569641314825
+      },
+      "casesFlaggedOnSourceWilson": {
+        "low": 0.0950510717728987,
+        "high": 0.3730569641314825
+      }
+    },
+    {
+      "label": "DEV C5 sample 2",
+      "file": "falsealarms-dev-forward-c5-r2.json",
+      "cases": 30,
+      "casesReviewed": 30,
+      "casesFlagged": 8,
+      "casesFlaggedOnSource": 8,
+      "findings": 12,
+      "sourceFindings": 10,
+      "testFindings": 2,
+      "casesFlaggedWilson": {
+        "low": 0.14182663319596317,
+        "high": 0.4444796169518888
+      },
+      "casesFlaggedOnSourceWilson": {
+        "low": 0.14182663319596317,
+        "high": 0.4444796169518888
+      }
+    },
+    {
+      "label": "DEV C7",
+      "file": "falsealarms-dev-forward-c7.json",
+      "cases": 30,
+      "casesReviewed": 30,
+      "casesFlagged": 10,
+      "casesFlaggedOnSource": 10,
+      "findings": 15,
+      "sourceFindings": 13,
+      "testFindings": 2,
+      "casesFlaggedWilson": {
+        "low": 0.19230498083676134,
+        "high": 0.5121994835545616
+      },
+      "casesFlaggedOnSourceWilson": {
+        "low": 0.19230498083676134,
+        "high": 0.5121994835545616
+      }
+    },
+    {
+      "label": "HOLDOUT C5 sample 2",
+      "file": "falsealarms-holdout-forward-c5-r2.json",
+      "cases": 30,
+      "casesReviewed": 30,
+      "casesFlagged": 11,
+      "casesFlaggedOnSource": 11,
+      "findings": 12,
+      "sourceFindings": 12,
+      "testFindings": 0,
+      "casesFlaggedWilson": {
+        "low": 0.21873920806100708,
+        "high": 0.5448643634520511
+      },
+      "casesFlaggedOnSourceWilson": {
+        "low": 0.21873920806100708,
+        "high": 0.5448643634520511
+      }
+    },
+    {
+      "label": "HOLDOUT C7",
+      "file": "falsealarms-holdout-forward-c7.json",
+      "cases": 30,
+      "casesReviewed": 30,
+      "casesFlagged": 13,
+      "casesFlaggedOnSource": 13,
+      "findings": 16,
+      "sourceFindings": 16,
+      "testFindings": 0,
+      "casesFlaggedWilson": {
+        "low": 0.2737748557646652,
+        "high": 0.6080269299918639
+      },
+      "casesFlaggedOnSourceWilson": {
+        "low": 0.2737748557646652,
+        "high": 0.6080269299918639
+      }
     }
   ],
   "combined": [
@@ -361,6 +636,94 @@
       "wilson": {
         "low": 0.3566821941245828,
         "high": 0.6098961607582303
+      }
+    },
+    {
+      "label": "HOLDOUT C5",
+      "found": 20,
+      "reversedFindings": 20,
+      "forwardFindings": 10,
+      "combinedPrecision": 0.6666666666666666,
+      "wilson": {
+        "low": 0.4878005164454384,
+        "high": 0.8076950191632386
+      }
+    },
+    {
+      "label": "DEV C4",
+      "found": 26,
+      "reversedFindings": 26,
+      "forwardFindings": 22,
+      "combinedPrecision": 0.5416666666666666,
+      "wilson": {
+        "low": 0.40291074545649797,
+        "high": 0.6742475770713254
+      }
+    },
+    {
+      "label": "DEV C5",
+      "found": 23,
+      "reversedFindings": 23,
+      "forwardFindings": 9,
+      "combinedPrecision": 0.71875,
+      "wilson": {
+        "low": 0.5462549057408342,
+        "high": 0.8443541950225723
+      }
+    },
+    {
+      "label": "DEV C6",
+      "found": 23,
+      "reversedFindings": 23,
+      "forwardFindings": 9,
+      "combinedPrecision": 0.71875,
+      "wilson": {
+        "low": 0.5462549057408342,
+        "high": 0.8443541950225723
+      }
+    },
+    {
+      "label": "DEV C5 sample 2",
+      "found": 22,
+      "reversedFindings": 22,
+      "forwardFindings": 12,
+      "combinedPrecision": 0.6470588235294118,
+      "wilson": {
+        "low": 0.47913963119781733,
+        "high": 0.785120794051205
+      }
+    },
+    {
+      "label": "DEV C7",
+      "found": 30,
+      "reversedFindings": 30,
+      "forwardFindings": 15,
+      "combinedPrecision": 0.6666666666666666,
+      "wilson": {
+        "low": 0.5207048830990042,
+        "high": 0.7864112506566996
+      }
+    },
+    {
+      "label": "HOLDOUT C5 sample 2",
+      "found": 20,
+      "reversedFindings": 20,
+      "forwardFindings": 12,
+      "combinedPrecision": 0.625,
+      "wilson": {
+        "low": 0.4525440735307745,
+        "high": 0.7706611269054578
+      }
+    },
+    {
+      "label": "HOLDOUT C7",
+      "found": 24,
+      "reversedFindings": 24,
+      "forwardFindings": 16,
+      "combinedPrecision": 0.6,
+      "wilson": {
+        "low": 0.44595893660346186,
+        "high": 0.7365167431570808
       }
     }
   ]

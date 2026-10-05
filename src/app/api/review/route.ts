@@ -4,7 +4,7 @@ import { getOpenAIClient } from "@/lib/server/ai";
 import { getIndexedCommit, isTestPath } from "@/lib/server/context";
 import { getPullRequestDiff, getPullRequestMergeBase, parseGitHubSource } from "@/lib/server/github";
 import { getAddedLines, reviewDiffDetailed } from "@/lib/server/review";
-import { appReviewConfig, buildReviewContext } from "@/lib/server/review-pipeline";
+import { appReviewConfig, buildReviewContext, uniteSamples } from "@/lib/server/review-pipeline";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -57,12 +57,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const review = await reviewDiffDetailed(diff, addedLines, built.context, undefined, config.promptRevision, config.acceptance);
+    // C7 reviews the diff with independent samples in parallel and unites their accepted findings.
+    const reviews = await Promise.all(Array.from({ length: config.samples ?? 1 }, () => reviewDiffDetailed(diff, addedLines, built.context, undefined, config.promptRevision, config.acceptance)));
+    const united = uniteSamples(reviews.map((review) => review.findings));
     // The measured configuration only asks the model to skip tests; the app also enforces the toggle on accepted findings.
-    const findings = (body.skipTestFiles ?? true) ? review.findings.filter((finding) => !isTestPath(finding.file)) : review.findings;
+    const findings = (body.skipTestFiles ?? true) ? united.filter((finding) => !isTestPath(finding.file)) : united;
     return NextResponse.json({
       findings,
-      model: review.model,
+      model: reviews[0].model,
+      samples: reviews.length,
       contextUsed: built.chunks.length,
       changedFilesIncluded: built.changedFiles.length,
       changedFilesSkipped: built.changedFilesSkipped,

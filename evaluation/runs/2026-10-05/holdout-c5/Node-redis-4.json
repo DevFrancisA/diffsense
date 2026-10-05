@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-4",
+  "project": "Node-redis",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "97db227a8d2098f82472b08e107e02532e73616d",
+  "buggySha": "b35a685c27126fe92c3d205781695b1691cf8476",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "52642903d71504574d8ea60ce3dc43ec30dd611da3c8446d6b665f75ec591c23",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "97db227a8d2098f82472b08e107e02532e73616d",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "f15409267084e2f87343a466484e5060e390e6d394bb85442fe8f4dc0167422c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benches/sub_quit_test.js",
+        "contentSha256": "ca72fbdc94accb84b5f889f337f0aa0b229b1ef6fc7a251d5446814f7ce2d05a"
+      },
+      {
+        "path": "examples/pub_sub.js",
+        "contentSha256": "51964d22aa14cf10d2c65a505fd6179a089b1506f250f5ccdffa96d01aef6bc3"
+      },
+      {
+        "path": "benches/re_sub_test.js",
+        "contentSha256": "25afa4e2767e5be215b30f030aba601c808bb3ba849b7801dec1964041472f02"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "021861c75c426c48857e4abf2f99d272add8a0b1cc24f4b49e722dbaf75987f5"
+      },
+      {
+        "path": "examples/psubscribe.js",
+        "contentSha256": "df14574f2c1299264261a71581082ab9358464ecbe57c36ac748e574d913b41c"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "4e0e8c0c8b5689d9dab0d2bd3516222bef444983681b7b8c96281ea5603a3c86"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "890615a434991c633f75013a7be75255a540835f5bb3dffa67ed4abbaf89bc5d"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "de331acb420f8b99f5ee0690d3f4031df33d96b0be932b9d8d5a65df89ad71af"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 289,
+      "outputTokens": 0,
+      "totalTokens": 289
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 12705,
+          "outputTokens": 207,
+          "totalTokens": 12912
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect parsing of subscription keys on reconnect in on_ready method",
+            "severity": "high",
+            "file": "index.js",
+            "line": 312,
+            "explanation": "The original code split the subscription keys on the first space using indexOf and slice, which fails if the key contains spaces. The changed code splits the string with .split(' '), which also incorrectly splits keys with spaces, but in this context is intended to separate command and channel. However, the patch does not handle keys with multiple spaces gracefully and may break subscription restores if keys contain spaces.",
+            "suggestion": "Parse subscription keys by splitting only on the first space to separate the command and channel, e.g., use indexOf and slice as before, or ensure key format does not allow spaces.",
+            "failureAfterChange": "If a subscription key contains spaces, the code incorrectly splits it into multiple parts, resulting in failed re-subscription after reconnect, missing or wrong subscribe commands sent, and missing 'ready' event emission.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect parsing of subscription keys on reconnect in on_ready method",
+            "severity": "high",
+            "file": "index.js",
+            "line": 311,
+            "explanation": "The original code split the subscription keys on the first space using indexOf and slice, which fails if the key contains spaces. The changed code splits the string with .split(' '), which also incorrectly splits keys with spaces, but in this context is intended to separate command and channel. However, the patch does not handle keys with multiple spaces gracefully and may break subscription restores if keys contain spaces.",
+            "suggestion": "Parse subscription keys by splitting only on the first space to separate the command and channel, e.g., use indexOf and slice as before, or ensure key format does not allow spaces.",
+            "failureAfterChange": "If a subscription key contains spaces, the code incorrectly splits it into multiple parts, resulting in failed re-subscription after reconnect, missing or wrong subscribe commands sent, and missing 'ready' event emission.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

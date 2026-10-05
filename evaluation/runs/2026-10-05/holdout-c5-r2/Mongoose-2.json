@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-2",
+  "project": "Mongoose",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "c671672a908e4e3ae693e499e7f9fe649aa41db7",
+  "buggySha": "d5d34382c980d94a11d20e08ee3b9abee8a7f8b5",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "473e2a21316fce2b20e23cbedc2ee57ae4931636128711eb98c64cad15645a3c",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "c671672a908e4e3ae693e499e7f9fe649aa41db7",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/model.js",
+        "contentSha256": "c4e3c083cfed312b5c5e0f69a4c7ff6b8b5a9dfb69b0a08b56977c29a8f78f80"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "45b9dd8609df2257863ad91be57ec1f0b5f9d8902996e35d7b5b63842aba3708"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "873cd57c3319729fbd79b3a529c11cee7c9b8d2b5a959697e8102505f2a0deb3"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "2372b3a9635ac49bb698c6077703bddb29afe9f47ce3361779667a5da07cb094"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "67291edf9e28dfea04cd33a640562dd88fefa7d7c3c111a7df79610a0cc192c1"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 18343,
+          "outputTokens": 218,
+          "totalTokens": 18561
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect fallback used in population model name determination",
+            "severity": "high",
+            "file": "lib/model.js",
+            "line": 1604,
+            "explanation": "In the population helper function, the determination of the model name to use for the populate query was changed from using `options.model || schema.options.ref || model.modelName` to only `options.model || schema.options.ref`. The prior fallback to `model.modelName` was removed. This breaks cases where no explicit model or schema ref is given but the model instance has a modelName property that should be used, causing population to fail with an \"unable to determine model name\" error.",
+            "suggestion": "Restore fallback to `model.modelName` in addition to `options.model` and `schema.options.ref` when determining the populate model name.",
+            "failureAfterChange": "Attempting to populate a path without an explicit model or ref in schema on a document/model that previously relied on using `model.modelName` for model resolution will now fail with an error instead of populating correctly.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect fallback used in population model name determination",
+            "severity": "high",
+            "file": "lib/model.js",
+            "line": 1604,
+            "explanation": "In the population helper function, the determination of the model name to use for the populate query was changed from using `options.model || schema.options.ref || model.modelName` to only `options.model || schema.options.ref`. The prior fallback to `model.modelName` was removed. This breaks cases where no explicit model or schema ref is given but the model instance has a modelName property that should be used, causing population to fail with an \"unable to determine model name\" error.",
+            "suggestion": "Restore fallback to `model.modelName` in addition to `options.model` and `schema.options.ref` when determining the populate model name.",
+            "failureAfterChange": "Attempting to populate a path without an explicit model or ref in schema on a document/model that previously relied on using `model.modelName` for model resolution will now fail with an error instead of populating correctly.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,610 @@
+[
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m3-15a97bac5a",
+      "m3-247ba22c52",
+      "m3-2cb34522b6",
+      "m3-2d89563963",
+      "m3-317739b14b",
+      "m3-33dc8e495d",
+      "m3-47de34d25f",
+      "m3-4c182708c1"
+    ],
+    "judgments": [
+      {
+        "id": "m3-15a97bac5a",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly identifies that dropping toString() breaks slugize when data.slug is a non-string such as a number. The suggestion puts back .toString()."
+      },
+      {
+        "id": "m3-247ba22c52",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that under multi-or-nest, a one-statement block whose statement has a leading comment should still require braces, and that hardcoding expected=false breaks this. The suggestion restores the removed line."
+      },
+      {
+        "id": "m3-2cb34522b6",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "The explanation correctly says the ignore function no longer skips files outside the watched patterns, so chokidar watches and reports unrelated files. The title is muddled ('watched files to be ignored'), but the explanation and failure scenario are right. The suggestion is to restore the prior logic."
+      },
+      {
+        "id": "m3-2d89563963",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Identifies that the new early return skips dirty paths when item.value is falsy (for example null or 0), so the parent array's atomics are never registered. That is the regression, though stated somewhat generically. Removing the added check amounts to reverting it."
+      },
+      {
+        "id": "m3-317739b14b",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Precisely right: a repeated flag such as --port 123 --port 456 now yields an array instead of the last value. The suggestion restores the pop logic."
+      },
+      {
+        "id": "m3-33dc8e495d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Talks about a misleading warning when args.config is an empty string. It does not consider that the config_path computation was moved earlier in the constructor, which is the actual change. The suggestion is a new validation, not a revert."
+      },
+      {
+        "id": "m3-47de34d25f",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Vague claim that the callback may never fire. It misses the specific defect: the streaming flag is no longer tracked and onFinished now calls onfinish instead of onerror, which changes how an aborted request is reported. The suggestion is to restore the handlers."
+      },
+      {
+        "id": "m3-4c182708c1",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that export declarations wrapping a declaration are now counted as an extra statement, producing false 'too many statements' reports. The suggestion restores the regex alternatives."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m3-15a97bac5a",
+      "m3-247ba22c52",
+      "m3-2cb34522b6",
+      "m3-2d89563963",
+      "m3-317739b14b",
+      "m3-33dc8e495d",
+      "m3-47de34d25f",
+      "m3-4c182708c1"
+    ],
+    "judgments": [
+      {
+        "id": "m3-15a97bac5a",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly identifies that a non-string (e.g. numeric) slug is no longer converted, so slugize gets a non-string and fails. Suggestion re-adds .toString()."
+      },
+      {
+        "id": "m3-247ba22c52",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that under multi-or-nest, a single-statement block with leading comments no longer expects braces. Suggestion restores the leadingComments check."
+      },
+      {
+        "id": "m3-2cb34522b6",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "The explanation correctly says files that match no watched pattern are no longer ignored, so they trigger spurious events. The title wrongly suggests watched files get ignored. Suggestion is to restore the prior logic (with an alternative)."
+      },
+      {
+        "id": "m3-2d89563963",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly identifies the early return when item.value or top.value is falsy, which skips the top array's atomics handling, so the sub-path change is lost from the update. The described consequence is somewhat general but on target. Suggestion is to remove the added check, which effectively reverts."
+      },
+      {
+        "id": "m3-317739b14b",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a repeated argument now yields an array instead of the last value (e.g. --port 123 --port 456). Suggestion restores the array pop."
+      },
+      {
+        "id": "m3-33dc8e495d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Talks about a misleading warning when args.config is an empty string. Misses the real defect: config_path is now computed earlier in the constructor, before what multiConfigPath depends on is set up. Suggestion adds input validation rather than restoring."
+      },
+      {
+        "id": "m3-47de34d25f",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Vague claim that callbacks may never fire. It does not explain how dropping the streaming flag and switching onFinished from onerror to onfinish mishandles aborted or finished responses, or which inputs trigger it. Suggestion restores the handlers."
+      },
+      {
+        "id": "m3-4c182708c1",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says export declarations are now counted as an extra statement, so single export statements are falsely reported. Suggestion restores the Export types in the regex."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m3-5950b34073",
+      "m3-5dba264519",
+      "m3-6329807e7a",
+      "m3-85c126d7fb",
+      "m3-8622615927",
+      "m3-913c594f20",
+      "m3-9db8c5d14a",
+      "m3-a42bc369dc"
+    ],
+    "judgments": [
+      {
+        "id": "m3-5950b34073",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says findOneAndUpdate/findOneAndRemove results are no longer populated when populate options are set. The suggestion is to bring back the model.populate path."
+      },
+      {
+        "id": "m3-5dba264519",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says deleting castOptions.type now changes the caller's own cast object because it is no longer cloned. The suggestion is the removed clone-then-delete code."
+      },
+      {
+        "id": "m3-6329807e7a",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "The explanation is muddled and wrongly claims the original also failed. It still identifies the real bug: split(' ') breaks channel names that contain spaces, so resubscribing after reconnect goes wrong. The suggestion is the removed indexOf/slice code."
+      },
+      {
+        "id": "m3-85c126d7fb",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says source-map lookup is now attempted when the error has no line number, which leads to errors. The explanation is somewhat generic. The suggestion is the removed '&& line' condition."
+      },
+      {
+        "id": "m3-8622615927",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "The explanation is garbled, but the failure it describes is the real one: indentation of a function expression passed to a 'new' call is no longer checked correctly. The suggestion is to put NewExpression back."
+      },
+      {
+        "id": "m3-913c594f20",
+        "describesDefect": true,
+        "restoreOnly": false,
+        "note": "Correctly says tail.fill writes null bytes in place of the exit-code marker, so null characters end up in stdout. The suggestion slices the buffer instead, which is a different fix, not just deleting the added line."
+      },
+      {
+        "id": "m3-9db8c5d14a",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a non-string slug or title, such as a number, now reaches slugize without conversion and can throw. The suggestion is the removed .toString() call."
+      },
+      {
+        "id": "m3-a42bc369dc",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says dropping the model.modelName fallback makes population fail with an 'unable to determine model name' error when there is no explicit model or schema ref. The suggestion is to restore that fallback."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m3-5950b34073",
+      "m3-5dba264519",
+      "m3-6329807e7a",
+      "m3-85c126d7fb",
+      "m3-8622615927",
+      "m3-913c594f20",
+      "m3-9db8c5d14a",
+      "m3-a42bc369dc"
+    ],
+    "judgments": [
+      {
+        "id": "m3-5950b34073",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly identifies that findOneAndUpdate/findOneAndRemove results are no longer populated when populate options are set. The suggestion is to restore the model.populate path."
+      },
+      {
+        "id": "m3-5dba264519",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly identifies that the user's cast object is mutated because its type property is deleted without cloning first. The suggestion reproduces the removed clone-then-delete code."
+      },
+      {
+        "id": "m3-6329807e7a",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "The explanation is muddled and wrongly claims the original code also fails on spaces. Its core point and failureAfterChange are right: split(' ') breaks keys containing spaces, so resubscription after reconnect goes wrong. The suggestion is to use indexOf/slice as before."
+      },
+      {
+        "id": "m3-85c126d7fb",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Identifies the input (an error string with no line number) and the effect (source-map lookup is attempted anyway, leading to errors or wrong formatting). The wording is a little hedged. The suggestion is literally to restore the && line check."
+      },
+      {
+        "id": "m3-8622615927",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "The explanation is somewhat vague, but failureAfterChange names the concrete case: a function expression passed as an argument to new is not indent-checked correctly. The suggestion is to keep NewExpression, which is the removed code."
+      },
+      {
+        "id": "m3-913c594f20",
+        "describesDefect": true,
+        "restoreOnly": false,
+        "note": "The added fill writes null bytes into the shared buffer, so the output written to stdout contains nulls. This is the plausible runtime defect, though the excerpt alone cannot fully confirm it. The suggestion offers slicing or copying the buffer instead of simply removing the line, so it is not restore-only."
+      },
+      {
+        "id": "m3-9db8c5d14a",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correct: a non-string slug or title, such as a number, is passed to slugize without toString, causing an error or a wrong slug. The suggestion is exactly the removed code."
+      },
+      {
+        "id": "m3-a42bc369dc",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correct: removing the model.modelName fallback makes population fail with an 'unable to determine model name' error when neither options.model nor a schema ref is set. The suggestion restores the fallback."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m3-bbfca9e6db",
+      "m3-bc74dc7fb3",
+      "m3-c091a0901e",
+      "m3-c41cc7ffcf",
+      "m3-c5d1734724",
+      "m3-e13c8721b5",
+      "m3-ec6c71aaa0",
+      "m3-f37eacb0f5"
+    ],
+    "judgments": [
+      {
+        "id": "m3-bbfca9e6db",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says this.current/this.total are undefined when the values live under this.page, so the paginator falls back to 0 and 1. The suggestion is to revert to this.page.*, with an alternative to change every caller."
+      },
+      {
+        "id": "m3-bc74dc7fb3",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correct: with app.use(subapp), path is the sub-app function, so mountpath is set to the function instead of the normalized '/'. The suggestion restores mount_path."
+      },
+      {
+        "id": "m3-c091a0901e",
+        "describesDefect": true,
+        "restoreOnly": false,
+        "note": "Muddled: the explanation calls the change 'proper' and is cut off. Its failure case still matches the defect: callers pass plain strings, so patternObject.watched is undefined and nothing gets watched. The suggestion changes the caller rather than reverting."
+      },
+      {
+        "id": "m3-c41cc7ffcf",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Vague. It never names the real defect: the new regex ignores a quantifier after the spaces (e.g. 'a   +'), where the last space must stay outside the {n} rewrite. The failure case is hand-waving ('may miss captures')."
+      },
+      {
+        "id": "m3-c5d1734724",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Its concrete examples are wrong. The new regex returns '/some/p' for '/some/p/!(a|b).js', and both versions return '/some' for '/some/p+(c|bb).js'. The real defect, that any literal '(' in a directory name is treated as glob syntax and cuts the base dir short, is never identified."
+      },
+      {
+        "id": "m3-e13c8721b5",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says index 0 is the full match rather than the spaces capture group, so the count, and with it the report/autofix quantifier, is wrong. The specific '{0}' example is inaccurate: the count is actually inflated by the extra matched character."
+      },
+      {
+        "id": "m3-ec6c71aaa0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Generic but in the right direction: the added offset forces tokens inside the right operand to an extra indent level in multi-line binary/logical expressions. It does not name the precise input (a right operand spanning several lines). The suggestion is to remove the added line, i.e. revert."
+      },
+      {
+        "id": "m3-f37eacb0f5",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Wrong defect. The added guard already blocks the null dereference. The real bug is the new early return, which skips the rest of the loop body whenever item.value is falsy (e.g. set to null or 0). The suggestion is to restore the removed 'top.value &&' line."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m3-bbfca9e6db",
+      "m3-bc74dc7fb3",
+      "m3-c091a0901e",
+      "m3-c41cc7ffcf",
+      "m3-c5d1734724",
+      "m3-e13c8721b5",
+      "m3-ec6c71aaa0",
+      "m3-f37eacb0f5"
+    ],
+    "judgments": [
+      {
+        "id": "m3-bbfca9e6db",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says pagination values live on this.page, so this.current/this.total are undefined and the helper falls back to 0 and 1. The suggestion is to revert, with an 'ensure callers' alternative."
+      },
+      {
+        "id": "m3-bc74dc7fb3",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correct: with app.use(subapp) and no path, path is the function, so mountpath becomes a non-string instead of the normalized mount_path. The suggestion restores mount_path."
+      },
+      {
+        "id": "m3-c091a0901e",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Confused explanation that calls the added filtering a 'proper restore' and is truncated. It only hedges that callers might pass strings. The suggestion changes callers to pass objects rather than restoring string patterns."
+      },
+      {
+        "id": "m3-c41cc7ffcf",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Vague: says the new regex 'no longer correctly captures' without naming the actual failure. That failure is counting the space before a quantifier (e.g. '   +' or '   *') and producing a semantics-changing autofix. The suggestion is a plain revert."
+      },
+      {
+        "id": "m3-c5d1734724",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Wrong failure example: the new regex returns '/some/p' for '/some/p/!(a|b).js'. The real regression is that any '(' (literal parentheses in directory names) now truncates the base dir. The suggestion restores the old multi-step regex."
+      },
+      {
+        "id": "m3-e13c8721b5",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Identifies that count uses the whole match instead of capture group 1, so the space count includes the following character and the autofix quantifier is wrong. The suggestion reverts to [1]."
+      },
+      {
+        "id": "m3-ec6c71aaa0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Generic but correct direction: the added offset forces tokens after the operator one extra level of indentation in multi-line binary/logical expressions. It names no concrete input. The suggestion removes the added line (revert)."
+      },
+      {
+        "id": "m3-f37eacb0f5",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Claims a null-reference risk, but the added early return already guarantees top.value is truthy. The real defect is the early return that skips falsy values (e.g. setting a field to null/undefined is no longer recorded as dirty). The suggestion restores the removed guard."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f3-106e85c8fa",
+      "f3-29e6111d42",
+      "f3-2ca295e330",
+      "f3-4527265fe6",
+      "f3-5fd38c97b8",
+      "f3-968fc5a2ad",
+      "f3-ab5ea5e555",
+      "f3-ad9e9cd60d"
+    ],
+    "judgments": [
+      {
+        "id": "f3-106e85c8fa",
+        "verdict": "not-a-defect",
+        "note": "Removing the elapsed-time log was a deliberate part of the fix. The finding is a logging preference, not a functional bug."
+      },
+      {
+        "id": "f3-29e6111d42",
+        "verdict": "not-a-defect",
+        "note": "Misreads the change. The new code iterates plain pattern values and no longer reads .watched, so nothing breaks the way the finding claims."
+      },
+      {
+        "id": "f3-2ca295e330",
+        "verdict": "not-a-defect",
+        "note": "Speculative. The fix deliberately reads this.page, which the helper context provides. Nothing in the excerpt shows a call site where this.page is undefined."
+      },
+      {
+        "id": "f3-4527265fe6",
+        "verdict": "not-a-defect",
+        "note": "Objects to the fix itself. Adding Export declarations to SINGLE_CHILD_ALLOWED stops an export and its declaration from being counted as two statements. The suggested failure is unsupported."
+      },
+      {
+        "id": "f3-5fd38c97b8",
+        "verdict": "not-a-defect",
+        "note": "Confused speculation about ordering and shadowing. The excerpt shows a single assignment using mcp, and nothing shows that mcp is undefined at that point."
+      },
+      {
+        "id": "f3-968fc5a2ad",
+        "verdict": "not-a-defect",
+        "note": "Model.compile builds top-level models, and adding the version key there is exactly how the fix limits versioning to top-level documents. The worry about nested schemas is speculative."
+      },
+      {
+        "id": "f3-ab5ea5e555",
+        "verdict": "not-a-defect",
+        "note": "Reads the diff backwards. The new code returns result when data is falsy, which is the correct behaviour the finding asks for."
+      },
+      {
+        "id": "f3-ad9e9cd60d",
+        "verdict": "not-a-defect",
+        "note": "Subscription keys are built as 'command channel' and always contain a space. The fix keeps channel names that contain spaces intact. The no-space case is speculative."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f3-106e85c8fa",
+      "f3-29e6111d42",
+      "f3-2ca295e330",
+      "f3-4527265fe6",
+      "f3-5fd38c97b8",
+      "f3-968fc5a2ad",
+      "f3-ab5ea5e555",
+      "f3-ad9e9cd60d"
+    ],
+    "judgments": [
+      {
+        "id": "f3-106e85c8fa",
+        "verdict": "not-a-defect",
+        "note": "Dropping the elapsed-time text from a log line is a deliberate change. The finding is a preference about log content, not a functional bug."
+      },
+      {
+        "id": "f3-29e6111d42",
+        "verdict": "not-a-defect",
+        "note": "Misreads the change. The new code iterates plain pattern strings and no longer reads .watched. The finding wrongly says the new code still checks pattern.watched on strings."
+      },
+      {
+        "id": "f3-2ca295e330",
+        "verdict": "not-a-defect",
+        "note": "Speculative. In Hexo's helper context this.page is provided, and the fix exists to read current and total from it. Nothing in the excerpt shows this.page can be undefined."
+      },
+      {
+        "id": "f3-4527265fe6",
+        "verdict": "not-a-defect",
+        "note": "Objects to the fix itself. Adding Export*Declaration to SINGLE_CHILD_ALLOWED stops 'export function ...' from counting as two statements. Statements inside the function body are still counted on their own."
+      },
+      {
+        "id": "f3-5fd38c97b8",
+        "verdict": "not-a-defect",
+        "note": "Speculative and unclear. The excerpt shows one assignment using mcp, presumably imported at module scope. Nothing shows mcp being used before it is defined or a double assignment."
+      },
+      {
+        "id": "f3-968fc5a2ad",
+        "verdict": "not-a-defect",
+        "note": "Objects to the fix's design. Moving the versionKey addition into Model.compile is what limits it to top-level documents. The reused-schema scenario is speculation, and the guard skips the add if the path already exists."
+      },
+      {
+        "id": "f3-ab5ea5e555",
+        "verdict": "not-a-defect",
+        "note": "Misreads the diff direction. The new code returns 'data ? result.concat(data) : result', which is exactly the finding's suggestion. The bug it describes was in the old code and the change fixes it."
+      },
+      {
+        "id": "f3-ad9e9cd60d",
+        "verdict": "not-a-defect",
+        "note": "Speculative. subscription_set keys are always 'command channel', so they always contain a space. The fix keeps channel names that contain spaces intact, and reverting to split(' ') would bring back the original bug."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f3-c159cb02ca",
+      "f3-c3d5f0768b",
+      "f3-c43f0596a3",
+      "f3-cc964ae1f5",
+      "f3-cd7cc37a04",
+      "f3-d42b8c30a3",
+      "f3-db4239ac27",
+      "f3-dfa23e0c2c"
+    ],
+    "judgments": [
+      {
+        "id": "f3-c159cb02ca",
+        "verdict": "not-a-defect",
+        "note": "Misreads the change. The added sha line sits in the preprocessor completion path, which is where the fix means to hash the processed content. The finding contradicts itself about whether the hash is taken before or after preprocessing."
+      },
+      {
+        "id": "f3-c3d5f0768b",
+        "verdict": "not-a-defect",
+        "note": "Objects to the fix itself, which makes NewExpression arguments indent like CallExpression arguments. The finding gives no concrete wrong output; its failure example is cut off and speculative."
+      },
+      {
+        "id": "f3-c43f0596a3",
+        "verdict": "not-a-defect",
+        "note": "The new branch runs only when arguments.length === 1, so res.send(status, number) is not affected by this hunk. The claim about 200, 123.45 is not supported by the excerpt."
+      },
+      {
+        "id": "f3-cc964ae1f5",
+        "verdict": "not-a-defect",
+        "note": "Speculative. The finding's own example says the result is correct, and it names no concrete input that fails. Narrowing the regexes so plain parentheses are kept is the purpose of the fix."
+      },
+      {
+        "id": "f3-cd7cc37a04",
+        "verdict": "not-a-defect",
+        "note": "path-to-regexp produces keys for unnamed groups and wildcards, with numeric names such as 0, so key.name is always defined. The '/*/user/:id' failure scenario is wrong."
+      },
+      {
+        "id": "f3-d42b8c30a3",
+        "verdict": "not-a-defect",
+        "note": "Calling 'new' on a plain function that returns a function gives back that returned function, so there is no TypeError. The code works as intended."
+      },
+      {
+        "id": "f3-db4239ac27",
+        "verdict": "not-a-defect",
+        "note": "Objects to the intended guard. Paginator pages start at 1, so a current page of 0 is not valid and returning an empty string is the fix's purpose."
+      },
+      {
+        "id": "f3-dfa23e0c2c",
+        "verdict": "not-a-defect",
+        "note": "The finding itself says the behavior is correct and nothing fails. Its objection is about style."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f3-c159cb02ca",
+      "f3-c3d5f0768b",
+      "f3-c43f0596a3",
+      "f3-cc964ae1f5",
+      "f3-cd7cc37a04",
+      "f3-d42b8c30a3",
+      "f3-db4239ac27",
+      "f3-dfa23e0c2c"
+    ],
+    "judgments": [
+      {
+        "id": "f3-c159cb02ca",
+        "verdict": "not-a-defect",
+        "note": "Computing the SHA on the raw file content before preprocessing is what the fix intends. The finding objects to the fix itself, and its suggestion to move it after preprocessing contradicts its own stated failure."
+      },
+      {
+        "id": "f3-c3d5f0768b",
+        "verdict": "not-a-defect",
+        "note": "Treating NewExpression like CallExpression for function-argument indentation is the fix. The claim of wrong indentation is speculative, and its example is cut off and never shows a concrete wrong report."
+      },
+      {
+        "id": "f3-c43f0596a3",
+        "verdict": "not-a-defect",
+        "note": "The new branch runs only when there is a single numeric argument, so res.send(status, number) is untouched by it. The claim that res.send(200, 123.45) now sends JSON is not supported by the excerpt."
+      },
+      {
+        "id": "f3-cc964ae1f5",
+        "verdict": "not-a-defect",
+        "note": "Speculative. The finding's own failure example says the result is correct, and it gives no concrete case the new regexes mishandle that the old regex (which stripped at any '(') did not already mishandle."
+      },
+      {
+        "id": "f3-cd7cc37a04",
+        "verdict": "not-a-defect",
+        "note": "In the path-to-regexp version Express uses, '*' and unnamed or RegExp capture groups get keys with numeric names, so key.name already gives the numeric index. The fallback was dead code, and '/*/user/:id' still yields params[0]."
+      },
+      {
+        "id": "f3-d42b8c30a3",
+        "verdict": "not-a-defect",
+        "note": "Calling a plain function that returns a function with 'new' gives back that returned function. It does not throw a TypeError, because only arrow or class-restricted functions are non-constructible. The claimed runtime error is wrong."
+      },
+      {
+        "id": "f3-db4239ac27",
+        "verdict": "not-a-defect",
+        "note": "Returning an empty string when there is no current page is the guard the fix intentionally adds. The finding calls it correct and only speculates about callers."
+      },
+      {
+        "id": "f3-dfa23e0c2c",
+        "verdict": "not-a-defect",
+        "note": "The finding admits the logic is equivalent and nothing fails. This is a style objection, and the gating on commentLengthApplies is the intended fix."
+      }
+    ]
+  }
+]

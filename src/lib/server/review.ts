@@ -167,12 +167,15 @@ export const reviewPromptRevisions = {
   baseline: baselineSystemPrompt,
   "cite-added-line": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context.`,
   "cite-added-line-source-focus": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context. Focus on application source code; do not report findings in test files.`,
+  "post-change-with-tests": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context. Judge the code as it is AFTER this change: the full files supplied for changed paths already include the change. Report a defect only if it exists in the code after the change and the change introduced or exposed it. Never report a problem that this change fixes, never restate or summarize what the change does, and never object to the change's evident intent unless you can name a concrete input that now fails. For each finding, set failureAfterChange to a concrete input or state and the wrong result it produces in the new code, and set alreadyFixedByChange to true if the problem you describe is one the change removes rather than one it leaves or creates.`,
   "post-change": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context. Focus on application source code; do not report findings in test files. Judge the code as it is AFTER this change: the full files supplied for changed paths already include the change. Report a defect only if it exists in the code after the change and the change introduced or exposed it. Never report a problem that this change fixes, never restate or summarize what the change does, and never object to the change's evident intent unless you can name a concrete input that now fails. For each finding, set failureAfterChange to a concrete input or state and the wrong result it produces in the new code, and set alreadyFixedByChange to true if the problem you describe is one the change removes rather than one it leaves or creates.`,
 } as const;
 export type ReviewPromptRevision = keyof typeof reviewPromptRevisions;
 
+const postChangeRevisions = new Set<ReviewPromptRevision>(["post-change", "post-change-with-tests"]);
+
 function schemaFor(revision: ReviewPromptRevision) {
-  return revision === "post-change" ? postChangeReviewSchema : reviewSchema;
+  return postChangeRevisions.has(revision) ? postChangeReviewSchema : reviewSchema;
 }
 
 export function getReviewPromptHash(revision: ReviewPromptRevision = "baseline") {
@@ -223,7 +226,7 @@ export async function reviewDiffDetailed(
   const parsed = JSON.parse(response.output_text) as { findings: ReviewFinding[] };
   const addedLineKeys = new Set(addedLines.map(({ path, line }) => `${path}:${line}`));
   // post-change: drop findings the model itself marks as fixed by the change or cannot tie to a concrete failure.
-  const candidates = promptRevision === "post-change"
+  const candidates = postChangeRevisions.has(promptRevision)
     ? parsed.findings.filter((finding) => finding.alreadyFixedByChange === false && Boolean(finding.failureAfterChange?.trim()))
     : parsed.findings;
   const findings = acceptance === "exact"

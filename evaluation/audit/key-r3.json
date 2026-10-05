@@ -1,0 +1,322 @@
+[
+  {
+    "id": "m3-15a97bac5a",
+    "config": "holdout-c7",
+    "caseId": "Hexo-12",
+    "run": 1,
+    "file": "lib/hexo/post.js",
+    "line": 207
+  },
+  {
+    "id": "m3-247ba22c52",
+    "config": "holdout-c7",
+    "caseId": "Eslint-11",
+    "run": 1,
+    "file": "lib/rules/curly.js",
+    "line": 293
+  },
+  {
+    "id": "m3-2cb34522b6",
+    "config": "holdout-c7",
+    "caseId": "Karma-10",
+    "run": 1,
+    "file": "lib/watcher.js",
+    "line": 45
+  },
+  {
+    "id": "m3-2d89563963",
+    "config": "holdout-c7",
+    "caseId": "Mongoose-3",
+    "run": 1,
+    "file": "lib/document.js",
+    "line": 1079
+  },
+  {
+    "id": "m3-317739b14b",
+    "config": "holdout-c7",
+    "caseId": "Karma-6",
+    "run": 1,
+    "file": "lib/cli.js",
+    "line": 22
+  },
+  {
+    "id": "m3-33dc8e495d",
+    "config": "holdout-c7",
+    "caseId": "Hexo-11",
+    "run": 1,
+    "file": "lib/hexo/index.js",
+    "line": 57
+  },
+  {
+    "id": "m3-47de34d25f",
+    "config": "holdout-c7",
+    "caseId": "Express-7",
+    "run": 1,
+    "file": "lib/response.js",
+    "line": 953
+  },
+  {
+    "id": "m3-4c182708c1",
+    "config": "holdout-c7",
+    "caseId": "Eslint-14",
+    "run": 1,
+    "file": "lib/rules/max-statements-per-line.js",
+    "line": 46
+  },
+  {
+    "id": "m3-5950b34073",
+    "config": "holdout-c7",
+    "caseId": "Mongoose-7",
+    "run": 1,
+    "file": "lib/query.js",
+    "line": 2424
+  },
+  {
+    "id": "m3-5dba264519",
+    "config": "holdout-c7",
+    "caseId": "Mongoose-6",
+    "run": 1,
+    "file": "lib/schema/array.js",
+    "line": 41
+  },
+  {
+    "id": "m3-6329807e7a",
+    "config": "holdout-c7",
+    "caseId": "Node-redis-4",
+    "run": 1,
+    "file": "index.js",
+    "line": 311
+  },
+  {
+    "id": "m3-85c126d7fb",
+    "config": "holdout-c7",
+    "caseId": "Karma-4",
+    "run": 1,
+    "file": "lib/reporter.js",
+    "line": 52
+  },
+  {
+    "id": "m3-8622615927",
+    "config": "holdout-c7",
+    "caseId": "Eslint-15",
+    "run": 1,
+    "file": "lib/rules/indent.js",
+    "line": 453
+  },
+  {
+    "id": "m3-913c594f20",
+    "config": "holdout-c7",
+    "caseId": "Karma-7",
+    "run": 1,
+    "file": "lib/runner.js",
+    "line": 20
+  },
+  {
+    "id": "m3-9db8c5d14a",
+    "config": "holdout-c7",
+    "caseId": "Hexo-12",
+    "run": 1,
+    "file": "lib/hexo/post.js",
+    "line": 50
+  },
+  {
+    "id": "m3-a42bc369dc",
+    "config": "holdout-c7",
+    "caseId": "Mongoose-2",
+    "run": 1,
+    "file": "lib/model.js",
+    "line": 1604
+  },
+  {
+    "id": "m3-bbfca9e6db",
+    "config": "holdout-c7",
+    "caseId": "Hexo-9",
+    "run": 1,
+    "file": "lib/plugins/helper/paginator.js",
+    "line": 7
+  },
+  {
+    "id": "m3-bc74dc7fb3",
+    "config": "holdout-c7",
+    "caseId": "Express-9",
+    "run": 1,
+    "file": "lib/application.js",
+    "line": 171
+  },
+  {
+    "id": "m3-c091a0901e",
+    "config": "holdout-c7",
+    "caseId": "Karma-10",
+    "run": 1,
+    "file": "lib/watcher.js",
+    "line": 21
+  },
+  {
+    "id": "m3-c41cc7ffcf",
+    "config": "holdout-c7",
+    "caseId": "Eslint-16",
+    "run": 1,
+    "file": "lib/rules/no-regex-spaces.js",
+    "line": 40
+  },
+  {
+    "id": "m3-c5d1734724",
+    "config": "holdout-c7",
+    "caseId": "Karma-9",
+    "run": 1,
+    "file": "lib/watcher.js",
+    "line": 11
+  },
+  {
+    "id": "m3-e13c8721b5",
+    "config": "holdout-c7",
+    "caseId": "Eslint-16",
+    "run": 1,
+    "file": "lib/rules/no-regex-spaces.js",
+    "line": 44
+  },
+  {
+    "id": "m3-ec6c71aaa0",
+    "config": "holdout-c7",
+    "caseId": "Eslint-12",
+    "run": 1,
+    "file": "lib/rules/indent.js",
+    "line": 1046
+  },
+  {
+    "id": "m3-f37eacb0f5",
+    "config": "holdout-c7",
+    "caseId": "Mongoose-3",
+    "run": 1,
+    "file": "lib/document.js",
+    "line": 1082
+  },
+  {
+    "id": "f3-106e85c8fa",
+    "config": "forward-c7",
+    "caseId": "Hexo-10",
+    "run": 1,
+    "file": "lib/plugins/console/generate.js",
+    "line": 23
+  },
+  {
+    "id": "f3-29e6111d42",
+    "config": "forward-c7",
+    "caseId": "Karma-10",
+    "run": 1,
+    "file": "lib/watcher.js",
+    "line": 20
+  },
+  {
+    "id": "f3-2ca295e330",
+    "config": "forward-c7",
+    "caseId": "Hexo-9",
+    "run": 1,
+    "file": "lib/plugins/helper/paginator.js",
+    "line": 8
+  },
+  {
+    "id": "f3-4527265fe6",
+    "config": "forward-c7",
+    "caseId": "Eslint-14",
+    "run": 1,
+    "file": "lib/rules/max-statements-per-line.js",
+    "line": 46
+  },
+  {
+    "id": "f3-5fd38c97b8",
+    "config": "forward-c7",
+    "caseId": "Hexo-11",
+    "run": 1,
+    "file": "lib/hexo/index.js",
+    "line": 92
+  },
+  {
+    "id": "f3-968fc5a2ad",
+    "config": "forward-c7",
+    "caseId": "Mongoose-1",
+    "run": 1,
+    "file": "lib/model.js",
+    "line": 1954
+  },
+  {
+    "id": "f3-ab5ea5e555",
+    "config": "forward-c7",
+    "caseId": "Hexo-10",
+    "run": 1,
+    "file": "lib/hexo/index.js",
+    "line": 307
+  },
+  {
+    "id": "f3-ad9e9cd60d",
+    "config": "forward-c7",
+    "caseId": "Node-redis-4",
+    "run": 1,
+    "file": "index.js",
+    "line": 311
+  },
+  {
+    "id": "f3-c159cb02ca",
+    "config": "forward-c7",
+    "caseId": "Karma-11",
+    "run": 1,
+    "file": "lib/preprocessor.js",
+    "line": 55
+  },
+  {
+    "id": "f3-c3d5f0768b",
+    "config": "forward-c7",
+    "caseId": "Eslint-15",
+    "run": 1,
+    "file": "lib/rules/indent.js",
+    "line": 453
+  },
+  {
+    "id": "f3-c43f0596a3",
+    "config": "forward-c7",
+    "caseId": "Express-11",
+    "run": 1,
+    "file": "lib/response.js",
+    "line": 106
+  },
+  {
+    "id": "f3-cc964ae1f5",
+    "config": "forward-c7",
+    "caseId": "Karma-9",
+    "run": 1,
+    "file": "lib/watcher.js",
+    "line": 12
+  },
+  {
+    "id": "f3-cd7cc37a04",
+    "config": "forward-c7",
+    "caseId": "Express-12",
+    "run": 1,
+    "file": "lib/router/layer.js",
+    "line": 138
+  },
+  {
+    "id": "f3-d42b8c30a3",
+    "config": "forward-c7",
+    "caseId": "Hexo-11",
+    "run": 1,
+    "file": "lib/hexo/index.js",
+    "line": 36
+  },
+  {
+    "id": "f3-db4239ac27",
+    "config": "forward-c7",
+    "caseId": "Hexo-9",
+    "run": 1,
+    "file": "lib/plugins/helper/paginator.js",
+    "line": 22
+  },
+  {
+    "id": "f3-dfa23e0c2c",
+    "config": "forward-c7",
+    "caseId": "Eslint-9",
+    "run": 1,
+    "file": "lib/rules/max-len.js",
+    "line": 330
+  }
+]

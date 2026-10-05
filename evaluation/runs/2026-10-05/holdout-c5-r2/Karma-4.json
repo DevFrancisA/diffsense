@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-4",
+  "project": "Karma",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "2080221e6bac3ef6dbff0e4aab7784385034d227",
+  "buggySha": "47066ea538b89627d4a65d061f16d4d2dd0037c8",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "d9329344d138afcb93162d599a34b3b0e3b3a41c0b1858aef9c48147dd889b60",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "2080221e6bac3ef6dbff0e4aab7784385034d227",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/reporter.js",
+        "contentSha256": "16adf979e0a4f03a7a4770e55734627b7d1a600a4705b6596668d92349d5dee8"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "84567916743659c8122298471585ef69569a34f46c085059d58cc573844e9c83"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "6d17baebcf4fb1b1689ca6a4c0616d18295f56d6f7555b16e6cd97450a2726c8"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "3f804a32220054606a865ace922b8aa0c9da5d359d06a37d756a4ae33e4a9155"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "afa26804b55becd74c91251bb079257b7cab0ddff7160c42ed9b18f2de2cab89"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "06aa86bec132862709ed3c76a24c48ce113aa2f4a4e26a5fb08a87463b3a11c3"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "fd2afa01c2c3dc643903cf2587aa9f848d3837fd34112ba7b97d4faa32495e55"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "f36c17834c39947e383abe9bf17a6d681c2d739f9003e3eeb0b4c3b2db113cbe"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "0ce0f0fdb3add867cb6b9f91bc3807650af1a0ffad425865462b378f1ee76628"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6725,
+          "outputTokens": 196,
+          "totalTokens": 6921
+        },
+        "rawFindings": [
+          {
+            "title": "Source map error formatting now attempts mapping even without line number",
+            "severity": "medium",
+            "file": "lib/reporter.js",
+            "line": 52,
+            "explanation": "The condition for using source maps on error formatting was changed from requiring 'line' to be truthy to no longer require it. This change means the code will attempt to access line and column information from the source map even if no line is given in the error message, potentially leading to incorrect mappings or errors.",
+            "suggestion": "Restore the condition to require a valid line number before attempting to use source maps (i.e., revert if (file && file.sourceMap) back to if (file && file.sourceMap && line).",
+            "failureAfterChange": "If an error message contains a URL without a line number, the error formatter will attempt source map resolution with line === 0 or NaN, producing incorrect or misleading output instead of the original URL.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Source map error formatting now attempts mapping even without line number",
+            "severity": "medium",
+            "file": "lib/reporter.js",
+            "line": 52,
+            "explanation": "The condition for using source maps on error formatting was changed from requiring 'line' to be truthy to no longer require it. This change means the code will attempt to access line and column information from the source map even if no line is given in the error message, potentially leading to incorrect mappings or errors.",
+            "suggestion": "Restore the condition to require a valid line number before attempting to use source maps (i.e., revert if (file && file.sourceMap) back to if (file && file.sourceMap && line).",
+            "failureAfterChange": "If an error message contains a URL without a line number, the error formatter will attempt source map resolution with line === 0 or NaN, producing incorrect or misleading output instead of the original URL.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

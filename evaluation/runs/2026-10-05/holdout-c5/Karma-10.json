@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-10",
+  "project": "Karma",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+  "buggySha": "ee8303cc3ffa45a8d233e781bd14d0dd8b108300",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "26bffe7511f576d31752129acd29a019f85aa1df4dfbcd92ca99019e30750ed8",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "e41ed9513020ae43792cf7c7852f4a1268cfc5e5743502254be8f63e835a317c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "da43f4dbef3c12e8a84f76938c02edc1824fe8872e0b829f8534bd71683d3333"
+      },
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "b3ffc58ae09d1c32908c75438848a48428c05641b4a28cdb9e8a20d5388980b1"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "c51c353fdc503775b1e4ae5bf272f20bd7564f64a828a047b43526b4a05b2970"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "022fbae7b79fc4583235efd0bfd9653726502691c8fa14bd810fc00c5792d755"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "ca6391a7232e90355d6df04c511a07a3bed6786bdc6862d273d8ede104227127"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "31ec52399f2a01f78a0ab65a0d2f4df1223196d5a894c82ac4a5a2457b96c42b"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "99bbebb4d55f16f624605b469f5a866fa8833c659ec88ccc5d89fa21ec4210bf"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "244db0632f9db0b71a404bf34edcfd795bc9d2de481e90706e7afaae2c389a26"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1810,
+      "outputTokens": 0,
+      "totalTokens": 1810
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6697,
+          "outputTokens": 275,
+          "totalTokens": 6972
+        },
+        "rawFindings": [
+          {
+            "title": "Potential watch of unwanted patterns in watchPatterns function",
+            "severity": "medium",
+            "file": "lib/watcher.js",
+            "line": 21,
+            "explanation": "The watchPatterns function receives a list of pattern objects, but only adds the base directory if the patternObject.watched is true. The change properly restores filtering on watched property, which was missing in the previous code. However, the function assumes that patterns is an array of pattern objects with a 'pattern' property and 'watched' boolean, but in the exports.watch function, patterns are passed directly without filtering for watched property. This mismatch can cause watchPatterns ",
+            "suggestion": "Ensure that watchPatterns receives an array of pattern objects (with 'pattern' and 'watched' properties). From exports.watch, pass the full patterns array of pattern objects, not an array of strings, to watchPatterns. Adjust the usage accordingly.",
+            "failureAfterChange": "If exports.watch is called with an array of only pattern strings, watchPatterns will receive those strings, patternObject.watched will be undefined, and no paths will be added to chokidar watcher, resulting in no file watching.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Potential watch of unwanted patterns in watchPatterns function",
+            "severity": "medium",
+            "file": "lib/watcher.js",
+            "line": 21,
+            "explanation": "The watchPatterns function receives a list of pattern objects, but only adds the base directory if the patternObject.watched is true. The change properly restores filtering on watched property, which was missing in the previous code. However, the function assumes that patterns is an array of pattern objects with a 'pattern' property and 'watched' boolean, but in the exports.watch function, patterns are passed directly without filtering for watched property. This mismatch can cause watchPatterns ",
+            "suggestion": "Ensure that watchPatterns receives an array of pattern objects (with 'pattern' and 'watched' properties). From exports.watch, pass the full patterns array of pattern objects, not an array of strings, to watchPatterns. Adjust the usage accordingly.",
+            "failureAfterChange": "If exports.watch is called with an array of only pattern strings, watchPatterns will receive those strings, patternObject.watched will be undefined, and no paths will be added to chokidar watcher, resulting in no file watching.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

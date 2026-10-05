@@ -52,8 +52,12 @@ const configs = [
   ["HOLDOUT", "C4 (final)", "results-holdout-final-c4.json"],
   ["DEV", "C5 (post-change)", "results-dev-c5.json"],
   ["DEV", "C6 (C5 + verifier)", "results-dev-c6.json"],
-  ["HOLDOUT", "C5 (post-change)", "results-holdout-c5.json"],
   ["HOLDOUT", "C6 (C5 + verifier)", "results-holdout-c6.json"],
+  ["DEV", "C5 sample 2", "results-dev-c5-r2.json"],
+  ["DEV", "C7 (union of two C5 samples)", "results-dev-c7.json"],
+  ["HOLDOUT", "C5 sample 1", "results-holdout-c5.json"],
+  ["HOLDOUT", "C5 sample 2", "results-holdout-c5-r2.json"],
+  ["HOLDOUT", "C7 (final, Round 3)", "results-holdout-c7.json"],
 ] as const;
 const loaded = new Map<string, Run[]>();
 const rows: Record<string, unknown>[] = [];
@@ -142,7 +146,7 @@ function paired(baseFile: string, otherFile: string) {
     bootstrap95: { low: differences[249], high: differences[9_749] },
   };
 }
-const pairs = [paired("results-holdout-baseline.json", "results-holdout-final.json"), paired("results-holdout-baseline-remap.json", "results-holdout-final-c4.json"), paired("results-holdout-baseline.json", "results-holdout-final-c4.json")].filter(Boolean);
+const pairs = [paired("results-holdout-baseline.json", "results-holdout-final.json"), paired("results-holdout-baseline-remap.json", "results-holdout-final-c4.json"), paired("results-holdout-baseline.json", "results-holdout-final-c4.json"), paired("results-holdout-final-c4.json", "results-holdout-c7.json"), paired("results-holdout-baseline.json", "results-holdout-c7.json")].filter(Boolean);
 lines.push("", "| HOLDOUT pair (run 1 each) | Both | Base only | Other only | Neither | Recall difference | Bootstrap 95% CI | Exact McNemar p |", "|---|---:|---:|---:|---:|---:|---|---:|");
 for (const pair of pairs) {
   if (!pair) continue;
@@ -158,6 +162,10 @@ const forwardFiles = [
   ["DEV C4", "falsealarms-dev-forward-c4.json", "results-dev-c4.json"],
   ["DEV C5", "falsealarms-dev-forward-c5.json", "results-dev-c5.json"],
   ["DEV C6", "falsealarms-dev-forward-c6.json", "results-dev-c6.json"],
+  ["DEV C5 sample 2", "falsealarms-dev-forward-c5-r2.json", "results-dev-c5-r2.json"],
+  ["DEV C7", "falsealarms-dev-forward-c7.json", "results-dev-c7.json"],
+  ["HOLDOUT C5 sample 2", "falsealarms-holdout-forward-c5-r2.json", "results-holdout-c5-r2.json"],
+  ["HOLDOUT C7", "falsealarms-holdout-forward-c7.json", "results-holdout-c7.json"],
 ] as const;
 lines.push("", "| Forward-fix arm (correct code) | Cases flagged | Cases flagged on source | Findings (source / test) |", "|---|---|---|---|");
 for (const [label, file] of forwardFiles) {

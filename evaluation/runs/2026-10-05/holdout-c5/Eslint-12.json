@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-12",
+  "project": "Eslint",
+  "bugId": 12,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0e4ae22d4adebd1cb603ac9cb55daf70c9b921d0",
+  "buggySha": "47ac478f3272fca771461e1cc6d4e91b1ecaaccc",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "f680090d283bdf3f1e29ff4d8215891e854153a971d9a52f54ca273f917f5cc1",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "0e4ae22d4adebd1cb603ac9cb55daf70c9b921d0",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 183,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/indent.js",
+        "contentSha256": "b100cbca3b19e2c96b97f2980114d1eca0951b69b8ba4d5e31e28725e1894245"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "b8bd9678358b12f88520cbd1064ce869deb627e2c4dfa4528ef5141344973c16"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "4ea8868ef14c79ba9181171b891265436975efd073d39bd80a60d02321068716"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "ed1345c28f03d604abb67f32da39132e4c6a617298afb0cdb482258c7be4a57c"
+      },
+      {
+        "path": ".eslintrc.js",
+        "contentSha256": "ba89b1c1f8b428b5bfc4c6a19363b9d18f3db45295cd8b7f37f7c40a119a70a1"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "b9941f3b57a906302f783aa71da24580e21ec43d35fb98db0817273a949073f4"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "cfa36fc50c72c75493b28626f3929d0e587bf7c775b57672bb9472b98e6899e5"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "91599c046c03bfed8f72fa687ef9b13a650e023e4be3351048e93186ebecb9d2"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "04bc79198c0e96564c97056cfd715ef212a1b9f0e2dd546af686fd0ed58fbb26"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 219,
+      "outputTokens": 0,
+      "totalTokens": 219
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 18600,
+          "outputTokens": 158,
+          "totalTokens": 18758
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect additional offset set for BinaryExpression and LogicalExpression",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 1046,
+            "explanation": "The added line increases the desired offset for tokens after the operator to 1, which overrides existing offsets and can cause incorrect extra indentation in cases like binary/logical expressions spanning multiple lines. This introduces an indentation inconsistency that did not exist before.",
+            "suggestion": "Remove the added line to preserve the existing offset logic that correctly handles indentation after binary/logical operators.",
+            "failureAfterChange": "For a code snippet with a binary/logical expression split on multiple lines, the indentation after the operator is incorrectly indented by an extra level compared to before the change.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect additional offset set for BinaryExpression and LogicalExpression",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 1046,
+            "explanation": "The added line increases the desired offset for tokens after the operator to 1, which overrides existing offsets and can cause incorrect extra indentation in cases like binary/logical expressions spanning multiple lines. This introduces an indentation inconsistency that did not exist before.",
+            "suggestion": "Remove the added line to preserve the existing offset logic that correctly handles indentation after binary/logical operators.",
+            "failureAfterChange": "For a code snippet with a binary/logical expression split on multiple lines, the indentation after the operator is incorrectly indented by an extra level compared to before the change.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

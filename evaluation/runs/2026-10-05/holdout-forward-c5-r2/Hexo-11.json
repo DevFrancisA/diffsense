@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-11",
+  "project": "Hexo",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "fbdee9043655a89fe0284f61cbaae88fd9a783e9",
+  "buggySha": "ed1fb58ea4769280cbfa9fc42edd917892edb9fc",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "ac84e6782f44799b92c966518bc70f5a5aa175e2ffd1a1cd740b8565a7646198",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "ed1fb58ea4769280cbfa9fc42edd917892edb9fc",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 71,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a0792f6ef7d1199ea9fc70f093e709097e8a7c1c4c346fdba1c9030cc688af7e"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "e3841735e8652759fb729b66799011aa20ea55480e9cd6ddc34f974c9347d14c"
+      },
+      {
+        "path": "lib/hexo/multi_config_path.js",
+        "contentSha256": "efb1d51a8cf3a6f57692b181678f2b9aec583f0e0ad05092af69dc05d42df39f"
+      },
+      {
+        "path": "lib/hexo/load_config.js",
+        "contentSha256": "0d830122123469cf9adeaa28223b5a9c8f87bc6377f2fa9f910025da74b7b541"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "02e11fbdf23aea24789834255ba642093425ec596a449edd9cec83537c136d35"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a23b6e1908660cec7b59d097f7a7300009e926f268c1bfd813cff411689f80a7"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "e808859ce3195fc0e896c3fecd4c7742573da35667ab97cd4a4841745bdcae9f"
+      },
+      {
+        "path": "lib/hexo/default_config.js",
+        "contentSha256": "b0519ec5fa49241a5d8dcc822c6bcdb0918e2d970037f35166609aa66a32b529"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "ddc20af84bc576aa3e3dee541712d6f525b52d2120add2b8d65e130656600073"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7603,
+          "outputTokens": 246,
+          "totalTokens": 7849
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect MultiConfigPath usage in Hexo constructor",
+            "severity": "high",
+            "file": "lib/hexo/index.js",
+            "line": 36,
+            "explanation": "The new MultiConfigPath is assigned to variable `mcp` at line 36, but only later (line 92) is `this.config_path` set using `mcp`. The original code replaced it with a local `multiConfigPath` requiring a function invocation. This change might cause issues if `MultiConfigPath` is not a constructor but rather a function that returns a function, so `new MultiConfigPath(this)` likely produces an object without a callable interface, breaking `mcp(base, args.config)`.",
+            "suggestion": "Replace the instantiation `var mcp = new MultiConfigPath(this);` with `var mcp = MultiConfigPath(this);` so that `mcp` is a function as expected by later calls.",
+            "failureAfterChange": "Invoking `hexo.config_path = mcp(base, args.config)` will throw TypeError since `mcp` is not a function, causing Hexo initialization to fail when a config argument is provided.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect MultiConfigPath usage in Hexo constructor",
+            "severity": "high",
+            "file": "lib/hexo/index.js",
+            "line": 36,
+            "explanation": "The new MultiConfigPath is assigned to variable `mcp` at line 36, but only later (line 92) is `this.config_path` set using `mcp`. The original code replaced it with a local `multiConfigPath` requiring a function invocation. This change might cause issues if `MultiConfigPath` is not a constructor but rather a function that returns a function, so `new MultiConfigPath(this)` likely produces an object without a callable interface, breaking `mcp(base, args.config)`.",
+            "suggestion": "Replace the instantiation `var mcp = new MultiConfigPath(this);` with `var mcp = MultiConfigPath(this);` so that `mcp` is a function as expected by later calls.",
+            "failureAfterChange": "Invoking `hexo.config_path = mcp(base, args.config)` will throw TypeError since `mcp` is not a function, causing Hexo initialization to fail when a config argument is provided.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

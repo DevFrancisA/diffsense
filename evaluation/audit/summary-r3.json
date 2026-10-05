@@ -1,0 +1,30 @@
+{
+  "judges": "two independent Claude agents per item, blind to configuration; not human-reviewed",
+  "problems": [],
+  "summary": [
+    {
+      "config": "holdout-c7",
+      "items": 24,
+      "judgedByBoth": 24,
+      "describesDefect": {
+        "agreement": 23,
+        "bothYes": 18,
+        "bothNo": 5
+      },
+      "restoreOnly": {
+        "agreement": 24,
+        "bothYes": 21,
+        "bothNo": 3
+      }
+    },
+    {
+      "config": "forward-c7",
+      "items": 16,
+      "judgedByBoth": 16,
+      "agreement": 16,
+      "bothRealDefect": 0,
+      "bothNotADefect": 16,
+      "disagreeOrUnsure": 0
+    }
+  ]
+}

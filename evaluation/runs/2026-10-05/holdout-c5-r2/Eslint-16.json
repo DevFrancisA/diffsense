@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-16",
+  "project": "Eslint",
+  "bugId": 16,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "11ffe6b18393fd7448f71463d6a9acd1dea0ed80",
+  "buggySha": "975dacfdec9ee664e83337c1a8c360211a0efb28",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "35834e372901bc911ebd7f51c9000ab8b3a4747b1a590607e1019ed03fe5d432",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "11ffe6b18393fd7448f71463d6a9acd1dea0ed80",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 181,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/no-regex-spaces.js",
+        "contentSha256": "4852422ee6ce87900535a2747ae1cee1e571c5dbee96030136a10b57bdd0798e"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "dea4b97fcb758dcf10965d83b486d7857376d21a4fd924b0b939418a11898a10"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "eba64bed5f11a670133b0fbf620e02e056e36b7585dafeb956d02243e23d7342"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "ae5f2802a64a1fdbd805ad362e556f7034c2ad21dd87c197a62e6162190da7ed"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "0d68798c554716c92c73bddb2b1b7772d265ab2211f33cb2437dc0a3f7f9c5eb"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "ff993ba55f6e3438371f1e87b93f73dfc98faf047c9c0aed11b5bbced773fb72"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "67196ad19ddaf2c2a1b96b9645ffd8937e8e620607916bb34768c4148602d5f7"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "93e48ae202ec472e5944f84c13268915611281e3d3446c2c11b6f8a9156931d8"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7257,
+          "outputTokens": 363,
+          "totalTokens": 7620
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect regex causes misdetection of multiple spaces in regular expressions",
+            "severity": "medium",
+            "file": "lib/rules/no-regex-spaces.js",
+            "line": 40,
+            "explanation": "The change modifies the regular expression used to detect multiple spaces from an expression that matched multiple space sequences followed by certain quantifiers to a non-greedy match of one or more sequences of spaces. This new regex may fail to correctly identify multiple spaces in some regex patterns and capture unexpected matches, leading to false positives/negatives in the lint rule.",
+            "suggestion": "Restore the original regex /( {2,})( [+*{?]|[^+*{?]|$)/ to ensure correct detection of multiple spaces followed by relevant characters or end of input.",
+            "failureAfterChange": "Given a regex literal /abc    ?def/, the rule may not detect the multiple spaces correctly or may replace an incorrect part of the pattern.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Incorrect capture group used for counting spaces leads to inaccurate fixes",
+            "severity": "medium",
+            "file": "lib/rules/no-regex-spaces.js",
+            "line": 44,
+            "explanation": "The code previously used regexResults[1].length to get the length of the captured multiple spaces group, but the change uses regexResults[0].length, which includes potential trailing characters matched by the regex. This leads to an incorrect fix range and wrong replacement text.",
+            "suggestion": "Use regexResults[1].length to accurately count only the space characters matched for replacement rather than the full matched string.",
+            "failureAfterChange": "When matching '   ?' the count will be longer than the spaces alone, causing the fix to incorrectly replace part of the pattern including the following character (e.g. '?' character).",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect regex causes misdetection of multiple spaces in regular expressions",
+            "severity": "medium",
+            "file": "lib/rules/no-regex-spaces.js",
+            "line": 40,
+            "explanation": "The change modifies the regular expression used to detect multiple spaces from an expression that matched multiple space sequences followed by certain quantifiers to a non-greedy match of one or more sequences of spaces. This new regex may fail to correctly identify multiple spaces in some regex patterns and capture unexpected matches, leading to false positives/negatives in the lint rule.",
+            "suggestion": "Restore the original regex /( {2,})( [+*{?]|[^+*{?]|$)/ to ensure correct detection of multiple spaces followed by relevant characters or end of input.",
+            "failureAfterChange": "Given a regex literal /abc    ?def/, the rule may not detect the multiple spaces correctly or may replace an incorrect part of the pattern.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Incorrect capture group used for counting spaces leads to inaccurate fixes",
+            "severity": "medium",
+            "file": "lib/rules/no-regex-spaces.js",
+            "line": 44,
+            "explanation": "The code previously used regexResults[1].length to get the length of the captured multiple spaces group, but the change uses regexResults[0].length, which includes potential trailing characters matched by the regex. This leads to an incorrect fix range and wrong replacement text.",
+            "suggestion": "Use regexResults[1].length to accurately count only the space characters matched for replacement rather than the full matched string.",
+            "failureAfterChange": "When matching '   ?' the count will be longer than the spaces alone, causing the fix to incorrectly replace part of the pattern including the following character (e.g. '?' character).",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

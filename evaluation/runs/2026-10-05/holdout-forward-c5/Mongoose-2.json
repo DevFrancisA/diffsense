@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-2",
+  "project": "Mongoose",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "c671672a908e4e3ae693e499e7f9fe649aa41db7",
+  "buggySha": "d5d34382c980d94a11d20e08ee3b9abee8a7f8b5",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "64afb8bda3945b61470c8ff41645fd3615dd4bac4b5232e03c773640a7a79d64",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "d5d34382c980d94a11d20e08ee3b9abee8a7f8b5",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/model.js",
+        "contentSha256": "75640cb9f5127f008a588ac34efc91e49d7f443e65693775320020fabff11230"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "45b9dd8609df2257863ad91be57ec1f0b5f9d8902996e35d7b5b63842aba3708"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "2372b3a9635ac49bb698c6077703bddb29afe9f47ce3361779667a5da07cb094"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "873cd57c3319729fbd79b3a529c11cee7c9b8d2b5a959697e8102505f2a0deb3"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "67291edf9e28dfea04cd33a640562dd88fefa7d7c3c111a7df79610a0cc192c1"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 18342,
+          "outputTokens": 272,
+          "totalTokens": 18614
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect error assertion in populate tests",
+            "severity": "high",
+            "file": "test/document.populate.test.js",
+            "line": 320,
+            "explanation": "The test asserts that an error is present (`assert.ok(err)`) but the correct behavior expects no error (`assert.ifError(err)`). This could result in false test failures or passing errors incorrectly.",
+            "suggestion": "Replace `assert.ok(err);` with `assert.ifError(err);` to assert that there is no error.",
+            "failureAfterChange": "Any test run that previously expected an error at this line would incorrectly fail if an error is present; after change, it asserts that no error should occur here.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Incorrect error assertion in populate tests",
+            "severity": "high",
+            "file": "test/model.populate.test.js",
+            "line": 1014,
+            "explanation": "Similar to the previous finding, the test asserts that an error is present using `assert.ok(err)`. The correct assertion is `assert.ifError(err)`, which checks that no error occurred.",
+            "suggestion": "Replace `assert.ok(err);` with `assert.ifError(err);` to properly check for absence of errors.",
+            "failureAfterChange": "Tests that expected an error would fail if an error was present; after change, code asserts no error is expected.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

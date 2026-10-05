@@ -9,7 +9,7 @@ DiffSense is designed as a review aid: reviewers remain responsible for validati
 ## What it does
 
 - Indexes supported source files from a GitHub repository into PostgreSQL with pgvector embeddings.
-- Reviews a diff with the full pre-change text of each changed source file plus the most relevant indexed chunks (the configuration measured as "C4" below).
+- Reviews a diff against the code as it will be **after** the change: the full post-change text of each changed source file plus the most relevant indexed chunks. Every finding must name a concrete input that fails in the new code. Two independent review samples are combined (the configuration measured as "C7" below).
 - Returns structured findings with severity, changed-file line, explanation, and suggested fix. A finding that cites a removed line is moved to the nearest added line of the same hunk. Other findings that do not point to added lines are discarded. Test-file findings are skipped unless you turn that off.
 - Generates a bounded Playwright plan that asserts the **pre-change** behavior the diff alters, so the plan should pass on the base build and fail if the change ships. Plans contain browser actions and assertions, not executable model-written code. Invalid scenarios are dropped individually.
 - Calculates review-quality and workflow metrics from a labeled evaluation dataset you provide.
@@ -129,27 +129,29 @@ Benchmark variants are set by environment variables (`DIFFSENSE_BENCHMARK_VARIAN
 
 All runs use `gpt-4.1-mini` for review and `text-embedding-3-small` for embeddings, dated 2026-10-05. Every number comes from a committed results file, and `npm run check-results` (run in CI) recomputes or cross-checks each one. Round 2 was preregistered in [`evaluation/ROUND2.md`](evaluation/ROUND2.md) before any of its numbers existed; that file also logs the amendments made after measurement.
 
-### Headline (HOLDOUT, the shipped configuration, one run)
+### Headline (HOLDOUT, one run per configuration)
 
-| Measure | Original baseline | Shipped config (C4) |
-|---|---|---|
-| Labeled defect ranges found (recall) | 20/56 = 35.7% (24.5–48.8%) | 27/56 = **48.2%** (35.7–61.0%) |
-| …found **and** correctly explained (two blind Claude judges agree) | 14/56 = 25.0% (15.5–37.7%) | 19/56 = **33.9%** (22.9–47.0%) |
-| Labeled precision | 20/22 = 90.9% | 27/27 = 100% |
-| **Correct upstream fixes that were flagged anyway** | 20/30 = 66.7% (48.8–80.8%) | 23/30 = **76.7%** (59.1–88.2%) |
-| Of those flags, judged real defects by both judges | 0/21 | 0/29 |
+| Measure | Original baseline | C4 (Round 2) | **C7 (shipped, Round 3)** |
+|---|---|---|---|
+| Labeled bugs found (recall) | 20/56 = 35.7% | 27/56 = 48.2% | 24/56 = **42.9%** (30.8–55.9%) |
+| …found **and** correctly explained (two blind Claude judges agree) | 14/56 = 25.0% | 19/56 = 33.9% | 18/56 = **32.1%** |
+| **Correct upstream fixes flagged anyway** | 20/30 = 66.7% | 23/30 = 76.7% | 13/30 = **43.3%** (27.4–60.8%) |
+| Findings on correct fixes (judged real defects by both judges) | 21 (0) | 29 (0) | 16 (0) |
+| **Combined precision** (bugs found ÷ all findings on buggy and correct diffs) | 46.5% | 48.2% | **60.0%** (44.6–73.7%) |
 
-Intervals are Wilson 95%. The labeled precision is not informative: across every DEV and HOLDOUT run, no finding on a non-test source file was ever scored as a false positive, because labels cover every added source line of a fix. The forward-fix arm measures what precision hides. Shown **correct** code (the real fix), DiffSense still reports at least one finding on most changes, and two independent model judges agreed that none of those 50 flags was a real defect. This is the main open problem.
+Intervals are Wilson 95%. Labeled precision alone is not informative: no finding on a non-test source file was ever scored wrong on the bug diffs, because labels cover every added source line. The **forward-fix arm** closes that gap: the real fix diffs (correct code) are reviewed too, and every finding there counts against precision.
+
+**Why correct fixes were flagged** ([`ROUND3.md`](evaluation/ROUND3.md)). Two blind judges' notes show that 17 of C4's 29 flags on correct fixes described the bug the change *fixes* ("the old code crashed on X; this change fixes it") as if it were a defect. This narration grew once the full **pre-change** file was put in the review context. In the reversed-fix benchmark the same narration lands on the labeled bug, so it also inflated C1–C4's recall. C7 instead shows the reviewer the file **after** the change, asks it to report only defects that exist in the new code, and requires each finding to name a concrete failing input (findings the model marks as "already fixed by this change" are dropped). Two such samples are united. On HOLDOUT, "describes the fix" flags fell from 17 to 2. Paired by case, C7 flags 13 fewer and 3 more correct fixes than C4 (exact McNemar p = 0.021). Its recall difference to C4 (−3 ranges, bootstrap 95% CI −17.0% to +6.1%, p = 0.55) is within noise. A second-pass verifier (C6) was also tested on DEV and removed nothing, so it is not used.
 
 Paired on the same 56 HOLDOUT ranges (`npm run compare-results`):
 
 | Comparison | Both found | Only first | Only second | Recall difference (bootstrap 95% CI) | Exact McNemar p |
 |---|---:|---:|---:|---|---:|
-| baseline → C3 | 17 | 3 | 8 | +8.9% (−2.3% to +20.8%) | 0.227 |
-| baseline + remap → C4 | 22 | 3 | 5 | +3.6% (−6.5% to +14.6%) | 0.727 |
 | baseline → C4 | 18 | 2 | 9 | +12.5% (+1.8% to +25.0%) | 0.065 |
+| C4 → C7 | 20 | 7 | 4 | −5.4% (−17.0% to +6.1%) | 0.549 |
+| baseline → C7 | 16 | 4 | 8 | +7.1% (−4.7% to +21.6%) | 0.388 |
 
-Most of C4's gain over the baseline comes from the remap rule (R1), which helps the baseline nearly as much. With a single run per configuration, the improvement is suggestive and not established.
+Each HOLDOUT configuration ran once, and HOLDOUT had already been used once to diagnose C4's false alarms, so these comparisons are suggestive, not established. C7 makes two review calls per diff.
 
 ### DEV changes (three runs each, chosen and tuned on DEV)
 
@@ -159,7 +161,9 @@ Most of C4's gain over the baseline comes from the remap rule (R1), which helps 
 | C1 | + full pre-change text of changed files | 22, 23, 24 | 39.0% | 84.1% |
 | C2 | C1 + prompt asks for the exact `+` line | 22, 23, 29 | 41.8% | 85.1% |
 | C3 | C2, non-test files only, "do not report findings in test files" | 21, 20, 25 | 37.3% | 97.1% |
-| **C4** | C3 + removed-line citations remapped to the hunk's added line (re-scored from saved outputs, no new calls) | 26, 27, 32 | 48.0% | 97.7% |
+| C4 | C3 + removed-line citations remapped to the hunk's added line (re-scored from saved outputs, no new calls) | 26, 27, 32 | 48.0% | 97.7% |
+
+Round 3 (DEV, one run each; the forward column is correct fixes flagged out of 30): C4 26 found, 16 flagged · C5 (post-change review, one sample) 23 and 22 found, 6 and 8 flagged · C6 (C5 + verifier) identical to C5 · **C7** (union of two C5 samples) 30 found, 10 flagged. Selection rule, preregistered: the fewest flagged correct fixes with recall ≥ 26/59, which picked C7.
 
 C3 was redefined after seeing that every C1/C2 false positive was on a test file (a logged deviation). [`ERROR_ANALYSIS.md`](evaluation/ERROR_ANALYSIS.md) motivated C1 and C4. Of the baseline's 125 missed range-runs, 45 had the defect file outside the 40-file index cap and 23 were near-misses dropped by the exact-line gate. Details are in [`IMPROVEMENTS.md`](evaluation/IMPROVEMENTS.md) and [`ROUND2.md`](evaluation/ROUND2.md).
 
@@ -184,7 +188,7 @@ Paired manual-vs-assisted review time and human finding comparability are **unme
 
 ### Limitations
 
-- **False alarms on correct code.** On 30 real fixes, the shipped configuration flagged 23, and judges found none of those flags to be real defects. Treat every finding as a candidate.
+- **False alarms on correct code.** On 30 real fixes, the shipped configuration (C7) still flagged 13, and the judges found none of those 16 flags to be a real defect. Most remaining flags speculate or object to the change's intent. Treat every finding as a candidate.
 - **Model-judged audits.** "Correctly explained" and "real defect" come from two Claude agents per item, not from people. Agreement was high (≥95%), but the judges may share blind spots.
 - **Reconstructed diffs.** Cases reverse real fix commits. They are not the original bug-introducing pull requests; deleted lines show the correct code, and test changes are reverted too.
 - **Possible memorization.** BugsJS projects and fixes are public and may be in the model's training data.
@@ -195,7 +199,7 @@ Paired manual-vs-assisted review time and human finding comparability are **unme
 
 ## Usage
 
-The 2026-10-05 baseline completed 211 API calls (1,935,588 tokens). The abandoned recall-v2 experiment completed another 117 calls (1,400,865 tokens); its metrics are not reported. Everything after that used 880 completed calls and 6,118,371 tokens out of a 1,000-call / 10M-token session cap ([session ledger](evaluation/ledger/session-2.json)). The blind audits and code reviews were done by Claude agents and used no OpenAI calls.
+The 2026-10-05 baseline completed 211 API calls (1,935,588 tokens). The abandoned recall-v2 experiment completed another 117 calls (1,400,865 tokens); its metrics are not reported. Everything after that used 1,273 completed calls and 8,775,937 tokens; the session cap was 1,000 calls / 10M tokens, raised by the owner to 1,300 / 13M for Round 3 ([session ledger](evaluation/ledger/session-2.json)). The blind audits and code reviews were done by Claude agents and used no OpenAI calls.
 
 ## Data handling and deployment limits
 

@@ -70,3 +70,7 @@ Preregistration, amendments, and definitions: [`ROUND2.md`](ROUND2.md). Outputs:
 - R3 (shipping): the app reviews with C4 through `src/lib/server/review-pipeline.ts`, the same builder the benchmark uses. `scripts/verify-changed-files.ts` confirms the later pre-change check keeps every measured file.
 - R4–R6 (plan generator v2, protocol v2): `regressions/replay-validation-v2.json`, and `regressions/v2/` (scenarios, patches, runs, plans, `results-{replay-v1,dev,holdout}.json`).
 - R7 (blind audit) and the judgments of forward-fix flags: `audit/` (`key.json`, `judgments.json`, `summary.json`). Judges are Claude agents, not people.
+
+## Round 3
+
+[`ROUND3.md`](ROUND3.md): why correct fixes were flagged (the reviewer narrated the fix when shown pre-change files), the candidates C5–C7, the selection rule, and the HOLDOUT results. Outputs: `results-dev-c5*.json`, `results-dev-c6.json`, `results-dev-c7.json`, `results-holdout-c5*.json`, `results-holdout-c7.json`, and the `falsealarms-*-c4/c5/c6/c7*.json` files (C7 files built by `scripts/union-runs.ts`, C6 by `scripts/verify-run.ts`). Blind judgments are in `audit/key-r3.json`, `audit/judgments-r3.json`, and `audit/summary-r3.json`. `scripts/check-apply-diff.ts` confirms that applying each diff reproduces the post-change files exactly (250 files).

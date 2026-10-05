@@ -59,7 +59,7 @@ async function readRegressionSummary() {
 // How often the shipped configuration flags real upstream fixes (correct code) on HOLDOUT.
 async function readFalseAlarms() {
   try {
-    return falseAlarmSchema.parse(await readJson("falsealarms-holdout-forward-final.json")).summary;
+    return falseAlarmSchema.parse(await readJson("falsealarms-holdout-forward-c7.json")).summary;
   } catch {
     return null;
   }
@@ -73,11 +73,11 @@ function getRange(values: (number | null)[]) {
 
 export async function GET() {
   try {
-    // Headline: the shipped configuration (C4) on the held-out cohort; the original baseline if that file is absent.
+    // Headline: the shipped configuration (C7, evaluation/ROUND3.md) on the held-out cohort; the original baseline if absent.
     let label = "HOLDOUT · final config";
     let contents: string;
     try {
-      contents = await readFile(join(process.cwd(), "evaluation", "results-holdout-final-c4.json"), "utf8");
+      contents = await readFile(join(process.cwd(), "evaluation", "results-holdout-c7.json"), "utf8");
     } catch {
       label = "baseline";
       contents = await readFile(join(process.cwd(), "evaluation", "results.json"), "utf8");

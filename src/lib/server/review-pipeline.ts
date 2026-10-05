@@ -10,6 +10,8 @@ export type ReviewPipelineConfig = {
   acceptance: AcceptancePolicy;
   /** Which side of the change the full changed files show; Round 3 (C5) uses "after". Defaults to "before". */
   changedFileSide?: "before" | "after";
+  /** Independent review samples per diff; accepted findings are united by file and line (C7 uses 2). Defaults to 1. */
+  samples?: number;
 };
 
 /** The original 2026-10-05 baseline pipeline. */
@@ -22,7 +24,7 @@ export const baselineReviewConfig: ReviewPipelineConfig = {
 };
 
 /** C4 (evaluation/ROUND2.md): C3's context and prompt with removed-line citations remapped to their hunk's added line. */
-export const finalReviewConfig: ReviewPipelineConfig = {
+export const c4ReviewConfig: ReviewPipelineConfig = {
   promptRevision: "cite-added-line-source-focus",
   includeChangedFiles: true,
   changedFilesExcludeTests: true,
@@ -30,11 +32,36 @@ export const finalReviewConfig: ReviewPipelineConfig = {
   acceptance: "remap-removed",
 };
 
-/** The app's toggle for reviewing test files keeps everything else from the final configuration. */
+/**
+ * C7 (evaluation/ROUND3.md): reviews the code AFTER the change (post-change full files and prompt), requires a concrete
+ * failure in the new code, and unites two independent samples.
+ */
+export const finalReviewConfig: ReviewPipelineConfig = {
+  promptRevision: "post-change",
+  includeChangedFiles: true,
+  changedFilesExcludeTests: true,
+  changedFileSide: "after",
+  retrievalK: 8,
+  acceptance: "remap-removed",
+  samples: 2,
+};
+
+/** The app's toggle for reviewing test files keeps everything else from the final configuration (that variant is unmeasured). */
 export function appReviewConfig(skipTestFiles: boolean): ReviewPipelineConfig {
   return skipTestFiles
     ? finalReviewConfig
-    : { ...finalReviewConfig, promptRevision: "cite-added-line", changedFilesExcludeTests: false };
+    : { ...finalReviewConfig, promptRevision: "post-change-with-tests", changedFilesExcludeTests: false };
+}
+
+/** Unites accepted findings from several review samples, keeping the first finding at each file and line. */
+export function uniteSamples<T extends { file: string; line: number }>(samples: T[][]) {
+  const seen = new Set<string>();
+  return samples.flat().filter((finding) => {
+    const key = `${finding.file}:${finding.line}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 // Three changed files at the 80 KB per-file limit; never binding on the BugsJS cohorts (at most three source files each).

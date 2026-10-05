@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-10",
+  "project": "Hexo",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "f1d896f71333b1158c1e0e996fcb42fdac6ddd92",
+  "buggySha": "45f39dfe2fd9dd29571c8618380a6e9ed1e3d274",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "bdb3040bc9c4cc871ff13d17f775a55dd5d0a5dfde8f9a8e510a660d2d37dc06",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "45f39dfe2fd9dd29571c8618380a6e9ed1e3d274",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 68,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "329d00f39469e6b6d2cb4bf23e994fc8a1b0cd5340065dae8d0b4d8ab17fb258"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a518a6c6e22d0cc01b9f9dc0e01d4905ffec20c65f836f3715334670e75b10cb"
+      },
+      {
+        "path": "lib/plugins/console/generate.js",
+        "contentSha256": "99c274cdb808ccfbd47ace5fbe19a33195022c54bfd1df6922337d41abd89d4d"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "f23cf98521e350750e2c9736f59237c874834268fd23ed3f047fd8f5b715b422"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "2a0dfb1e70d94c6f0fb212046db381c0d2fa74d48cdc49b8b9711eb9feee98a5"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "509560db1572a405c7923d2ac3a3abc3e9b2f788b752a4dc9d084551c346f980"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "af77e40d4f819be2669fef957424c3f99d35186cb3dc2657f7ce5095f403cd91"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "9e28ecbd63061fa9bedd944d105daef94078b08e905f2301d4a0c5661057d80f"
+      },
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "e5e96a66e3d2ea760461f5bdee4d6ab6628c161dd0ec53a322d1b2abbd20edbf"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "7cb8a7fb468969c6fb0648180f889b8032288aa88a4f1228ed619a5e72b18000"
+      },
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "a8196c4c10d5aa4d3c606ccda101961898188e9723d9781d71f2cc3ecae4cfc9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 10468,
+          "outputTokens": 637,
+          "totalTokens": 11105
+        },
+        "rawFindings": [
+          {
+            "title": "_dispatch logs 'Processed' without processing duration",
+            "severity": "low",
+            "file": "lib/box/index.js",
+            "line": 319,
+            "explanation": "The processing duration logging using prettyHrtime was removed, so the log message no longer shows how long processing took for a file. This reduces visibility for performance monitoring.",
+            "suggestion": "Restore timing logic using process.hrtime and prettyHrtime to include processing time in log: capture start time before processing and log duration after processing.",
+            "failureAfterChange": "When processing files, the debug log 'Processed: {path}' does not include the elapsed time, so timing info is lost.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "_generate logs generator keys without elapsed time",
+            "severity": "low",
+            "file": "lib/hexo/index.js",
+            "line": 308,
+            "explanation": "The code removed timing calculations and now logs only the generator key string, omitting the time taken. This reduces detail in debug logs and may hinder performance analysis.",
+            "suggestion": "Restore the timing calls (process.hrtime / prettyHrtime) and include elapsed time in the debug message.",
+            "failureAfterChange": "When running generators during _generate(), logs miss the elapsed time durations, decreasing observability of generator performance.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "_generate reduce always returns array or undefined incorrectly concatenating generators with no return",
+            "severity": "medium",
+            "file": "lib/hexo/index.js",
+            "line": 309,
+            "explanation": "The original code returns `data ? result.concat(data) : result;` ensuring the reduce accumulates arrays correctly. The change returns `data ? result.concat(data) : data;` causing the reduce to possibly return undefined leading to type errors in subsequent processing steps when a generator returns no result.",
+            "suggestion": "Use `return data ? result.concat(data) : result;` to ensure accumulation is an array and not undefined.",
+            "failureAfterChange": "If a generator returns undefined, the Promise.reduce result is undefined instead of the accumulated array, causing failures downstream which expect an array of items to process.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "_generate processes non-object items without path property causing error",
+            "severity": "medium",
+            "file": "lib/hexo/index.js",
+            "line": 314,
+            "explanation": "The previous code processes any item with a defined path property. The change skips processing if the item is not an object or lacks a path property, preventing possible runtime errors when accessing properties on non-objects or undefined.",
+            "suggestion": "No fix needed; this is an improvement that avoids errors on invalid items.",
+            "failureAfterChange": "N/A",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "generateConsole logs 'Generated' without elapsed time",
+            "severity": "low",
+            "file": "lib/plugins/console/generate.js",
+            "line": 23,
+            "explanation": "The change removed elapsed time logging for generated files, so log messages are less informative about how long generation took per file.",
+            "suggestion": "Restore elapsed time measurement around file generation and include it in the log message.",
+            "failureAfterChange": "Logs show only 'Generated: {path}' without indicating generation time, reducing performance visibility.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "_generate reduce always returns array or undefined incorrectly concatenating generators with no return",
+            "severity": "medium",
+            "file": "lib/hexo/index.js",
+            "line": 307,
+            "explanation": "The original code returns `data ? result.concat(data) : result;` ensuring the reduce accumulates arrays correctly. The change returns `data ? result.concat(data) : data;` causing the reduce to possibly return undefined leading to type errors in subsequent processing steps when a generator returns no result.",
+            "suggestion": "Use `return data ? result.concat(data) : result;` to ensure accumulation is an array and not undefined.",
+            "failureAfterChange": "If a generator returns undefined, the Promise.reduce result is undefined instead of the accumulated array, causing failures downstream which expect an array of items to process.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "generateConsole logs 'Generated' without elapsed time",
+            "severity": "low",
+            "file": "lib/plugins/console/generate.js",
+            "line": 23,
+            "explanation": "The change removed elapsed time logging for generated files, so log messages are less informative about how long generation took per file.",
+            "suggestion": "Restore elapsed time measurement around file generation and include it in the log message.",
+            "failureAfterChange": "Logs show only 'Generated: {path}' without indicating generation time, reducing performance visibility.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

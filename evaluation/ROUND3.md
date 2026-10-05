@@ -80,3 +80,24 @@ The ledger refuses any batch that would pass 1,300 calls or 13M tokens.
 | **C7** = union of C5 samples 1 and 2 | **30** | **10** | 15 |
 
 Under the selection rule, only C4 (16 flagged, recall 26) and C7 (10 flagged, recall 30) clear the recall floor. **C7 is selected.** It makes two review calls per diff, where C4 makes one. A C4 union of two samples was not measured on the forward arm, so part of C7's recall gain over a single C4 run may come from sampling twice.
+
+## HOLDOUT results (C7, run once; HOLDOUT was already used once to diagnose C4, see above)
+
+`npm run compare-results`. Intervals are Wilson 95%.
+
+| HOLDOUT | Bugs found / 56 | Correct fixes flagged / 30 | Findings on correct fixes | Combined precision | Correctly explained (both judges) |
+|---|---:|---:|---:|---:|---:|
+| Original baseline | 20 (35.7%) | 20 (66.7%) | 21 | 46.5% (32.5–61.1%) | 14 (25.0%) |
+| C4 (Round 2) | 27 (48.2%) | 23 (76.7%) | 29 | 48.2% (35.7–61.0%) | 19 (33.9%) |
+| **C7 (Round 3)** | **24 (42.9%)** | **13 (43.3%)** | **16** | **60.0% (44.6–73.7%)** | **18 (32.1%)** |
+
+- **False alarms, C4 → C7 (paired by case):** 13 cases stop being flagged and 3 start being flagged. Exact McNemar p = 0.021, so this reduction is statistically significant.
+- **Bugs found, C4 → C7 (paired by range):** 7 ranges are found only by C4 and 4 only by C7. The difference is −5.4%, bootstrap 95% CI −17.0% to +6.1%, McNemar p = 0.549, so the change is not significant.
+- **Bugs found, baseline → C7:** +7.1% (CI −4.7% to +21.6%, p = 0.388).
+- **Flags on correct fixes, judged by two blind Claude agents:** 0 of 16 were judged real defects, and the judges agreed on all 16. The targeted failure, describing the fix as if it were a bug, fell from 17 of 29 flags (C4) to 2 of 16 (C7). The remaining flags mostly object to the fix's intent or speculate (10).
+- **Matched findings:** 18 of 24 correctly explain the bug (judges agreed on 23 of 24).
+- **Cost:** C7 makes two review calls per diff, where C4 makes one.
+
+**Conclusion.** C7 roughly halves false alarms on correct code and raises combined precision from 48% to 60%. Recall is about level with C4 (24 vs 27 of 56; the difference is within noise) and above the original baseline. It still flags 13 of 30 correct fixes. The app now ships C7.
+
+**Session ledger at the end of Round 3:** 1,274 of 1,300 calls, 8,775,937 of 13M tokens.

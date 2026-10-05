@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-10",
+  "project": "Hexo",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "f1d896f71333b1158c1e0e996fcb42fdac6ddd92",
+  "buggySha": "45f39dfe2fd9dd29571c8618380a6e9ed1e3d274",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "bdb3040bc9c4cc871ff13d17f775a55dd5d0a5dfde8f9a8e510a660d2d37dc06",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "45f39dfe2fd9dd29571c8618380a6e9ed1e3d274",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 68,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "329d00f39469e6b6d2cb4bf23e994fc8a1b0cd5340065dae8d0b4d8ab17fb258"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a518a6c6e22d0cc01b9f9dc0e01d4905ffec20c65f836f3715334670e75b10cb"
+      },
+      {
+        "path": "lib/plugins/console/generate.js",
+        "contentSha256": "99c274cdb808ccfbd47ace5fbe19a33195022c54bfd1df6922337d41abd89d4d"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "f23cf98521e350750e2c9736f59237c874834268fd23ed3f047fd8f5b715b422"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "2a0dfb1e70d94c6f0fb212046db381c0d2fa74d48cdc49b8b9711eb9feee98a5"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "509560db1572a405c7923d2ac3a3abc3e9b2f788b752a4dc9d084551c346f980"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "af77e40d4f819be2669fef957424c3f99d35186cb3dc2657f7ce5095f403cd91"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "9e28ecbd63061fa9bedd944d105daef94078b08e905f2301d4a0c5661057d80f"
+      },
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "e5e96a66e3d2ea760461f5bdee4d6ab6628c161dd0ec53a322d1b2abbd20edbf"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "7cb8a7fb468969c6fb0648180f889b8032288aa88a4f1228ed619a5e72b18000"
+      },
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "a8196c4c10d5aa4d3c606ccda101961898188e9723d9781d71f2cc3ecae4cfc9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 10468,
+          "outputTokens": 559,
+          "totalTokens": 11027
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect logger usage in Box.prototype._dispatch",
+            "severity": "low",
+            "file": "lib/box/index.js",
+            "line": 320,
+            "explanation": "The code removes usage of 'pretty-hrtime' for timing processed files in Box.prototype._dispatch, simplifying the log message. This reduces the information logged but does not introduce any functional error or defect.",
+            "suggestion": "If timing information is desired, keep the timer and the pretty-hrtime usage; otherwise, this change is acceptable.",
+            "failureAfterChange": "",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Incorrect logging and incorrect reduction in Hexo.prototype._generate",
+            "severity": "medium",
+            "file": "lib/hexo/index.js",
+            "line": 307,
+            "explanation": "The change removes timing info logging in the generator process loop, which is a reduction in logging detail but not a functional defect. More importantly, the original code concatenated the generator results into the accumulator correctly, but the changed code incorrectly uses 'return data ? result.concat(data) : result;' which omits 'result' when 'data' is falsy, causing loss of previously accumulated result when 'data' is falsy (should always return an array).",
+            "suggestion": "Restore the original logic: 'return data ? result.concat(data) : result;' is correct, but ensure this is always returning 'result' if data is falsy. Confirm the final version always returns accumulated 'result' regardless of 'data' content.",
+            "failureAfterChange": "If a generator returns no data (undefined), accumulated results from previous generators are discarded resulting in missing generated contents.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "In Hexo.prototype._generate 'each' callback, missing type check on item before accessing path",
+            "severity": "medium",
+            "file": "lib/hexo/index.js",
+            "line": 313,
+            "explanation": "The original code skips items that are not objects or that have a null path. The change adds an explicit type check for 'object' before checking 'item.path == null'. Without this check, if a non-object is encountered, accessing 'item.path' could throw a runtime error. The fix is correct and prevents potential runtime exceptions.",
+            "suggestion": "Keep the added type check for 'item' before accessing 'item.path' to prevent runtime errors.",
+            "failureAfterChange": "",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Incorrect logging removal in console generate command",
+            "severity": "low",
+            "file": "lib/plugins/console/generate.js",
+            "line": 23,
+            "explanation": "The change removes logging of generation duration for each generated file, reducing logging detail but not introducing a functional defect or error.",
+            "suggestion": "No fix needed if timing logs are not required; restore if timing info is important.",
+            "failureAfterChange": "",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect logging and incorrect reduction in Hexo.prototype._generate",
+            "severity": "medium",
+            "file": "lib/hexo/index.js",
+            "line": 307,
+            "explanation": "The change removes timing info logging in the generator process loop, which is a reduction in logging detail but not a functional defect. More importantly, the original code concatenated the generator results into the accumulator correctly, but the changed code incorrectly uses 'return data ? result.concat(data) : result;' which omits 'result' when 'data' is falsy, causing loss of previously accumulated result when 'data' is falsy (should always return an array).",
+            "suggestion": "Restore the original logic: 'return data ? result.concat(data) : result;' is correct, but ensure this is always returning 'result' if data is falsy. Confirm the final version always returns accumulated 'result' regardless of 'data' content.",
+            "failureAfterChange": "If a generator returns no data (undefined), accumulated results from previous generators are discarded resulting in missing generated contents.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

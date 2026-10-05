@@ -8,9 +8,11 @@ type AuditJudgment = { id: string; describesDefect: boolean; restoreOnly: boolea
 type FlagJudgment = { id: string; verdict: "real-defect" | "not-a-defect" | "unsure"; note: string };
 type Batch = { kind: "audit" | "flag"; judge: "A" | "B"; ids: string[]; judgments: (AuditJudgment | FlagJudgment)[] | null };
 
+// Optional suffix selects a later audit round, e.g. "-r3" reads key-r3.json and judgments-r3.json.
+const suffix = process.argv[2] ?? "";
 const auditRoot = join(process.cwd(), "evaluation", "audit");
-const key = JSON.parse(readFileSync(join(auditRoot, "key.json"), "utf8")) as Key[];
-const batches = JSON.parse(readFileSync(join(auditRoot, "judgments.json"), "utf8")) as Batch[];
+const key = JSON.parse(readFileSync(join(auditRoot, `key${suffix}.json`), "utf8")) as Key[];
+const batches = JSON.parse(readFileSync(join(auditRoot, `judgments${suffix}.json`), "utf8")) as Batch[];
 
 const byJudge = { A: new Map<string, AuditJudgment | FlagJudgment>(), B: new Map<string, AuditJudgment | FlagJudgment>() };
 const problems: string[] = [];
@@ -56,5 +58,5 @@ const summary = configs.map((config) => {
     },
   };
 });
-writeFileSync(join(auditRoot, "summary.json"), `${JSON.stringify({ judges: "two independent Claude agents per item, blind to configuration; not human-reviewed", problems, summary }, null, 2)}\n`, "utf8");
+writeFileSync(join(auditRoot, `summary${suffix}.json`), `${JSON.stringify({ judges: "two independent Claude agents per item, blind to configuration; not human-reviewed", problems, summary }, null, 2)}\n`, "utf8");
 console.log(JSON.stringify({ problems, summary }, null, 2));

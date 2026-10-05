@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-4",
+  "project": "Node-redis",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "97db227a8d2098f82472b08e107e02532e73616d",
+  "buggySha": "b35a685c27126fe92c3d205781695b1691cf8476",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "04e139690717c5d6336a0cefef089de092d8c05ba5d274175f0bc989ccfd60e4",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "b35a685c27126fe92c3d205781695b1691cf8476",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "7065cbecc25f23893df9d574136b61da74f052ace14e772b95eba578c51b878d"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benches/sub_quit_test.js",
+        "contentSha256": "ca72fbdc94accb84b5f889f337f0aa0b229b1ef6fc7a251d5446814f7ce2d05a"
+      },
+      {
+        "path": "examples/pub_sub.js",
+        "contentSha256": "51964d22aa14cf10d2c65a505fd6179a089b1506f250f5ccdffa96d01aef6bc3"
+      },
+      {
+        "path": "benches/re_sub_test.js",
+        "contentSha256": "25afa4e2767e5be215b30f030aba601c808bb3ba849b7801dec1964041472f02"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "d6eb308162eb6f9b0c2c884385ce0836994c94ab0b227fe0b3b2615df958c200"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "41c30252b80334af0250ed5e9f48434435b4d6061db9980f36e5ea48639b2c05"
+      },
+      {
+        "path": "examples/psubscribe.js",
+        "contentSha256": "df14574f2c1299264261a71581082ab9358464ecbe57c36ac748e574d913b41c"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "4e0e8c0c8b5689d9dab0d2bd3516222bef444983681b7b8c96281ea5603a3c86"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "de331acb420f8b99f5ee0690d3f4031df33d96b0be932b9d8d5a65df89ad71af"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 12710,
+          "outputTokens": 268,
+          "totalTokens": 12978
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect splitting of subscription keys in on_ready pub/sub resend logic",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 311,
+            "explanation": "The code changed how the subscription keys are split into command and channel parts. The original code used key.split(\" \") which splits on all spaces, resulting in an array of variable length. The new code manually finds the first space index and slices the string into exactly two parts: the command prefix and the channel name. This is the correct approach, because subscription_set keys are stored as 'sub channel' or 'psub pattern' with exactly one space. Using split(\" \") may cause incorrect spl",
+            "suggestion": "Keep the changed code that splits key by the first space, i.e., use var space_index = key.indexOf(\" \"); var parts = [key.slice(0, space_index), key.slice(space_index + 1)];",
+            "failureAfterChange": "If a subscription key contains spaces in the channel/pattern, the previous code using split(\" \") would produce incorrect parts and the resend commands would have incorrect arguments, causing pub/sub resubscription errors or failures.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

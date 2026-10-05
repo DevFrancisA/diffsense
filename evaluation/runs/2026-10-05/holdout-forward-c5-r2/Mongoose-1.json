@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-1",
+  "project": "Mongoose",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "fd0c9463c3683db604d33cc1dcb582d307d207f9",
+  "buggySha": "564e0dc25e50b8ffd98e7b38ebf64870bdef41bc",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "4a685260254ea32061a356279cd05481c225bf78a26e4a720434588536b36bda",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "564e0dc25e50b8ffd98e7b38ebf64870bdef41bc",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/model.js",
+        "contentSha256": "79da1a4f4b00b33bde1c68e0a68f575624013048d804a24c6ceb38c3c5952e34"
+      },
+      {
+        "path": "lib/schema.js",
+        "contentSha256": "c1c27e6bc78ca20b746b8f26045834fbac0aebf624e65c17ab916772cd190ad1"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "45b9dd8609df2257863ad91be57ec1f0b5f9d8902996e35d7b5b63842aba3708"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "2372b3a9635ac49bb698c6077703bddb29afe9f47ce3361779667a5da07cb094"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "docs/3.2.x/docs/source/api.js",
+        "contentSha256": "68b5aa0f248a2a1a5e84717ef9cc80f1e58e3bdd4449d8b929bc68a62155930d"
+      },
+      {
+        "path": "docs/3.1.x/docs/source/api.js",
+        "contentSha256": "68b5aa0f248a2a1a5e84717ef9cc80f1e58e3bdd4449d8b929bc68a62155930d"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 24701,
+          "outputTokens": 228,
+          "totalTokens": 24929
+        },
+        "rawFindings": [
+          {
+            "title": "Version key is added directly to schema paths in Model.compile, potentially modifying original schema unexpectedly",
+            "severity": "medium",
+            "file": "lib/model.js",
+            "line": 1954,
+            "explanation": "The change in Model.compile adds the version key path directly to the schema by calling schema.add(). This mutates the schema at compile time, which can cause the version key path to appear in nested schemas if compile is called multiple times or schemas reused, contrary to the intention to only add versioning to the top-level document.",
+            "suggestion": "Instead of adding the version key path directly via schema.add(), consider adding the version key to a cloned or specialized schema used only for the top-level model, or handle version key at the document level without mutating the schema paths. Validate that only the top-level schema contains the version key path and nested schemas remain unmodified.",
+            "failureAfterChange": "If a nested schema is compiled multiple times or reused in multiple models, it will improperly have the version key path added, causing queries and operations to malfunction or incorrectly handle versioning for subdocuments.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Version key is added directly to schema paths in Model.compile, potentially modifying original schema unexpectedly",
+            "severity": "medium",
+            "file": "lib/model.js",
+            "line": 1954,
+            "explanation": "The change in Model.compile adds the version key path directly to the schema by calling schema.add(). This mutates the schema at compile time, which can cause the version key path to appear in nested schemas if compile is called multiple times or schemas reused, contrary to the intention to only add versioning to the top-level document.",
+            "suggestion": "Instead of adding the version key path directly via schema.add(), consider adding the version key to a cloned or specialized schema used only for the top-level model, or handle version key at the document level without mutating the schema paths. Validate that only the top-level schema contains the version key path and nested schemas remain unmodified.",
+            "failureAfterChange": "If a nested schema is compiled multiple times or reused in multiple models, it will improperly have the version key path added, causing queries and operations to malfunction or incorrectly handle versioning for subdocuments.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

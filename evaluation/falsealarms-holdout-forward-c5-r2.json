@@ -1,0 +1,328 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "holdout-forward-c5-r2",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "models": {
+    "review": "gpt-4.1-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 11,
+    "casesFlaggedOnSource": 11,
+    "findings": 12,
+    "sourceFindings": 12,
+    "testFindings": 0
+  },
+  "cases": [
+    {
+      "caseId": "Eslint-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-11",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect skipping of Export declarations in statement count",
+          "severity": "high",
+          "file": "lib/rules/max-statements-per-line.js",
+          "line": 46,
+          "explanation": "The updated regex SINGLE_CHILD_ALLOWED includes 'ExportDefaultDeclaration' and 'ExportNamedDeclaration', causing export declarations to be incorrectly skipped from statement counting. This breaks enforcement of max statements per line for export declarations containing multiple statements on the same line, leading to missed reports.",
+          "suggestion": "Remove 'Export(?:Default|Named)Declaration' from the SINGLE_CHILD_ALLOWED regex so that export declarations are properly counted and reported if exceeding max statements per line.",
+          "failureAfterChange": "For example, the code `export default function foo() { console.log('test'); console.log('test2'); }` on one line will not be reported, but it should be reported as exceeding the max statements per line limit.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-16",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of res.send(status, num) arguments order",
+          "severity": "medium",
+          "file": "lib/response.js",
+          "line": 106,
+          "explanation": "In the modified res.send method, the handling of two arguments when the first is a number is changed to treat it as res.send(status, num), but this implementation does not support sending the number as JSON, instead it falls through to the case 'number' that sends a number as text/plain, which is inconsistent with expectations and breaks backward compatibility.",
+          "suggestion": "Add explicit handling for res.send(status, num) where the second argument is a number, to send it as JSON rather than as plain text. Alternatively, maintain the existing behavior or document the breaking change clearly.",
+          "failureAfterChange": "Calling res.send(200, 0.123) sends Content-Type 'text/plain' and body 'OK' instead of sending JSON 0.123, breaking clients expecting JSON.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-12",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect param key assignment in Layer.match()",
+          "severity": "high",
+          "file": "lib/router/layer.js",
+          "line": 138,
+          "explanation": "The patch changed the for-loop in Layer.prototype.match() to always use key.name as the param key, but previously it would fall back to incremental keys for unnamed capture groups. This breaks routes with unnamed parameters (e.g., using '*' wildcard or capture groups before named params), causing req.params to miss or mis-map parameters.",
+          "suggestion": "Restore fallback for param keys when keys[i - 1] is undefined, assigning incremental numeric keys to params accordingly as in the original code.",
+          "failureAfterChange": "A route such as '/*/user/:id' with a request to '/1/user/2' produces params: { id: '2' }, missing the '0' param for '1', breaking expected param mapping.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect fallback for current and total page values in paginator helper",
+          "severity": "high",
+          "file": "lib/plugins/helper/paginator.js",
+          "line": 8,
+          "explanation": "The change modifies how the 'current' and 'total' page numbers are determined, changing from 'options.current || this.current || 0' to 'options.current || this.page.current || 0' and similarly for 'total'. This assumes that 'this.page.current' and 'this.page.total' always exist when options do not provide these values, which might not be valid in all contexts where the helper is called. If 'this.page' is undefined, this will cause a runtime error (TypeError: Cannot read property 'current' of und",
+          "suggestion": "Use a safer fallback approach to access current and total, for example: 'var current = options.current || (this.page && this.page.current) || 0;' to avoid runtime errors if 'this.page' is undefined.",
+          "failureAfterChange": "Calling paginatorHelper with no 'options.current' and context where 'this.page' is undefined throws TypeError instead of returning default pagination output.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Missing return of empty string when current page is falsy",
+          "severity": "medium",
+          "file": "lib/plugins/helper/paginator.js",
+          "line": 22,
+          "explanation": "The new line 'if (!current) return \\'\\';' was added to prevent rendering paginator when current page number is zero or falsy. This is a correct guard, but it may change behavior where previously 'current' was 0 and pagination was generated. This may impact callers expecting a paginator output even if current is zero.",
+          "suggestion": "Verify if returning empty string when current is falsy matches expected behavior. If zero current page is valid and should produce output, adjust logic accordingly.",
+          "failureAfterChange": "Calling paginatorHelper with 'current' page 0 returns empty string instead of paginator HTML.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect logging and incorrect reduction in Hexo.prototype._generate",
+          "severity": "medium",
+          "file": "lib/hexo/index.js",
+          "line": 307,
+          "explanation": "The change removes timing info logging in the generator process loop, which is a reduction in logging detail but not a functional defect. More importantly, the original code concatenated the generator results into the accumulator correctly, but the changed code incorrectly uses 'return data ? result.concat(data) : result;' which omits 'result' when 'data' is falsy, causing loss of previously accumulated result when 'data' is falsy (should always return an array).",
+          "suggestion": "Restore the original logic: 'return data ? result.concat(data) : result;' is correct, but ensure this is always returning 'result' if data is falsy. Confirm the final version always returns accumulated 'result' regardless of 'data' content.",
+          "failureAfterChange": "If a generator returns no data (undefined), accumulated results from previous generators are discarded resulting in missing generated contents.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect MultiConfigPath usage in Hexo constructor",
+          "severity": "high",
+          "file": "lib/hexo/index.js",
+          "line": 36,
+          "explanation": "The new MultiConfigPath is assigned to variable `mcp` at line 36, but only later (line 92) is `this.config_path` set using `mcp`. The original code replaced it with a local `multiConfigPath` requiring a function invocation. This change might cause issues if `MultiConfigPath` is not a constructor but rather a function that returns a function, so `new MultiConfigPath(this)` likely produces an object without a callable interface, breaking `mcp(base, args.config)`.",
+          "suggestion": "Replace the instantiation `var mcp = new MultiConfigPath(this);` with `var mcp = MultiConfigPath(this);` so that `mcp` is a function as expected by later calls.",
+          "failureAfterChange": "Invoking `hexo.config_path = mcp(base, args.config)` will throw TypeError since `mcp` is not a function, causing Hexo initialization to fail when a config argument is provided.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect baseDirFromPattern processing for base directories containing parentheses",
+          "severity": "high",
+          "file": "lib/watcher.js",
+          "line": 12,
+          "explanation": "The updated baseDirFromPattern function performs multiple regex replacements to remove globbing parts like '*', '!(...)', '+(...)', and '(...)?', but these regexes may mistakenly remove valid directory parts that contain parentheses but are not related to glob patterns. This results in returning a base directory that is more stripped than intended, potentially causing watcher to watch wrong directories or miss watching required directories.",
+          "suggestion": "Modify baseDirFromPattern to differentiate between globbing parentheses and literal directory names containing parentheses, or improve regex patterns to avoid stripping valid directory name parts including parentheses.",
+          "failureAfterChange": "Input pattern '/some/x (a|b)/a.js' results in baseDirFromPattern returning '/some/x (a|b)/a.js' correctly only by coincidence, but more complex cases with directories containing parentheses may be incorrectly reduced, causing watcher to not watch the proper directories.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "watchPatterns function incorrectly expects pattern objects but iterates over strings",
+          "severity": "high",
+          "file": "lib/watcher.js",
+          "line": 20,
+          "explanation": "The watchPatterns function was changed to iterate over plain pattern strings, but the function implementation still uses pattern.watched property (which only exists on pattern objects). This causes a runtime error when trying to read 'watched' of a string.",
+          "suggestion": "Either revert to iterating over pattern objects with 'watched' property or update the logic to handle pattern strings properly.",
+          "failureAfterChange": "Calling watchPatterns(['some/pattern.js'], watcher) causes an error: Cannot read property 'watched' of undefined.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "SHA hash assignment moved causing incorrect SHA for processed content",
+          "severity": "medium",
+          "file": "lib/preprocessor.js",
+          "line": 55,
+          "explanation": "The line assigning file.sha to the SHA1 hash of content was moved from after reading the original file (buffer) to after the first 'nextPreprocessor' call with the original content. This means that when preprocessors process the content and modify it, file.sha remains the SHA1 of the original unprocessed content, which is incorrect. The SHA should represent the final content after all preprocessors have run, not the initial raw content.",
+          "suggestion": "Move the assignment 'file.sha = sha1(content);' into the 'if (!preprocessors.length)' block inside nextPreprocessor function, just before 'return done();'. This ensures SHA is computed after all preprocessing is done.",
+          "failureAfterChange": "Given a file with preprocessors that modify content (e.g., append '-processed'), file.sha will be the SHA of the original unprocessed content, causing mismatch; tools relying on file.sha will have incorrect hashes.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Version key is added directly to schema paths in Model.compile, potentially modifying original schema unexpectedly",
+          "severity": "medium",
+          "file": "lib/model.js",
+          "line": 1954,
+          "explanation": "The change in Model.compile adds the version key path directly to the schema by calling schema.add(). This mutates the schema at compile time, which can cause the version key path to appear in nested schemas if compile is called multiple times or schemas reused, contrary to the intention to only add versioning to the top-level document.",
+          "suggestion": "Instead of adding the version key path directly via schema.add(), consider adding the version key to a cloned or specialized schema used only for the top-level model, or handle version key at the document level without mutating the schema paths. Validate that only the top-level schema contains the version key path and nested schemas remain unmodified.",
+          "failureAfterChange": "If a nested schema is compiled multiple times or reused in multiple models, it will improperly have the version key path added, causing queries and operations to malfunction or incorrectly handle versioning for subdocuments.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Node-redis-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Node-redis-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect pub/sub key splitting in on_ready recovering subscriptions",
+          "severity": "high",
+          "file": "index.js",
+          "line": 311,
+          "explanation": "In RedisClient.prototype.on_ready, when replaying subscriptions after reconnecting, the code originally modified the key splitting logic from using split(' ') to using indexOf and slice. However, if the key does not contain a space, indexOf returns -1, causing slice to produce incorrect parts array elements. This can cause invalid command names or arguments to be sent when restoring subscriptions, leading to subscription failures or errors.",
+          "suggestion": "Change the splitting logic to robustly handle keys that might not contain spaces. For example, check that space_index is not -1 before slicing, or fallback to splitting by space. Alternatively, revert to using key.split(' '), as the previous implementation correctly split the keys into [command, argument].",
+          "failureAfterChange": "If subscription_set contains keys without spaces, the new code will produce invalid command names like parts[0] being incomplete or wrong, causing errors or failed subscription replays after reconnecting.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-12",
+  "project": "Hexo",
+  "bugId": 12,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "fc145f72a104aeb1451a7f78ce6d421946a6e385",
+  "buggySha": "36545fb147f554ccc303b2a2d41ba7e533bd3020",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "f8cb3a3b32b0543324f2c2576facce78b9bdc6c24da4fc3724ba393afa35d430",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "36545fb147f554ccc303b2a2d41ba7e533bd3020",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "ba361669e299f861f5b1a282155a41cc803f0e8d745bfbd3ba25923bf25b4b36"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "97679769ac3a64ae90c86bdd31ccd6e5d84f45b57741cdac6d647cb35370c300"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "ef93d1a3b368bf4e2253a858b277aa003fe241a1d4cab5f55531c68b68a518cb"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "c8ea9a00be2c28f3b91e9f551e58a63830ac883cd155466a6f47968164fbedb3"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "8d02e2e8ee0689eefcf82fe16d957598c8bbd7bec45809b7d4eb1ed96687a4da"
+      },
+      {
+        "path": "lib/models/post.js",
+        "contentSha256": "552f1e25b560e625f9fcccfe89a0ad8efe9af98f26273394ffe31d83d2ca1ed8"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "d6744c4fa425855ecc9137f6424860c53f534ba58516de5980e97a6fd73af9dc"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "feff21029f272434627d52eeb5c5eba89c594405049340670a8fdb6148e1b9fc"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a89a78dce98fcd41f27cd6407e0eab867ac25e7ef199b516ffedcd82de593e8e"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7079,
+          "outputTokens": 6,
+          "totalTokens": 7085
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

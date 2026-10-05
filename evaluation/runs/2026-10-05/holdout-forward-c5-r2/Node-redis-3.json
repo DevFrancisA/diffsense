@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-3",
+  "project": "Node-redis",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "304abe431828b1931c32187d4888f460ba99f8c5",
+  "buggySha": "ce4a67bb746e5ea5736c61d2524645ad9f3aaa73",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "e7982ef6bc0bde88d8d549fd31ff163942fffa32944c15efc941c71201b7cd22",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "ce4a67bb746e5ea5736c61d2524645ad9f3aaa73",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 81,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "e493575e0937ffcc78d34c6f6cbcc833f6c03888459ceb1aa483a5fc27b159e4"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "fcb767b5e71f2d35a5b487d93e4976698ac5e03786f11b906b81b5e539fcb29c"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "b44ee6b9cf444a605a127672fbd83dfa7e2a7441d6cbeea198cacbeed22b9568"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "81de6705e6707385a8ccd3ebdd5346a5fbb451c3cf4850abe9a5fbecbd7820a0"
+      },
+      {
+        "path": "test/commands/client.spec.js",
+        "contentSha256": "06925e1492a7180e991186e75a7b740f8278616df583beffc79c604fc3164f20"
+      },
+      {
+        "path": "benchmarks/multi_bench.js",
+        "contentSha256": "4a919eaa458fbd39f2e21d4a8631e9b5fb4c2e301c1e0164fd6fb38fa7cca3a2"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "1b535ca5544ef77c17734c744daa07eed8c9d5d27063147e8231666cba3c6553"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "f861b5823a1270b2e0d079cb5b356191235dd85ef1381049d8d5c62ef5def3c7"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "4a619f18cc8c693058dd77a5241e44f233c37e5ed364ffd14d7960172008cf3c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 15171,
+          "outputTokens": 179,
+          "totalTokens": 15350
+        },
+        "rawFindings": [
+          {
+            "title": "RedisClient constructor fails when called with undefined options",
+            "severity": "high",
+            "file": "index.js",
+            "line": 39,
+            "explanation": "The line `options = JSON.parse(JSON.stringify(options));` assumes `options` is always defined. If `options` is undefined, it throws a TypeError. The fix in the change is to replace it with `options = JSON.parse(JSON.stringify(options || {}));` to ensure options defaults to an empty object if undefined.",
+            "suggestion": "Change `options = JSON.parse(JSON.stringify(options));` to `options = JSON.parse(JSON.stringify(options || {}));` in the RedisClient constructor at line 39.",
+            "failureAfterChange": "Calling `new RedisClient(stream, undefined)` causes a TypeError: Cannot convert undefined or null to object due to `JSON.stringify(undefined)`.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}
