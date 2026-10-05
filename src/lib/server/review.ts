@@ -27,6 +27,80 @@ export function getAddedLines(diff: string): AddedLine[] {
   return addedLines;
 }
 
+type DiffHunk = { added: AddedLine[] };
+type DiffLineIndex = {
+  added: Set<string>;
+  context: Set<string>;
+  removed: Map<string, DiffHunk[]>;
+};
+
+/** Indexes a unified diff: added and context lines by new-file number, removed lines by old-file number with their hunk. */
+export function indexDiffLines(diff: string): DiffLineIndex {
+  const index: DiffLineIndex = { added: new Set(), context: new Set(), removed: new Map() };
+  let path = "";
+  let oldLine = 0;
+  let newLine = 0;
+  let hunk: DiffHunk | null = null;
+  for (const line of diff.split(/\r?\n/)) {
+    if (line.startsWith("diff --git ")) {
+      hunk = null;
+    } else if (line.startsWith("+++ ")) {
+      path = line.startsWith("+++ b/") ? line.slice(6) : "";
+      hunk = null;
+    } else if (line.startsWith("--- ") && !hunk) {
+      continue;
+    } else if (line.startsWith("@@")) {
+      const match = line.match(/^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
+      hunk = match ? { added: [] } : null;
+      oldLine = Number(match?.[1] ?? 0);
+      newLine = Number(match?.[2] ?? 0);
+    } else if (hunk && path) {
+      if (line.startsWith("+")) {
+        index.added.add(`${path}:${newLine}`);
+        hunk.added.push({ path, line: newLine });
+        newLine += 1;
+      } else if (line.startsWith("-")) {
+        const key = `${path}:${oldLine}`;
+        index.removed.set(key, [...(index.removed.get(key) ?? []), hunk]);
+        oldLine += 1;
+      } else if (line.startsWith(" ")) {
+        index.context.add(`${path}:${newLine}`);
+        oldLine += 1;
+        newLine += 1;
+      }
+    }
+  }
+  return index;
+}
+
+export type AcceptancePolicy = "exact" | "remap-removed";
+
+/**
+ * Keeps findings on exact added lines. With "remap-removed", a finding citing the old-file number of a removed line
+ * (that is not also an unchanged context line) moves to the nearest added line of that removed line's hunk.
+ */
+export function acceptFindings<T extends { file: string; line: number }>(findings: T[], diff: string, policy: AcceptancePolicy = "exact") {
+  const index = indexDiffLines(diff);
+  const accepted: (T & { remappedFrom?: number })[] = [];
+  for (const finding of findings) {
+    const key = `${finding.file}:${finding.line}`;
+    if (index.added.has(key)) {
+      accepted.push(finding);
+      continue;
+    }
+    if (policy !== "remap-removed" || index.context.has(key)) continue;
+    const candidates = (index.removed.get(key) ?? []).flatMap((hunk) => hunk.added);
+    if (candidates.length === 0) continue;
+    const target = candidates.reduce((best, line) => {
+      const distance = Math.abs(line.line - finding.line);
+      const bestDistance = Math.abs(best.line - finding.line);
+      return distance < bestDistance || (distance === bestDistance && line.line < best.line) ? line : best;
+    });
+    accepted.push({ ...finding, line: target.line, remappedFrom: finding.line });
+  }
+  return accepted;
+}
+
 const reviewSchema = {
   type: "object",
   additionalProperties: false,
@@ -90,6 +164,7 @@ export async function reviewDiffDetailed(
   context: { path: string; content: string }[],
   budget?: OpenAIBudget,
   promptRevision: ReviewPromptRevision = "baseline",
+  acceptance: AcceptancePolicy = "exact",
 ) {
   const reviewSystemPrompt = reviewPromptRevisions[promptRevision];
   const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
@@ -121,7 +196,9 @@ export async function reviewDiffDetailed(
   if (!response.output_text) throw new Error("The review model returned no structured findings.");
   const parsed = JSON.parse(response.output_text) as { findings: ReviewFinding[] };
   const addedLineKeys = new Set(addedLines.map(({ path, line }) => `${path}:${line}`));
-  const findings = parsed.findings.filter((finding) => addedLineKeys.has(`${finding.file}:${finding.line}`));
+  const findings = acceptance === "exact"
+    ? parsed.findings.filter((finding) => addedLineKeys.has(`${finding.file}:${finding.line}`))
+    : acceptFindings(parsed.findings, diff, acceptance);
   const usage: ApiTokenUsage = {
     inputTokens: response.usage?.input_tokens ?? 0,
     outputTokens: response.usage?.output_tokens ?? 0,

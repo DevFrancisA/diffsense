@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { evaluate, evaluateBenchmarkArms, evaluationSchema } from "../src/lib/evaluation";
 import { parseGitHubSource } from "../src/lib/server/github";
-import { getAddedLines } from "../src/lib/server/review";
+import { acceptFindings, getAddedLines } from "../src/lib/server/review";
 
 test("parses repository and pull request sources", () => {
   assert.deepEqual(parseGitHubSource("https://github.com/acme/store"), {
@@ -154,4 +154,46 @@ test("evaluates each benchmark arm and repeat independently", () => {
   assert.equal(arms.withContext[1].recall, 0);
   assert.equal(arms.withoutContext[0].precision, 0);
   assert.equal(arms.withoutContext[0].falsePositives, 1);
+});
+
+test("remaps removed-line citations only within hunks that add lines", () => {
+  const diff = [
+    "diff --git a/src/a.js b/src/a.js",
+    "--- a/src/a.js",
+    "+++ b/src/a.js",
+    "@@ -86,2 +86 @@ function f() {",
+    "-  const pattern = new RegExp('%', 'g');",
+    "-  return pattern;",
+    "+  return '%';",
+    "@@ -120 +118,0 @@",
+    "-  cleanup();",
+    "@@ -140,3 +137,4 @@",
+    "   keep();",
+    "-  old();",
+    "+  next();",
+    "+  more();",
+    "   tail();",
+    "diff --git a/src/gone.js b/src/gone.js",
+    "--- a/src/gone.js",
+    "+++ /dev/null",
+    "@@ -1 +0,0 @@",
+    "-  removed();",
+  ].join("\n");
+  const findings = [
+    { file: "src/a.js", line: 86 },
+    { file: "src/a.js", line: 87 },
+    { file: "src/a.js", line: 120 },
+    { file: "src/a.js", line: 141 },
+    { file: "src/a.js", line: 137 },
+    { file: "src/a.js", line: 139 },
+    { file: "src/gone.js", line: 1 },
+  ];
+
+  assert.deepEqual(acceptFindings(findings, diff, "exact"), [{ file: "src/a.js", line: 86 }, { file: "src/a.js", line: 139 }]);
+  assert.deepEqual(acceptFindings(findings, diff, "remap-removed"), [
+    { file: "src/a.js", line: 86 },
+    { file: "src/a.js", line: 86, remappedFrom: 87 },
+    { file: "src/a.js", line: 139, remappedFrom: 141 },
+    { file: "src/a.js", line: 139 },
+  ]);
 });

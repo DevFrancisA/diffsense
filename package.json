@@ -14,7 +14,8 @@
     "benchmark": "tsx scripts/benchmark.ts",
     "error-analysis": "tsx scripts/error-analysis.ts",
     "check-results": "tsx scripts/check-results.ts",
-    "compare-results": "tsx scripts/compare-results.ts"
+    "compare-results": "tsx scripts/compare-results.ts",
+    "rescore": "tsx scripts/rescore.ts"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",
