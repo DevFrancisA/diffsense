@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-7",
+  "project": "Hessian.js",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "dcdf3132e536702b6d7fa5dd3afbfd63c77f439a",
+  "buggySha": "2dbb2c005738a69cf0e7160bc358e8a92505aa39",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1c0aa3c52b2481ac2d78d39beb08c60201ea22174eac45ee43401c0888c4a250",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "dcdf3132e536702b6d7fa5dd3afbfd63c77f439a",
+    "maxFiles": 40,
+    "filesIndexed": 26,
+    "chunksIndexed": 119,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/object.js",
+        "contentSha256": "8918878803320cb7f78169cee577bc038fcf05324da3737fb11f5f55a735922b"
+      },
+      {
+        "path": "lib/v1/encoder.js",
+        "contentSha256": "3aad897d0bb563aadfbd5198819cd4d3032ea7d430dbdd5909cb849b5a89af07"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "bc0f51442c38393dca48500802b336d5639b24c6574c28a75c2fd5d15bf29c4c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "8c15c6884e9daf6f21b131548f1524f0c5767469e12ce1cb47c95ec15fd0b637"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "90fad2f3c9a06fb5bf5117da05172f903b1015a248a9ced1287cb436a23c6495"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "9ab0bef1e9bdde8f3e350d95a11c1934e036a0cd01fd4a9981b183218561bae1"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2870d5af95fc4e1ee15134394e55609ff4bc5f105dbfdec05c76dc475756f0f8"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1470,
+      "outputTokens": 0,
+      "totalTokens": 1470
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 11577,
+          "outputTokens": 112,
+          "totalTokens": 11689
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect comment in encoder writeObject function",
+            "severity": "low",
+            "file": "lib/v1/encoder.js",
+            "line": 331,
+            "explanation": "The comment above the changed line incorrectly refers to 'java.utils.HashMap', which is a non-existent package, instead of the correct 'java.util.HashMap'. The actual code correctly references javaObject.DEFAULT_CLASSNAME.map. This discrepancy can confuse readers.",
+            "suggestion": "Update the comment to correctly state 'java.util.HashMap' instead of 'java.utils.HashMap'."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect comment in encoder writeObject function",
+            "severity": "low",
+            "file": "lib/v1/encoder.js",
+            "line": 331,
+            "explanation": "The comment above the changed line incorrectly refers to 'java.utils.HashMap', which is a non-existent package, instead of the correct 'java.util.HashMap'. The actual code correctly references javaObject.DEFAULT_CLASSNAME.map. This discrepancy can confuse readers.",
+            "suggestion": "Update the comment to correctly state 'java.util.HashMap' instead of 'java.utils.HashMap'."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 11577,
+          "outputTokens": 238,
+          "totalTokens": 11815
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect class name check for java.util.HashMap in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 332,
+            "explanation": "In the original code, the condition checking if obj.$class equals either javaObject.DEFAULT_CLASSNAME.map or javaObject.DEFAULT_CLASSNAME.iMap was used to decide an empty className for writing untyped hash maps. The patch changes this to only check if obj.$class equals javaObject.DEFAULT_CLASSNAME.map, removing the second condition. However, javaObject.DEFAULT_CLASSNAME.iMap ('java.util.Map') is a valid map class name that should be treated similarly. Removing this breaks encoding for objects wi",
+            "suggestion": "Restore the original condition to check both javaObject.DEFAULT_CLASSNAME.map and javaObject.DEFAULT_CLASSNAME.iMap when setting className to empty string for map objects, as in:\nclassName = obj.$class === javaObject.DEFAULT_CLASSNAME.map || obj.$class === javaObject.DEFAULT_CLASSNAME.iMap ? '' : obj.$class;"
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 11577,
+          "outputTokens": 197,
+          "totalTokens": 11774
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect comment and conditional logic for java.util.HashMap class name check",
+            "severity": "medium",
+            "file": "lib/v1/encoder.js",
+            "line": 331,
+            "explanation": "In the original line the comment and logic included a check for `javaObject.DEFAULT_CLASSNAME.iMap` ('java.util.Map') to consider it equivalent to `javaObject.DEFAULT_CLASSNAME.map` ('java.util.HashMap'). The new line removes that check, which may change behavior when an object with class 'java.util.Map' is passed, leading to a different handling. Also, the comment incorrectly states 'java.utils.HashMap' (wrong package name) instead of 'java.util.HashMap'. This change could cause unexpected enco",
+            "suggestion": "Restore the check for `javaObject.DEFAULT_CLASSNAME.iMap` in the condition to preserve previous behavior, and correct the comment to 'java.util.HashMap'."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect comment and conditional logic for java.util.HashMap class name check",
+            "severity": "medium",
+            "file": "lib/v1/encoder.js",
+            "line": 331,
+            "explanation": "In the original line the comment and logic included a check for `javaObject.DEFAULT_CLASSNAME.iMap` ('java.util.Map') to consider it equivalent to `javaObject.DEFAULT_CLASSNAME.map` ('java.util.HashMap'). The new line removes that check, which may change behavior when an object with class 'java.util.Map' is passed, leading to a different handling. Also, the comment incorrectly states 'java.utils.HashMap' (wrong package name) instead of 'java.util.HashMap'. This change could cause unexpected enco",
+            "suggestion": "Restore the check for `javaObject.DEFAULT_CLASSNAME.iMap` in the condition to preserve previous behavior, and correct the comment to 'java.util.HashMap'."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

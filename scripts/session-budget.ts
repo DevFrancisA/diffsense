@@ -27,7 +27,17 @@ async function writeJsonAtomic(filePath: string, value: unknown) {
   await mkdir(dirname(filePath), { recursive: true });
   const temporaryPath = `${filePath}.${process.pid}.tmp`;
   await writeFile(temporaryPath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
-  await rename(temporaryPath, filePath);
+  // Windows briefly locks a file another process (git, an editor, a scanner) is reading; retry the replace.
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      await rename(temporaryPath, filePath);
+      return;
+    } catch (error) {
+      const code = error && typeof error === "object" && "code" in error ? error.code : "";
+      if (attempt >= 20 || (code !== "EPERM" && code !== "EBUSY" && code !== "EACCES")) throw error;
+      await new Promise((done) => setTimeout(done, 100 * attempt));
+    }
+  }
 }
 
 export async function readSessionLedger(): Promise<Ledger> {

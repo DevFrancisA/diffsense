@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-2",
+  "project": "Hessian.js",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+  "buggySha": "ed7f966a31c448a62a1414f26196b342631925bb",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1c6eaecbb962a4e53f7aebc5a9605f978944c1ad69d83849a73483ca03ba198a",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+    "maxFiles": 40,
+    "filesIndexed": 27,
+    "chunksIndexed": 123,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "45f3f2d576895ab9eb33958f455cb83424278fb65a3f03920340d8e29bda24a6"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "dc9878abd2cab5b06b86693b01dc4f60af2956807042d3648e8b8ad2032a105a"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "d4e1555e9928700ffd1f4e21a0f285409160b649cd7fb48cc6eddf7272fce55e"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "7a8366fbf0b56d042d4558bb96f533927830a952cda30c26a1842197331ea8d3"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "68cef63dc14d7685650144fdfd65a3e5499bc06f3021929bfcb5dc040fcc754e"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "e4ac088e8ee8cc923f426e6f73a9b16a84ff86b3d06a9eaf942fb9978f379b8a"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "87595a4935247e661ab4f4aa8b61ca8758fa48e7a2dde3628d376f4dea5be99f"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "0b43e4c1e6eda6739f62c810d54b471d06f05a3710f455a82b2eada2c4c9066c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "264f52071d21bf6d178fed63b6faa81d022c546a59eb7ded68514e81e80f7e38"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f073ba8dc7741227e07fa99c5a90b438a7cf995ec7de430f7df5964e4fd5293c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 404,
+      "outputTokens": 0,
+      "totalTokens": 404
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 16103,
+          "outputTokens": 334,
+          "totalTokens": 16437
+        },
+        "rawFindings": [
+          {
+            "title": "lib/v1/decoder.js: Unsafe Object Key Assignment in readObject",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In readObject(), original code assigned value to result.$[key] without checking key type. The change adds a type check to ensure key is string or number. This prevents undesired behavior when key is an object or other type, which coerces to '[object Object]' and leads to potential key collisions or incorrect map entries.",
+            "suggestion": "Add type check for key being string or number before assignment to result.$[key] as done by introducing variable t and condition 'if ((t === 'string' || t === 'number') && !/^this\\$\\d+$/.test(key))'."
+          },
+          {
+            "title": "lib/v2/decoder.js: Unsafe Map Key Assignment in _readMap",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "In _readMap method, original code assigns value to map[k] without checking key type, which can lead to non-string keys being stringified as '[object Object]'. The fix introduces a type check to only assign map[k] if k is string or number, preventing unintentional keys and ensuring ES6 Map (stored in map.$map) holds the original keys.",
+            "suggestion": "Add a type check on key k before assignment: assign map[k] = v only if k is a string or number, as implemented with variable t and condition 'if (t === 'string' || t === 'number')'."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "lib/v1/decoder.js: Unsafe Object Key Assignment in readObject",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In readObject(), original code assigned value to result.$[key] without checking key type. The change adds a type check to ensure key is string or number. This prevents undesired behavior when key is an object or other type, which coerces to '[object Object]' and leads to potential key collisions or incorrect map entries.",
+            "suggestion": "Add type check for key being string or number before assignment to result.$[key] as done by introducing variable t and condition 'if ((t === 'string' || t === 'number') && !/^this\\$\\d+$/.test(key))'."
+          },
+          {
+            "title": "lib/v2/decoder.js: Unsafe Map Key Assignment in _readMap",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "In _readMap method, original code assigns value to map[k] without checking key type, which can lead to non-string keys being stringified as '[object Object]'. The fix introduces a type check to only assign map[k] if k is string or number, preventing unintentional keys and ensuring ES6 Map (stored in map.$map) holds the original keys.",
+            "suggestion": "Add a type check on key k before assignment: assign map[k] = v only if k is a string or number, as implemented with variable t and condition 'if (t === 'string' || t === 'number')'."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 16103,
+          "outputTokens": 261,
+          "totalTokens": 16364
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect key handling in lib/v1/decoder.js readObject method",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "The original condition only checked if the key string did not match /^this\\$\\d+$/, but allowed any key type. This can lead to unexpected keys of non-string/non-number types being added to the object.",
+            "suggestion": "Add a type check to ensure that only keys of type 'string' or 'number' are used before adding to the result.$. Replace the condition with: if ((typeof key === 'string' || typeof key === 'number') && !/^this\\$\\d+$/.test(key)) {...}."
+          },
+          {
+            "title": "Incorrect key handling in lib/v2/decoder.js _readMap method",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "The original code assigned the key-value pair to the map object without checking the key type, potentially adding keys of unintended types.",
+            "suggestion": "Add a type check to ensure only string or number keys are assigned. Modify to: if (typeof k === 'string' || typeof k === 'number') { map[k] = v; }."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect key handling in lib/v1/decoder.js readObject method",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "The original condition only checked if the key string did not match /^this\\$\\d+$/, but allowed any key type. This can lead to unexpected keys of non-string/non-number types being added to the object.",
+            "suggestion": "Add a type check to ensure that only keys of type 'string' or 'number' are used before adding to the result.$. Replace the condition with: if ((typeof key === 'string' || typeof key === 'number') && !/^this\\$\\d+$/.test(key)) {...}."
+          },
+          {
+            "title": "Incorrect key handling in lib/v2/decoder.js _readMap method",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "The original code assigned the key-value pair to the map object without checking the key type, potentially adding keys of unintended types.",
+            "suggestion": "Add a type check to ensure only string or number keys are assigned. Modify to: if (typeof k === 'string' || typeof k === 'number') { map[k] = v; }."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 16103,
+          "outputTokens": 597,
+          "totalTokens": 16700
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect map key handling in lib/v1/decoder.js readObject",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 429,
+            "explanation": "In the added code at line 429, the original condition only checked if the key does not match /^this\\$\\d+$/. However, keys of other types (like objects) can lead to unintended behavior when assigned to object properties. The fix added a type check allowing only 'string' or 'number' keys before setting the property on result.$.",
+            "suggestion": "Add explicit type check for key to be string or number before assigning to result.$, as done in the patch: \n\n+  var t;"
+          },
+          {
+            "title": "Incorrect map key handling in lib/v2/decoder.js _readMap",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 733,
+            "explanation": "In the modified lib/v2/decoder.js at line 733, the code now includes a type check for the map key: only keys of type 'string' or 'number' are assigned to the map object, preventing invalid key assignment for keys that are objects or other non-scalar types.",
+            "suggestion": "Add a type check for key 'k' before assignment to 'map[k] = v;', like:\n\n+  var t = typeof k;"
+          },
+          {
+            "title": "Incorrect test expectations for map decoding in test/map.test.js",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "In test/map.test.js at line 168, the test expectation was changed from expecting { null: 'null' } to expecting an empty object {}. This is likely due to the fix that now filters map keys by type, so invalid keys are ignored in the decoding. The test needs to reflect this new behavior correctly.",
+            "suggestion": "Update expected test output to empty object {} when keys are invalid or filtered out, consistent with code changes."
+          },
+          {
+            "title": "Incorrect test expectations for plainObject in test/map.test.js",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "At line 480, the expected plainObject changed from having a property '[object Object]': 166239 to an empty object {}. This is consistent with the added checks preventing object keys in maps from being assigned. The test expectation must be updated to reflect this filtering behavior.",
+            "suggestion": "Update plainObject test expectation to be {} to align with the map key type checks."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect map key handling in lib/v2/decoder.js _readMap",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 733,
+            "explanation": "In the modified lib/v2/decoder.js at line 733, the code now includes a type check for the map key: only keys of type 'string' or 'number' are assigned to the map object, preventing invalid key assignment for keys that are objects or other non-scalar types.",
+            "suggestion": "Add a type check for key 'k' before assignment to 'map[k] = v;', like:\n\n+  var t = typeof k;"
+          },
+          {
+            "title": "Incorrect test expectations for map decoding in test/map.test.js",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "In test/map.test.js at line 168, the test expectation was changed from expecting { null: 'null' } to expecting an empty object {}. This is likely due to the fix that now filters map keys by type, so invalid keys are ignored in the decoding. The test needs to reflect this new behavior correctly.",
+            "suggestion": "Update expected test output to empty object {} when keys are invalid or filtered out, consistent with code changes."
+          },
+          {
+            "title": "Incorrect test expectations for plainObject in test/map.test.js",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "At line 480, the expected plainObject changed from having a property '[object Object]': 166239 to an empty object {}. This is consistent with the added checks preventing object keys in maps from being assigned. The test expectation must be updated to reflect this filtering behavior.",
+            "suggestion": "Update plainObject test expectation to be {} to align with the map key type checks."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-5",
+  "project": "Eslint",
+  "bugId": 5,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0643bfeff68979044ca57a2b392d855d18be7d08",
+  "buggySha": "bd0514ca9bc9dbb5dafb27085cf9e554573610b0",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "5be8d0efa3cc1dc14616e20d0c83a6eef79a1ac4f383ef7b34fd7e9f9099c0fb",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "0643bfeff68979044ca57a2b392d855d18be7d08",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 180,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/indent.js",
+        "contentSha256": "8280aac0b5655706446591dabcc45e9307af0e39d66a8250f6bc3a0264e1b805"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "91d9aebe5fbdf0763715f0f408828db9592ee208d86d6cc36a33004a992be2a2"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fb62f9477450bd582a12028aa5327d4ffdb7c65379796b5704e5d616db0f6fe0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "5891d7660de14fbc1dfe0031f44a6d33a3b0ac4da5e56c36919c973cb343ee96"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1e69108f83cc3af28263082500f2dc077b4f414d99a873ec118be7e95cd2ec95"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9befe6fa119456478668875afd11caabc5545199b36a698c77cc3c3608a90801"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bf7e4dba97c3f617dc6b1c56d1c8b00284b9387af56e782195f6ef5f50c3dff0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9c00aa92f9675708584b22de999e3482db13c7fddc8bdc0d6242ced750aff3bc"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "0984f58d80ae9329c208b34e6b1c9dd969f7bfd7fdf9bea0e71853340e139d62"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 768,
+      "outputTokens": 0,
+      "totalTokens": 768
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 13659,
+          "outputTokens": 182,
+          "totalTokens": 13841
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of 'textRange' in 'report' function causes wrong fix ranges",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The 'textRange' calculation was changed from using 'node.range' and 'node.loc' properties directly to subtracting indentation counts and a 'lastNodeCheckEndOffset' value in a manner that appears off-by-one and may cause the fix range to not correctly cover the indentation characters in the source text. This likely causes autofix ranges to be incorrect, breaking or corrupting fixes.",
+            "suggestion": "Adjust the calculation of 'textRange' to correctly represent the exact range of indentation characters to replace, ensuring the start and end indices correctly cover only the indentation characters, and confirm that the subtraction and offsets are computed correctly and consistently with the node's range and location information."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of 'textRange' in 'report' function causes wrong fix ranges",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The 'textRange' calculation was changed from using 'node.range' and 'node.loc' properties directly to subtracting indentation counts and a 'lastNodeCheckEndOffset' value in a manner that appears off-by-one and may cause the fix range to not correctly cover the indentation characters in the source text. This likely causes autofix ranges to be incorrect, breaking or corrupting fixes.",
+            "suggestion": "Adjust the calculation of 'textRange' to correctly represent the exact range of indentation characters to replace, ensuring the start and end indices correctly cover only the indentation characters, and confirm that the subtraction and offsets are computed correctly and consistently with the node's range and location information."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 13659,
+          "outputTokens": 171,
+          "totalTokens": 13830
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect calculation of text range in indentation report function",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "In the updated 'report' function, the calculation of 'textRange' for the last node check uses offsets (like subtracting gottenSpaces, gottenTabs, 1, and lastNodeCheckEndOffset) that can lead to incorrect ranges. The original version calculated the range using node location columns, which aligns with actual source positioning. The new calculation may incorrectly identify the text range to fix, potentially causing out-of-bound or incorrect replacements.",
+            "suggestion": "Restore the original calculation of 'textRange' using node.range and node.loc columns to ensure proper range selection, or carefully validate and adjust the offset arithmetic to accurately reflect the intended text range without errors."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect calculation of text range in indentation report function",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "In the updated 'report' function, the calculation of 'textRange' for the last node check uses offsets (like subtracting gottenSpaces, gottenTabs, 1, and lastNodeCheckEndOffset) that can lead to incorrect ranges. The original version calculated the range using node location columns, which aligns with actual source positioning. The new calculation may incorrectly identify the text range to fix, potentially causing out-of-bound or incorrect replacements.",
+            "suggestion": "Restore the original calculation of 'textRange' using node.range and node.loc columns to ensure proper range selection, or carefully validate and adjust the offset arithmetic to accurately reflect the intended text range without errors."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 13659,
+          "outputTokens": 191,
+          "totalTokens": 13850
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect textRange calculation in report function causes wrong fix application",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The 'textRange' calculation in the 'report' function was changed to use 'node.range' boundaries adjusted by 'gottenSpaces', 'gottenTabs', and 'lastNodeCheckEndOffset'. However, this calculation subtracts literal '1' and 'lastNodeCheckEndOffset' without sufficient validation leading to potential off-by-one errors or incorrect text ranges when replacing indentation. This affects the fix operation as the range may not precisely cover the indentation characters to be replaced.",
+            "suggestion": "Refactor the textRange calculation to accurately consider the start and end of indent characters without off-by-one errors by properly using the node location and indent lengths. Add checks to prevent negative indices or ranges that do not cover all whitespace characters intended for replacement."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect textRange calculation in report function causes wrong fix application",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 270,
+            "explanation": "The 'textRange' calculation in the 'report' function was changed to use 'node.range' boundaries adjusted by 'gottenSpaces', 'gottenTabs', and 'lastNodeCheckEndOffset'. However, this calculation subtracts literal '1' and 'lastNodeCheckEndOffset' without sufficient validation leading to potential off-by-one errors or incorrect text ranges when replacing indentation. This affects the fix operation as the range may not precisely cover the indentation characters to be replaced.",
+            "suggestion": "Refactor the textRange calculation to accurately consider the start and end of indent characters without off-by-one errors by properly using the node location and indent lengths. Add checks to prevent negative indices or ranges that do not cover all whitespace characters intended for replacement."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

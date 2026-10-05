@@ -51,3 +51,12 @@ With the repository owner's approval, C3 was redefined **after seeing DEV false 
 | C3 | `dev-c3` | C2, but full-file context includes only non-test changed files, and the prompt appends: "Focus on application source code; do not report findings in test files." (revision `cite-added-line-source-focus`, sha256 `e618f388…`; the baseline anti-speculation text is kept verbatim) | C2 + `DIFFSENSE_CHANGED_FILES_EXCLUDE_TESTS=true` + `REVIEW_PROMPT_REVISION=cite-added-line-source-focus` |
 
 This is tuned to the benchmark's label scope (source files only). On a real project, a test-file defect is still a defect, so suppressing test findings is a product trade-off, not a free accuracy gain. The final-configuration rule above is unchanged.
+| C3 (`results-dev-c3.json`) | 21, 20, 25 | 68 | 2 | 66/177 = 37.3% | 66/68 = 97.1% | yes |
+
+Per-run C3: precision 100.0% / 100.0% / 92.6%, recall 35.6% / 33.9% / 42.4%. The C3 run stopped once at Express-3 run 3 on a Windows file-lock error while writing the ledger reservation. The reservation was never persisted and the API call never sent, and the run resumed (the ledger now retries locked renames).
+
+### Final configuration (by the rule above)
+
+Configurations meeting mean precision ≥ 90%: baseline (29.4% recall) and C3 (37.3% recall). **Final = C3.** C1 and C2 had higher DEV recall but fail the precision floor.
+
+HOLDOUT is next: one context-arm run of C3 (`holdout-final`) and one of the original baseline configuration (`holdout-baseline`), each run exactly once.

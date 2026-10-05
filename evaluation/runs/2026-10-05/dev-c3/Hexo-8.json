@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-8",
+  "project": "Hexo",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "c9278111fe51d38b9c676f4fad48972f43e9d3b9",
+  "buggySha": "1da7ad5c920fb16e182342c4acda7d8a94af31f9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "775acc9f4a0158db5dd5a2be4eec95f29723d71aae83a629ea9fe76688f1488c",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "c9278111fe51d38b9c676f4fad48972f43e9d3b9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 71,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/plugins/helper/open_graph.js",
+        "contentSha256": "2400daa7bba580180d828682f7f78cc97e316141475402339a1e084f251248ac"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "e3841735e8652759fb729b66799011aa20ea55480e9cd6ddc34f974c9347d14c"
+      },
+      {
+        "path": "lib/hexo/load_config.js",
+        "contentSha256": "0d830122123469cf9adeaa28223b5a9c8f87bc6377f2fa9f910025da74b7b541"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a23b6e1908660cec7b59d097f7a7300009e926f268c1bfd813cff411689f80a7"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "02e11fbdf23aea24789834255ba642093425ec596a449edd9cec83537c136d35"
+      },
+      {
+        "path": "lib/hexo/default_config.js",
+        "contentSha256": "b0519ec5fa49241a5d8dcc822c6bcdb0918e2d970037f35166609aa66a32b529"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "123db9add0cccdd1abcc8c82c4b268d803e929a472b9ea6ddbdab89c927d545f"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "27c480f41ab13a0fac3d0c0b012bd45c8b3b81ec2c8269bc546e064795dcd30d"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "080c75789466852343916c68db353ad8c58a9c96e9f342c750b5aa0bf95c20f8"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 370,
+      "outputTokens": 0,
+      "totalTokens": 370
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5156,
+          "outputTokens": 145,
+          "totalTokens": 5301
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect image URL resolution when image path is relative",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The patch changes the image URL resolution logic to manually prepend a leading slash if missing, then directly concatenate config.url and path, instead of using url.resolve. This can produce incorrect URLs if config.url contains a pathname or a trailing slash, or if path includes query parameters. The previous method using url.resolve handled these cases properly, ensuring correct absolute URLs.",
+            "suggestion": "Revert to the original approach using urlFn.resolve(url || config.url, path) to correctly resolve image URLs, preserving handling of subdirectories and relative paths."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect image URL resolution when image path is relative",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The patch changes the image URL resolution logic to manually prepend a leading slash if missing, then directly concatenate config.url and path, instead of using url.resolve. This can produce incorrect URLs if config.url contains a pathname or a trailing slash, or if path includes query parameters. The previous method using url.resolve handled these cases properly, ensuring correct absolute URLs.",
+            "suggestion": "Revert to the original approach using urlFn.resolve(url || config.url, path) to correctly resolve image URLs, preserving handling of subdirectories and relative paths."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5156,
+          "outputTokens": 198,
+          "totalTokens": 5354
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect image URL resolution in open_graph helper",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 90,
+            "explanation": "The previous code used url.resolve to properly resolve relative or absolute image paths against the base URL, handling various cases like subdirectories correctly. The changed code simply prepends a '/' to paths not starting with it and then concatenates with config.url, making it a simple string concatenation that does not handle cases where config.url contains a path subdirectory or where path is a relative path, potentially leading to incorrect URLs for images when the site is hosted under a ",
+            "suggestion": "Restore the original behavior using url.resolve: replace the new lines with the previous code:\n// resolve `path`'s absolute path relative to current page's url\n// `path` can be both absolute (starts with `/`) or relative."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5156,
+          "outputTokens": 156,
+          "totalTokens": 5312
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL resolution for relative image paths",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The original code uses url.resolve to correctly resolve both absolute and relative image paths based on the page URL or site URL. The new code replaces this with a simple string concatenation that only prepends a slash if the path does not start with '/'. This change breaks cases where the site is hosted in a subdirectory or when the path is relative, leading to incorrect image URLs in the generated open graph tags.",
+            "suggestion": "Revert to using url.resolve(url || config.url, path) to resolve image paths correctly, ensuring proper handling of relative and absolute paths, and subdirectory hosting."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL resolution for relative image paths",
+            "severity": "high",
+            "file": "lib/plugins/helper/open_graph.js",
+            "line": 89,
+            "explanation": "The original code uses url.resolve to correctly resolve both absolute and relative image paths based on the page URL or site URL. The new code replaces this with a simple string concatenation that only prepends a slash if the path does not start with '/'. This change breaks cases where the site is hosted in a subdirectory or when the path is relative, leading to incorrect image URLs in the generated open graph tags.",
+            "suggestion": "Revert to using url.resolve(url || config.url, path) to resolve image paths correctly, ensuring proper handling of relative and absolute paths, and subdirectory hosting."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

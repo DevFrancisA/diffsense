@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-3",
+  "project": "Eslint",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+  "buggySha": "263b7782438899240548d0020cf9a49c2bbe2b5c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "8a1c9483c9284902ff99c46346b399b49e9af4f54c79afe952eefa39bbf7a779",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "03c25bb9c8927a016ea5803dfe3e39b51ceddfa8",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 117,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/prefer-template.js",
+        "contentSha256": "b2faa6e12744e751e0169c3e546d28b82e3d2dc56ce24c979fb181431efa14a6"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "a3d45ae787819b7e5e475fa618ab9aefc5992a33a35dd4617619e7591edf99e8"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "2e89810ffef7629fe4b66836822211d84287d6431cfda0d5f271f4c2478e2077"
+      },
+      {
+        "path": "lib/rules/accessor-pairs.js",
+        "contentSha256": "f0bd759863ccad4ec194dc40245c660f6265b1467844971bac089c0ac384cd17"
+      },
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "7525a20b67ddf8a09051296e118110a4f91af6ce2c822dce00786070e9568dcc"
+      },
+      {
+        "path": "lib/rules/camelcase.js",
+        "contentSha256": "0048b49697fc11ed4a5949056c6294d57045af02a16dda0e8badb559a5393e75"
+      },
+      {
+        "path": "lib/rules/arrow-spacing.js",
+        "contentSha256": "3e26e2009f945aaf7315366ebbe1502ee6ce22e72d2275cd87dec13a882cc802"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "5cebb981eb41e0ec54ee9bdc278570a2e473a66a91fc46d2bfd49d1252c223bc"
+      },
+      {
+        "path": "lib/rules/brace-style.js",
+        "contentSha256": "3faf4db241bcf00365e04303ecfda578417c37f70f5f34eb1aa2cff616260bb4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 370,
+      "outputTokens": 0,
+      "totalTokens": 370
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5061,
+          "outputTokens": 186,
+          "totalTokens": 5247
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of UnaryExpression in hasNonLiteral function",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 36,
+            "explanation": "The modified hasNonLiteral function removed the specific check for 'UnaryExpression' node types which recursively checked its argument. Now it only returns whether the node type is not 'Literal', ignoring 'TemplateLiteral' and skipping deeper validation for unary expressions like '+100'. This change causes incorrect detection of string concatenation expressions involving unary operators, potentially missing issues or false reporting.",
+            "suggestion": "Restore the handling of 'UnaryExpression' node type in hasNonLiteral function to recursively check its argument, e.g., by reinserting:\nif (node.type === \"UnaryExpression\") {\n    return hasNonLiteral(node.argument);"
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5061,
+          "outputTokens": 166,
+          "totalTokens": 5227
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect detection of non-literal nodes in prefer-template rule",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 36,
+            "explanation": "In the hasNonLiteral function, the condition to detect non-literal nodes was changed from returning false for both 'Literal' and 'TemplateLiteral' nodes to only returning false for 'Literal' nodes. This causes nodes of type 'TemplateLiteral' to be treated as non-literals, resulting in incorrect behavior when identifying string concatenations that could be replaced by template literals.",
+            "suggestion": "Restore the original check in hasNonLiteral to exclude both 'Literal' and 'TemplateLiteral' nodes as literals by reverting line 36 to: return node.type !== \"Literal\" && node.type !== \"TemplateLiteral\";"
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5061,
+          "outputTokens": 164,
+          "totalTokens": 5225
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect detection of non-literal nodes in string concatenation",
+            "severity": "high",
+            "file": "lib/rules/prefer-template.js",
+            "line": 35,
+            "explanation": "The original function 'hasNonLiteral' checked if a node type was either not a 'Literal' or 'TemplateLiteral' and correctly handled 'UnaryExpression' and 'BinaryExpression' types recursively. The change simplified the function to only check if the node type is not 'Literal', ignoring 'TemplateLiteral' type and recursive checks on 'UnaryExpression'. This breaks detection of template literals and unary expressions within binary expressions, causing incorrect behavior in the rule detection.",
+            "suggestion": "Revert the function 'hasNonLiteral' to its original implementation to correctly detect template literals and unary expressions within string concatenations."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

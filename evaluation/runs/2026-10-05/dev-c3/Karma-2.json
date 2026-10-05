@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-2",
+  "project": "Karma",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "05616a2f4ceca7e86f35a921ab26fe571db33cc9",
+  "buggySha": "8ef475f7d1a06562e659347dcc53c2e474cbddc7",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "19b15f6f9ebbbac0f12f0769b09c8b3a7e081b202603a1033fe3d106a873174f",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "05616a2f4ceca7e86f35a921ab26fe571db33cc9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 86,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "aa84a12e5a968811831f123d16b00fe525c85ba8e17cd07e6d920f8b8c49e2bf"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "526a928b7cc1b48e61473eea4f06c2695820cc796b02f11f5662ba65883ad3a1"
+      },
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "d10b36aa74a59bcf4a88185837f658afaf3646eff2bb16c3928d0e9335e945d2"
+      },
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "efc466a20b97f951f1bbe9d257cda5c438b30865092e84432105b1e0f68c53f7"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "cd3bd4a535f1dc39f7332de5c2506e709c6fc1f2f10e66c771f5350839ee3ae2"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "ab222d68c0079cf91d3e0ecfd8206161ac2db477087106302aed38a0200a9690"
+      },
+      {
+        "path": "lib/middleware/source_files.js",
+        "contentSha256": "8bc8f254ea672bb330a7d9e0872f50f9bfa63c2f2376989767ea0592a1097e13"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "a9d6a06a327e58b3eab8e3b0d24cbdf18c8db49107225c50fb30949ca40e64f0"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "af468eb5f21e64271a983147caa8e8dbc81ea998ccad534274202ecc10cfb665"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 576,
+      "outputTokens": 0,
+      "totalTokens": 576
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5721,
+          "outputTokens": 151,
+          "totalTokens": 5872
+        },
+        "rawFindings": [
+          {
+            "title": "Redundant port assignment code introduced",
+            "severity": "low",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The original code explicitly checks for presence of proxyDetails.port, proxyDetails.protocol, and config.port to assign the port variable. The new code uses a simplified expression that attempts to achieve the same result but introduces potential issues: it assigns port to config.port even if config.port is undefined or null, or to the default based on protocol otherwise, but this logic is less explicit and harder to maintain. The original code's explicitness is preferable for clarity and correc",
+            "suggestion": "Revert the port assignment to the previous explicit if-else statements to maintain clarity and correctness."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Redundant port assignment code introduced",
+            "severity": "low",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The original code explicitly checks for presence of proxyDetails.port, proxyDetails.protocol, and config.port to assign the port variable. The new code uses a simplified expression that attempts to achieve the same result but introduces potential issues: it assigns port to config.port even if config.port is undefined or null, or to the default based on protocol otherwise, but this logic is less explicit and harder to maintain. The original code's explicitness is preferable for clarity and correc",
+            "suggestion": "Revert the port assignment to the previous explicit if-else statements to maintain clarity and correctness."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5721,
+          "outputTokens": 174,
+          "totalTokens": 5895
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect port assignment logic in parseProxyConfig",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The new lines incorrectly redefine the 'port' variable using an expression that accesses 'proxyDetails.port' without checking whether it exists, conflicting with the previous conditionals. The logic has been replaced with a single line which still uses 'proxyDetails.port' but wrongly prioritizes 'config.port' before the protocol default ports, and does not maintain the previous conditional checks consistently, potentially leading to incorrect port assignment.",
+            "suggestion": "Restore the previous multi-branch conditional check assigning 'port' to 'proxyDetails.port' if present, else to the default port based on 'proxyDetails.protocol' if defined, else to 'config.port'. This preserves the correct precedence for port selection."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect port assignment logic in parseProxyConfig",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The new lines incorrectly redefine the 'port' variable using an expression that accesses 'proxyDetails.port' without checking whether it exists, conflicting with the previous conditionals. The logic has been replaced with a single line which still uses 'proxyDetails.port' but wrongly prioritizes 'config.port' before the protocol default ports, and does not maintain the previous conditional checks consistently, potentially leading to incorrect port assignment.",
+            "suggestion": "Restore the previous multi-branch conditional check assigning 'port' to 'proxyDetails.port' if present, else to the default port based on 'proxyDetails.protocol' if defined, else to 'config.port'. This preserves the correct precedence for port selection."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5721,
+          "outputTokens": 231,
+          "totalTokens": 5952
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect port resolution in parseProxyConfig function",
+            "severity": "medium",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The original code assigns the port variable with multiple conditional checks to correctly prioritize proxyDetails.port, then protocol-specific defaults, then config.port. The new code replaces this logic with `var port = proxyDetails.port || config.port || (proxyDetails.protocol === 'https:' ? '443' : '80')`, which may incorrectly fallback to config.port before checking protocol-specific defaults when proxyDetails.port is undefined. This changes the intended behavior by making config.port have h",
+            "suggestion": "Revert to the original multi-conditional logic to correctly prioritize port selection:\n\n```js"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect port resolution in parseProxyConfig function",
+            "severity": "medium",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The original code assigns the port variable with multiple conditional checks to correctly prioritize proxyDetails.port, then protocol-specific defaults, then config.port. The new code replaces this logic with `var port = proxyDetails.port || config.port || (proxyDetails.protocol === 'https:' ? '443' : '80')`, which may incorrectly fallback to config.port before checking protocol-specific defaults when proxyDetails.port is undefined. This changes the intended behavior by making config.port have h",
+            "suggestion": "Revert to the original multi-conditional logic to correctly prioritize port selection:\n\n```js"
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}
