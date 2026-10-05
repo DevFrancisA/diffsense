@@ -1,0 +1,52 @@
+{
+  "scenarios": [
+    {
+      "title": "Display corrected environment variable name in setup message",
+      "purpose": "Verify that when the API is not ready, the setup message shows the updated 'OPENAI_KEY' environment variable instead of 'OPENAI_API_KEY'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button[disabled] + .setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "button.run-button[disabled] + .setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    },
+    {
+      "title": "Setup message does not show old environment variable name",
+      "purpose": "Ensure that the old environment variable name 'OPENAI_API_KEY' is not present in the setup message when API is not ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button[disabled] + .setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.run-button[disabled] + .setup-inline span",
+          "value": "OPENAI_API_KEY",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

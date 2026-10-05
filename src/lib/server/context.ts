@@ -1,5 +1,6 @@
 import { type ApiTokenUsage, embeddingModel, estimateTokens, getOpenAIClient, type OpenAIBudget } from "@/lib/server/ai";
 import { ensureDatabaseSchema } from "@/lib/server/database";
+import { createHash } from "node:crypto";
 import { getRawRepositoryFile, getRepositoryTree } from "@/lib/server/github";
 
 const supportedSource = /\.(?:c|cc|cpp|cs|go|h|hpp|java|js|jsx|mjs|php|py|rb|rs|sql|svelte|ts|tsx|vue)$/i;
@@ -45,17 +46,34 @@ export async function indexRepository(owner: string, repository: string, ref?: s
   }
   if (chunks.length === 0) throw new Error("No readable source files were found on this branch.");
 
-  const embeddings: number[][] = [];
+  // Identical chunk text embeds identically, so earlier embeddings are reused by content hash instead of re-requested.
+  const inputs = chunks.map((chunk) => `${chunk.path}\n${chunk.content}`);
+  const keys = inputs.map((input) => createHash("sha256").update(input).digest("hex"));
+  const cached = await pool.query<{ content_sha256: string; embedding: string }>(
+    "SELECT content_sha256, embedding::text AS embedding FROM embedding_cache WHERE model = $1 AND content_sha256 = ANY($2)",
+    [embeddingModel, keys],
+  );
+  const cachedEmbeddings = new Map(cached.rows.map((row) => [row.content_sha256, JSON.parse(row.embedding) as number[]]));
+  const missing: number[] = [];
+  const pending = new Set<string>();
+  keys.forEach((key, index) => {
+    if (!cachedEmbeddings.has(key) && !pending.has(key)) {
+      pending.add(key);
+      missing.push(index);
+    }
+  });
   const embeddingUsage: ApiTokenUsage = { inputTokens: 0, outputTokens: 0, totalTokens: 0 };
-  const embeddingBatches = Math.ceil(chunks.length / 64);
-  const estimatedEmbeddingTokens = chunks.reduce((total, chunk) => total + estimateTokens(`${chunk.path}\n${chunk.content}`), 0);
-  await budget?.beforeBatch("index_embeddings", embeddingBatches, estimatedEmbeddingTokens);
+  const embeddingBatches = Math.ceil(missing.length / 64);
   const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
-  for (let offset = 0; offset < chunks.length; offset += 64) {
-    const batch = chunks.slice(offset, offset + 64);
+  if (embeddingBatches > 0) {
+    const estimatedEmbeddingTokens = missing.reduce((total, index) => total + estimateTokens(inputs[index]), 0);
+    await budget?.beforeBatch("index_embeddings", embeddingBatches, estimatedEmbeddingTokens);
+  }
+  for (let offset = 0; offset < missing.length; offset += 64) {
+    const batch = missing.slice(offset, offset + 64);
     const response = await openai.embeddings.create({
       model: embeddingModel,
-      input: batch.map((chunk) => `${chunk.path}\n${chunk.content}`),
+      input: batch.map((index) => inputs[index]),
       dimensions: 1536,
     });
     const usage = {
@@ -67,8 +85,16 @@ export async function indexRepository(owner: string, repository: string, ref?: s
     embeddingUsage.totalTokens += usage.totalTokens;
     await budget?.recordUsage("index_embeddings", usage);
     const ordered = response.data.sort((left, right) => left.index - right.index);
-    embeddings.push(...ordered.map((item) => item.embedding));
+    for (const [position, item] of ordered.entries()) {
+      const key = keys[batch[position]];
+      cachedEmbeddings.set(key, item.embedding);
+      await pool.query(
+        "INSERT INTO embedding_cache (model, content_sha256, embedding) VALUES ($1, $2, $3::vector) ON CONFLICT DO NOTHING",
+        [embeddingModel, key, `[${item.embedding.join(",")}]`],
+      );
+    }
   }
+  const embeddings = keys.map((key) => cachedEmbeddings.get(key) as number[]);
 
   const repositoryKey = `${owner}/${repository}`.toLowerCase();
   const client = await pool.connect();
@@ -96,10 +122,10 @@ export async function indexRepository(owner: string, repository: string, ref?: s
     client.release();
   }
 
-  return { repository: repositoryKey, commitSha: tree.commitSha, branch: tree.branch, maxFiles, filesIndexed: files.length, chunksIndexed: chunks.length, embeddingUsage };
+  return { repository: repositoryKey, commitSha: tree.commitSha, branch: tree.branch, maxFiles, filesIndexed: files.length, chunksIndexed: chunks.length, chunksEmbedded: missing.length, embeddingUsage };
 }
 
-export async function retrieveRepositoryContextDetailed(repository: string, diff: string, budget?: OpenAIBudget) {
+export async function retrieveRepositoryContextDetailed(repository: string, diff: string, budget?: OpenAIBudget, limit = 8) {
   const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
   const query = diff.slice(0, 12_000);
   await budget?.beforeBatch("context_embedding", 1, estimateTokens(query));
@@ -117,8 +143,8 @@ export async function retrieveRepositoryContextDetailed(repository: string, diff
      FROM repository_chunks
      WHERE repository = $1
      ORDER BY embedding <=> $2::vector
-     LIMIT 8`,
-    [repository, vector],
+     LIMIT $3`,
+    [repository, vector, limit],
   );
   return {
     chunks: result.rows.map((row) => ({ path: row.file_path, content: row.content, distance: row.distance })),
@@ -129,4 +155,20 @@ export async function retrieveRepositoryContextDetailed(repository: string, diff
 export async function retrieveRepositoryContext(repository: string, diff: string) {
   const result = await retrieveRepositoryContextDetailed(repository, diff);
   return result.chunks;
+}
+
+/** Full text of each source file changed by the diff, read at the given commit (the pre-change side when that commit is the base). */
+export async function getChangedFileContext(owner: string, repository: string, commitSha: string, diff: string) {
+  const paths = [...new Set([...diff.matchAll(/^--- a\/(.+)$/gm)].map((match) => match[1].trim()))]
+    .filter((path) => supportedSource.test(path) && !ignoredPath.test(path));
+  const files: { path: string; content: string }[] = [];
+  for (const path of paths) {
+    try {
+      const content = await getRawRepositoryFile(owner, repository, commitSha, path);
+      if (content.length <= maxFileBytes) files.push({ path, content });
+    } catch {
+      // A file added by the diff does not exist at the base commit.
+    }
+  }
+  return files;
 }

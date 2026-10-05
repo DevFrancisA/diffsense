@@ -1,0 +1,96 @@
+{
+  "id": "r08-no-diff-label",
+  "role": "primary",
+  "intendedBreak": "Empty-editor label changes",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 4,
+    "steps": 13,
+    "usage": {
+      "inputTokens": 8676,
+      "outputTokens": 440,
+      "totalTokens": 9116
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/lib/server/review.ts",
+      "src/app/layout.tsx",
+      "src/lib/server/review.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify Diff Lines Label Updates for Empty Diff",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.field-label.diff-label .diff-label-right span:nth-child(3)')\nExpected substring: \"Empty\"\nReceived string:    \"No diff loaded\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.field-label.diff-label .diff-label-right span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('.field-label.diff-label .diff-label-right span:nth-child(3)')\n    14 × locator resolved to <span>No diff loaded</span>\n       - unexpected value \"No diff loaded\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify Diff Lines Label for Non-Empty Diff",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.field-label.diff-label .diff-label-right span:nth-child(3)')\nExpected substring: \"4 lines\"\nReceived string:    \"3 lines\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.field-label.diff-label .diff-label-right span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('.field-label.diff-label .diff-label-right span:nth-child(3)')\n    14 × locator resolved to <span>3 lines</span>\n       - unexpected value \"3 lines\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Check Index Repository Context Button Disabled State",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Trigger Repository Context Indexing and Show Indexing Spinner",
+          "status": "timedOut",
+          "failedStep": "plan step 2: click",
+          "error": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('button.index-button')\n    - locator resolved to <button disabled type=\"button\" class=\"index-button\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    58 × waiting for element to be visible, enabled and stable\n       - element is not ",
+          "outcome": "action"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify Diff Lines Label Updates for Empty Diff",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.field-label.diff-label .diff-label-right span:nth-child(3)')\nExpected substring: \"Empty\"\nReceived string:    \"No diff loaded\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.field-label.diff-label .diff-label-right span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('.field-label.diff-label .diff-label-right span:nth-child(3)')\n    14 × locator resolved to <span>No diff loaded</span>\n       - unexpected value \"No diff loaded\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify Diff Lines Label for Non-Empty Diff",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.field-label.diff-label .diff-label-right span:nth-child(3)')\nExpected substring: \"4 lines\"\nReceived string:    \"3 lines\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.field-label.diff-label .diff-label-right span:nth-child(3)') with timeout 5000ms\n  - waiting for locator('.field-label.diff-label .diff-label-right span:nth-child(3)')\n    14 × locator resolved to <span>3 lines</span>\n       - unexpected value \"3 lines\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Check Index Repository Context Button Disabled State",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Trigger Repository Context Indexing and Show Indexing Spinner",
+          "status": "timedOut",
+          "failedStep": "plan step 2: click",
+          "error": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('button.index-button')\n    - locator resolved to <button disabled type=\"button\" class=\"index-button\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    57 × waiting for element to be visible, enabled and stable\n       - element is not ",
+          "outcome": "action"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:36:23.765Z"
+}

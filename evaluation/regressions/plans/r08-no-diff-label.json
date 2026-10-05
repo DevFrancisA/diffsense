@@ -1,0 +1,106 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify Diff Lines Label Updates for Empty Diff",
+      "purpose": "Ensure that when the diff textarea is empty, the diff lines label displays 'Empty' instead of 'No diff loaded'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".field-label.diff-label .diff-label-right span:nth-child(3)",
+          "value": "",
+          "expected": "Empty"
+        }
+      ]
+    },
+    {
+      "title": "Verify Diff Lines Label for Non-Empty Diff",
+      "purpose": "Ensure that when a diff is loaded into the textarea, the diff lines label correctly shows the number of lines.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "diff --git a/file b/file\n+added line\n another line",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".field-label.diff-label .diff-label-right span:nth-child(3)",
+          "value": "",
+          "expected": "4 lines"
+        }
+      ]
+    },
+    {
+      "title": "Check Index Repository Context Button Disabled State",
+      "purpose": "Confirm that the 'Index repository context' button is disabled when the PR URL input is empty or apiReady is not true.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.index-button[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Trigger Repository Context Indexing and Show Indexing Spinner",
+      "purpose": "Verify that clicking the 'Index repository context' button shows the indexing spinner and disables the button during indexing.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.index-button .spin",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

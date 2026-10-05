@@ -1,0 +1,118 @@
+{
+  "scenarios": [
+    {
+      "title": "Load example diff and verify diff content text",
+      "purpose": "Ensure that loading the sample diff populates the unified diff textarea with expected content",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Check Analyze button label changes according to busy state",
+      "purpose": "Verify that the Analyze button changes its label text from 'Analyze' to 'Reviewing…' when busy state changes",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": "Analyze"
+        },
+        {
+          "action": "click",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Display API setup warning when apiReady is false",
+      "purpose": "Confirm that the setup warning is shown when the API is not ready",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Clear diff button resets diff and result",
+      "purpose": "Ensure 'Clear diff' button clears the diff textarea and removes previous results and error messages",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button:has-text(\"Clear diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Run Review button disabled conditions",
+      "purpose": "Verify the 'Analyze' button is disabled appropriately when required inputs or API readiness are not met",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button:disabled",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

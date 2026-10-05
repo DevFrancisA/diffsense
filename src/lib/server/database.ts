@@ -31,6 +31,14 @@ export async function ensureDatabaseSchema() {
     ON repository_chunks USING hnsw (embedding vector_cosine_ops)
   `);
   await pool.query(`
+    CREATE TABLE IF NOT EXISTS embedding_cache (
+      model text NOT NULL,
+      content_sha256 text NOT NULL,
+      embedding vector(1536) NOT NULL,
+      PRIMARY KEY (model, content_sha256)
+    )
+  `);
+  await pool.query(`
     CREATE INDEX IF NOT EXISTS repository_chunks_repository_idx
     ON repository_chunks (repository)
   `);

@@ -1,0 +1,148 @@
+{
+  "scenarios": [
+    {
+      "title": "Run review without API readiness",
+      "purpose": "Verify that the Analyze change button is enabled even if API readiness state is null or false, allowing review submission without API ready check.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "diff --git a/src/api/invoices/[id]/route.ts b/src/api/invoices/[id]/route.ts\nindex 62e14fc..d0a31b4 100644\n--- a/src/api/invoices/[id]/route.ts\n+++ b/src/api/invoices/[id]/route.ts\n@@ -18,6 +18,11 @@ export async function GET(request: Request, { params }: RouteContext) {\n  const { id } = await params;\n  const invoice = await db.invoice.findUnique({ where: { id } });",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button:not([disabled])",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Clear diff functionality",
+      "purpose": "Ensure that clicking the Clear diff button empties the diff input and clears review results and error messages.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "some diff text to clear",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".results-panel .empty-state",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Load example diff loads correct content",
+      "purpose": "Verify that clicking the Load example diff button populates the diff textarea with sample content containing 'Invoice not found' text.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Display error message when API not ready",
+      "purpose": "Check that when API readiness is false, the setup inline message about configuring environment variables is shown on the page.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.setup-inline > span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    },
+    {
+      "title": "Regression test plan generation requires input",
+      "purpose": "Ensure the Generate Playwright plan button is disabled when there is no diff or pull request URL input and enabled when either is present and API is ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.text-button.evaluation-link:disabled",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.text-button.evaluation-link:not(:disabled)",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

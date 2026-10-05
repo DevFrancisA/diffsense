@@ -1,0 +1,142 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify Unified Diff Line Count Decrement",
+      "purpose": "Ensure that the displayed unified diff line count correctly subtracts one from the actual lines in the textarea as per the updated UI logic.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "line1\nline2\nline3\n",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".diff-label-right > span:nth-child(3)",
+          "value": "",
+          "expected": "3 lines"
+        }
+      ]
+    },
+    {
+      "title": "Load Sample Diff and Check Updated Line Count Display",
+      "purpose": "Validate that loading the sample diff updates the unified diff line count display, reflecting the -1 adjustment in line counting.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.button-secondary",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".diff-label-right > span:nth-child(3)",
+          "value": "",
+          "expected": "11 lines"
+        }
+      ]
+    },
+    {
+      "title": "Clear Diff Resets Line Count Display",
+      "purpose": "Confirm that clearing the diff content resets the unified diff line count display to indicate no diff loaded.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "some diff text\nmore lines\n",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".diff-label-right > span:nth-child(3)",
+          "value": "",
+          "expected": "No diff loaded"
+        }
+      ]
+    },
+    {
+      "title": "Disabled Index Repository Button Without URL",
+      "purpose": "Check that the index repository context button remains disabled when pull request URL input is empty and apiReady is true, focusing on form interaction related to diff display changes.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.index-button[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Run Review Button Disabled With No Diff or URL",
+      "purpose": "Validate that the Analyze change button is disabled when both the diff textarea and pull request URL inputs are empty, reflecting updated input validation logic.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

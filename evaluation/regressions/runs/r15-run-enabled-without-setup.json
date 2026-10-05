@@ -1,0 +1,11 @@
+{
+  "id": "r15-run-enabled-without-setup",
+  "role": "primary",
+  "intendedBreak": "Analyze button is enabled without setup",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:40:18.916Z"
+}

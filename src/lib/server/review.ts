@@ -65,19 +65,32 @@ export async function reviewDiff(diff: string, addedLines: AddedLine[], context:
   return { findings: result.findings, model: result.model };
 }
 
-const reviewSystemPrompt = "You are a conservative senior code reviewer. Report only concrete defects introduced by this change. Use the supplied repository context to verify behavior. Do not report style preferences, speculative concerns, or issues already present. Each finding must cite an added line from the diff and propose a concise fix. If no actionable defect is supported, return an empty findings array.";
+const baselineSystemPrompt = "You are a conservative senior code reviewer. Report only concrete defects introduced by this change. Use the supplied repository context to verify behavior. Do not report style preferences, speculative concerns, or issues already present. Each finding must cite an added line from the diff and propose a concise fix. If no actionable defect is supported, return an empty findings array.";
 
-export const reviewPromptHash = createHash("sha256").update(JSON.stringify({
-  system: reviewSystemPrompt,
-  schema: reviewSchema,
-})).digest("hex");
+// Every revision keeps the baseline text verbatim; revisions only append. See evaluation/IMPROVEMENTS.md.
+export const reviewPromptRevisions = {
+  baseline: baselineSystemPrompt,
+  "cite-added-line": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context.`,
+} as const;
+export type ReviewPromptRevision = keyof typeof reviewPromptRevisions;
+
+export function getReviewPromptHash(revision: ReviewPromptRevision = "baseline") {
+  return createHash("sha256").update(JSON.stringify({
+    system: reviewPromptRevisions[revision],
+    schema: reviewSchema,
+  })).digest("hex");
+}
+
+export const reviewPromptHash = getReviewPromptHash("baseline");
 
 export async function reviewDiffDetailed(
   diff: string,
   addedLines: AddedLine[],
   context: { path: string; content: string }[],
   budget?: OpenAIBudget,
+  promptRevision: ReviewPromptRevision = "baseline",
 ) {
+  const reviewSystemPrompt = reviewPromptRevisions[promptRevision];
   const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
   const contextText = context.map((item) => `FILE: ${item.path}\n${item.content}`).join("\n\n---\n\n");
   const userContent = `REPOSITORY CONTEXT\n${contextText}\n\nPULL REQUEST DIFF\n${diff}`;
@@ -118,7 +131,7 @@ export async function reviewDiffDetailed(
     findings,
     rawFindings: parsed.findings,
     model: process.env.OPENAI_REVIEW_MODEL ?? "gpt-4.1-mini",
-    promptHash: reviewPromptHash,
+    promptHash: getReviewPromptHash(promptRevision),
     usage,
   };
 }

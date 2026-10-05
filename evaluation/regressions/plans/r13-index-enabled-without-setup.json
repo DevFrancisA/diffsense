@@ -1,0 +1,142 @@
+{
+  "scenarios": [
+    {
+      "title": "Index repository context button disabled state without API readiness check",
+      "purpose": "Verify the index repository context button disables correctly only when indexing or pull request URL is empty, regardless of API readiness status.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/example/repo/pull/1",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "#pr-url",
+          "value": "https://github.com/example/repo/pull/1",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.index-button",
+          "value": "Index repository context",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Index repository context button enabled when API is not ready but URL is filled",
+      "purpose": "Ensure index button is enabled if indexing is false and pull request URL is filled even if API readiness indicator shows disconnected.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "#pr-url",
+          "value": "/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.index-button:not([disabled])",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Index repository context button disables while indexing",
+      "purpose": "Validate that the index button disables while indexing is in progress and shows indexing text with spinner.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "/pull/101",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.index-button[disabled]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": "Indexing repository…"
+        }
+      ]
+    },
+    {
+      "title": "Index message updates after indexing attempt",
+      "purpose": "Check that after clicking index repository context button, the status message updates accordingly.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/example/repo/pull/999",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div[role='status']",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

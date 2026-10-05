@@ -63,6 +63,7 @@ export async function createSessionBudget(scope: string): Promise<OpenAIBudget &
       if (!Number.isSafeInteger(apiCalls) || apiCalls < 1 || !Number.isSafeInteger(estimatedTokens) || estimatedTokens < 0) {
         throw new Error(`Invalid API budget estimate for ${label}.`);
       }
+      Object.assign(ledger, await readSessionLedger()); // another script may share this ledger
       const reservedCalls = ledger.reservedCalls + apiCalls;
       const projectedTokens = Math.max(ledger.observedTotalTokens, ledger.estimatedInputTokens) + estimatedTokens;
       console.log(`BUDGET ${scope}/${label}: ${apiCalls} call(s), ~${estimatedTokens} input tokens; session ${reservedCalls}/${sessionCallLimit} calls, ~${projectedTokens}/${sessionTokenLimit} tokens.`);
@@ -75,6 +76,7 @@ export async function createSessionBudget(scope: string): Promise<OpenAIBudget &
     },
     async recordUsage(label, usage) {
       const key = `${scope}/${label}`;
+      Object.assign(ledger, await readSessionLedger());
       ledger.completedCalls += 1;
       ledger.observedInputTokens += usage.inputTokens;
       ledger.observedOutputTokens += usage.outputTokens;

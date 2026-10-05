@@ -3,19 +3,33 @@ import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { loadEnvConfig } from "@next/env";
+import { createSessionBudget } from "./session-budget";
 
 loadEnvConfig(process.cwd());
 
 const root = process.cwd();
-const manifestPath = join(root, "evaluation", "manifest.json");
+const manifestFile = process.env.DIFFSENSE_MANIFEST ?? "manifest.json";
+if (manifestFile !== "manifest.json" && manifestFile !== "manifest-holdout.json") throw new Error("DIFFSENSE_MANIFEST must be manifest.json (DEV) or manifest-holdout.json (HOLDOUT).");
+const manifestPath = join(root, "evaluation", manifestFile);
 const cacheRoot = resolve(process.env.DIFFSENSE_BENCHMARK_CACHE ?? join(tmpdir(), "diffsense-benchmark-cache"));
 const diffRoot = join(cacheRoot, "diffs");
 const runsRoot = join(root, "evaluation", "runs");
 const runDate = process.env.DIFFSENSE_RUN_DATE ?? new Date().toISOString().slice(0, 10);
 const runVariant = process.env.DIFFSENSE_BENCHMARK_VARIANT ?? "baseline";
 const includeNoContext = process.env.DIFFSENSE_NO_CONTEXT !== "false";
-const callLimit = 500;
-const withContextRuns = 3;
+const withContextRuns = Number(process.env.DIFFSENSE_RUNS ?? 3);
+if (!Number.isSafeInteger(withContextRuns) || withContextRuns < 1 || withContextRuns > 3) throw new Error("DIFFSENSE_RUNS must be 1, 2, or 3.");
+// Post-baseline variants are fully described by this configuration; it is stored with every case and result.
+const pipelineConfig = {
+  manifest: manifestFile,
+  promptRevision: (process.env.REVIEW_PROMPT_REVISION ?? "baseline") as "baseline" | "cite-added-line",
+  includeChangedFiles: process.env.DIFFSENSE_INCLUDE_CHANGED_FILES === "true",
+  retrievalK: Number(process.env.DIFFSENSE_RETRIEVAL_K ?? 8),
+  maxIndexFiles: Number(process.env.MAX_INDEX_FILES ?? 40),
+  withContextRuns,
+};
+if (!["baseline", "cite-added-line"].includes(pipelineConfig.promptRevision)) throw new Error("Unknown REVIEW_PROMPT_REVISION.");
+if (!Number.isSafeInteger(pipelineConfig.retrievalK) || pipelineConfig.retrievalK < 1 || pipelineConfig.retrievalK > 32) throw new Error("DIFFSENSE_RETRIEVAL_K must be 1-32.");
 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(runDate) || Number.isNaN(Date.parse(`${runDate}T00:00:00Z`))) {
   throw new Error("DIFFSENSE_RUN_DATE must use YYYY-MM-DD.");
@@ -69,6 +83,7 @@ type StoredCase = {
   buggySha: string;
   manifestSha256: string;
   diffSha256: string;
+  pipelineConfig?: typeof pipelineConfig;
   model: string;
   embeddingModel: string;
   promptHash: string;
@@ -81,6 +96,7 @@ type StoredCase = {
     embeddingUsage: TokenUsage;
   };
   context: {
+    changedFileRefs?: { path: string; contentSha256: string }[];
     chunkRefs: { path: string; contentSha256: string }[];
     embeddingUsage: TokenUsage;
   };
@@ -89,17 +105,6 @@ type StoredCase = {
     withoutContext: StoredReview | null;
   };
   complete: boolean;
-};
-
-type BudgetLedger = {
-  runDate: string;
-  callLimit: number;
-  reservedCalls: number;
-  completedCalls: number;
-  estimatedInputTokens: number;
-  observedInputTokens: number;
-  observedOutputTokens: number;
-  observedTotalTokens: number;
 };
 
 function sha256(value: string | Buffer) {
@@ -180,8 +185,9 @@ async function main() {
   const embeddingModel = process.env.OPENAI_EMBEDDING_MODEL ?? "text-embedding-3-small";
   const dateDirectory = join(runsRoot, runDate);
   const runDirectory = runVariant === "baseline" ? dateDirectory : join(dateDirectory, runVariant);
-  const budgetPath = join(dateDirectory, "budget.json");
   const resultsPath = join(root, "evaluation", runVariant === "baseline" ? "results.json" : `results-${runVariant}.json`);
+  if (runVariant === "baseline") throw new Error("The baseline benchmark is complete; run post-baseline work under a named DIFFSENSE_BENCHMARK_VARIANT.");
+  if ((manifestFile === "manifest-holdout.json") !== runVariant.startsWith("holdout-")) throw new Error("HOLDOUT variants must be named holdout-* and use manifest-holdout.json, and only they may.");
   const existingResults = await readJsonIfExists(resultsPath);
   if (existingResults) throw new Error("evaluation/results.json already exists; refusing to overwrite a completed benchmark.");
 
@@ -205,12 +211,13 @@ async function main() {
     phase: dryRun ? "benchmark dry-run preflight" : "benchmark preflight",
     date: runDate,
     variant: runVariant,
+    pipelineConfig,
     cases: manifest.cases.length,
     reviewAndContextCalls,
     includesNoContext: includeNoContext,
     minimumIndexEmbeddingCalls,
     minimumOpenAICalls: reviewAndContextCalls + minimumIndexEmbeddingCalls,
-    maximumOpenAICalls: callLimit,
+    sessionCaps: "1,000 calls / 10M tokens (evaluation/ledger/session-2.json)",
     approximateDiffTokens: Math.ceil(knownDiffChars / 3),
     tokenEstimates: "Diff-only approximation; index and retrieved-context batches will be estimated before each actual OpenAI request batch.",
     model: process.env.OPENAI_REVIEW_MODEL ?? "gpt-4.1-mini",
@@ -226,20 +233,10 @@ async function main() {
     throw new Error(`Configure ${missingConfiguration.join(" and ")} before benchmarking.`);
   }
 
-  const priorBudget = await readJsonIfExists<BudgetLedger>(budgetPath);
-  const ledger: BudgetLedger = priorBudget ?? {
-    runDate,
-    callLimit,
-    reservedCalls: 0,
-    completedCalls: 0,
-    estimatedInputTokens: 0,
-    observedInputTokens: 0,
-    observedOutputTokens: 0,
-    observedTotalTokens: 0,
-  };
-  if (ledger.runDate !== runDate || ledger.callLimit !== callLimit) throw new Error("Existing budget ledger does not match this run configuration.");
-
-  console.log(`Resuming ${runVariant} with ${ledger.reservedCalls}/${callLimit} OpenAI calls already reserved.`);
+  // Post-baseline variants draw on the session ledger (evaluation/ledger/session-2.json), not the closed 2026-10-05 ledger.
+  const budget = await createSessionBudget(`benchmark/${runVariant}`);
+  const ledger = budget.ledger;
+  console.log(`Resuming ${runVariant} with ${ledger.reservedCalls} session calls already reserved.`);
 
   const contextModule = await import("../src/lib/server/context");
   const reviewModule = await import("../src/lib/server/review");
@@ -248,29 +245,8 @@ async function main() {
   const pool = databaseModule.getPool();
   await pool.query("SELECT 1");
 
-  const budget = {
-    async beforeBatch(label: string, apiCalls: number, estimatedTokens: number) {
-      if (!Number.isSafeInteger(apiCalls) || apiCalls < 1 || !Number.isSafeInteger(estimatedTokens) || estimatedTokens < 0) {
-        throw new Error(`Invalid API budget estimate for ${label}.`);
-      }
-      const reservedCalls = ledger.reservedCalls + apiCalls;
-      const cumulativeTokens = ledger.estimatedInputTokens + estimatedTokens;
-      console.log(`BUDGET ${label}: next batch ${apiCalls} API call(s), approximately ${estimatedTokens} input tokens; cumulative ${reservedCalls}/${callLimit} calls, approximately ${cumulativeTokens} input tokens.`);
-      if (reservedCalls > callLimit) throw new Error(`OpenAI call budget exceeded (${reservedCalls} > ${callLimit}); aborting before this batch.`);
-      ledger.reservedCalls = reservedCalls;
-      ledger.estimatedInputTokens = cumulativeTokens;
-      await writeJsonAtomic(budgetPath, ledger);
-    },
-    async recordUsage(_label: string, usage: TokenUsage) {
-      ledger.completedCalls += 1;
-      ledger.observedInputTokens += usage.inputTokens;
-      ledger.observedOutputTokens += usage.outputTokens;
-      ledger.observedTotalTokens += usage.totalTokens;
-      await writeJsonAtomic(budgetPath, ledger);
-    },
-  };
-
-  console.log(`Benchmark model: ${reviewModel}; prompt fingerprint: ${reviewModule.reviewPromptHash}.`);
+  const promptHash = reviewModule.getReviewPromptHash(pipelineConfig.promptRevision);
+  console.log(`Benchmark model: ${reviewModel}; prompt revision ${pipelineConfig.promptRevision}, fingerprint ${promptHash}; config ${JSON.stringify(pipelineConfig)}.`);
   console.log(`Cohort: ${manifest.cases.length} cases; index cap: ${process.env.MAX_INDEX_FILES ?? "40"}; no-context ablation ${includeNoContext ? "enabled" : "omitted for this variant"}.`);
 
   for (const item of manifest.cases) {
@@ -287,8 +263,9 @@ async function main() {
         && existing.buggySha === item.buggySha
         && existing.model === reviewModel
         && existing.embeddingModel === embeddingModel
-        && existing.promptHash === reviewModule.reviewPromptHash;
-      if (!matches) throw new Error(`Refusing to resume ${id}: manifest, diff, model, embedding model, or prompt fingerprint changed.`);
+        && existing.promptHash === promptHash
+        && JSON.stringify(existing.pipelineConfig) === JSON.stringify(pipelineConfig);
+      if (!matches) throw new Error(`Refusing to resume ${id}: manifest, diff, model, embedding model, prompt fingerprint, or pipeline config changed.`);
       if (existing.complete) {
         console.log(`RESUME ${id}: already complete; skipping.`);
         continue;
@@ -298,12 +275,8 @@ async function main() {
     console.log(`CASE ${id}: index fixed commit ${item.fixSha}; reverse-diff labels remain untouched.`);
     const addedLines = reviewModule.getAddedLines(diff);
     if (addedLines.length === 0) throw new Error(`No added lines in the committed defect label diff for ${id}.`);
-    const index = await contextModule.indexRepository(
-      item.upstreamRepository.split("/").slice(-2)[0],
-      item.upstreamRepository.split("/").slice(-1)[0],
-      item.fixSha,
-      budget,
-    );
+    const [owner, repositoryName] = item.upstreamRepository.split("/").slice(-2);
+    const index = await contextModule.indexRepository(owner, repositoryName, item.fixSha, budget);
     if (index.commitSha !== item.fixSha) throw new Error(`Indexed ${index.commitSha} instead of fixed commit ${item.fixSha} for ${id}.`);
 
     const stored: StoredCase = existing ?? {
@@ -317,9 +290,10 @@ async function main() {
       buggySha: item.buggySha,
       manifestSha256,
       diffSha256,
+      pipelineConfig,
       model: reviewModel,
       embeddingModel,
-      promptHash: reviewModule.reviewPromptHash,
+      promptHash,
       index: {
         repository: index.repository,
         commitSha: index.commitSha,
@@ -342,9 +316,12 @@ async function main() {
     };
     await writeJsonAtomic(caseFile, stored);
 
-    const retrieved = await contextModule.retrieveRepositoryContextDetailed(index.repository, diff, budget);
+    const retrieved = await contextModule.retrieveRepositoryContextDetailed(index.repository, diff, budget, pipelineConfig.retrievalK);
     if (retrieved.chunks.length === 0) throw new Error(`No context retrieved for ${id}; refusing to label a context arm as complete.`);
+    const changedFiles = pipelineConfig.includeChangedFiles ? await contextModule.getChangedFileContext(owner, repositoryName, item.fixSha, diff) : [];
+    const reviewContext = [...changedFiles.map((file) => ({ path: `${file.path} (full file before this change)`, content: file.content })), ...retrieved.chunks];
     stored.context = {
+      changedFileRefs: changedFiles.map((file) => ({ path: file.path, contentSha256: sha256(file.content) })),
       chunkRefs: retrieved.chunks.map((chunk: { path: string; content: string }) => ({ path: chunk.path, contentSha256: sha256(chunk.content) })),
       embeddingUsage: addUsage(stored.context.embeddingUsage, retrieved.embeddingUsage),
     };
@@ -352,7 +329,7 @@ async function main() {
 
     while (stored.arms.withContext.length < withContextRuns) {
       const runNumber = stored.arms.withContext.length + 1;
-      const review = await reviewModule.reviewDiffDetailed(diff, addedLines, retrieved.chunks, budget);
+      const review = await reviewModule.reviewDiffDetailed(diff, addedLines, reviewContext, budget, pipelineConfig.promptRevision);
       if (review.model !== reviewModel || review.promptHash !== stored.promptHash) throw new Error(`Model or prompt fingerprint changed during ${id}.`);
       stored.arms.withContext.push({
         model: review.model,
@@ -366,7 +343,7 @@ async function main() {
     }
 
     if (includeNoContext && !stored.arms.withoutContext) {
-      const review = await reviewModule.reviewDiffDetailed(diff, addedLines, [], budget);
+      const review = await reviewModule.reviewDiffDetailed(diff, addedLines, [], budget, pipelineConfig.promptRevision);
       if (review.model !== reviewModel || review.promptHash !== stored.promptHash) throw new Error(`Model or prompt fingerprint changed during ${id}.`);
       stored.arms.withoutContext = {
         model: review.model,
@@ -422,11 +399,12 @@ async function main() {
     schemaVersion: 1,
     benchmarkDate: runDate,
     benchmarkVariant: runVariant,
+    pipelineConfig,
     dataset: manifest.dataset,
     selection: manifest.selection,
     manifestSha256,
     models: { review: reviewModel, embedding: embeddingModel },
-    reviewPromptSha256: reviewModule.reviewPromptHash,
+    reviewPromptSha256: promptHash,
     manualReview: { status: "unmeasured", reason: "The paired human timing study has not been run." },
     regressionEvaluation: { status: "not_run", reason: "Seeded regression scenarios have not been authored or executed." },
     arms: { withContext, withoutContext },

@@ -1,0 +1,40 @@
+{
+  "scenarios": [
+    {
+      "title": "Index Repository Context Button Behavior",
+      "purpose": "Verify the index repository context button disables and shows correct messages during indexing and after completion, including clearing default message when no message is present.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/example/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "#pr-url",
+          "value": "github.com/example/repo",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span[role=\"status\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

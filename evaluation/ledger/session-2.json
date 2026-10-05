@@ -2,24 +2,24 @@
   "session": "session-2",
   "callLimit": 1000,
   "tokenLimit": 10000000,
-  "reservedCalls": 13,
-  "completedCalls": 13,
-  "estimatedInputTokens": 110024,
-  "observedInputTokens": 83273,
-  "observedOutputTokens": 4188,
-  "observedTotalTokens": 87461,
+  "reservedCalls": 33,
+  "completedCalls": 33,
+  "estimatedInputTokens": 217660,
+  "observedInputTokens": 166612,
+  "observedOutputTokens": 8494,
+  "observedTotalTokens": 175106,
   "byLabel": {
     "regressions/index_embeddings": {
       "calls": 1,
       "totalTokens": 35649
     },
     "regressions/context_embedding": {
-      "calls": 6,
-      "totalTokens": 1415
+      "calls": 16,
+      "totalTokens": 5675
     },
     "regressions/test_plan": {
-      "calls": 6,
-      "totalTokens": 50397
+      "calls": 16,
+      "totalTokens": 133782
     }
   },
   "log": [
@@ -229,6 +229,326 @@
         "inputTokens": 8061,
         "outputTokens": 606,
         "totalTokens": 8667
+      }
+    },
+    {
+      "at": "2026-10-05T10:34:45.296Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 721
+    },
+    {
+      "at": "2026-10-05T10:34:45.702Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 582,
+        "outputTokens": 0,
+        "totalTokens": 582
+      }
+    },
+    {
+      "at": "2026-10-05T10:34:45.716Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10471
+    },
+    {
+      "at": "2026-10-05T10:34:50.007Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8102,
+        "outputTokens": 578,
+        "totalTokens": 8680
+      }
+    },
+    {
+      "at": "2026-10-05T10:34:55.438Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 716
+    },
+    {
+      "at": "2026-10-05T10:34:55.627Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 578,
+        "outputTokens": 0,
+        "totalTokens": 578
+      }
+    },
+    {
+      "at": "2026-10-05T10:34:55.674Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10467
+    },
+    {
+      "at": "2026-10-05T10:34:59.444Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8098,
+        "outputTokens": 440,
+        "totalTokens": 8538
+      }
+    },
+    {
+      "at": "2026-10-05T10:36:29.126Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 478
+    },
+    {
+      "at": "2026-10-05T10:36:29.470Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 384,
+        "outputTokens": 0,
+        "totalTokens": 384
+      }
+    },
+    {
+      "at": "2026-10-05T10:36:29.483Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10228
+    },
+    {
+      "at": "2026-10-05T10:36:34.014Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7893,
+        "outputTokens": 616,
+        "totalTokens": 8509
+      }
+    },
+    {
+      "at": "2026-10-05T10:36:39.498Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 350
+    },
+    {
+      "at": "2026-10-05T10:36:39.697Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 273,
+        "outputTokens": 0,
+        "totalTokens": 273
+      }
+    },
+    {
+      "at": "2026-10-05T10:36:39.710Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 9100
+    },
+    {
+      "at": "2026-10-05T10:36:42.458Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7026,
+        "outputTokens": 365,
+        "totalTokens": 7391
+      }
+    },
+    {
+      "at": "2026-10-05T10:37:11.688Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 380
+    },
+    {
+      "at": "2026-10-05T10:37:11.876Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 309,
+        "outputTokens": 0,
+        "totalTokens": 309
+      }
+    },
+    {
+      "at": "2026-10-05T10:37:11.888Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10195
+    },
+    {
+      "at": "2026-10-05T10:37:13.927Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7848,
+        "outputTokens": 226,
+        "totalTokens": 8074
+      }
+    },
+    {
+      "at": "2026-10-05T10:37:34.011Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 379
+    },
+    {
+      "at": "2026-10-05T10:37:34.301Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 309,
+        "outputTokens": 0,
+        "totalTokens": 309
+      }
+    },
+    {
+      "at": "2026-10-05T10:37:34.316Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10194
+    },
+    {
+      "at": "2026-10-05T10:37:36.339Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7848,
+        "outputTokens": 246,
+        "totalTokens": 8094
+      }
+    },
+    {
+      "at": "2026-10-05T10:37:41.668Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 665
+    },
+    {
+      "at": "2026-10-05T10:37:41.874Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 545,
+        "outputTokens": 0,
+        "totalTokens": 545
+      }
+    },
+    {
+      "at": "2026-10-05T10:37:41.923Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10415
+    },
+    {
+      "at": "2026-10-05T10:37:45.506Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8063,
+        "outputTokens": 536,
+        "totalTokens": 8599
+      }
+    },
+    {
+      "at": "2026-10-05T10:40:05.939Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 659
+    },
+    {
+      "at": "2026-10-05T10:40:06.285Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 544,
+        "outputTokens": 0,
+        "totalTokens": 544
+      }
+    },
+    {
+      "at": "2026-10-05T10:40:06.299Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10410
+    },
+    {
+      "at": "2026-10-05T10:40:08.080Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8062,
+        "outputTokens": 146,
+        "totalTokens": 8208
+      }
+    },
+    {
+      "at": "2026-10-05T10:40:13.391Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 458
+    },
+    {
+      "at": "2026-10-05T10:40:13.567Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 358,
+        "outputTokens": 0,
+        "totalTokens": 358
+      }
+    },
+    {
+      "at": "2026-10-05T10:40:13.617Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10437
+    },
+    {
+      "at": "2026-10-05T10:40:18.913Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8060,
+        "outputTokens": 719,
+        "totalTokens": 8779
+      }
+    },
+    {
+      "at": "2026-10-05T10:40:24.196Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 467
+    },
+    {
+      "at": "2026-10-05T10:40:24.398Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 378,
+        "outputTokens": 0,
+        "totalTokens": 378
+      }
+    },
+    {
+      "at": "2026-10-05T10:40:24.412Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10446
+    },
+    {
+      "at": "2026-10-05T10:40:28.146Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8079,
+        "outputTokens": 434,
+        "totalTokens": 8513
       }
     }
   ]

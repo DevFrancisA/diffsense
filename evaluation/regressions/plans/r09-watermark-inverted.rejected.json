@@ -1,0 +1,172 @@
+{
+  "scenarios": [
+    {
+      "title": "Check watermark visibility with loaded diff",
+      "purpose": "Verify that the 'Waiting for a diff' watermark is shown only when the diff textarea is empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "some sample diff text",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".editor-watermark",
+          "value": "",
+          "expected": "false"
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".editor-watermark",
+          "value": "",
+          "expected": "true"
+        }
+      ]
+    },
+    {
+      "title": "Clear diff button functionality",
+      "purpose": "Ensure the clear diff button clears the textarea and resets errors and results",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "sample diff text",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".error-inline",
+          "value": "",
+          "expected": "false"
+        }
+      ]
+    },
+    {
+      "title": "Disable analyze button without diff or PR URL",
+      "purpose": "Verify 'Analyze change' button is disabled when diff and PR URL are both empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.run-button",
+          "value": "disabled",
+          "expected": "true"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff populates textarea and enables analyze button",
+      "purpose": "Check that loading sample diff sets diff content and enables analyze when API ready",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.button-secondary",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "diff --git",
+          "expected": "true"
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.run-button",
+          "value": "disabled",
+          "expected": "false"
+        }
+      ]
+    },
+    {
+      "title": "Index repository context button state and message update",
+      "purpose": "Test repository context indexing button enables only with PR URL and apiReady true and shows correct status message",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.index-button",
+          "value": "disabled",
+          "expected": "false"
+        },
+        {
+          "action": "click",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "span[role='status']",
+          "value": "Indexed",
+          "expected": "true"
+        }
+      ]
+    }
+  ]
+}

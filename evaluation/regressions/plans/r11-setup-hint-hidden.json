@@ -1,0 +1,52 @@
+{
+  "scenarios": [
+    {
+      "title": "Setup message visibility when API is ready",
+      "purpose": "Ensure that the setup configuration message is shown only when apiReady state is true, reflecting the changed condition in rendering.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    },
+    {
+      "title": "Setup message absence when API is false or null",
+      "purpose": "Verify that the setup message is not shown when apiReady is false or null, as the condition was changed from apiReady === false to apiReady === true.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".setup-inline",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".setup-inline span",
+          "value": "",
+          "expected": "Configure OPENAI_API_KEY and DATABASE_URL to enable reviews. See the setup guide."
+        }
+      ]
+    }
+  ]
+}

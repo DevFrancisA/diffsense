@@ -1,0 +1,96 @@
+{
+  "id": "r10-pill-labels-swapped",
+  "role": "primary",
+  "intendedBreak": "Connection pill reports ready when setup is missing",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 4,
+    "steps": 9,
+    "usage": {
+      "inputTokens": 7299,
+      "outputTokens": 365,
+      "totalTokens": 7664
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/layout.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/status/route.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify connection status text and style for apiReady === true",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('span.connection-pill.connected')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('span.connection-pill.connected') with timeout 5000ms\n  - waiting for locator('span.connection-pill.connected')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify connection status text and style for apiReady === false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Verify connection status text for apiReady === null (checking)",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('span.connection-pill i + *')\nExpected substring: \"Checking setup\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('span.connection-pill i + *') with timeout 5000ms\n  - waiting for locator('span.connection-pill i + *')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify presence of documentation and help buttons in topbar",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify connection status text and style for apiReady === true",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('span.connection-pill.connected')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('span.connection-pill.connected') with timeout 5000ms\n  - waiting for locator('span.connection-pill.connected')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify connection status text and style for apiReady === false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Verify connection status text for apiReady === null (checking)",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('span.connection-pill i + *')\nExpected substring: \"Checking setup\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('span.connection-pill i + *') with timeout 5000ms\n  - waiting for locator('span.connection-pill i + *')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify presence of documentation and help buttons in topbar",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:37:06.319Z"
+}

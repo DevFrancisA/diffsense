@@ -1,0 +1,86 @@
+{
+  "id": "r11-setup-hint-hidden",
+  "role": "primary",
+  "intendedBreak": "Setup instructions disappear when setup is missing",
+  "status": "detected",
+  "reason": "assertion step failed on patched app",
+  "plan": {
+    "scenarios": 2,
+    "steps": 6,
+    "usage": {
+      "inputTokens": 8157,
+      "outputTokens": 226,
+      "totalTokens": 8383
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/lib/server/review.ts",
+      "tests/review.spec.ts",
+      "src/app/api/review/route.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: Setup message visibility when API is ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Setup message absence when API is false or null",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: Setup message visibility when API is ready",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Setup message absence when API is false or null",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "patchedRun": {
+    "outcome": "assertion",
+    "tests": [
+      {
+        "title": "generated plan: Setup message visibility when API is ready",
+        "status": "failed",
+        "failedStep": "plan step 1: expectVisible",
+        "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.setup-inline')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.setup-inline') with timeout 5000ms\n  - waiting for locator('.setup-inline')\n",
+        "outcome": "assertion"
+      },
+      {
+        "title": "generated plan: Setup message absence when API is false or null",
+        "status": "failed",
+        "failedStep": "plan step 1: expectVisible",
+        "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.setup-inline')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.setup-inline') with timeout 5000ms\n  - waiting for locator('.setup-inline')\n",
+        "outcome": "assertion"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T10:37:28.733Z"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "r12-setup-hint-env-name",
+  "role": "primary",
+  "intendedBreak": "Setup hint names the wrong environment variable",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan contains a navigation target outside the configured application.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:37:36.341Z"
+}
