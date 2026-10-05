@@ -62,3 +62,4 @@ Two blind Claude judges (no OpenAI calls) audit TEST findings with the Round-2 r
   | `gpt-4.1-mini` ×2 (C7) | 30 | 10 | 66.7% | 0.577 |
   | `gpt-5.4-mini` ×1 | 27 | 20 | 56.3% | 0.505 |
   | `gpt-5.5` ×1 | 31 | 11 | 70.5% | 0.602 |
+- **Owner decision (cost):** phases B (extra `gpt-5.5` samples and voting) and C (verifier) are **skipped**. Selection uses the preregistered rule over the configurations actually measured: every `gpt-4.1-mini` C5 rule with n ≤ 2 (C7 included), `gpt-5.4-mini` n=1, and `gpt-5.5` n=1. The winner is chosen by development-set combined F1 after the last `gpt-5.5` HOLDOUT case completes. Phase D then runs on TEST once: the winner, plus C7 as the reference.
