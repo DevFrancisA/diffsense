@@ -1,0 +1,36 @@
+{
+  "pullRequests": [
+    {
+      "id": "synthetic-pr-1",
+      "knownDefects": [
+        { "file": "a.ts", "line": 10 },
+        { "file": "b.ts", "line": 20 }
+      ],
+      "manualFindings": [
+        { "file": "a.ts", "line": 10 }
+      ],
+      "assistedFindings": [
+        { "file": "a.ts", "line": 11 },
+        { "file": "c.ts", "line": 5 }
+      ],
+      "manualMinutes": 20,
+      "assistedMinutes": 12
+    },
+    {
+      "id": "synthetic-pr-2",
+      "knownDefects": [
+        { "file": "d.ts", "line": 30 }
+      ],
+      "manualFindings": [],
+      "assistedFindings": [
+        { "file": "d.ts", "line": 30 }
+      ],
+      "manualMinutes": 10,
+      "assistedMinutes": 5
+    }
+  ],
+  "regressionScenarios": [
+    { "id": "synthetic-seed-1", "detected": true },
+    { "id": "synthetic-seed-2", "detected": false }
+  ]
+}
