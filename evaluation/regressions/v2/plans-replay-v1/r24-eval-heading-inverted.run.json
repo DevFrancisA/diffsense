@@ -1,0 +1,22 @@
+{
+  "scenarios": [
+    {
+      "title": "Display evaluation header when evaluation not available",
+      "purpose": "Verify that header text changes to 'BugsJS review baseline' when evaluation is not available.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-copy h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        }
+      ]
+    }
+  ]
+}

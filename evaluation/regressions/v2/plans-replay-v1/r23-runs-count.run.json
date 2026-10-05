@@ -1,0 +1,94 @@
+{
+  "scenarios": [
+    {
+      "title": "Load example diff and verify diff content",
+      "purpose": "Test loading the example diff into the unified diff textarea and verify content appears",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Navigate active view buttons in sidebar",
+      "purpose": "Test switching between different active views in the sidebar navigation",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button[aria-label=\"Pull requests\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button[aria-label=\"Evaluations\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button[aria-label=\"Test lab\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button[aria-label=\"Review desk\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Generate Playwright plan button functionality",
+      "purpose": "Test the generation of Playwright plan when inputs are valid and button is enabled",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "some diff text",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button:text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "id": "r17-generate-enabled-without-setup",
+  "role": "breaking",
+  "intendedBreak": "Generate-plan button is enabled without setup",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": null,
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Generate Playwright plan button enabled when API not ready but inputs present",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate Playwright plan button disabled when no diff or pull request URL",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Show evaluation panel with correct status and metrics",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Load example diff populates diff textarea with sample and shows findings",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Index repository context button disabled when no pull request URL or indexing in progress",
+          "status": "failed",
+          "failedStep": "plan step 2: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.index-button')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Generate Playwright plan button enabled when API not ready but inputs present",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate Playwright plan button disabled when no diff or pull request URL",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Show evaluation panel with correct status and metrics",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Load example diff populates diff textarea with sample and shows findings",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Index repository context button disabled when no pull request URL or indexing in progress",
+          "status": "failed",
+          "failedStep": "plan step 2: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.index-button')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: Show evaluation panel with correct status and metrics",
+    "generated plan: Load example diff populates diff textarea with sample and shows findings"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: Show evaluation panel with correct status and metrics",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: Load example diff populates diff textarea with sample and shows findings",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:51:03.881Z"
+}

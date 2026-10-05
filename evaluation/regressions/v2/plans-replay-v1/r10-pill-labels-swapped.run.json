@@ -1,0 +1,46 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify connection status text and style for apiReady === false",
+      "purpose": "Confirm that when apiReady state is false, the connection-pill shows 'Review engine ready' text and has the 'disconnected' class.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "span.connection-pill.disconnected",
+          "value": "",
+          "expected": "Review engine ready"
+        }
+      ]
+    },
+    {
+      "title": "Verify presence of documentation and help buttons in topbar",
+      "purpose": "Ensure the documentation and help icon buttons are present with correct titles and aria-labels as they are unaffected by connection status.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button[title='Documentation'][aria-label='Documentation']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button[title='Help'][aria-label='Help']",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

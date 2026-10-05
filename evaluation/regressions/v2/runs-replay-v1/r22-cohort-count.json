@@ -1,0 +1,37 @@
+{
+  "id": "r22-cohort-count",
+  "role": "breaking",
+  "intendedBreak": "Cohort size shows the run count",
+  "status": "invalid-plan",
+  "reason": "no scenario passed both baseline runs",
+  "generation": null,
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify updated precision metric footnote text on the evaluation metrics strip",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.metric-cell:nth-child(1) > span.metric-foot')\nExpected substring: \"0 BugsJS cases · 0 runs\"\nReceived string:    \"30 BugsJS cases · 3 runs\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('div.metric-cell:nth-child(1) > span.metric-foot') with timeout 5000ms\n  - waiting for locator('div.metric-cell:nth-child(1) > span.metric-foot')\n    14 × locator resolved to <span class=\"metric-foot\">30 BugsJS cases · 3 runs</span>\n       - unexpected value \"30 BugsJS cases · 3 runs\"\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify updated precision metric footnote text on the evaluation metrics strip",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.metric-cell:nth-child(1) > span.metric-foot')\nExpected substring: \"0 BugsJS cases · 0 runs\"\nReceived string:    \"30 BugsJS cases · 3 runs\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('div.metric-cell:nth-child(1) > span.metric-foot') with timeout 5000ms\n  - waiting for locator('div.metric-cell:nth-child(1) > span.metric-foot')\n    14 × locator resolved to <span class=\"metric-foot\">30 BugsJS cases · 3 runs</span>\n       - unexpected value \"30 BugsJS cases · 3 runs\"\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T11:51:15.651Z"
+}

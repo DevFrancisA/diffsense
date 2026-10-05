@@ -1,0 +1,2536 @@
+[
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-01dba92b7c",
+      "m-0263516177",
+      "m-028d86f0f6",
+      "m-047757b9b0",
+      "m-05ccd9ec87",
+      "m-08e74e5a9d",
+      "m-0ab2c49d4d",
+      "m-0d114410bc"
+    ],
+    "judgments": [
+      {
+        "id": "m-01dba92b7c",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Calls it a performance/caching concern and never names a runtime behavioral defect from switching to this._router.route."
+      },
+      {
+        "id": "m-0263516177",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says this$N outer-reference keys now end up in result.$ during deserialization."
+      },
+      {
+        "id": "m-028d86f0f6",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Only says the regex 'loses context'; misses the real bug, where a space quantified by +*{? is now wrongly counted or flagged."
+      },
+      {
+        "id": "m-047757b9b0",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "The added lines are only a comment and a semicolon; the claimed versioning regression is a guess the excerpt does not support, and the fix suggested is new logic, not a revert."
+      },
+      {
+        "id": "m-05ccd9ec87",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly notes the save block no longer runs when only saveExact is set, though its source#version claim is made up."
+      },
+      {
+        "id": "m-08e74e5a9d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says any '(' in a path segment now cuts off the base dir, even for real directory names with parentheses."
+      },
+      {
+        "id": "m-0ab2c49d4d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the whole match includes the trailing character, so the space count is wrong."
+      },
+      {
+        "id": "m-0d114410bc",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says relative /base and /absolute URLs without an http://host prefix no longer match."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-01dba92b7c",
+      "m-0263516177",
+      "m-028d86f0f6",
+      "m-047757b9b0",
+      "m-05ccd9ec87",
+      "m-08e74e5a9d",
+      "m-0ab2c49d4d",
+      "m-0d114410bc"
+    ],
+    "judgments": [
+      {
+        "id": "m-01dba92b7c",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Frames the _baseRoute-to-_router.route change as a caching/performance overhead instead of identifying a runtime behavioral bug."
+      },
+      {
+        "id": "m-0263516177",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says synthetic this$N outer-reference fields are no longer filtered out of result.$."
+      },
+      {
+        "id": "m-028d86f0f6",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Says only that context is lost and behavior 'likely' breaks; never names the actual problem of spaces followed by a quantifier being mis-reported or mis-fixed."
+      },
+      {
+        "id": "m-047757b9b0",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "The added lines are only a comment and a semicolon; the claim that versioning is lost is a guess based on the comment text."
+      },
+      {
+        "id": "m-05ccd9ec87",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly notes the save block no longer runs when only saveExact is set, though it adds made-up details about source#version."
+      },
+      {
+        "id": "m-08e74e5a9d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says any '(' now cuts off the base dir, so real directories with parentheses in their names are wrongly removed."
+      },
+      {
+        "id": "m-0ab2c49d4d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says using the whole match includes the trailing character, so the space count is wrong."
+      },
+      {
+        "id": "m-0d114410bc",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says relative /base and /absolute stack-trace URLs without an http://host prefix no longer match, so they are not formatted."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-102e40e552",
+      "m-15683fd1a2",
+      "m-17c58d99c7",
+      "m-1838f9d3e1",
+      "m-18c9fa11b9",
+      "m-1c77d433b5",
+      "m-21b335089c",
+      "m-21e1d07c8b"
+    ],
+    "judgments": [
+      {
+        "id": "m-102e40e552",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Praises the added early return as a robustness gain and misses that it skips dirty tracking when item.value is falsy; the suggestion keeps the bug."
+      },
+      {
+        "id": "m-15683fd1a2",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the model.modelName fallback was dropped, so ad-hoc population now errors; the suggestion restores that fallback."
+      },
+      {
+        "id": "m-17c58d99c7",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says index 0 takes the whole match instead of the captured spaces, so the space count is wrong; the suggestion restores index 1."
+      },
+      {
+        "id": "m-1838f9d3e1",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "The explanation is vague ('complex arrow functions', 'before' assigned conditionally) and never names the forward scan stopping at an earlier '=>' such as one in a default parameter; the suggestion reverts."
+      },
+      {
+        "id": "m-18c9fa11b9",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says deleting type on the uncloned cast object mutates the user's schema options; the shallow-copy suggestion amounts to the removed clone."
+      },
+      {
+        "id": "m-1c77d433b5",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Only says the high/low check 'may' misclassify some values and names no wrong range or inputs; the suggestion reverts to the Long comparisons."
+      },
+      {
+        "id": "m-21b335089c",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says leaving out the hop index breaks the trust check, so protocol detection behind proxies is wrong; the suggestion restores the 0 argument."
+      },
+      {
+        "id": "m-21e1d07c8b",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "The explanation is vague ('certain tokens') and misses that scanning forward can match an earlier '=>' inside the parameters; the main suggestion is to keep the original backward scan."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-102e40e552",
+      "m-15683fd1a2",
+      "m-17c58d99c7",
+      "m-1838f9d3e1",
+      "m-18c9fa11b9",
+      "m-1c77d433b5",
+      "m-21b335089c",
+      "m-21e1d07c8b"
+    ],
+    "judgments": [
+      {
+        "id": "m-102e40e552",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Praises the added early return as a robustness gain and misses that it wrongly skips handling whenever item.value is falsy; it suggests adding the buggy line."
+      },
+      {
+        "id": "m-15683fd1a2",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the model.modelName fallback was removed, so population now errors for ad-hoc paths with no ref/model; the fix restores the fallback."
+      },
+      {
+        "id": "m-17c58d99c7",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says index 0 is the whole match, not the spaces group, so the space count and fix are wrong; it suggests reverting to [1]."
+      },
+      {
+        "id": "m-1838f9d3e1",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Vague 'risks incorrect token selection' plus a wrong claim about conditional init; misses that a forward scan finds an inner '=>' inside params/defaults first."
+      },
+      {
+        "id": "m-18c9fa11b9",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says deleting type mutates the user's cast object; the suggested clone is essentially the removed utils.clone."
+      },
+      {
+        "id": "m-1c77d433b5",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Only says the high/low check 'may' misclassify some values and names no failing range (e.g. signed low word near 2^53); the suggestion reverts to the Long comparisons."
+      },
+      {
+        "id": "m-21b335089c",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the missing hop index 0 breaks trust evaluation, so protocol detection behind proxies is wrong; the fix restores the argument."
+      },
+      {
+        "id": "m-21e1d07c8b",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Vaguely says it 'can fail' for 'certain tokens' without naming the nested/default-param arrow case; it mainly suggests keeping the original backward search."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-22e0397f01",
+      "m-22ef547ab4",
+      "m-24ac7dce43",
+      "m-257c79416b",
+      "m-275bfed446",
+      "m-279fc63a94",
+      "m-282844f827",
+      "m-2a4ff66719"
+    ],
+    "judgments": [
+      {
+        "id": "m-22e0397f01",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says population options are dropped so findAndModify no longer populates, though the lean remark is muddled; suggestion is to mimic the removed completeOne/pop path."
+      },
+      {
+        "id": "m-22ef547ab4",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly identifies duplicate methods in the OPTIONS Allow header; suggests restoring appendMethods."
+      },
+      {
+        "id": "m-24ac7dce43",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Identifies that BOM/EOL escaping (escapeContent) is lost on read; suggests restoring the escapeContent call."
+      },
+      {
+        "id": "m-257c79416b",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Added line is only 'var t;'; the finding describes the fix itself as the change and proposes adding a type check, not identifying any defect the added line causes."
+      },
+      {
+        "id": "m-275bfed446",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly notes res.send(status, num) now treats the numeric body as a status code instead of sending it; suggests restoring the arguments-length disambiguation."
+      },
+      {
+        "id": "m-279fc63a94",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Added line is only 'var t;'; the finding speculates about key-type checks not shown in the excerpt and proposes new code."
+      },
+      {
+        "id": "m-282844f827",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says escaped U+2028/U+2029 line terminators would be falsely flagged as useless escapes; suggests reverting the set."
+      },
+      {
+        "id": "m-2a4ff66719",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Says the empty-layerPath check gives 'incorrect behavior or runtime errors' but never names the real failure (paths not starting with '/' are rejected for root-mounted layers); suggests restoring the original order."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-22e0397f01",
+      "m-22ef547ab4",
+      "m-24ac7dce43",
+      "m-257c79416b",
+      "m-275bfed446",
+      "m-279fc63a94",
+      "m-282844f827",
+      "m-2a4ff66719"
+    ],
+    "judgments": [
+      {
+        "id": "m-22e0397f01",
+        "describesDefect": true,
+        "restoreOnly": false,
+        "note": "Correctly notes the populate option is no longer applied in findAndModify, though the wording is muddled; the suggestion asks to mimic completeOne rather than revert."
+      },
+      {
+        "id": "m-22ef547ab4",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly identifies duplicate methods in the OPTIONS Allow header; the suggestion restores appendMethods."
+      },
+      {
+        "id": "m-24ac7dce43",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Identifies the lost escapeContent behavior, but wrongly says escaping happened by default when it was gated on options.escape; the suggestion restores the call."
+      },
+      {
+        "id": "m-257c79416b",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "The excerpt only adds 'var t;'. The finding describes adding a key type check as if it were the fix, not a defect the added line introduces."
+      },
+      {
+        "id": "m-275bfed446",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says res.send(status, num) now replaces the numeric body with the status text; the suggestion restores the arguments.length disambiguation."
+      },
+      {
+        "id": "m-279fc63a94",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "The excerpt only adds 'var t;'. The finding proposes a new key type check that the excerpt never shows as removed code."
+      },
+      {
+        "id": "m-282844f827",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says escaped U+2028/U+2029 line terminators in strings would be falsely flagged as useless; the suggestion reverts the set."
+      },
+      {
+        "id": "m-2a4ff66719",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Names the empty-layerPath case but only vaguely claims 'incorrect behavior or runtime errors'. It misses that root-mounted layers get skipped for paths whose first character is not '/' or '.'."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-2ade321b25",
+      "m-2b47a4e0a4",
+      "m-31a1d1f20f",
+      "m-34ef429495",
+      "m-386d064b94",
+      "m-3c55c2fc0b",
+      "m-3fb846027c",
+      "m-40ad87b292"
+    ],
+    "judgments": [
+      {
+        "id": "m-2ade321b25",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Flags generic buffer mutation, not the runtime effect that null bytes replace the exit-code marker and end up in stdout; suggests cloning rather than removing the fill."
+      },
+      {
+        "id": "m-2b47a4e0a4",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Only flags the comment typo and misses that the iMap class name check was dropped."
+      },
+      {
+        "id": "m-31a1d1f20f",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says unfiltered pattern objects (URLs included) now reach watchPatterns and can cause '/' to be watched; suggests restoring the filtering in exports.watch."
+      },
+      {
+        "id": "m-34ef429495",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Calls the condition 'stricter' (it actually caches more) and wrongly claims _resolution is unguarded, so it never clearly says that non-branch non-cacheable resolvers now get cached; suggests restoring isNotCacheable."
+      },
+      {
+        "id": "m-386d064b94",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says escaped U+2028/U+2029 will now be falsely reported as useless escapes; suggests reverting."
+      },
+      {
+        "id": "m-3c55c2fc0b",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the untrimmed buffer, including the exit-code marker, is now written to stdout; suggests restoring the original."
+      },
+      {
+        "id": "m-3fb846027c",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Praises the added type check as protective and misses that map entries with non-string/number keys are now silently dropped."
+      },
+      {
+        "id": "m-40ad87b292",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a single statement with leading comments no longer requires braces under multi-or-nest; suggests restoring the original lines."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-2ade321b25",
+      "m-2b47a4e0a4",
+      "m-31a1d1f20f",
+      "m-34ef429495",
+      "m-386d064b94",
+      "m-3c55c2fc0b",
+      "m-3fb846027c",
+      "m-40ad87b292"
+    ],
+    "judgments": [
+      {
+        "id": "m-2ade321b25",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Talks generically about mutating the caller's buffer and losing data. It misses the runtime effect: null bytes are left in the output instead of the exit-code marker being trimmed."
+      },
+      {
+        "id": "m-2b47a4e0a4",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Only flags the comment typo. It misses the real bug: the iMap class name is no longer mapped to an empty class name."
+      },
+      {
+        "id": "m-31a1d1f20f",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Says all pattern objects, URLs included, now reach the watcher, so it may watch '/' for URLs. The fix it suggests is to keep filtering in exports.watch as before."
+      },
+      {
+        "id": "m-34ef429495",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Gets the direction wrong ('stricter'): other non-cacheable resolvers are now cached, not left uncached. The _resolution null concern is already guarded by &&."
+      },
+      {
+        "id": "m-386d064b94",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correct: escaped U+2028/U+2029 line continuations are now wrongly reported as useless escapes."
+      },
+      {
+        "id": "m-3c55c2fc0b",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correct: the untrimmed buffer, still holding the exit-code marker, is written to stdout."
+      },
+      {
+        "id": "m-3fb846027c",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Praises the added type check instead of seeing that keys which are not strings or numbers are silently dropped. It even suggests adding the buggy check."
+      },
+      {
+        "id": "m-40ad87b292",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a single statement with a leading comment no longer requires braces under multi-or-nest, but says warnings would disappear when the rule would actually flag those braces as unnecessary."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-4234beec09",
+      "m-4244f1e7cc",
+      "m-44449d1363",
+      "m-45a28399ae",
+      "m-497b635d2e",
+      "m-499093a1db",
+      "m-49c4096a45",
+      "m-4afaf69b71"
+    ],
+    "judgments": [
+      {
+        "id": "m-4234beec09",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Notes the missing hop-index argument but only says behavior 'potentially' changes, without explaining that hop-count trust settings stop trusting X-Forwarded-Proto."
+      },
+      {
+        "id": "m-4244f1e7cc",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Blames an uninitialized 'before', which is always set; misses that scanning forward finds the wrong '=>' when nested arrows appear in params or defaults."
+      },
+      {
+        "id": "m-44449d1363",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says Windows paths like 'c:/path' are no longer treated as absolute."
+      },
+      {
+        "id": "m-45a28399ae",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Treats it as a caching/performance loss, not the behavioral bug of routes not being shared per path."
+      },
+      {
+        "id": "m-497b635d2e",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a numeric slug passed to slugize without toString will throw or misbehave."
+      },
+      {
+        "id": "m-499093a1db",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says paths without a leading slash fail prefix matching, but misses that '/' now matches every page; the fix is a partial revert."
+      },
+      {
+        "id": "m-49c4096a45",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says export declarations are no longer single-child-allowed, which changes how the rule counts statements on export lines."
+      },
+      {
+        "id": "m-4afaf69b71",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says each verb call now creates a separate Route for the same path instead of sharing one, though partly speculative."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-4234beec09",
+      "m-4244f1e7cc",
+      "m-44449d1363",
+      "m-45a28399ae",
+      "m-497b635d2e",
+      "m-499093a1db",
+      "m-49c4096a45",
+      "m-4afaf69b71"
+    ],
+    "judgments": [
+      {
+        "id": "m-4234beec09",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the missing hop-index argument changes trust evaluation and so breaks req.protocol and req.secure, though it doesn't say which trust configurations fail."
+      },
+      {
+        "id": "m-4244f1e7cc",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Blames an uninitialized 'before' variable; it misses the real bug, where the forward scan can stop at an earlier '=>' token (for example one inside the parameters)."
+      },
+      {
+        "id": "m-44449d1363",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says Windows paths with a forward slash, like 'c:/path', are no longer treated as absolute."
+      },
+      {
+        "id": "m-45a28399ae",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Calls it a vague performance and caching concern without naming any concrete runtime misbehavior."
+      },
+      {
+        "id": "m-497b635d2e",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a non-string slug, such as a number, now reaches slugize without toString and fails."
+      },
+      {
+        "id": "m-499093a1db",
+        "describesDefect": true,
+        "restoreOnly": false,
+        "note": "Correctly finds the lost leading-slash normalization that breaks prefix matching, but misses the '/' to index.html special case; the fix restores only part of the removed code."
+      },
+      {
+        "id": "m-49c4096a45",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says export declarations are no longer allowed a single child statement, though the runtime effect is described only vaguely as 'likely breaks'."
+      },
+      {
+        "id": "m-4afaf69b71",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Guesses at duplicate route instances causing conflicts and never states a concrete failing input; this is speculative rather than an accurate description of the defect."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-4bf5b45da5",
+      "m-4d6fd32ed7",
+      "m-512fbd85ce",
+      "m-55c8471181",
+      "m-569122a00d",
+      "m-56ec6569b5",
+      "m-58965410d1",
+      "m-631d813157"
+    ],
+    "judgments": [
+      {
+        "id": "m-4bf5b45da5",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Notices the switch from lastTokenOnNewLine to nodeIsMultiLine but only says it 'may cause incorrect detection' and never names the input that breaks (a multiline node whose last item sits on the closing-bracket line)."
+      },
+      {
+        "id": "m-4d6fd32ed7",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correct: repeating a flag gives an array value, which now goes straight into options instead of the last value."
+      },
+      {
+        "id": "m-512fbd85ce",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correct: path can be the function or a non-string when app.use is called without a path, so the mounted sub-app gets the wrong mountpath."
+      },
+      {
+        "id": "m-55c8471181",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Too vague: says the offsets 'may' give wrong ranges but names no input or concrete wrong fix range."
+      },
+      {
+        "id": "m-569122a00d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Gets it backwards: praises split(' '), which cuts off channel names that contain spaces, and suggests the buggy code."
+      },
+      {
+        "id": "m-56ec6569b5",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says url.resolve drops path segments and mishandles spaces and special characters (URL escaping) in asset paths."
+      },
+      {
+        "id": "m-58965410d1",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Despite some noise, correctly says config.port now wins over the protocol's default port."
+      },
+      {
+        "id": "m-631d813157",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Claims an infinite loop; the real bug is that synthetic this$N outer-reference fields are no longer filtered out."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-4bf5b45da5",
+      "m-4d6fd32ed7",
+      "m-512fbd85ce",
+      "m-55c8471181",
+      "m-569122a00d",
+      "m-56ec6569b5",
+      "m-58965410d1",
+      "m-631d813157"
+    ],
+    "judgments": [
+      {
+        "id": "m-4bf5b45da5",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says always-multiline now keys on whether the whole node spans lines instead of whether the closing token sits on a new line after the last item, though it names no concrete failing input."
+      },
+      {
+        "id": "m-4d6fd32ed7",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a repeated argument now yields an array instead of the last value."
+      },
+      {
+        "id": "m-512fbd85ce",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says path may be the function when no mount path is given, so the sub-app's mountpath is wrong."
+      },
+      {
+        "id": "m-55c8471181",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Only vaguely says the range 'may be incorrect' and never names the real failure: the fix range is computed from the node's position instead of the start of its line."
+      },
+      {
+        "id": "m-569122a00d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Inverted: it praises split(' ') and misses that channel names containing spaces get truncated; the suggestion applies the buggy code."
+      },
+      {
+        "id": "m-56ec6569b5",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says url.resolve mishandles spaces and special characters (URL escaping) and can drop path segments."
+      },
+      {
+        "id": "m-58965410d1",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says config.port now wins over the protocol default port, despite some spurious claims."
+      },
+      {
+        "id": "m-631d813157",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Wrongly claims an infinite loop; the real bug is that synthetic this$N fields are no longer filtered out."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-6ee91075fc",
+      "m-6ef5d440e0",
+      "m-6f78206be4",
+      "m-747be9919b",
+      "m-76cb29ac4f",
+      "m-785f5fc142",
+      "m-79df9df42a",
+      "m-7a3bb8e7cd"
+    ],
+    "judgments": [
+      {
+        "id": "m-6ee91075fc",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "The claim that _baseRoute caches one Route per path is guesswork: the excerpt never shows what _baseRoute does or what breaks for which inputs."
+      },
+      {
+        "id": "m-6ef5d440e0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says strict mode now compares without adding a leading slash, so a path like 'foo/' no longer matches the current path."
+      },
+      {
+        "id": "m-6f78206be4",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Vague and partly backwards: it does not say how the added offset mis-indents declarator tokens, and it suggests changing range[0] instead of removing the line."
+      },
+      {
+        "id": "m-747be9919b",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says objects with a $class string and a null $ are no longer written as null."
+      },
+      {
+        "id": "m-76cb29ac4f",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says this path returns a bare number where callers expect {exitCode, buffer}."
+      },
+      {
+        "id": "m-785f5fc142",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Misreads the guard: the new early return already protects top.value, and the real bug is that paths whose item.value is falsy (set to null/undefined) are skipped."
+      },
+      {
+        "id": "m-79df9df42a",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Only a generic 'potential off-by-one' worry that never names the wrong range, and the suggestion is a vague refactor."
+      },
+      {
+        "id": "m-7a3bb8e7cd",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Misses the core bug that relative image paths are now resolved against the site root instead of the current page URL, and lists speculative cases (pathname, query) instead."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-6ee91075fc",
+      "m-6ef5d440e0",
+      "m-6f78206be4",
+      "m-747be9919b",
+      "m-76cb29ac4f",
+      "m-785f5fc142",
+      "m-79df9df42a",
+      "m-7a3bb8e7cd"
+    ],
+    "judgments": [
+      {
+        "id": "m-6ee91075fc",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Claims _baseRoute caches routes and that duplicate Route instances break overriding, which is speculation the excerpt does not support."
+      },
+      {
+        "id": "m-6ef5d440e0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says strict mode no longer adds a leading slash, so paths written without one fail the equality check."
+      },
+      {
+        "id": "m-6f78206be4",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Vague and truncated; misses the over-indentation caused by the added offset and proposes a different range instead of removing the line."
+      },
+      {
+        "id": "m-747be9919b",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says objects with a $class string and a null $ are no longer written as null."
+      },
+      {
+        "id": "m-76cb29ac4f",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says returning a bare defaultCode breaks callers that expect an {exitCode, buffer} object."
+      },
+      {
+        "id": "m-785f5fc142",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Claims top.value may be undefined, but the new guard prevents that; it misses that the early return wrongly drops items whose item.value is falsy."
+      },
+      {
+        "id": "m-79df9df42a",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Generic 'potential off-by-one'; misses that the range no longer starts at the line start, and suggests a vague refactor."
+      },
+      {
+        "id": "m-7a3bb8e7cd",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Focuses on config.url trailing slashes and query strings; does not say relative paths are no longer resolved against the current page URL."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-7cf1b17931",
+      "m-7d306c557c",
+      "m-831803786a",
+      "m-855daa9f52",
+      "m-865fccb562",
+      "m-884a891392",
+      "m-8892a67aa0",
+      "m-8b956f2301"
+    ],
+    "judgments": [
+      {
+        "id": "m-7cf1b17931",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "The excerpt only adds 'var t;'. The finding's key-type-check claim has no basis in it and names no actual defect."
+      },
+      {
+        "id": "m-7d306c557c",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "It correctly says config.port now wins over the 443/80 default when a protocol is given without a port, and it suggests reverting."
+      },
+      {
+        "id": "m-831803786a",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "It concludes there is no defect, so it misses the bug in the new pattern-object handling."
+      },
+      {
+        "id": "m-855daa9f52",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "It names the right case, a format object with only a default callback, which now breaks. The mechanism is wrong: req.accepts([]) returns a type, not undefined."
+      },
+      {
+        "id": "m-865fccb562",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "It correctly says the regex now requires an http://host/ prefix, so paths without one stop matching. The 'base/absolute' prefix wording is a bit off."
+      },
+      {
+        "id": "m-884a891392",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "It praises the added key.toString() as a fix and says to keep it, missing the bug that line reintroduces."
+      },
+      {
+        "id": "m-8892a67aa0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "It correctly says strict mode now skips leading-slash and index.html normalization, so equivalent paths no longer match."
+      },
+      {
+        "id": "m-8b956f2301",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "It correctly says an argument given more than once now passes the whole array instead of the last value."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-7cf1b17931",
+      "m-7d306c557c",
+      "m-831803786a",
+      "m-855daa9f52",
+      "m-865fccb562",
+      "m-884a891392",
+      "m-8892a67aa0",
+      "m-8b956f2301"
+    ],
+    "judgments": [
+      {
+        "id": "m-7cf1b17931",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "The finding proposes a key-type check that has nothing to do with the added 'var t;' change, so it does not name a runtime defect."
+      },
+      {
+        "id": "m-7d306c557c",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says config.port now wins over the protocol default (443/80) when proxyDetails.port is unset, and suggests reverting."
+      },
+      {
+        "id": "m-831803786a",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "The explanation decides there is no defect and the suggestion approves the change."
+      },
+      {
+        "id": "m-855daa9f52",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Names the right input (only a default callback, empty keys) and the right failure, but the hedged 'may return undefined' mechanism is shaky; suggests restoring the empty-keys guard."
+      },
+      {
+        "id": "m-865fccb562",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the regex now requires an http://host/ prefix, so paths without it no longer match; the explanation is garbled but the substance holds, and it suggests reverting."
+      },
+      {
+        "id": "m-884a891392",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Praises the added key.toString() as a fix and says to keep it, missing the reintroduced bug."
+      },
+      {
+        "id": "m-8892a67aa0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says strict mode now compares against an unnormalized path (no leading slash added, raw this.path), so matches fail, and suggests reinstating the normalization."
+      },
+      {
+        "id": "m-8b956f2301",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a repeated CLI argument now gives an array instead of the last value, and suggests restoring the pop logic."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-8cb72b487d",
+      "m-90340e672c",
+      "m-92740a7c40",
+      "m-9302f5d76d",
+      "m-93f7e3daaa",
+      "m-982d0a30e2",
+      "m-98df3dcbd8",
+      "m-9bf027520d"
+    ],
+    "judgments": [
+      {
+        "id": "m-8cb72b487d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a numeric slug or title is passed to slugize without toString and can crash; the fix restores .toString()."
+      },
+      {
+        "id": "m-90340e672c",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says options.escape is now ignored, so BOM and CRLF are no longer escaped; the fix restores escapeContent."
+      },
+      {
+        "id": "m-92740a7c40",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Wrongly says a range array is an invalid first argument (the API takes a range) and misses the real indentation bug; it suggests different arguments instead of removing the line."
+      },
+      {
+        "id": "m-9302f5d76d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Spots the removed filter that let internal this$N keys into the result, but also wrongly claims the read order changed; the fix restores the original code."
+      },
+      {
+        "id": "m-93f7e3daaa",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Calls the change a clarity issue and misses the real bug: config.port now wins over the https/http default when a protocol is given without a port."
+      },
+      {
+        "id": "m-982d0a30e2",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says app.use(subapp) sets mountpath to the function instead of '/'; the fix restores mount_path."
+      },
+      {
+        "id": "m-98df3dcbd8",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Wrongly claims the label is never updated and the loop never ends; the new code does update it, and the real bug (this$N keys no longer filtered) goes unnamed."
+      },
+      {
+        "id": "m-9bf027520d",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Complains that keys lose their type, but JS object keys are strings anyway; it misses that key.toString() throws on a null or undefined key, and its main fix is to remove the line."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-8cb72b487d",
+      "m-90340e672c",
+      "m-92740a7c40",
+      "m-9302f5d76d",
+      "m-93f7e3daaa",
+      "m-982d0a30e2",
+      "m-98df3dcbd8",
+      "m-9bf027520d"
+    ],
+    "judgments": [
+      {
+        "id": "m-8cb72b487d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that without toString() a numeric slug or title passed to slugize can crash."
+      },
+      {
+        "id": "m-90340e672c",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says options.escape is now ignored, so the content is returned unescaped."
+      },
+      {
+        "id": "m-92740a7c40",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Wrongly says the range argument is an invalid type; the real bug is the extra offset itself, and the fix is to delete the line, not change its arguments."
+      },
+      {
+        "id": "m-9302f5d76d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Names the removed filter for this$N keys, which is the real defect, but also makes a wrong claim that the read order changed."
+      },
+      {
+        "id": "m-93f7e3daaa",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Treats the change as a clarity issue and misses that config.port now overrides the protocol default (443 or 80)."
+      },
+      {
+        "id": "m-982d0a30e2",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says app.use(subapp) sets mountpath to the function instead of '/'."
+      },
+      {
+        "id": "m-98df3dcbd8",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Wrongly claims the label is no longer updated, causing an infinite loop; the label is still read."
+      },
+      {
+        "id": "m-9bf027520d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Wrongly says keys used to keep their type (JS property keys are converted to strings anyway) and misses the toString failure on null or undefined keys; the suggestion hedges with 'remove or justify'."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-9c51b13217",
+      "m-9ca834db6d",
+      "m-9f0175e446",
+      "m-a76255f5ae",
+      "m-aa22b3e134",
+      "m-ad28741367",
+      "m-ad6537d957",
+      "m-af81c83792"
+    ],
+    "judgments": [
+      {
+        "id": "m-9c51b13217",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says relative image paths are no longer resolved against the page URL and get wrong og URLs; the subdirectory claim is weaker, but the core point is right."
+      },
+      {
+        "id": "m-9ca834db6d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the hardcoded branch check skips the other non-cacheable cases (e.g. local sources), so those get cached wrongly."
+      },
+      {
+        "id": "m-9f0175e446",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says synthetic this$N outer-reference fields are no longer filtered out and now end up in the decoded object; the explanation of the impact is thin."
+      },
+      {
+        "id": "m-a76255f5ae",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says reading this.current/this.total instead of this.page.* gives undefined values, so the defaults 0/1 kick in and pagination breaks."
+      },
+      {
+        "id": "m-aa22b3e134",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Points to the added zero-fill corrupting the shared buffer in place, which is the defect; the impact statement is vague and the suggestion amounts to dropping the added line."
+      },
+      {
+        "id": "m-ad28741367",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the sha is computed from the raw file buffer, not the preprocessed content, so the hash is wrong for preprocessed files."
+      },
+      {
+        "id": "m-ad6537d957",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says dropping the model.modelName fallback makes ad-hoc populate fail with an error; the code-level fix offered is to restore the fallback."
+      },
+      {
+        "id": "m-af81c83792",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Misses the real bug (any '(' in a path, including literal directory names, now truncates the base dir) and wrongly claims !(), +() and ()? are no longer handled, when the new regex still covers them."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-9c51b13217",
+      "m-9ca834db6d",
+      "m-9f0175e446",
+      "m-a76255f5ae",
+      "m-aa22b3e134",
+      "m-ad28741367",
+      "m-ad6537d957",
+      "m-af81c83792"
+    ],
+    "judgments": [
+      {
+        "id": "m-9c51b13217",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says relative image paths are no longer resolved against the page URL and are glued onto config.url instead."
+      },
+      {
+        "id": "m-9ca834db6d",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says only branch resolutions now skip the cache, so other non-cacheable resolvers get cached."
+      },
+      {
+        "id": "m-9f0175e446",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says this$N outer-reference fields are no longer filtered out and end up in the decoded object."
+      },
+      {
+        "id": "m-a76255f5ae",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says current and total are read from the wrong context object, so they come out undefined and fall back to the defaults."
+      },
+      {
+        "id": "m-aa22b3e134",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Points at the in-place null-byte fill of the buffer, which is the mechanism, but the stated consequence is vague (null bytes leak into the output); the suggestion is the sliced-buffer fix used before."
+      },
+      {
+        "id": "m-ad28741367",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the SHA is computed from the raw buffer instead of the preprocessed content, though it cites a removed line that is not in the excerpt."
+      },
+      {
+        "id": "m-ad6537d957",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the model.modelName fallback was dropped, so ad-hoc populate now fails with an error; its only code change is restoring that fallback."
+      },
+      {
+        "id": "m-af81c83792",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Misses the real bug: any path segment with a literal '(' (e.g. 'dir (copy)') is now stripped. It instead claims constructs the new regex still handles are broken."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-b13e488550",
+      "m-b2b5803ea9",
+      "m-b4ff68779b",
+      "m-b5b33563ef",
+      "m-be3104a8be",
+      "m-be89bf7876",
+      "m-beb0941fe0",
+      "m-c5def4159b"
+    ],
+    "judgments": [
+      {
+        "id": "m-b13e488550",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Wrongly guesses that buffer is undefined and may throw a ReferenceError; it never says the real bug, which is that the sha is taken from the raw buffer instead of the preprocessed content."
+      },
+      {
+        "id": "m-b2b5803ea9",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Treats the added type-check variable as an improvement and names no defect the change introduces."
+      },
+      {
+        "id": "m-b4ff68779b",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Says only 'unexpected results'; misses that url.resolve drops the last path segment and URL-escapes a filesystem path. Its first suggestion is to revert to pathFn.join."
+      },
+      {
+        "id": "m-b5b33563ef",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that --save-exact alone no longer writes to bower.json, and suggests restoring the saveExact check."
+      },
+      {
+        "id": "m-be3104a8be",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that 'c:/' style paths are no longer recognized as absolute, and suggests restoring the '/' check."
+      },
+      {
+        "id": "m-be89bf7876",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Calls the new whole-node multiline check more accurate and only vaguely claims misreports; the suggestion endorses the added code."
+      },
+      {
+        "id": "m-beb0941fe0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that the path 'index.html' (and a falsy non-empty path) is no longer treated as home, and suggests restoring the original check."
+      },
+      {
+        "id": "m-c5def4159b",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that files matching no watched pattern are no longer ignored and get watched; the suggestion amounts to restoring the pattern-match check."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-b13e488550",
+      "m-b2b5803ea9",
+      "m-b4ff68779b",
+      "m-b5b33563ef",
+      "m-be3104a8be",
+      "m-be89bf7876",
+      "m-beb0941fe0",
+      "m-c5def4159b"
+    ],
+    "judgments": [
+      {
+        "id": "m-b13e488550",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Says 'buffer' is undefined and throws a ReferenceError, which is a guess. The real bug is that the sha is computed from the raw buffer instead of the processed content, and the fix it suggests is a different line, not deleting the added one."
+      },
+      {
+        "id": "m-b2b5803ea9",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Treats the added type check as an improvement instead of naming a defect the added line introduces; the suggestion keeps the change rather than reverting it."
+      },
+      {
+        "id": "m-b4ff68779b",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Only says url.resolve 'might produce unexpected results'. It misses the concrete failure: url.resolve drops the last segment of post.path and URL-escapes characters in what should be a file path. The suggestion mainly says to revert to pathFn.join."
+      },
+      {
+        "id": "m-b5b33563ef",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says --save-exact on its own no longer writes to bower.json, and suggests putting the saveExact check back."
+      },
+      {
+        "id": "m-be3104a8be",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says drive paths with a forward slash, such as c:/, are no longer treated as absolute, and suggests restoring the '/' check."
+      },
+      {
+        "id": "m-be89bf7876",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Praises the whole-node multiline check as more accurate and only vaguely says it causes misreports, without naming the failing case. The suggestion keeps nodeIsMultiLine instead of restoring lastTokenOnNewLine."
+      },
+      {
+        "id": "m-beb0941fe0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says 'index.html' is no longer recognized as the home page, and suggests restoring the original check."
+      },
+      {
+        "id": "m-c5def4159b",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says files that match no watched pattern are no longer ignored, and suggests putting back the watched-pattern check that was removed."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-c65bf22412",
+      "m-cb24a1cdbf",
+      "m-cc7f59d945",
+      "m-ccc9ac13a0",
+      "m-ce182722c0",
+      "m-cfd9fc5c8d",
+      "m-d1b907186a",
+      "m-d2f9c33b17"
+    ],
+    "judgments": [
+      {
+        "id": "m-c65bf22412",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says  /  are valid escapes whose removal causes false 'useless escape' reports, though it vaguely hedges with 'missed warnings'."
+      },
+      {
+        "id": "m-cb24a1cdbf",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says it now returns a bare code instead of the {exitCode, buffer} object, which breaks callers."
+      },
+      {
+        "id": "m-cc7f59d945",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Says only that detection is 'broken'; it never names the inputs that go wrong (multiple spaces before a quantifier)."
+      },
+      {
+        "id": "m-ccc9ac13a0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says readSync no longer applies escapeContent when options.escape is set."
+      },
+      {
+        "id": "m-ce182722c0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a statement directly under an export declaration is no longer exempt, so it gets falsely reported."
+      },
+      {
+        "id": "m-cfd9fc5c8d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Gets it backwards: it calls the original direct return wrong and suggests keeping the reassignment, which is the bug."
+      },
+      {
+        "id": "m-d1b907186a",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a non-string (numeric) slug now reaches slugize without toString and makes it throw."
+      },
+      {
+        "id": "m-d2f9c33b17",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says dropping preparePopulationOptions loses lean handling for populate options."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-c65bf22412",
+      "m-cb24a1cdbf",
+      "m-cc7f59d945",
+      "m-ccc9ac13a0",
+      "m-ce182722c0",
+      "m-cfd9fc5c8d",
+      "m-d1b907186a",
+      "m-d2f9c33b17"
+    ],
+    "judgments": [
+      {
+        "id": "m-c65bf22412",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says U+2028/U+2029 escapes are no longer treated as valid, causing false positives, though the wording hedges."
+      },
+      {
+        "id": "m-cb24a1cdbf",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that returning a bare number instead of an {exitCode, buffer} object breaks callers."
+      },
+      {
+        "id": "m-cc7f59d945",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Too vague: it never says the new regex flags or rewrites spaces that are followed by a quantifier."
+      },
+      {
+        "id": "m-ccc9ac13a0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says readSync now ignores options.escape and returns unescaped content."
+      },
+      {
+        "id": "m-ce182722c0",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says statements directly inside export declarations are no longer exempted, so they get double-counted."
+      },
+      {
+        "id": "m-cfd9fc5c8d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Gets it backwards: it blames the original direct return and recommends the buggy assign-then-append behavior."
+      },
+      {
+        "id": "m-d1b907186a",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a non-string slug such as a number is no longer converted with toString before slugize."
+      },
+      {
+        "id": "m-d2f9c33b17",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says skipping preparePopulationOptions loses the lean handling for populated paths."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-dc444d7c42",
+      "m-dd016aea31",
+      "m-df3f2e9659",
+      "m-dfbd153ab4",
+      "m-e0178b0b7f",
+      "m-e343a73e5e",
+      "m-e5ef91b617",
+      "m-e78e6df79a"
+    ],
+    "judgments": [
+      {
+        "id": "m-dc444d7c42",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a missing line now enters source-map lookup, where parseInt(line) gives NaN; the suggestion restores the line guard."
+      },
+      {
+        "id": "m-dd016aea31",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says deleting type from the un-cloned cast object mutates the user's argument; the suggestion restores the clone."
+      },
+      {
+        "id": "m-df3f2e9659",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Vague 'may break' about slash handling; misses the real defect: url.resolve URL-escapes the path (#1562) and drops the last segment when there is no trailing slash."
+      },
+      {
+        "id": "m-dfbd153ab4",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Only a hedged 'appears off-by-one'; it does not say the new range assumes the indentation sits right before the node instead of starting at the line start, and the suggestion is a generic 'adjust it'."
+      },
+      {
+        "id": "m-e0178b0b7f",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Identifies that a falsy line now enters the source-map path, which needs a valid line, though the runtime result is stated vaguely; the suggestion restores the check."
+      },
+      {
+        "id": "m-e343a73e5e",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says push.apply skips the de-duplication appendMethods did, so the OPTIONS Allow header gets duplicate methods; the suggestion restores appendMethods."
+      },
+      {
+        "id": "m-e5ef91b617",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a numeric slug or title now reaches slugize without toString and can throw; the suggestion restores toString."
+      },
+      {
+        "id": "m-e78e6df79a",
+        "describesDefect": true,
+        "restoreOnly": false,
+        "note": "Does say that --saveExact alone no longer updates bower.json, but mixes in claims about source+version not visible in the excerpt; the suggestion is hedged rather than a plain revert."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-dc444d7c42",
+      "m-dd016aea31",
+      "m-df3f2e9659",
+      "m-dfbd153ab4",
+      "m-e0178b0b7f",
+      "m-e343a73e5e",
+      "m-e5ef91b617",
+      "m-e78e6df79a"
+    ],
+    "judgments": [
+      {
+        "id": "m-dc444d7c42",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that with a missing line, the source-map lookup gets NaN or an invalid line and errors; the fix reverts the condition."
+      },
+      {
+        "id": "m-dd016aea31",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that deleting type now mutates the user's cast object; the fix restores the clone."
+      },
+      {
+        "id": "m-df3f2e9659",
+        "describesDefect": false,
+        "restoreOnly": true,
+        "note": "Gives only vague concerns about absolute slugs and slash handling; it misses the real bug, which is URL-escaping or segment-replacing semantics for filesystem paths (#1562)."
+      },
+      {
+        "id": "m-dfbd153ab4",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Vaguely calls it 'appears off-by-one'; it misses that the range is now anchored to the node instead of the line start, and the suggestion is a generic 'adjust the calculation'."
+      },
+      {
+        "id": "m-e0178b0b7f",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Identifies that source mapping now runs when line is falsy, which leads to errors; this is less specific but captures the defect, and the fix reverts the condition."
+      },
+      {
+        "id": "m-e343a73e5e",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says that a plain push lets duplicate methods into the OPTIONS Allow header; the fix restores appendMethods."
+      },
+      {
+        "id": "m-e5ef91b617",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says a numeric slug or title passed without toString can make slugize throw; the fix restores toString."
+      },
+      {
+        "id": "m-e78e6df79a",
+        "describesDefect": true,
+        "restoreOnly": false,
+        "note": "Includes the real defect (with only --save-exact, bower.json is not saved) alongside unsupported claims about removed code; the suggestion is a hedged 'reconsider', not a concrete revert."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-e91578ca99",
+      "m-eb7e99b6c7",
+      "m-eb8d997a37",
+      "m-efac5477b5",
+      "m-f4fe6e2742",
+      "m-f62ca93e8d",
+      "m-f8682de216",
+      "m-f8a9cfc4ea"
+    ],
+    "judgments": [
+      {
+        "id": "m-e91578ca99",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Explanation is muddled about falsy maxCommentLength, praises the replacement, and misses the defect: comment lines within the comment limit now fall through to the code-length check."
+      },
+      {
+        "id": "m-eb7e99b6c7",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says {$class:'xxx', $:null} objects are no longer encoded as null."
+      },
+      {
+        "id": "m-eb8d997a37",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says relative /base/... and /absolute/... stack URLs without the http://host prefix no longer match."
+      },
+      {
+        "id": "m-efac5477b5",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says pagination data lives on this.page, so this.current and this.total come back undefined and fall back to the defaults (hedged but accurate)."
+      },
+      {
+        "id": "m-f4fe6e2742",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says leaving out the hop index breaks protocol detection when 'trust proxy' is set to a hop count."
+      },
+      {
+        "id": "m-f62ca93e8d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Inverted: treats the branch-only check as the fix and recommends keeping it, missing that other non-cacheable resolutions are now cached."
+      },
+      {
+        "id": "m-f8682de216",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Names the input ($class 'java.util.Map') that is no longer treated like HashMap and so keeps its class name, though the runtime effect is stated only vaguely."
+      },
+      {
+        "id": "m-f8a9cfc4ea",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says function bodies passed as arguments to new expressions lose their indentation handling."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-e91578ca99",
+      "m-eb7e99b6c7",
+      "m-eb8d997a37",
+      "m-efac5477b5",
+      "m-f4fe6e2742",
+      "m-f62ca93e8d",
+      "m-f8682de216",
+      "m-f8a9cfc4ea"
+    ],
+    "judgments": [
+      {
+        "id": "m-e91578ca99",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Explanation is muddled, even says the replacement fixes things, and misses that comment lines within maxCommentLength now fall through to the code-length check; suggestion endorses the added code."
+      },
+      {
+        "id": "m-eb7e99b6c7",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says objects with a string $class and null $ are no longer encoded as null."
+      },
+      {
+        "id": "m-eb8d997a37",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says the regex now requires an http://host/ prefix, so relative /base/ stack URLs no longer match."
+      },
+      {
+        "id": "m-efac5477b5",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Identifies that pagination data lives on this.page, so current/total are read wrongly; hedged but on target."
+      },
+      {
+        "id": "m-f4fe6e2742",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly notes the missing hop index breaks trust when 'trust proxy' is a hop count, so protocol detection is wrong."
+      },
+      {
+        "id": "m-f62ca93e8d",
+        "describesDefect": false,
+        "restoreOnly": false,
+        "note": "Treats the added branch-only check as the fix and misses that it drops the broader isNotCacheable() rule; suggests keeping the new code."
+      },
+      {
+        "id": "m-f8682de216",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says java.util.Map ($class iMap) objects lose the empty-class map treatment."
+      },
+      {
+        "id": "m-f8a9cfc4ea",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "Correctly says dropping NewExpression breaks indentation of function blocks that are arguments to new expressions."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "A",
+    "ids": [
+      "m-fceab02003"
+    ],
+    "judgments": [
+      {
+        "id": "m-fceab02003",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "The finding correctly says that when several routes match, the plain push adds the same methods more than once to the OPTIONS Allow header, and it suggests reverting to appendMethods."
+      }
+    ]
+  },
+  {
+    "kind": "audit",
+    "judge": "B",
+    "ids": [
+      "m-fceab02003"
+    ],
+    "judgments": [
+      {
+        "id": "m-fceab02003",
+        "describesDefect": true,
+        "restoreOnly": true,
+        "note": "The explanation is correct: plain push.apply drops the dedup that appendMethods did, so methods shared by several matching routes appear more than once in the OPTIONS Allow header. The suggestion amounts to reverting to appendMethods."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f-00ce9e4871",
+      "f-02406da5ab",
+      "f-0bcf1d48a1",
+      "f-1a95d110e5",
+      "f-1b3d77690b",
+      "f-31d461c556",
+      "f-360ad660bf",
+      "f-3ab32cebc1"
+    ],
+    "judgments": [
+      {
+        "id": "f-00ce9e4871",
+        "verdict": "not-a-defect",
+        "note": "The finding guesses that current=0 might be valid but shows no evidence; it objects to the guard the fix added."
+      },
+      {
+        "id": "f-02406da5ab",
+        "verdict": "not-a-defect",
+        "note": "It describes the mutation bug from before the change, which the clone in the fixed code already resolves."
+      },
+      {
+        "id": "f-0bcf1d48a1",
+        "verdict": "not-a-defect",
+        "note": "The off-by-one is guesswork: group 1 starts at the match index, and the fixer uses only group 1's length, so no adjacent characters are touched."
+      },
+      {
+        "id": "f-1a95d110e5",
+        "verdict": "not-a-defect",
+        "note": "It describes the original behavior where lean skipped populate; the fixed code now sends populate requests down the population path."
+      },
+      {
+        "id": "f-1b3d77690b",
+        "verdict": "not-a-defect",
+        "note": "The finding is muddled, never names a defect in the new code, and itself concludes that no fix is needed."
+      },
+      {
+        "id": "f-31d461c556",
+        "verdict": "not-a-defect",
+        "note": "It restates the bug the change fixes; the new code already returns result."
+      },
+      {
+        "id": "f-360ad660bf",
+        "verdict": "not-a-defect",
+        "note": "It describes the original wrong variable, which the change already corrects."
+      },
+      {
+        "id": "f-3ab32cebc1",
+        "verdict": "not-a-defect",
+        "note": "It describes the crash on undefined options that the change's `options || {}` already fixes."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f-00ce9e4871",
+      "f-02406da5ab",
+      "f-0bcf1d48a1",
+      "f-1a95d110e5",
+      "f-1b3d77690b",
+      "f-31d461c556",
+      "f-360ad660bf",
+      "f-3ab32cebc1"
+    ],
+    "judgments": [
+      {
+        "id": "f-00ce9e4871",
+        "verdict": "not-a-defect",
+        "note": "Speculative objection to the guard itself; it shows no case where a falsy current page is valid."
+      },
+      {
+        "id": "f-02406da5ab",
+        "verdict": "not-a-defect",
+        "note": "Describes the pre-fix mutation bug that the clone fixes; the fixed code no longer has it."
+      },
+      {
+        "id": "f-0bcf1d48a1",
+        "verdict": "not-a-defect",
+        "note": "The off-by-one worry is speculative, since the reported range uses only the captured spaces group (regexResults[1])."
+      },
+      {
+        "id": "f-1a95d110e5",
+        "verdict": "not-a-defect",
+        "note": "Describes the original lean-skips-populate bug, which the new populate check fixes."
+      },
+      {
+        "id": "f-1b3d77690b",
+        "verdict": "not-a-defect",
+        "note": "Restates the intended behavior and admits no further fix is needed; no defect is identified."
+      },
+      {
+        "id": "f-31d461c556",
+        "verdict": "not-a-defect",
+        "note": "Describes the old bug that the change itself fixes by returning result."
+      },
+      {
+        "id": "f-360ad660bf",
+        "verdict": "not-a-defect",
+        "note": "Targets the original line that the fix already corrected to mount_path."
+      },
+      {
+        "id": "f-3ab32cebc1",
+        "verdict": "not-a-defect",
+        "note": "Describes the pre-fix crash on undefined options, which the change already fixes."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f-3aca9bab96",
+      "f-4209c8f23b",
+      "f-4b3d280203",
+      "f-521c2d2ca4",
+      "f-54b71106b3",
+      "f-57e96a9154",
+      "f-5c69ba85cf",
+      "f-5cd1107891"
+    ],
+    "judgments": [
+      {
+        "id": "f-3aca9bab96",
+        "verdict": "not-a-defect",
+        "note": "The excerpt already unpacks parsedResult.exitCode and parsedResult.buffer, so the finding misreads the change."
+      },
+      {
+        "id": "f-4209c8f23b",
+        "verdict": "not-a-defect",
+        "note": "This is a truncated style complaint about a helper variable and names no concrete wrong behavior."
+      },
+      {
+        "id": "f-4b3d280203",
+        "verdict": "not-a-defect",
+        "note": "It objects to the fix itself with vague speculation and shows no failing case."
+      },
+      {
+        "id": "f-521c2d2ca4",
+        "verdict": "not-a-defect",
+        "note": "It objects to adding NewExpression, which is the intended fix, and gives no concrete defect."
+      },
+      {
+        "id": "f-54b71106b3",
+        "verdict": "not-a-defect",
+        "note": "The claim that the capture group might be wrong is unsupported speculation about the accepted fix."
+      },
+      {
+        "id": "f-57e96a9154",
+        "verdict": "not-a-defect",
+        "note": "It describes the original bug that the streaming flag fixes, not a defect left in the fixed code."
+      },
+      {
+        "id": "f-5c69ba85cf",
+        "verdict": "not-a-defect",
+        "note": "The claim that the module is a factory and not a constructor is unsupported; the fix evidently changed the module to a constructor too."
+      },
+      {
+        "id": "f-5cd1107891",
+        "verdict": "not-a-defect",
+        "note": "pop() does mutate argv's array, but the finding itself calls this acceptable and shows no resulting bug; it is a style preference."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f-3aca9bab96",
+      "f-4209c8f23b",
+      "f-4b3d280203",
+      "f-521c2d2ca4",
+      "f-54b71106b3",
+      "f-57e96a9154",
+      "f-5c69ba85cf",
+      "f-5cd1107891"
+    ],
+    "judgments": [
+      {
+        "id": "f-3aca9bab96",
+        "verdict": "not-a-defect",
+        "note": "The added lines already unpack parsedResult.exitCode and parsedResult.buffer, so the finding misreads the change and its suggestion repeats the fix."
+      },
+      {
+        "id": "f-4209c8f23b",
+        "verdict": "not-a-defect",
+        "note": "The finding objects to a redundant-looking helper variable and names no concrete wrong behavior; its explanation is cut off."
+      },
+      {
+        "id": "f-4b3d280203",
+        "verdict": "not-a-defect",
+        "note": "Adding NewExpression is the accepted fix, and the claim that this causes wrong indentation is speculation with no failing case given."
+      },
+      {
+        "id": "f-521c2d2ca4",
+        "verdict": "not-a-defect",
+        "note": "This repeats f-4b3d280203: it is speculation that objects to the accepted NewExpression fix without showing a concrete bug."
+      },
+      {
+        "id": "f-54b71106b3",
+        "verdict": "not-a-defect",
+        "note": "The finding only says the capture group 'may not' be right, with no evidence; the index change is the fix itself."
+      },
+      {
+        "id": "f-57e96a9154",
+        "verdict": "not-a-defect",
+        "note": "The finding describes the original bug that the added streaming flag fixes, not a defect left in the new code."
+      },
+      {
+        "id": "f-5c69ba85cf",
+        "verdict": "not-a-defect",
+        "note": "Calling `new` on a factory that returns a function gives back that returned function, so the claimed runtime error does not happen."
+      },
+      {
+        "id": "f-5cd1107891",
+        "verdict": "not-a-defect",
+        "note": "pop() does change the argv array, but nothing in the excerpt reads argv again, and the finding itself calls the behavior acceptable."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f-69915eefa7",
+      "f-729ceb5e1c",
+      "f-73cf9b7b87",
+      "f-74b0cd2f73",
+      "f-762bce8866",
+      "f-7d07298422",
+      "f-84a403737e",
+      "f-87a4ffd242"
+    ],
+    "judgments": [
+      {
+        "id": "f-69915eefa7",
+        "verdict": "not-a-defect",
+        "note": "It objects to the fix that moved the fallback to this.page, and the claim that this.page may be undefined is speculation the excerpt does not support."
+      },
+      {
+        "id": "f-729ceb5e1c",
+        "verdict": "not-a-defect",
+        "note": "It restates the fix's moved path-separator check and names no bug left in the new code."
+      },
+      {
+        "id": "f-73cf9b7b87",
+        "verdict": "not-a-defect",
+        "note": "Hashing the original source content before preprocessing is the fix's intent, so this is a speculative objection to the fix itself."
+      },
+      {
+        "id": "f-74b0cd2f73",
+        "verdict": "not-a-defect",
+        "note": "It describes the original bug that the toString() fix resolves and names no remaining defect."
+      },
+      {
+        "id": "f-762bce8866",
+        "verdict": "not-a-defect",
+        "note": "Returning an empty string when there is no current page is the intended behavior of the fix, so this only questions the fix."
+      },
+      {
+        "id": "f-7d07298422",
+        "verdict": "not-a-defect",
+        "note": "It objects to the intended SHA placement on the raw content, and nothing in the excerpt shows the SHA should cover the processed output."
+      },
+      {
+        "id": "f-84a403737e",
+        "verdict": "not-a-defect",
+        "note": "It describes the fix itself and does not point to a defect in the code after the change."
+      },
+      {
+        "id": "f-87a4ffd242",
+        "verdict": "not-a-defect",
+        "note": "It restates the original issue that the options || {} fix resolves and names no remaining bug."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f-69915eefa7",
+      "f-729ceb5e1c",
+      "f-73cf9b7b87",
+      "f-74b0cd2f73",
+      "f-762bce8866",
+      "f-7d07298422",
+      "f-84a403737e",
+      "f-87a4ffd242"
+    ],
+    "judgments": [
+      {
+        "id": "f-69915eefa7",
+        "verdict": "not-a-defect",
+        "note": "It objects to the fix itself, which moves the fallback to this.page and is what the maintainers intended; the excerpt shows no remaining bug."
+      },
+      {
+        "id": "f-729ceb5e1c",
+        "verdict": "not-a-defect",
+        "note": "It only restates the fix (moving the path-separator check into the correct block) and names no defect in the new code."
+      },
+      {
+        "id": "f-73cf9b7b87",
+        "verdict": "not-a-defect",
+        "note": "It argues the sha should hash the processed content, but hashing the raw source is a deliberate design choice and the excerpt shows no bug."
+      },
+      {
+        "id": "f-74b0cd2f73",
+        "verdict": "not-a-defect",
+        "note": "It describes the original problem that the toString() fix solves and finds nothing wrong after the change."
+      },
+      {
+        "id": "f-762bce8866",
+        "verdict": "not-a-defect",
+        "note": "It objects to the intended guard; page numbers start at 1, so a current page of 0 or none correctly means no paginator."
+      },
+      {
+        "id": "f-7d07298422",
+        "verdict": "not-a-defect",
+        "note": "It is speculative and second-guesses the design of hashing the raw content, with no defect shown in the excerpt."
+      },
+      {
+        "id": "f-84a403737e",
+        "verdict": "not-a-defect",
+        "note": "It describes the old behavior that the added line check fixes; no remaining defect."
+      },
+      {
+        "id": "f-87a4ffd242",
+        "verdict": "not-a-defect",
+        "note": "It restates the fix that defaults options to {} and finds no defect in the changed code."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f-8d52e60477",
+      "f-8ea6d523bd",
+      "f-936e415b9f",
+      "f-95c1e33e2e",
+      "f-983f7a281e",
+      "f-98fc2a7bd7",
+      "f-9a8cfb56c5",
+      "f-9c6e9294e8"
+    ],
+    "judgments": [
+      {
+        "id": "f-8d52e60477",
+        "verdict": "not-a-defect",
+        "note": "The new regex is grouped correctly so the anchors cover both alternatives, and the suggested version would break the anchoring."
+      },
+      {
+        "id": "f-8ea6d523bd",
+        "verdict": "not-a-defect",
+        "note": "The finding describes the old line; the fixed code already uses assert.ifError, so the fixed code has no defect."
+      },
+      {
+        "id": "f-936e415b9f",
+        "verdict": "not-a-defect",
+        "note": "The finding is about a watchPatterns call and a signature that the excerpt does not show, so it is speculation that misreads the change."
+      },
+      {
+        "id": "f-95c1e33e2e",
+        "verdict": "not-a-defect",
+        "note": "This is a vague request to verify the change and names no concrete defect in the new code."
+      },
+      {
+        "id": "f-983f7a281e",
+        "verdict": "not-a-defect",
+        "note": "The finding describes the old line; the fix already changes it to assert.ifError."
+      },
+      {
+        "id": "f-98fc2a7bd7",
+        "verdict": "not-a-defect",
+        "note": "These are speculative edge cases with no concrete failure, and the suggestion reverts to the original buggy regex."
+      },
+      {
+        "id": "f-9a8cfb56c5",
+        "verdict": "not-a-defect",
+        "note": "The two-argument path is not in the excerpt, and the new guard correctly restricts the status shortcut to a single numeric argument, so the claim is speculative."
+      },
+      {
+        "id": "f-9c6e9294e8",
+        "verdict": "not-a-defect",
+        "note": "The finding objects to the accepted fix itself by suggesting a revert to assert.ok(err)."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f-8d52e60477",
+      "f-8ea6d523bd",
+      "f-936e415b9f",
+      "f-95c1e33e2e",
+      "f-983f7a281e",
+      "f-98fc2a7bd7",
+      "f-9a8cfb56c5",
+      "f-9c6e9294e8"
+    ],
+    "judgments": [
+      {
+        "id": "f-8d52e60477",
+        "verdict": "not-a-defect",
+        "note": "The new regex is correctly grouped and anchored; the suggested version would break anchoring through alternation precedence."
+      },
+      {
+        "id": "f-8ea6d523bd",
+        "verdict": "not-a-defect",
+        "note": "It misreads the diff: it recommends assert.ifError, which is exactly what the fix already does."
+      },
+      {
+        "id": "f-936e415b9f",
+        "verdict": "not-a-defect",
+        "note": "It describes a watchPatterns call that is not in the excerpt and offers no evidence that passing watchedPatterns to createIgnore is wrong."
+      },
+      {
+        "id": "f-95c1e33e2e",
+        "verdict": "not-a-defect",
+        "note": "A vague 'verify that it works' remark that names no concrete defect."
+      },
+      {
+        "id": "f-983f7a281e",
+        "verdict": "not-a-defect",
+        "note": "It misreads the diff: it recommends the change the fix already made."
+      },
+      {
+        "id": "f-98fc2a7bd7",
+        "verdict": "not-a-defect",
+        "note": "Speculative and objects to the fix; the new regexes handle parenthesized directory names better than the old one did."
+      },
+      {
+        "id": "f-9a8cfb56c5",
+        "verdict": "not-a-defect",
+        "note": "Speculation about the two-argument path, which the excerpt does not show as broken; the added guard is correct."
+      },
+      {
+        "id": "f-9c6e9294e8",
+        "verdict": "not-a-defect",
+        "note": "It objects to the accepted fix itself by asking to revert ifError back to assert.ok."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f-9e79d79464",
+      "f-a6bd56450f",
+      "f-b109846d81",
+      "f-b1f50e2b68",
+      "f-c1d67d0036",
+      "f-c80a20f180",
+      "f-cad4fa8c7f",
+      "f-cd90cad53b"
+    ],
+    "judgments": [
+      {
+        "id": "f-9e79d79464",
+        "verdict": "not-a-defect",
+        "note": "It objects to the accepted test fix itself without showing the tested scenario should error."
+      },
+      {
+        "id": "f-a6bd56450f",
+        "verdict": "not-a-defect",
+        "note": "getComments(node).leading is valid API usage, so the complaint is vague speculation with no concrete bug."
+      },
+      {
+        "id": "f-b109846d81",
+        "verdict": "not-a-defect",
+        "note": "It just restates the fix already applied, the added top.value guard, and names no remaining defect."
+      },
+      {
+        "id": "f-b1f50e2b68",
+        "verdict": "not-a-defect",
+        "note": "It describes a watchPatterns call that is not in the excerpt and endorses the change, so it names no defect in the added code."
+      },
+      {
+        "id": "f-c1d67d0036",
+        "verdict": "not-a-defect",
+        "note": "It restates the toString() fix as its own suggestion and names no remaining bug."
+      },
+      {
+        "id": "f-c80a20f180",
+        "verdict": "not-a-defect",
+        "note": "It describes the patch and recommends keeping it, so it identifies no defect."
+      },
+      {
+        "id": "f-cad4fa8c7f",
+        "verdict": "not-a-defect",
+        "note": "A truthy or falsy number works correctly as a condition, and the comparison is guarded by it, so this is a style concern."
+      },
+      {
+        "id": "f-cd90cad53b",
+        "verdict": "not-a-defect",
+        "note": "It suggests exactly the type check the fix adds, so it names no remaining defect."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f-9e79d79464",
+      "f-a6bd56450f",
+      "f-b109846d81",
+      "f-b1f50e2b68",
+      "f-c1d67d0036",
+      "f-c80a20f180",
+      "f-cad4fa8c7f",
+      "f-cd90cad53b"
+    ],
+    "judgments": [
+      {
+        "id": "f-9e79d79464",
+        "verdict": "not-a-defect",
+        "note": "Objects to the accepted test fix itself without evidence that the scenario should error."
+      },
+      {
+        "id": "f-a6bd56450f",
+        "verdict": "not-a-defect",
+        "note": "Vague speculation; getComments(...).leading is a valid array and the boolean assignment is the intended fix logic."
+      },
+      {
+        "id": "f-b109846d81",
+        "verdict": "not-a-defect",
+        "note": "Describes the guard the patch already adds; no remaining defect identified."
+      },
+      {
+        "id": "f-b1f50e2b68",
+        "verdict": "not-a-defect",
+        "note": "Talks about a watchPatterns call not in the excerpt and endorses the change; no defect in the post-change code."
+      },
+      {
+        "id": "f-c1d67d0036",
+        "verdict": "not-a-defect",
+        "note": "Restates the fix already applied by the patch rather than identifying a residual bug."
+      },
+      {
+        "id": "f-c80a20f180",
+        "verdict": "not-a-defect",
+        "note": "Describes and endorses the patch's behavior; no defect remains per the finding."
+      },
+      {
+        "id": "f-cad4fa8c7f",
+        "verdict": "not-a-defect",
+        "note": "A truthy number used in a conditional works correctly; the typing concern is a style issue, and comparisons only run when the limit is set."
+      },
+      {
+        "id": "f-cd90cad53b",
+        "verdict": "not-a-defect",
+        "note": "Suggests exactly the check the patch added; it does not identify any remaining defect."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f-d69962661a",
+      "f-d9180a1968",
+      "f-ddd5d2492f",
+      "f-e10383eaeb",
+      "f-e8ca4216b7",
+      "f-e9974bf6be",
+      "f-eb96bb39b1",
+      "f-ec00dd4d7b"
+    ],
+    "judgments": [
+      {
+        "id": "f-d69962661a",
+        "verdict": "not-a-defect",
+        "note": "Model.compile only runs for top-level models, so adding the version key there doesn't touch embedded schemas; the concern is speculation."
+      },
+      {
+        "id": "f-d9180a1968",
+        "verdict": "not-a-defect",
+        "note": "The finding just restates the fix as correct and names no remaining defect in the changed code."
+      },
+      {
+        "id": "f-ddd5d2492f",
+        "verdict": "not-a-defect",
+        "note": "This is a test case for the ignoredNodes option; the finding questions whether the test is intentional rather than naming a bug."
+      },
+      {
+        "id": "f-e10383eaeb",
+        "verdict": "not-a-defect",
+        "note": "This is a naming and readability preference, built on an instantiation problem the excerpt doesn't show."
+      },
+      {
+        "id": "f-e8ca4216b7",
+        "verdict": "not-a-defect",
+        "note": "The finding objects to the fix's intended behavior: keeping braces when the single statement has a leading comment."
+      },
+      {
+        "id": "f-e9974bf6be",
+        "verdict": "not-a-defect",
+        "note": "The finding objects to the fix itself; letting export declarations wrap a single child is the intended fix."
+      },
+      {
+        "id": "f-eb96bb39b1",
+        "verdict": "not-a-defect",
+        "note": "The finding describes the new createIgnore as correct and recommends what the patch already does; it names no defect."
+      },
+      {
+        "id": "f-ec00dd4d7b",
+        "verdict": "not-a-defect",
+        "note": "Subscription keys are built as command plus space plus channel, so there is always a space and the no-space case can't happen."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f-d69962661a",
+      "f-d9180a1968",
+      "f-ddd5d2492f",
+      "f-e10383eaeb",
+      "f-e8ca4216b7",
+      "f-e9974bf6be",
+      "f-eb96bb39b1",
+      "f-ec00dd4d7b"
+    ],
+    "judgments": [
+      {
+        "id": "f-d69962661a",
+        "verdict": "not-a-defect",
+        "note": "Model.compile adds the version key only to the top-level schema being compiled; the claimed effect on embedded schemas is speculation the excerpt does not support."
+      },
+      {
+        "id": "f-d9180a1968",
+        "verdict": "not-a-defect",
+        "note": "The finding just restates the fix (mountpath = mount_path) and points to no defect left in the changed code."
+      },
+      {
+        "id": "f-ddd5d2492f",
+        "verdict": "not-a-defect",
+        "note": "It questions whether a test case using a valid option was intended, which is speculation about style, not a bug."
+      },
+      {
+        "id": "f-e10383eaeb",
+        "verdict": "not-a-defect",
+        "note": "It is a naming preference that relies on an instantiation problem the excerpt does not show."
+      },
+      {
+        "id": "f-e8ca4216b7",
+        "verdict": "not-a-defect",
+        "note": "It objects to the intended fix, which makes multi-or-nest require braces when the single statement has a leading comment."
+      },
+      {
+        "id": "f-e9974bf6be",
+        "verdict": "not-a-defect",
+        "note": "It objects to the fix itself, which deliberately treats export declarations as single-child wrappers so they are not double counted."
+      },
+      {
+        "id": "f-eb96bb39b1",
+        "verdict": "not-a-defect",
+        "note": "The finding describes the fix as if it were the bug and names no remaining defect."
+      },
+      {
+        "id": "f-ec00dd4d7b",
+        "verdict": "not-a-defect",
+        "note": "Subscription keys are built as a command plus a space plus the channel, so the missing-space case it describes is speculative."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "A",
+    "ids": [
+      "f-ed47447ed7",
+      "f-f80627c4aa"
+    ],
+    "judgments": [
+      {
+        "id": "f-ed47447ed7",
+        "verdict": "not-a-defect",
+        "note": "The finding describes the old split(\" \") bug that this diff fixes, and its suggestion is the new code, so it names no defect in the fixed code."
+      },
+      {
+        "id": "f-f80627c4aa",
+        "verdict": "not-a-defect",
+        "note": "The finding describes the earlier handling of repeated arguments as arrays, which this diff fixes by popping the last value, so the code after the change has no defect here."
+      }
+    ]
+  },
+  {
+    "kind": "flag",
+    "judge": "B",
+    "ids": [
+      "f-ed47447ed7",
+      "f-f80627c4aa"
+    ],
+    "judgments": [
+      {
+        "id": "f-ed47447ed7",
+        "verdict": "not-a-defect",
+        "note": "The finding describes the old split(\" \") bug, which this diff fixes, and suggests exactly the added code; it names no defect left in the fixed code."
+      },
+      {
+        "id": "f-f80627c4aa",
+        "verdict": "not-a-defect",
+        "note": "The finding restates the pre-fix behavior of assigning an array, which the added pop() already handles; it names no remaining defect after the change."
+      }
+    ]
+  }
+]

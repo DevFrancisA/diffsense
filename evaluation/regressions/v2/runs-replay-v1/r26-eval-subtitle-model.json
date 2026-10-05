@@ -1,0 +1,37 @@
+{
+  "id": "r26-eval-subtitle-model",
+  "role": "breaking",
+  "intendedBreak": "Evaluation subtitle drops the model name",
+  "status": "invalid-plan",
+  "reason": "no scenario passed both baseline runs",
+  "generation": null,
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Display evaluation header with cohort and date",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-panel .evaluation-copy p')\nExpected substring: \"\\\\d+ pre-labeled cases · \\\\d{4}-\\\\d{2}-\\\\d{2}\"\nReceived string:    \"30 pre-labeled cases · gpt-4.1-mini · 2026-10-05\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-panel .evaluation-copy p') with timeout 5000ms\n  - waiting for locator('.evaluation-panel .evaluation-copy p')\n    14 × locator resolved to <p>30 pre-labeled cases · gpt-4.1-mini · 2026-10-05</p>\n       - unexpected value \"30 pre-labeled cases · gpt-4.1-mini · 2026-10-05\"\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Display evaluation header with cohort and date",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-panel .evaluation-copy p')\nExpected substring: \"\\\\d+ pre-labeled cases · \\\\d{4}-\\\\d{2}-\\\\d{2}\"\nReceived string:    \"30 pre-labeled cases · gpt-4.1-mini · 2026-10-05\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-panel .evaluation-copy p') with timeout 5000ms\n  - waiting for locator('.evaluation-panel .evaluation-copy p')\n    14 × locator resolved to <p>30 pre-labeled cases · gpt-4.1-mini · 2026-10-05</p>\n       - unexpected value \"30 pre-labeled cases · gpt-4.1-mini · 2026-10-05\"\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "surviving": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T11:51:45.622Z"
+}

@@ -1,0 +1,69 @@
+{
+  "judges": "two independent Claude agents per item, blind to configuration; not human-reviewed",
+  "problems": [],
+  "summary": [
+    {
+      "config": "dev-c3",
+      "items": 66,
+      "judgedByBoth": 66,
+      "describesDefect": {
+        "agreement": 63,
+        "bothYes": 35,
+        "bothNo": 28
+      },
+      "restoreOnly": {
+        "agreement": 64,
+        "bothYes": 50,
+        "bothNo": 14
+      }
+    },
+    {
+      "config": "holdout-baseline",
+      "items": 20,
+      "judgedByBoth": 20,
+      "describesDefect": {
+        "agreement": 20,
+        "bothYes": 14,
+        "bothNo": 6
+      },
+      "restoreOnly": {
+        "agreement": 20,
+        "bothYes": 16,
+        "bothNo": 4
+      }
+    },
+    {
+      "config": "holdout-final-c4",
+      "items": 27,
+      "judgedByBoth": 27,
+      "describesDefect": {
+        "agreement": 27,
+        "bothYes": 19,
+        "bothNo": 8
+      },
+      "restoreOnly": {
+        "agreement": 26,
+        "bothYes": 21,
+        "bothNo": 5
+      }
+    },
+    {
+      "config": "forward-final",
+      "items": 29,
+      "judgedByBoth": 29,
+      "agreement": 29,
+      "bothRealDefect": 0,
+      "bothNotADefect": 29,
+      "disagreeOrUnsure": 0
+    },
+    {
+      "config": "forward-baseline",
+      "items": 21,
+      "judgedByBoth": 21,
+      "agreement": 21,
+      "bothRealDefect": 0,
+      "bothNotADefect": 21,
+      "disagreeOrUnsure": 0
+    }
+  ]
+}

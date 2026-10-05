@@ -1,0 +1,28 @@
+{
+  "scenarios": [
+    {
+      "title": "Navigation button label and aria-label update for Test lab",
+      "purpose": "Ensure the Test lab navigation button label and aria-label reflect the change from 'Test lab' to 'Tests'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "nav.primary-nav > button.nav-item:nth-child(4) > span",
+          "value": "",
+          "expected": "Test lab"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "nav.primary-nav > button.nav-item[aria-label='Test lab']",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

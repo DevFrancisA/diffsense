@@ -1,0 +1,100 @@
+{
+  "id": "r10-pill-labels-swapped",
+  "role": "breaking",
+  "intendedBreak": "Connection pill reports ready when setup is missing",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": null,
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify connection status text and style for apiReady === true",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('span.connection-pill.connected')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('span.connection-pill.connected') with timeout 5000ms\n  - waiting for locator('span.connection-pill.connected')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify connection status text and style for apiReady === false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Verify connection status text for apiReady === null (checking)",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('span.connection-pill i + *')\nExpected substring: \"Checking setup\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('span.connection-pill i + *') with timeout 5000ms\n  - waiting for locator('span.connection-pill i + *')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify presence of documentation and help buttons in topbar",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify connection status text and style for apiReady === true",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('span.connection-pill.connected')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('span.connection-pill.connected') with timeout 5000ms\n  - waiting for locator('span.connection-pill.connected')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify connection status text and style for apiReady === false",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Verify connection status text for apiReady === null (checking)",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('span.connection-pill i + *')\nExpected substring: \"Checking setup\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('span.connection-pill i + *') with timeout 5000ms\n  - waiting for locator('span.connection-pill i + *')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Verify presence of documentation and help buttons in topbar",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: Verify connection status text and style for apiReady === false",
+    "generated plan: Verify presence of documentation and help buttons in topbar"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: Verify connection status text and style for apiReady === false",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: Verify presence of documentation and help buttons in topbar",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:50:32.380Z"
+}

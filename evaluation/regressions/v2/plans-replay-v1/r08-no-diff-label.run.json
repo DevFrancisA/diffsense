@@ -1,0 +1,28 @@
+{
+  "scenarios": [
+    {
+      "title": "Check Index Repository Context Button Disabled State",
+      "purpose": "Confirm that the 'Index repository context' button is disabled when the PR URL input is empty or apiReady is not true.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.index-button[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "r31-nav-test-lab-name",
+  "role": "breaking",
+  "intendedBreak": "Test lab breadcrumb shows the wrong name",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": null,
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: Navigation button label and aria-label update for Test lab",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: Navigation button label and aria-label update for Test lab",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: Navigation button label and aria-label update for Test lab"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: Navigation button label and aria-label update for Test lab",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:51:53.824Z"
+}

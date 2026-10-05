@@ -1,0 +1,122 @@
+{
+  "id": "r23-runs-count",
+  "role": "breaking",
+  "intendedBreak": "Recall footnote shows the ablation run count",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": null,
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Load example diff and verify diff content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Check evaluation metrics display",
+          "status": "failed",
+          "failedStep": "plan step 3: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('text=Unmeasured')\nExpected: visible\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toBeVisible\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Navigate active view buttons in sidebar",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Index repository context button state",
+          "status": "failed",
+          "failedStep": "plan step 2: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('button.index-button:not([disabled])')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('button.index-button:not([disabled])') with timeout 5000ms\n  - waiting for locator('button.index-button:not([disabled])')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate Playwright plan button functionality",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Load example diff and verify diff content",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Check evaluation metrics display",
+          "status": "failed",
+          "failedStep": "plan step 3: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('text=Unmeasured')\nExpected: visible\nError: strict mode violation: locator('text=Unmeasured') resolved to 2 elements:\n    1) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').first()\n    2) <span class=\"metric-neutral\">Unmeasured</span> aka getByText('Unmeasured').nth(1)\n\nCall log:\n  - Expect \"toBeVisible\" locator('text=Unmeasured') with timeout 5000ms\n  - waiting for locator('text=Unmeasured')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Navigate active view buttons in sidebar",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Index repository context button state",
+          "status": "failed",
+          "failedStep": "plan step 2: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('button.index-button:not([disabled])')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('button.index-button:not([disabled])') with timeout 5000ms\n  - waiting for locator('button.index-button:not([disabled])')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate Playwright plan button functionality",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: Load example diff and verify diff content",
+    "generated plan: Navigate active view buttons in sidebar",
+    "generated plan: Generate Playwright plan button functionality"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: Load example diff and verify diff content",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: Navigate active view buttons in sidebar",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: Generate Playwright plan button functionality",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:51:23.763Z"
+}

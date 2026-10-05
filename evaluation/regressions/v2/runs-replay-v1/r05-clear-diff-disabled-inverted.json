@@ -1,0 +1,100 @@
+{
+  "id": "r05-clear-diff-disabled-inverted",
+  "role": "breaking",
+  "intendedBreak": "Clear diff is enabled only when the editor is empty",
+  "status": "not-detected",
+  "reason": "surviving scenarios passed on the patched app",
+  "generation": null,
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Load example diff and check diff editor watermark hiding",
+          "status": "failed",
+          "failedStep": "plan step 3: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.editor-watermark')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.editor-watermark') with timeout 5000ms\n  - waiting for locator('.editor-watermark')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Clear diff button enabled state tests",
+          "status": "failed",
+          "failedStep": "plan step 2: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button:has-text(\\'Clear diff\\')')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Navigation view switching",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Check API Ready Setup Message Visibility",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Load example diff and check diff editor watermark hiding",
+          "status": "failed",
+          "failedStep": "plan step 3: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.editor-watermark')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.editor-watermark') with timeout 5000ms\n  - waiting for locator('.editor-watermark')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Clear diff button enabled state tests",
+          "status": "failed",
+          "failedStep": "plan step 2: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button:has-text(\\'Clear diff\\')')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Navigation view switching",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Check API Ready Setup Message Visibility",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "surviving": [
+    "generated plan: Navigation view switching",
+    "generated plan: Check API Ready Setup Message Visibility"
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: Navigation view switching",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      },
+      {
+        "title": "generated plan: Check API Ready Setup Message Visibility",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T11:50:16.490Z"
+}

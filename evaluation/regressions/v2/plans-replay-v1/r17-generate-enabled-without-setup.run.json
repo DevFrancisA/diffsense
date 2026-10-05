@@ -1,0 +1,58 @@
+{
+  "scenarios": [
+    {
+      "title": "Show evaluation panel with correct status and metrics",
+      "purpose": "Confirm that the evaluation panel displays the correct heading, subtitle, and evaluation status based on the availability of evaluation data.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.evaluation-panel",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectText",
+          "selector": "section.evaluation-panel .evaluation-status",
+          "value": "",
+          "expected": "Results saved"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff populates diff textarea with sample and shows findings",
+      "purpose": "Verify that clicking 'Load example diff' loads a sample diff into the textarea, enabling analysis of the loaded diff including expected sample content display.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    }
+  ]
+}

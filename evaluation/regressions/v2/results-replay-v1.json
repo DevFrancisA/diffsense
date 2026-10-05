@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "set": "replay-v1",
+  "baseSha": "33994c4d548867064ded3d4eccfa3d7d6c50ce4c",
+  "protocol": "evaluation/ROUND2.md (R5/R6, protocol v2)",
+  "generator": "v1 plans from Round 1 (post-hoc replay)",
+  "summary": {
+    "breakingValid": 16,
+    "detected": 1,
+    "notDetected": 11,
+    "invalidPlansBreaking": 4,
+    "benignValid": 0,
+    "falseAlarms": 0,
+    "noAlarm": 0,
+    "invalidPlansBenign": 0,
+    "infraInvalid": 0
+  },
+  "scenarios": [
+    {
+      "id": "r05-clear-diff-disabled-inverted",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 2
+    },
+    {
+      "id": "r08-no-diff-label",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 1
+    },
+    {
+      "id": "r10-pill-labels-swapped",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 2
+    },
+    {
+      "id": "r11-setup-hint-hidden",
+      "role": "breaking",
+      "status": "detected",
+      "reason": "a surviving scenario failed an assertion on the patched app",
+      "surviving": 2
+    },
+    {
+      "id": "r13-index-enabled-without-setup",
+      "role": "breaking",
+      "status": "invalid-plan",
+      "reason": "no scenario passed both baseline runs",
+      "surviving": 0
+    },
+    {
+      "id": "r17-generate-enabled-without-setup",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 2
+    },
+    {
+      "id": "r18-generate-label",
+      "role": "breaking",
+      "status": "invalid-plan",
+      "reason": "no scenario passed both baseline runs",
+      "surviving": 0
+    },
+    {
+      "id": "r22-cohort-count",
+      "role": "breaking",
+      "status": "invalid-plan",
+      "reason": "no scenario passed both baseline runs",
+      "surviving": 0
+    },
+    {
+      "id": "r23-runs-count",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 3
+    },
+    {
+      "id": "r24-eval-heading-inverted",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 1
+    },
+    {
+      "id": "r25-eval-status-wrong",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 2
+    },
+    {
+      "id": "r26-eval-subtitle-model",
+      "role": "breaking",
+      "status": "invalid-plan",
+      "reason": "no scenario passed both baseline runs",
+      "surviving": 0
+    },
+    {
+      "id": "r31-nav-test-lab-name",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 1
+    },
+    {
+      "id": "r34-heading-case",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 1
+    },
+    {
+      "id": "r35-empty-state-title",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 2
+    },
+    {
+      "id": "r36-footer-status-text",
+      "role": "breaking",
+      "status": "not-detected",
+      "reason": "surviving scenarios passed on the patched app",
+      "surviving": 1
+    }
+  ]
+}
