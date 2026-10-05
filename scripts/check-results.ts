@@ -77,6 +77,31 @@ if (existsSync(regressionResultsPath)) {
   }
 }
 
+// Forward-fix false-alarm files: the summary must equal the per-case findings it is built from.
+for (const name of readdirSync(evaluationRoot).filter((file) => /^falsealarms-[a-z0-9-]+\.json$/.test(file))) {
+  const schema = z.object({
+    kind: z.literal("forward-fix-false-alarms"),
+    summary: z.object({ cases: z.number().int(), casesFlagged: z.number().int(), casesFlaggedOnSource: z.number().int(), findings: z.number().int(), sourceFindings: z.number().int(), testFindings: z.number().int() }),
+    cases: z.array(z.object({ caseId: z.string(), findings: z.array(z.object({ file: z.string(), line: z.number().int(), isTest: z.boolean() }).passthrough()) }).passthrough()),
+  }).passthrough();
+  const parsed = schema.safeParse(JSON.parse(readFileSync(join(evaluationRoot, name), "utf8")));
+  if (!parsed.success) { failures.push(`${name}: ${parsed.error.message}`); continue; }
+  const { summary, cases } = parsed.data;
+  const findings = cases.flatMap((item) => item.findings);
+  const expected = {
+    cases: cases.length,
+    casesFlagged: cases.filter((item) => item.findings.length > 0).length,
+    casesFlaggedOnSource: cases.filter((item) => item.findings.some((finding) => !finding.isTest)).length,
+    findings: findings.length,
+    sourceFindings: findings.filter((finding) => !finding.isTest).length,
+    testFindings: findings.filter((finding) => finding.isTest).length,
+  };
+  for (const [key, value] of Object.entries(expected)) {
+    if (summary[key as keyof typeof expected] !== value) failures.push(`${name}: summary.${key} is ${summary[key as keyof typeof expected]}, cases give ${value}`);
+  }
+  console.log(`ok ${name}`);
+}
+
 if (failures.length) {
   console.error(failures.join("\n"));
   process.exitCode = 1;
