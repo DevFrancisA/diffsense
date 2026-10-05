@@ -1,0 +1,179 @@
+{
+  "summary": {
+    "rejectedPlansReplayed": 20,
+    "plansSalvaged": 18,
+    "scenariosTotal": 74,
+    "scenariosKept": 67,
+    "note": "Round-1 rejected outputs saved for r07 onward; r01-r04 outputs were not saved (see regressions/PROTOCOL.md)."
+  },
+  "rows": [
+    {
+      "id": "r07-line-count-off-by-one",
+      "salvaged": true,
+      "scenarios": 5,
+      "kept": 5,
+      "dropped": []
+    },
+    {
+      "id": "r09-watermark-inverted",
+      "salvaged": true,
+      "scenarios": 5,
+      "kept": 5,
+      "dropped": []
+    },
+    {
+      "id": "r12-setup-hint-env-name",
+      "salvaged": true,
+      "scenarios": 2,
+      "kept": 2,
+      "dropped": []
+    },
+    {
+      "id": "r14-index-status-placeholder",
+      "salvaged": false,
+      "scenarios": 1,
+      "kept": 0,
+      "dropped": [
+        {
+          "title": "(all)",
+          "reason": "No generated scenario passed validation (Generated test plan is missing an expected value.)."
+        }
+      ]
+    },
+    {
+      "id": "r15-run-enabled-without-setup",
+      "salvaged": true,
+      "scenarios": 5,
+      "kept": 5,
+      "dropped": []
+    },
+    {
+      "id": "r16-run-label",
+      "salvaged": true,
+      "scenarios": 5,
+      "kept": 5,
+      "dropped": []
+    },
+    {
+      "id": "r19-range-uses-max-twice",
+      "salvaged": true,
+      "scenarios": 3,
+      "kept": 3,
+      "dropped": []
+    },
+    {
+      "id": "r20-range-scale",
+      "salvaged": true,
+      "scenarios": 5,
+      "kept": 5,
+      "dropped": []
+    },
+    {
+      "id": "r21-recall-shows-precision",
+      "salvaged": true,
+      "scenarios": 4,
+      "kept": 4,
+      "dropped": []
+    },
+    {
+      "id": "r27-results-file-path",
+      "salvaged": true,
+      "scenarios": 3,
+      "kept": 3,
+      "dropped": []
+    },
+    {
+      "id": "r28-range-max-is-min",
+      "salvaged": true,
+      "scenarios": 5,
+      "kept": 5,
+      "dropped": []
+    },
+    {
+      "id": "r29-status-always-ready",
+      "salvaged": true,
+      "scenarios": 2,
+      "kept": 2,
+      "dropped": []
+    },
+    {
+      "id": "r30-nav-evaluations-wrong-view",
+      "salvaged": true,
+      "scenarios": 4,
+      "kept": 4,
+      "dropped": []
+    },
+    {
+      "id": "r32-settings-view-name",
+      "salvaged": true,
+      "scenarios": 1,
+      "kept": 1,
+      "dropped": []
+    },
+    {
+      "id": "r33-breadcrumb-static",
+      "salvaged": true,
+      "scenarios": 5,
+      "kept": 5,
+      "dropped": []
+    },
+    {
+      "id": "r37-refresh-status-stuck",
+      "salvaged": true,
+      "scenarios": 4,
+      "kept": 4,
+      "dropped": []
+    },
+    {
+      "id": "r38-url-input-frozen",
+      "salvaged": true,
+      "scenarios": 5,
+      "kept": 3,
+      "dropped": [
+        {
+          "title": "Check Index Message Reset on PR URL Input Change",
+          "reason": "Generated test plan is missing an expected value."
+        },
+        {
+          "title": "Load Example Diff Clears Index Message",
+          "reason": "Generated test plan is missing an expected value."
+        }
+      ]
+    },
+    {
+      "id": "r39-diff-textarea-frozen",
+      "salvaged": true,
+      "scenarios": 4,
+      "kept": 2,
+      "dropped": [
+        {
+          "title": "Clear diff button disables when no diff",
+          "reason": "Generated test plan is missing an expected value."
+        },
+        {
+          "title": "Index repository context button disabled without PR URL or API ready",
+          "reason": "Generated test plan is missing an expected value."
+        }
+      ]
+    },
+    {
+      "id": "r40-textarea-aria-label",
+      "salvaged": false,
+      "scenarios": 2,
+      "kept": 0,
+      "dropped": [
+        {
+          "title": "(all)",
+          "reason": "No generated scenario passed validation (Generated test plan has a goto step without a same-origin path.; Generated test plan has a goto step without a same-origin path.)."
+        }
+      ]
+    },
+    {
+      "id": "r41-load-sample-keeps-url",
+      "salvaged": true,
+      "scenarios": 4,
+      "kept": 4,
+      "dropped": []
+    }
+  ]
+}

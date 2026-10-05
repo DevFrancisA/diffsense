@@ -35,6 +35,18 @@ for (const scenario of plan.scenarios) {
           case "expectValueContains":
             await expect.poll(() => page.locator(step.selector).inputValue()).toContain(step.expected);
             break;
+          case "expectHidden":
+            await expect(page.locator(step.selector)).toBeHidden();
+            break;
+          case "expectEnabled":
+            await expect(page.locator(step.selector)).toBeEnabled();
+            break;
+          case "expectDisabled":
+            await expect(page.locator(step.selector)).toBeDisabled();
+            break;
+          case "expectAttribute":
+            await expect(page.locator(step.selector)).toHaveAttribute(step.value, step.expected);
+            break;
           case "expectUrl":
             expect(new URL(page.url()).pathname).toContain(step.expected);
             break;

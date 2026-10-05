@@ -260,3 +260,5 @@ h1, h2, h3, p { margin: 0; }
 	.page-footer { flex-wrap: wrap; gap: 8px 11px; }
 	.page-footer > span:first-child { width: 100%; }
 }
+
+.test-environment { flex: 1 1 220px; min-width: 0; padding: 5px 7px; border: 1px solid #dfe5e1; border-radius: 4px; background: transparent; color: inherit; font-size: 9px; }

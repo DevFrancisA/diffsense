@@ -10,6 +10,7 @@ export const maxDuration = 90;
 const requestSchema = z.object({
   diff: z.string().max(500_000).optional(),
   pullRequestUrl: z.string().url(),
+  environment: z.string().max(4_000).optional(),
 });
 
 export async function POST(request: Request) {
@@ -26,8 +27,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Index this repository before generating regression tests." }, { status: 409 });
     }
 
-    const { plan } = await generateRegressionPlan(diff, context);
-    return NextResponse.json(plan);
+    const { plan, dropped } = await generateRegressionPlan(diff, context, undefined, { revision: "v2", environment: body.environment });
+    return NextResponse.json({ ...plan, dropped });
   } catch (error) {
     const message = error instanceof z.ZodError
       ? "Provide a valid GitHub URL and a unified diff or pull request."

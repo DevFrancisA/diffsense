@@ -50,7 +50,7 @@ type ReviewResult = {
 
 type TestStep = { action: string; selector: string; value: string; expected: string };
 type TestScenario = { title: string; purpose: string; steps: TestStep[] };
-type GeneratedPlan = { scenarios: TestScenario[] };
+type GeneratedPlan = { scenarios: TestScenario[]; dropped?: { title: string; reason: string }[] };
 type MetricRange = { min: number; max: number } | null;
 type EvaluationSummary = {
   available: boolean;
@@ -101,6 +101,7 @@ export default function Home() {
   const [generatedPlan, setGeneratedPlan] = useState<GeneratedPlan | null>(null);
   const [generatingTests, setGeneratingTests] = useState(false);
   const [planError, setPlanError] = useState("");
+  const [testEnvironment, setTestEnvironment] = useState("");
   const [apiReady, setApiReady] = useState<boolean | null>(null);
   const [evaluation, setEvaluation] = useState<EvaluationSummary | null>(null);
   const [activeView, setActiveView] = useState("Review desk");
@@ -172,7 +173,7 @@ export default function Home() {
       const response = await fetch("/api/tests/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ diff, pullRequestUrl }),
+        body: JSON.stringify({ diff, pullRequestUrl, environment: testEnvironment }),
       });
       const body = (await response.json()) as GeneratedPlan & { error?: string };
       if (!response.ok) throw new Error(body.error ?? "Test-plan generation failed.");
@@ -301,10 +302,11 @@ export default function Home() {
             <div className="evaluation-copy"><span className="evaluation-mark"><Activity size={16} /></span><div><h2>{evaluation?.available ? "BugsJS review baseline" : "Evidence, not vibes"}</h2><p>{evaluation?.available ? `${evaluation.cohort} pre-labeled cases · ${evaluation.reviewModel} · ${evaluation.date}` : "Score reviews against labeled defects and seeded regressions."}</p></div></div>
             <div className="evaluation-status"><span className="status-dot" />{evaluation?.available ? "Results saved" : evaluation ? "No results yet" : "Loading results"}</div>
             <button className="text-button evaluation-link" type="button" onClick={generateTests} disabled={generatingTests || apiReady !== true || (!diff.trim() && !pullRequestUrl.trim())}>{generatingTests ? <LoaderCircle size={13} className="spin" /> : <ShieldCheck size={14} />}{generatingTests ? "Generating plan…" : "Generate Playwright plan"}</button>
+            <input className="test-environment" aria-label="Test environment notes" placeholder="Optional: how the app under test looks (signed-in user, feature flags, …)" value={testEnvironment} onChange={(event) => setTestEnvironment(event.target.value)} />
           </section>
 
           {planError && <p className="plan-error" role="alert">{planError}</p>}
-          {generatedPlan && <section className="generated-plan panel"><div className="generated-plan-header"><div><h2>Regression test plan</h2><p>Structured Playwright actions, ready for the plan runner.</p></div><button className="button-secondary" type="button" onClick={downloadPlan}><ArrowDownToLine size={14} /> Download JSON</button></div>{generatedPlan.scenarios.map((scenario) => <article className="plan-scenario" key={scenario.title}><strong>{scenario.title}</strong><p>{scenario.purpose}</p><ol>{scenario.steps.map((step, index) => <li key={`${scenario.title}-${index}`}>{step.action.replace(/[A-Z]/g, (letter) => ` ${letter.toLowerCase()}`)}{step.selector ? ` ${step.selector}` : ""}{step.expected ? ` → ${step.expected}` : step.value ? ` → ${step.value}` : ""}</li>)}</ol></article>)}</section>}
+          {generatedPlan && <section className="generated-plan panel"><div className="generated-plan-header"><div><h2>Regression test plan</h2><p>Structured Playwright actions that assert the pre-change behavior; run against the base build first.{generatedPlan.dropped?.length ? ` ${generatedPlan.dropped.length} invalid scenario${generatedPlan.dropped.length === 1 ? "" : "s"} dropped.` : ""}</p></div><button className="button-secondary" type="button" onClick={downloadPlan}><ArrowDownToLine size={14} /> Download JSON</button></div>{generatedPlan.scenarios.map((scenario) => <article className="plan-scenario" key={scenario.title}><strong>{scenario.title}</strong><p>{scenario.purpose}</p><ol>{scenario.steps.map((step, index) => <li key={`${scenario.title}-${index}`}>{step.action.replace(/[A-Z]/g, (letter) => ` ${letter.toLowerCase()}`)}{step.selector ? ` ${step.selector}` : ""}{step.expected ? ` → ${step.expected}` : step.value ? ` → ${step.value}` : ""}</li>)}</ol></article>)}</section>}
 
           <footer className="page-footer"><span>DiffSense <b>·</b> private by default</span><span><span className="footer-online" /> Pipeline status: {apiReady ? "ready" : "not configured"}</span><button title="Refresh status" aria-label="Refresh status" onClick={() => { setApiReady(null); fetch("/api/status").then((response) => response.json()).then((status: { ready?: boolean }) => setApiReady(Boolean(status.ready))).catch(() => setApiReady(false)); }}><RefreshCw size={13} /></button></footer>
         </div>
