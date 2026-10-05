@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-2",
+  "project": "Bower",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "87a041a212a03142e92c56ff832bcf5cbf49a72b",
+  "buggySha": "9c52ec2751d689a2cddb34adb004df41ce7c8a92",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c3c57123572b77a1e9eefe0b7546e30c615ac83a34689c8265856cae3b40077e",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "9c52ec2751d689a2cddb34adb004df41ce7c8a92",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 131,
+    "embeddingUsage": {
+      "inputTokens": 11672,
+      "outputTokens": 0,
+      "totalTokens": 11672
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "2b8caf1f150948712b69839975d808710b0615830754e209b6d8752c99591843"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/commands/install.js",
+        "contentSha256": "6aed989734817914dc80336b8b7a60396cb4f5ff4690f7fbd96db7a19d4f514d"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "714515aa62e7142d9e95743cd3e205e012de7817c02868b8443fcce2cb35b903"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "44d50437b902ddec6dd35d0ca0da71af8f5e67bc17a5e22fbd433b18776a08c7"
+      },
+      {
+        "path": "lib/core/Manager.js",
+        "contentSha256": "bad7a6f048a746d66e52a2d293f70eb1c4f278402bf53df14a58dc6e3be9d603"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "457b2d3cb5108237bfff4e48ffefc5359139aa72b10fd65b0110c103b01f3cce"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "90f1cab162d81493fe693462b11a22bfccf2d614e02c9aec08fdafce9b334b52"
+      },
+      {
+        "path": "lib/core/Project.js",
+        "contentSha256": "4971ae6d2616ee020e0ce8b638d8bf41bbb865825e626b2ebfda34f9d1803403"
+      },
+      {
+        "path": "lib/core/scripts.js",
+        "contentSha256": "918b7ac2f2ed191b8aab07f2e856b1578b7684bccd15cb5e79dd5b69f7120f23"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 660,
+      "outputTokens": 0,
+      "totalTokens": 660
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 10746,
+          "outputTokens": 159,
+          "totalTokens": 10905
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrectly updates dependencies when --saveExact option is used without --save or --saveDev",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The modified code updates dependencies or devDependencies if --saveExact is true even if neither --save nor --saveDev are set. This causes the bower.json dependencies to be updated incorrectly when only --saveExact is used, which is unintended behavior. The original code updated dependencies only when --save or --saveDev was true.",
+            "suggestion": "Change the condition on line 89 to only update dependencies or devDependencies if --save or --saveDev is true. Do not update if only --saveExact is set without --save or --saveDev."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrectly updates dependencies when --saveExact option is used without --save or --saveDev",
+            "severity": "medium",
+            "file": "lib/core/Project.js",
+            "line": 89,
+            "explanation": "The modified code updates dependencies or devDependencies if --saveExact is true even if neither --save nor --saveDev are set. This causes the bower.json dependencies to be updated incorrectly when only --saveExact is used, which is unintended behavior. The original code updated dependencies only when --save or --saveDev was true.",
+            "suggestion": "Change the condition on line 89 to only update dependencies or devDependencies if --save or --saveDev is true. Do not update if only --saveExact is set without --save or --saveDev."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

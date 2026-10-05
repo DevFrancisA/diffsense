@@ -1,0 +1,34 @@
+{
+  "caseId": "Karma-2",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Regression in proxy port resolution logic",
+          "severity": "high",
+          "file": "lib/middleware/proxy.js",
+          "line": 43,
+          "explanation": "The change replaced a conditional port resolution block with a simplified expression that can incorrectly assign the port. Specifically, the new code uses proxyDetails.port || config.port || (protocol check), which means if proxyDetails.port is undefined but config.port is defined, config.port is used regardless of protocol. The previous code correctly prioritized protocol-based default ports over config.port when proxyDetails.port is missing, maintaining protocol logic. This can cause proxy con",
+          "suggestion": "Revert to the prior port resolution logic to preserve protocol-based default ports, i.e., use nested if-else to set port based on proxyDetails.port, or protocol default (https:443, http:80), then fallback to config.port.",
+          "failureAfterChange": "Proxy target https://somehost without explicit port and config.port=9877 resolves port to 9877 instead of 443, causing failure to connect to correct proxy endpoint.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding describes a real defect introduced by the change in how the port is resolved. The new code prioritizes config.port over protocol defaults, which is incorrect and breaks proxy behavior for HTTPS targets without explicit port. This defect exists in the changed code and was not present before."
+        }
+      ],
+      "usage": {
+        "inputTokens": 2006,
+        "outputTokens": 74,
+        "totalTokens": 2080
+      }
+    }
+  ]
+}

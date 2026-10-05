@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-1",
+  "project": "Bower",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "197b41d97ac4425978c7b91ad01086d8264785f0",
+  "buggySha": "7b11a57c6f834641e3bd92b9781f262be1329700",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "792d50287cdcf5a2c8343d8de6b0c684ab9923b133bd8efaaab4668b9fdefdae",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "7b11a57c6f834641e3bd92b9781f262be1329700",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 120,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "77a75123bf24b009bd73bb4d3a17218c0d1a74bf62e45f21e895f0df8b5cdd12"
+      },
+      {
+        "path": "lib/core/resolvers/Resolver.js",
+        "contentSha256": "f271a95561ad4430a9897911abd56b8a4c34c40ee9f4d017f4c74d8d267312ed"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "976ce65f5530fdbedbe8a7d78ffd5d8787cc1e9f890fd2efccd59b684f54f098"
+      },
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "f6a19a7da8c7ecff1f5b1c41930d4348c5d86ba98a02f51a2e8655e414a1d640"
+      },
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "aaa83d50000331e812ecabdfa28b382e7992f1afc8e69eecc152ea2f0b16ef38"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "c301cb3f9e8ee36558da7859bd725d4a3b25b7bac829fdbd98b0866c7fed8ca2"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "a185306c5ccc88e5caa0e0a1448a356ad02efc361ff8a51e0acc730a6eed9081"
+      },
+      {
+        "path": "lib/core/resolvers/Resolver.js",
+        "contentSha256": "9bc74ae2a52b63658b8defd319975d7b441f80c0ef644bd0cb6e9b066dd78bd3"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "6febe09b2451f9360d2be471152a083604e6acdd90f06e51330aa15d575a473d"
+      },
+      {
+        "path": "lib/core/resolvers/Resolver.js",
+        "contentSha256": "897f3274282a9c42fc4621f6a652085d81680f99f97f3e7fe44eabb4af848807"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 8709,
+          "outputTokens": 187,
+          "totalTokens": 8896
+        },
+        "rawFindings": [
+          {
+            "title": "Inconsistent isTargetable usage as property or function",
+            "severity": "medium",
+            "file": "lib/core/PackageRepository.js",
+            "line": 66,
+            "explanation": "The code uses resolver.constructor.isTargetable as if it's a property in fetch method but calls resolver.constructor.isTargetable() as a function in _resolve method. This inconsistency may cause runtime errors if isTargetable is a function. Resolver.js defines isTargetable as a static function, so the fetch method usage without parentheses is incorrect.",
+            "suggestion": "In PackageRepository.prototype.fetch(), change 'isTargetable = resolver.constructor.isTargetable;' to 'isTargetable = resolver.constructor.isTargetable();' to call the function as intended.",
+            "failureAfterChange": "Fetching a package will assign isTargetable to the function object instead of its boolean result, causing incorrect return values and possibly failures downstream.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

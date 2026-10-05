@@ -1,0 +1,34 @@
+{
+  "caseId": "Hessian-js-9",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Unconditional key conversion to string in readObject may cause unexpected key transformation",
+          "severity": "medium",
+          "file": "lib/v1/decoder.js",
+          "line": 415,
+          "explanation": "In the readObject function, the change forces the key to be converted to a string regardless of its original type. The comment about property names auto-transferring to String type was removed, and the added line unconditionally converts the key to string. This can cause problems if keys are expected to be objects or numbers, as it will transform keys that were not strings into strings, potentially altering object semantics.",
+          "suggestion": "Remove or conditionalize the 'key = key.toString();' line to only convert keys to string when they are not objects or when necessary per the Hessian specification, preserving key types otherwise.",
+          "failureAfterChange": "When decoding an object with non-string keys (e.g., integers or null), the keys become strings, causing unexpected behavior such as different property access or mismatch with the original map keys.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding points out that the new unconditional conversion of keys to strings in readObject is a concrete defect. This change indeed alters the original key types by forcing them to strings, which can cause unexpected behavior if keys are originally numbers or other types. The change introduced this unconditional conversion, thus the finding describes a concrete defect existing after the change."
+        }
+      ],
+      "usage": {
+        "inputTokens": 4406,
+        "outputTokens": 87,
+        "totalTokens": 4493
+      }
+    }
+  ]
+}

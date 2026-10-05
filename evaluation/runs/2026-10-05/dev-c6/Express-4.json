@@ -1,0 +1,34 @@
+{
+  "caseId": "Express-4",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect subdomains parsing for IP address hosts",
+          "severity": "high",
+          "file": "lib/request.js",
+          "line": 457,
+          "explanation": "The 'req.subdomains' getter no longer detects whether the host is an IP address and directly splits the host by '.' and reverses it. This causes IP addresses (e.g., '127.0.0.1') to be interpreted as subdomains ['1', '0', '0', '127'] instead of returning the entire IP as a single subdomain entry or empty array, resulting in incorrect subdomain results for IP address hosts.",
+          "suggestion": "Restore the logic to detect IP addresses using 'net.isIP' and return the appropriate subdomains array for IP hosts, e.g., return [host] if host is IP, otherwise split and reverse.",
+          "failureAfterChange": "A request with Host header '127.0.0.1' returns ['1','0','0','127'] as subdomains instead of [] or ['127.0.0.1'].",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The code removed the IP address check and now always splits the host by '.', which breaks the handling of IP addresses as hosts in req.subdomains. The finding correctly identifies this bug introduced in the change."
+        }
+      ],
+      "usage": {
+        "inputTokens": 4383,
+        "outputTokens": 59,
+        "totalTokens": 4442
+      }
+    }
+  ]
+}

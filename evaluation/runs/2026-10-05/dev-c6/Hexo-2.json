@@ -1,0 +1,49 @@
+{
+  "caseId": "Hexo-2",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 2,
+      "kept": [
+        {
+          "title": "Potential breaking change in File.read() removing BOM and EOL escape",
+          "severity": "high",
+          "file": "lib/box/file.js",
+          "line": 42,
+          "explanation": "The change removes automatic escaping of BOM and Windows line endings in `File.prototype.read` by deleting calls to `escapeContent`. This breaks existing behavior where reading files automatically normalized line endings and removed BOMs.",
+          "suggestion": "Restore escaping of BOM and EOL in `File.prototype.read` if `options.escape` is true, or document the breaking change clearly.",
+          "failureAfterChange": "Reading a file with BOM or Windows CRLF line endings now returns raw content with BOM and CRLFs instead of normalized content.",
+          "alreadyFixedByChange": false
+        },
+        {
+          "title": "Potential breaking change in File.readSync() removing BOM and EOL escape",
+          "severity": "high",
+          "file": "lib/box/file.js",
+          "line": 61,
+          "explanation": "Similar to `read()`, the `readSync()` method no longer automatically escapes BOM and Windows line endings, which breaks compatibility with code expecting normalized content upon synchronous read.",
+          "suggestion": "Restore the escaping logic in `readSync()` method or provide an option to opt-in.",
+          "failureAfterChange": "Synchronous reading of files with BOM or CRLF line endings returns raw content instead of normalized content.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies that the change removes the automatic escaping of BOM and EOL in File.read(), which is a breaking change in behavior as the new code returns raw content instead of normalized content."
+        },
+        {
+          "index": 1,
+          "keep": true,
+          "reason": "The finding correctly identifies that the change removes automatic escaping of BOM and EOL in File.readSync(), leading to a breaking change where the synchronous read returns raw content instead of the previously normalized content."
+        }
+      ],
+      "usage": {
+        "inputTokens": 1711,
+        "outputTokens": 108,
+        "totalTokens": 1819
+      }
+    }
+  ]
+}

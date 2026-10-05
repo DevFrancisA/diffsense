@@ -1,0 +1,398 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "dev-forward-c4",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "models": {
+    "review": "gpt-4.1-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 16,
+    "casesFlaggedOnSource": 16,
+    "findings": 22,
+    "sourceFindings": 20,
+    "testFindings": 2
+  },
+  "cases": [
+    {
+      "caseId": "Bower-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect cache bypass check in PackageRepository.fetch",
+          "severity": "high",
+          "file": "lib/core/PackageRepository.js",
+          "line": 49,
+          "explanation": "The patch adds a call to resolver.isNotCacheable() to decide if caching should be bypassed in the fetch function. However, resolver.isNotCacheable() is a new method introduced in Resolver prototype. This new method correctly identifies local sources and branches to disable caching. The fix aligns cache-bypass logic to use this method instead of previous inappropriate checks, improving correctness.",
+          "suggestion": "Keep the new code using resolver.isNotCacheable() as the gate to bypass cache in the fetch method, replacing the old force flag bypass logic.",
+          "isTest": false
+        },
+        {
+          "title": "Incorrect cache store logic in PackageRepository._resolve",
+          "severity": "medium",
+          "file": "lib/core/PackageRepository.js",
+          "line": 178,
+          "explanation": "The original code skips caching if the resolved package is a moving target (type 'branch'). The patch refactors this to use resolver.isNotCacheable() for the same decision, which includes local sources and branches. However, before the patch, the code returned canonicalDir without storing to cache if branch. New code skips the else branch and calls store unconditionally after. This effectively removes the branch check and stores all resolved packages in cache, which is incorrect as branches are ",
+          "suggestion": "Restore the branch check in _resolve and skip cache storing if resolver.isNotCacheable() returns true. For example:\n\nif (resolver.isNotCacheable()) {",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Bower-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrectly updates dependencies when --saveExact option is used without --save or --saveDev",
+          "severity": "medium",
+          "file": "lib/core/Project.js",
+          "line": 89,
+          "explanation": "The modified code updates dependencies or devDependencies if --saveExact is true even if neither --save nor --saveDev are set. This causes the bower.json dependencies to be updated incorrectly when only --saveExact is used, which is unintended behavior. The original code updated dependencies only when --save or --saveDev was true.",
+          "suggestion": "Change the condition on line 89 to only update dependencies or devDependencies if --save or --saveDev is true. Do not update if only --saveExact is set without --save or --saveDev.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Bower-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect string replacement with single '%' in hook function",
+          "severity": "medium",
+          "file": "lib/core/scripts.js",
+          "line": 87,
+          "explanation": "In the 'hook' function, the replacement of '%' in the 'config.scripts[action]' string is done using a single '%' character. This only replaces the first occurrence, which is contrary to the test expectations that require all occurrences to be replaced.",
+          "suggestion": "Use a global regular expression for '%' replacement, e.g. 'new RegExp(\"%\", \"g\")', so all placeholder occurrences are replaced in the command string.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-5",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect calculation of replacement text range in report function causing wrong fix behavior",
+          "severity": "high",
+          "file": "lib/rules/indent.js",
+          "line": 269,
+          "explanation": "The code changed the calculation of the text range to replace during auto-fix from a formula based on node.range and lastNodeCheckEndOffset to one based on node.loc.start/end columns and indent counts. However, node.loc columns represent character positions in line, not indices in the source code string, so using these directly to form ranges for fixer.replaceTextRange is incorrect and can cause the fix to corrupt the code or fail silently.",
+          "suggestion": "Revert the changed lines in the report function to use the original logic that computes the text range using node.range and lastNodeCheckEndOffset, which is a correct absolute index range in the source code text. Specifically, restore these lines:\n\nlastNodeCheckEndOffset = lastNodeCheckEndOffset || 0;",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of trailing comma with 'always-multiline' option",
+          "severity": "high",
+          "file": "lib/rules/comma-dangle.js",
+          "line": 42,
+          "explanation": "The code introduces a variable 'lastTokenOnNewLine' to detect if the penultimate token is on a different line than the end of the node instead of checking if the node is multiline. This causes incorrect behavior where dangling commas are allowed only if the last token is on a new line, which can mismatch multiline detection leading to false positives or negatives.",
+          "suggestion": "Replace the new logic using 'lastTokenOnNewLine' with the previous method of checking if the node is multiline by looking at node.loc.start.line !== node.loc.end.line to determine multiline status and adjust comma presence accordingly.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect routing when multiple handlers defined for same path and method",
+          "severity": "high",
+          "file": "lib/application.js",
+          "line": 404,
+          "explanation": "The original code uses this._router.route(path) directly for route handling in app[method], which creates a new route instance each time, potentially causing multiple routes for the same path instead of reusing a single base route. This breaks expected behavior of multiple app.VERB calls for the same path, leading to unexpected route handling.",
+          "suggestion": "Change to use a cached base route using a _baseRoutes map and a helper _baseRoute method to ensure a single route instance for the same path and method, as introduced in the patch by adding _baseRoutes property and _baseRoute method, and replacing this._router.route(path) with this._baseRoute(path).",
+          "isTest": false
+        },
+        {
+          "title": "app.all method does not reuse base route for same path",
+          "severity": "high",
+          "file": "lib/application.js",
+          "line": 424,
+          "explanation": "Similar to the app[method] issue, app.all creates new route instance each time by calling this._router.route(path) directly, instead of using a cached base route. This can cause multiple routes to be registered for the same path in app.all, breaking proper routing behavior.",
+          "suggestion": "Use the new _baseRoute(path) method in app.all to reuse existing routes for the same path instead of creating new route instances each time.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect filtering of keys in v1 decoder's readObject allows keys that are not string or number",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 429,
+          "explanation": "Originally, the code filtered key to only allow keys which are string or number and not matching /^this\\$\\d+$/ before assigning to result.$. The change removes the typeof check, allowing any key not matching the regex to be assigned, which breaks behavior and also is inconsistent with the test and prior behavior.",
+          "suggestion": "Restore the typeof check to ensure keys assigned to result.$ are only string or number: add back `t = typeof key; if ((t === 'string' || t === 'number') && !/^this\\$\\d+$/.test(key))` as before.",
+          "isTest": false
+        },
+        {
+          "title": "In v2 decoder _readMap method, assignment of map keys ignores type filtering and inserts all keys",
+          "severity": "high",
+          "file": "lib/v2/decoder.js",
+          "line": 733,
+          "explanation": "The original code filtered keys to only assign to map if key type was string or number. The change removed that type check, causing all keys to be assigned to the map which breaks expected behavior and can lead to unexpected keys inserted.",
+          "suggestion": "Restore the typeof check to assign only keys of type string or number to the map, matching previous behavior.",
+          "isTest": false
+        },
+        {
+          "title": "Test assertion change contradicts expected behavior for empty object or null-to-string key map",
+          "severity": "medium",
+          "file": "test/map.test.js",
+          "line": 168,
+          "explanation": "Test changed expected value from empty object to an object with a key 'null' and value 'null', which indicates changed expectation or behavior not justified by code change. Potentially reflects side effect of decoder changes or test mistake.",
+          "suggestion": "Revert the test expectation to expect empty object unless intentional behavior change is documented.",
+          "isTest": true
+        },
+        {
+          "title": "Test assertion change expects '[object Object]' key instead of empty object",
+          "severity": "medium",
+          "file": "test/map.test.js",
+          "line": 480,
+          "explanation": "Test changed expected value from empty object to an object with key '[object Object]' which is unexpected side effect indicating different behavior in map key handling.",
+          "suggestion": "Revert test expectation to empty object, or update tests only with a matching code change and rationale.",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of object properties with $class but null $ value in writeObject",
+          "severity": "high",
+          "file": "lib/v1/encoder.js",
+          "line": 302,
+          "explanation": "The patch changes the condition in writeObject to treat objects that have a $class property as string but whose $ property is null or undefined as null values and directly encodes them as null. However, this change impacts serialization of objects like {$class: 'xxx', $: null}, causing them to be serialized as null rather than as an object with a null field. This is not consistent with the expected Hessian behavior and does not support correct object encoding for null-valued properties inside ob",
+          "suggestion": "Remove the added condition checking for is.string(obj.$class) && is.nullOrUndefined(obj.$) in writeObject to prevent improper serialization of such objects as null. Instead, handle null values within the object properties correctly during serialization.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of 'this$' fields in v1 decoder readObject",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 415,
+          "explanation": "'this$' prefixed fields are skipped incorrectly after reading key, but value was not read yet, causing misaligned reads and incorrect object properties.",
+          "suggestion": "Read the value first before reading the next label, then conditionally assign to object if key does not match /^this\\$\\d+$/. Add 'var value = this.read(withType); label = this.byteBuffer.getChar();' before the assignment and apply the condition.",
+          "isTest": false
+        },
+        {
+          "title": "Incorrect handling of 'this$' fields in v2 decoder readObject",
+          "severity": "high",
+          "file": "lib/v2/decoder.js",
+          "line": 588,
+          "explanation": "In v2 decoder's readObject method, the field value is stored regardless of its name, causing 'this$' prefixed fields to be incorrectly included, potentially breaking the object structure.",
+          "suggestion": "Read the value first, then conditionally assign to the result.$ object if the field name does not match /^this\\$\\d+$/ (skip such fields). Insert code to read value and conditionally assign as done in v1 decoder.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect unsafe long number boundary detection in handleLong function",
+          "severity": "medium",
+          "file": "lib/utils.js",
+          "line": 43,
+          "explanation": "The previous method of checking for unsafe long integers based on val.high and val.low was replaced with Long.js comparison methods to correctly detect values outside the safe integer range (-2^53+1 to 2^53-1). The new code accurately uses Long.js `greaterThan` and `lessThan` to identify unsafe values for conversion to string, which is more reliable.",
+          "suggestion": "Keep the new implementation using `val.greaterThan(MAX_SAFE_INT)` and `val.lessThan(MIN_SAFE_INT)` for proper unsafe long detection.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Property key not converted to string, breaking expected behavior",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 415,
+          "explanation": "The line that converted keys to strings in readObject method has been removed. This can cause keys that are not strings (e.g., null) to be used as object properties directly, which differs from previous behavior and test expectations.",
+          "suggestion": "Restore the line `key = key.toString();` in the readObject method to ensure all property keys are converted to strings, preserving expected object structure.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "read() resolves content incorrectly when encoding is not provided",
+          "severity": "high",
+          "file": "lib/box/file.js",
+          "line": 49,
+          "explanation": "In the read() method, the added line `if (!encoding) return resolve(content);` will cause the function to resolve with raw content buffer immediately without applying any escaping (escapeBOM or escapeEOL) when encoding is falsy. This is inconsistent with subsequent behavior that applies escaping when encoding is set, and likely breaks expected output processing.",
+          "suggestion": "Instead of returning resolve(content) immediately when encoding is falsy, unify the escapeContent processing. Either process the content as string with default encoding before applying escapeContent or handle the raw buffer consistently. For example, remove the early return and always produce a string from content before applying escapeContent if options.escape is true.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect usage of path.join for URL paths in PostAsset.path virtual",
+          "severity": "high",
+          "file": "lib/models/post_asset.js",
+          "line": 22,
+          "explanation": "The patch replaces url.resolve(post.path, this.slug) with path.join(post.path, this.slug) for computing PostAsset.path. However, path.join uses platform-specific path separators (backslash on Windows), which is inappropriate for URL paths that require forward slashes. This change can cause incorrect URL paths on Windows and lead to broken asset URLs.",
+          "suggestion": "Revert to using url.resolve or implement URL path concatenation that always uses forward slashes to ensure cross-platform correctness for URL paths.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Potential XSS vulnerability due to missing HTML escaping of heading text",
+          "severity": "high",
+          "file": "lib/plugins/helper/toc.js",
+          "line": 29,
+          "explanation": "The original code used $(this).html() to extract heading text, inserting it as raw HTML into the TOC. This allows malicious HTML or scripts in headings to be injected directly into the TOC, creating XSS vulnerability.",
+          "suggestion": "Replace $(this).html() with _.escape($(this).text()) to safely escape HTML entities, preventing injection of malicious HTML into the TOC.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-8",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect image URL construction with relative paths",
+          "severity": "high",
+          "file": "lib/plugins/helper/open_graph.js",
+          "line": 88,
+          "explanation": "The original code naively concatenates the site URL (config.url) with the image path, which can produce incorrect URLs when the path is relative (does not start with '/'). For example, if config.url ends with 'http://example.com/blog', appending '/foo.jpg' yields 'http://example.com/blog/foo.jpg', which may be correct, but appending 'foo.jpg' naively would yield 'http://example.com/blogfoo.jpg', which is invalid. The patch replaces this logic with urlFn.resolve(url || config.url, path), which co",
+          "suggestion": "Replace the manual string concatenation with urlFn.resolve(url || config.url, path) to correctly resolve relative and absolute image paths in the context of the page URL or site URL.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect URL regex breaking relative URL source map error formatting",
+          "severity": "high",
+          "file": "lib/reporter.js",
+          "line": 24,
+          "explanation": "The regex for matching file URLs in stack traces was changed from matching only absolute http URLs ('http:\\/\\/[^\\/]*\\/') to a pattern that optionally matches the protocol and hostname and allows relative/absolute paths ('(?:http:\\/\\/[^\\/]*)?\\/?'). This broadening causes potential misparsing or incorrect rewriting of stack trace URLs, which can lead to incorrect source map lookups and error formatting.",
+          "suggestion": "Use a regex that correctly matches URLs expected in stack traces without overbroad optional groups—to avoid incorrect source map lookups that can confuse error reporting. Revert the change to the original stricter regex or carefully test to ensure the updated regex handles all cases correctly without false positives.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-3",
+      "skipped": null,
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "caseId": "Bower-1",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 2,
+      "kept": [
+        {
+          "title": "Removal of isNotCacheable check causes incorrect caching for local dependencies and branch resolutions",
+          "severity": "high",
+          "file": "lib/core/PackageRepository.js",
+          "line": 49,
+          "explanation": "The change removes the check 'if (resolver.isNotCacheable()) { return that._resolve(resolver, logger); }' in 'PackageRepository.prototype.fetch'. The 'isNotCacheable' method in Resolver checked for local dependencies and branch targets that should not be cached. Removing this check causes such resolvers to always go through the cache, which is incorrect.",
+          "suggestion": "Restore the check for resolver.isNotCacheable() in the fetch method before deciding to use cache or resolve directly.",
+          "failureAfterChange": "When fetching a local file dependency or a branch target dependency, the code incorrectly attempts to use the cache and may return cached outdated data or fail, instead of resolving directly.",
+          "alreadyFixedByChange": false
+        },
+        {
+          "title": "Caching logic in _resolve no longer skips cache for branch resolutions",
+          "severity": "high",
+          "file": "lib/core/PackageRepository.js",
+          "line": 177,
+          "explanation": "The previous code used resolver.isNotCacheable() to avoid caching moving targets like branches. The new code checks 'resolver._resolution && resolver._resolution.type === \"branch\"' to avoid caching but 'resolver._resolution' is undefined here since '_resolution' is private and not set before caching. Also, the original check included local dependencies which are now ignored. This can cause branch dependencies to be incorrectly cached or missing cache.",
+          "suggestion": "Restore use of resolver.isNotCacheable() in _resolve method to determine caching behavior instead of manually checking _resolution directly.",
+          "failureAfterChange": "Branch dependencies might be cached incorrectly or not cached as intended, leading to stale or invalid data usage in cache.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The removal of the 'isNotCacheable' check in 'fetch' removes important logic that avoids caching for local dependencies and branch targets. This leads to incorrect caching behavior, representing a concrete defect introduced by the change."
+        },
+        {
+          "index": 1,
+          "keep": true,
+          "reason": "In '_resolve', the replacement of the 'isNotCacheable' call with a direct '_resolution' check loses robustness because '_resolution' is private and might be unset, and it ignores local dependencies that also should bypass caching. This causes potentially incorrect caching for branch resolutions, a concrete defect introduced."
+        }
+      ],
+      "usage": {
+        "inputTokens": 4445,
+        "outputTokens": 134,
+        "totalTokens": 4579
+      }
+    }
+  ]
+}

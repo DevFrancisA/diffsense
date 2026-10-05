@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-2",
+  "project": "Hessian.js",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+  "buggySha": "ed7f966a31c448a62a1414f26196b342631925bb",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "316f71f96e6bdadb997e5f867c7e1012b684c6ae73cf5a53b996babfb3d8e5c7",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "ed7f966a31c448a62a1414f26196b342631925bb",
+    "maxFiles": 40,
+    "filesIndexed": 27,
+    "chunksIndexed": 123,
+    "embeddingUsage": {
+      "inputTokens": 8390,
+      "outputTokens": 0,
+      "totalTokens": 8390
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "ce8d8b1614dd4f3461b8811df50bbb6195d8b4a94f0d79cbe9ab2d11746702e4"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "0b3e9f69dd9c4e06641f2ec83716805452b33b09446761369f5ddb0620858cad"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "afd161535c52166c970bb4c4c2b348fdc9be060281e3856086d4d37de56832dd"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "7a8366fbf0b56d042d4558bb96f533927830a952cda30c26a1842197331ea8d3"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "68cef63dc14d7685650144fdfd65a3e5499bc06f3021929bfcb5dc040fcc754e"
+      },
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "7075ce1686099fbb6575a58a82f0ae26bb351f1fa86d83903f00efe3bde10530"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f073ba8dc7741227e07fa99c5a90b438a7cf995ec7de430f7df5964e4fd5293c"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "87595a4935247e661ab4f4aa8b61ca8758fa48e7a2dde3628d376f4dea5be99f"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "0b43e4c1e6eda6739f62c810d54b471d06f05a3710f455a82b2eada2c4c9066c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "264f52071d21bf6d178fed63b6faa81d022c546a59eb7ded68514e81e80f7e38"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 403,
+      "outputTokens": 0,
+      "totalTokens": 403
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 16243,
+          "outputTokens": 475,
+          "totalTokens": 16718
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect filtering of keys in v1 decoder's readObject allows keys that are not string or number",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 430,
+            "explanation": "Originally, the code filtered key to only allow keys which are string or number and not matching /^this\\$\\d+$/ before assigning to result.$. The change removes the typeof check, allowing any key not matching the regex to be assigned, which breaks behavior and also is inconsistent with the test and prior behavior.",
+            "suggestion": "Restore the typeof check to ensure keys assigned to result.$ are only string or number: add back `t = typeof key; if ((t === 'string' || t === 'number') && !/^this\\$\\d+$/.test(key))` as before."
+          },
+          {
+            "title": "In v2 decoder _readMap method, assignment of map keys ignores type filtering and inserts all keys",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 733,
+            "explanation": "The original code filtered keys to only assign to map if key type was string or number. The change removed that type check, causing all keys to be assigned to the map which breaks expected behavior and can lead to unexpected keys inserted.",
+            "suggestion": "Restore the typeof check to assign only keys of type string or number to the map, matching previous behavior."
+          },
+          {
+            "title": "Test assertion change contradicts expected behavior for empty object or null-to-string key map",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test changed expected value from empty object to an object with a key 'null' and value 'null', which indicates changed expectation or behavior not justified by code change. Potentially reflects side effect of decoder changes or test mistake.",
+            "suggestion": "Revert the test expectation to expect empty object unless intentional behavior change is documented."
+          },
+          {
+            "title": "Test assertion change expects '[object Object]' key instead of empty object",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "Test changed expected value from empty object to an object with key '[object Object]' which is unexpected side effect indicating different behavior in map key handling.",
+            "suggestion": "Revert test expectation to empty object, or update tests only with a matching code change and rationale."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect filtering of keys in v1 decoder's readObject allows keys that are not string or number",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 429,
+            "explanation": "Originally, the code filtered key to only allow keys which are string or number and not matching /^this\\$\\d+$/ before assigning to result.$. The change removes the typeof check, allowing any key not matching the regex to be assigned, which breaks behavior and also is inconsistent with the test and prior behavior.",
+            "suggestion": "Restore the typeof check to ensure keys assigned to result.$ are only string or number: add back `t = typeof key; if ((t === 'string' || t === 'number') && !/^this\\$\\d+$/.test(key))` as before."
+          },
+          {
+            "title": "In v2 decoder _readMap method, assignment of map keys ignores type filtering and inserts all keys",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 733,
+            "explanation": "The original code filtered keys to only assign to map if key type was string or number. The change removed that type check, causing all keys to be assigned to the map which breaks expected behavior and can lead to unexpected keys inserted.",
+            "suggestion": "Restore the typeof check to assign only keys of type string or number to the map, matching previous behavior."
+          },
+          {
+            "title": "Test assertion change contradicts expected behavior for empty object or null-to-string key map",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test changed expected value from empty object to an object with a key 'null' and value 'null', which indicates changed expectation or behavior not justified by code change. Potentially reflects side effect of decoder changes or test mistake.",
+            "suggestion": "Revert the test expectation to expect empty object unless intentional behavior change is documented."
+          },
+          {
+            "title": "Test assertion change expects '[object Object]' key instead of empty object",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "Test changed expected value from empty object to an object with key '[object Object]' which is unexpected side effect indicating different behavior in map key handling.",
+            "suggestion": "Revert test expectation to empty object, or update tests only with a matching code change and rationale."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

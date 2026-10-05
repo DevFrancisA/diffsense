@@ -1,0 +1,34 @@
+{
+  "caseId": "Eslint-5",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect calculation of text range for fixing indentation",
+          "severity": "high",
+          "file": "lib/rules/indent.js",
+          "line": 270,
+          "explanation": "The function 'report' calculates the range of text to be replaced for fixing indentation using incorrect subtraction of indentation characters and offsets, leading to inaccurate fixes if the leading tokens contain unexpected characters. The new calculation subtracts the counts from node.range ends but does not consider node.loc columns correctly, which may cause wrong text ranges for the fixer.",
+          "suggestion": "Adjust the calculation of 'textRange' in 'report' to correctly compute the start and end offsets using node location columns and indentation character counts, ensuring ranges align with the indent characters to replace.",
+          "failureAfterChange": "When there is additional whitespace or comments on the line, the fixer incorrectly replaces the wrong range, making the auto-fix invalid or damaging code.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies that the calculation of 'textRange' in the 'report' function has changed to subtract the counts of spaces, tabs, and an additional offset from node.range ends without using node.loc columns, which may lead to incorrect ranges to fix indentation. This is a concrete defect introduced by the change, as indicated by the new calculations at lines 270 and 271, potentially causing invalid autocorrections."
+        }
+      ],
+      "usage": {
+        "inputTokens": 9070,
+        "outputTokens": 103,
+        "totalTokens": 9173
+      }
+    }
+  ]
+}

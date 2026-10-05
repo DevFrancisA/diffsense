@@ -1,0 +1,13 @@
+{
+  "caseId": "Express-4",
+  "sourceVariant": "dev-forward-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 0,
+      "kept": [],
+      "verdicts": [],
+      "usage": null
+    }
+  ]
+}

@@ -302,7 +302,7 @@
   ],
   "falseAlarms": [
     {
-      "label": "baseline",
+      "label": "HOLDOUT baseline",
       "file": "falsealarms-holdout-forward-baseline.json",
       "cases": 30,
       "casesReviewed": 30,
@@ -321,7 +321,7 @@
       }
     },
     {
-      "label": "final (C4)",
+      "label": "HOLDOUT C4",
       "file": "falsealarms-holdout-forward-final.json",
       "cases": 30,
       "casesReviewed": 30,
@@ -337,6 +337,30 @@
       "casesFlaggedOnSourceWilson": {
         "low": 0.555520383048111,
         "high": 0.8581733668040368
+      }
+    }
+  ],
+  "combined": [
+    {
+      "label": "HOLDOUT baseline",
+      "found": 20,
+      "reversedFindings": 22,
+      "forwardFindings": 21,
+      "combinedPrecision": 0.46511627906976744,
+      "wilson": {
+        "low": 0.32511057704121815,
+        "high": 0.6108435952768602
+      }
+    },
+    {
+      "label": "HOLDOUT C4",
+      "found": 27,
+      "reversedFindings": 27,
+      "forwardFindings": 29,
+      "combinedPrecision": 0.48214285714285715,
+      "wilson": {
+        "low": 0.3566821941245828,
+        "high": 0.6098961607582303
       }
     }
   ]

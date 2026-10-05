@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-1",
+  "project": "Karma",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+  "buggySha": "4673116a6f7310a6390025618a4a6c7215e3b793",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "d141dde1716cfbb3ec04e0062fa487d3f8904104d465eee9db2adfdc10896365",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "4673116a6f7310a6390025618a4a6c7215e3b793",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 82,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/reporter.js",
+        "contentSha256": "30afc5efe6f33c9118c2e15d1a573d8c3e9ebe8c967434dd783ad6bc620dbc09"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "7b5226b64e19578f70429b75083b0f8a2324bf566373a72ab55f59fabbd67e9f"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "3d03e5b9c80351bb45fb5315f3e3aaa9a8c3fb77e21f1d5e8e07ece6fecf87fe"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "1679a24276d8964eebc7dc16f23a446871879c5f1f8ad48da9d3bcc0a664db96"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "0ce0f0fdb3add867cb6b9f91bc3807650af1a0ffad425865462b378f1ee76628"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "d9731c53104530b883816a185e3769317415040cea98078dafd5feb257877a91"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "f36c17834c39947e383abe9bf17a6d681c2d739f9003e3eeb0b4c3b2db113cbe"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "11aad1e5af03508430c39a71f3b85add0cb37241d9b7cc10be53dc252ea465c8"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "c7574d5803c15980f7e125f0cbd7f078e1dd0f8b449f14d7ee042ecb2aca8cbf"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 365,
+      "outputTokens": 0,
+      "totalTokens": 365
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5965,
+          "outputTokens": 184,
+          "totalTokens": 6149
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL regex breaking relative URL source map error formatting",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The regex for matching file URLs in stack traces was changed from matching only absolute http URLs ('http:\\/\\/[^\\/]*\\/') to a pattern that optionally matches the protocol and hostname and allows relative/absolute paths ('(?:http:\\/\\/[^\\/]*)?\\/?'). This broadening causes potential misparsing or incorrect rewriting of stack trace URLs, which can lead to incorrect source map lookups and error formatting.",
+            "suggestion": "Use a regex that correctly matches URLs expected in stack traces without overbroad optional groups—to avoid incorrect source map lookups that can confuse error reporting. Revert the change to the original stricter regex or carefully test to ensure the updated regex handles all cases correctly without false positives."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL regex breaking relative URL source map error formatting",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The regex for matching file URLs in stack traces was changed from matching only absolute http URLs ('http:\\/\\/[^\\/]*\\/') to a pattern that optionally matches the protocol and hostname and allows relative/absolute paths ('(?:http:\\/\\/[^\\/]*)?\\/?'). This broadening causes potential misparsing or incorrect rewriting of stack trace URLs, which can lead to incorrect source map lookups and error formatting.",
+            "suggestion": "Use a regex that correctly matches URLs expected in stack traces without overbroad optional groups—to avoid incorrect source map lookups that can confuse error reporting. Revert the change to the original stricter regex or carefully test to ensure the updated regex handles all cases correctly without false positives."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

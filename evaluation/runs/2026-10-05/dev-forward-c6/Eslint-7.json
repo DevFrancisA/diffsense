@@ -1,0 +1,34 @@
+{
+  "caseId": "Eslint-7",
+  "sourceVariant": "dev-forward-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect trailing comma detection on multiline objects and arrays",
+          "severity": "medium",
+          "file": "lib/rules/comma-dangle.js",
+          "line": 42,
+          "explanation": "The updated rule logic calculates whether the penultimate token (comma) is on a new line relative to the node's end line, but this does not account correctly for all multiline cases resulting in reporting unexpected trailing commas in valid multiline structures (e.g., trailing commas allowed but nodeIsMultiLine replaced with lastTokenOnNewLine check).",
+          "suggestion": "Restore or adjust the check to base conditions on nodeIsMultiLine (node start line vs end line) instead of lastTokenOnNewLine, ensuring the rule correctly handles trailing commas on multiline objects and arrays per the 'always-multiline' option.",
+          "failureAfterChange": "Input: a multiline object or array with a trailing comma as allowed by 'always-multiline' option.\nResult: The rule incorrectly reports an 'Unexpected trailing comma.' error for valid code.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies a concrete defect introduced by the change. The code now uses 'lastTokenOnNewLine' instead of 'nodeIsMultiLine' to determine multiline context, which can incorrectly flag valid trailing commas as unexpected in 'always-multiline' mode. This is a real regression in the rule's behavior."
+        }
+      ],
+      "usage": {
+        "inputTokens": 1861,
+        "outputTokens": 84,
+        "totalTokens": 1945
+      }
+    }
+  ]
+}

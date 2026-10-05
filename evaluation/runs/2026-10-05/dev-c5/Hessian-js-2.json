@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-2",
+  "project": "Hessian.js",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+  "buggySha": "ed7f966a31c448a62a1414f26196b342631925bb",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1c6eaecbb962a4e53f7aebc5a9605f978944c1ad69d83849a73483ca03ba198a",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+    "maxFiles": 40,
+    "filesIndexed": 27,
+    "chunksIndexed": 123,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "45f3f2d576895ab9eb33958f455cb83424278fb65a3f03920340d8e29bda24a6"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "dc9878abd2cab5b06b86693b01dc4f60af2956807042d3648e8b8ad2032a105a"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "d4e1555e9928700ffd1f4e21a0f285409160b649cd7fb48cc6eddf7272fce55e"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "7a8366fbf0b56d042d4558bb96f533927830a952cda30c26a1842197331ea8d3"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "68cef63dc14d7685650144fdfd65a3e5499bc06f3021929bfcb5dc040fcc754e"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "e4ac088e8ee8cc923f426e6f73a9b16a84ff86b3d06a9eaf942fb9978f379b8a"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "87595a4935247e661ab4f4aa8b61ca8758fa48e7a2dde3628d376f4dea5be99f"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "0b43e4c1e6eda6739f62c810d54b471d06f05a3710f455a82b2eada2c4c9066c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "264f52071d21bf6d178fed63b6faa81d022c546a59eb7ded68514e81e80f7e38"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f073ba8dc7741227e07fa99c5a90b438a7cf995ec7de430f7df5964e4fd5293c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 404,
+      "outputTokens": 0,
+      "totalTokens": 404
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 16304,
+          "outputTokens": 458,
+          "totalTokens": 16762
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrectly adding invalid keys to object in v1 Decoder",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In 'proto.readObject', the code added a variable 't' but was missing the type check before adding keys to the result.$ object. This has been corrected in the patch to add a type check that key must be 'string' or 'number' and exclude keys matching /^this$\\d+$/. Missing this check could cause keys of invalid types or unwanted keys to be added to the object, potentially causing incorrect decoding results.",
+            "suggestion": "Add type checking on key to ensure only string or number keys are added to the result object property.",
+            "failureAfterChange": "Input with complex keys that are not string or number could lead to those invalid keys added and break expected output object shape.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Incorrectly adding invalid keys to object in v2 Decoder",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "In '_readMap', when reading map entries, the key type was not checked before adding to map properties. Patch adds check to only add keys that have type 'string' or 'number' to the map object, which improves correctness of map decoding, as keys of other types could cause unexpected behavior.",
+            "suggestion": "Add type check on key before adding it as property to the map.",
+            "failureAfterChange": "Decoding maps with keys of object or other non-string/number type could corrupt the resulting decoded map object.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Test expectation fixed for decoding empty and complex keys maps",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "Test cases were modified to correctly expect empty objects when decoding invalid or unrepresentable keys, instead of objects with stringified keys '[object Object]'. This aligns tests with the code's behavior of excluding non-string/number keys from decoded maps.",
+            "suggestion": "Ensure tests properly expect empty objects for maps with complex keys rather than stringified keys.",
+            "failureAfterChange": "Tests failing due to expectations of invalid stringified keys replaced by empty objects.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

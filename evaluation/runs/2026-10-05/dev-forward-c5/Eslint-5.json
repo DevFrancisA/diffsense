@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-5",
+  "project": "Eslint",
+  "bugId": 5,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0643bfeff68979044ca57a2b392d855d18be7d08",
+  "buggySha": "bd0514ca9bc9dbb5dafb27085cf9e554573610b0",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "b6e6299ef4e22364700d7bd3d57b413985a6c3d9a8ac19a355fab441cdc25a99",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "bd0514ca9bc9dbb5dafb27085cf9e554573610b0",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 180,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/indent.js",
+        "contentSha256": "d1088e1a7dd7dd515c56877ea4c85e8e81433bf7c4e1fd6857f988e48b52c3ab"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "91d9aebe5fbdf0763715f0f408828db9592ee208d86d6cc36a33004a992be2a2"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fb62f9477450bd582a12028aa5327d4ffdb7c65379796b5704e5d616db0f6fe0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "5891d7660de14fbc1dfe0031f44a6d33a3b0ac4da5e56c36919c973cb343ee96"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1e69108f83cc3af28263082500f2dc077b4f414d99a873ec118be7e95cd2ec95"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bf7e4dba97c3f617dc6b1c56d1c8b00284b9387af56e782195f6ef5f50c3dff0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9c00aa92f9675708584b22de999e3482db13c7fddc8bdc0d6242ced750aff3bc"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9befe6fa119456478668875afd11caabc5545199b36a698c77cc3c3608a90801"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "0984f58d80ae9329c208b34e6b1c9dd969f7bfd7fdf9bea0e71853340e139d62"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 13811,
+          "outputTokens": 289,
+          "totalTokens": 14100
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect indentation reported for multi-line comments followed by code",
+            "severity": "high",
+            "file": "tests/fixtures/rules/indent/indent-valid-fixture-1.js",
+            "line": 46,
+            "explanation": "The change adjusts indentation of a multi-line comment followed immediately by code. Previously, the comment ended with ' */var b;' (incorrect indentation). The fix changes it to ' */ var b;' which is correctly indented with a space after the comment close. This fix corrects the indentation of comments followed by code, preventing false positives.",
+            "suggestion": "Use a space after the multi-line comment end before code begins.",
+            "failureAfterChange": "Without the added space after the comment close, code on the same line causes indentation errors.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Report indentation errors on comment lines within blocks with incorrect indentation",
+            "severity": "high",
+            "file": "tests/lib/rules/indent.js",
+            "line": 3507,
+            "explanation": "New test cases added verify that block comments inside blocks with incorrect indentation are detected and fixed. For example, a comment following an if block with over-indentation is now reported and fixed to proper indentation.",
+            "suggestion": "Ensure the indentation rule checks comments within blocks and reports/fixes any incorrect indentation.",
+            "failureAfterChange": "With incorrect comment indentation inside blocks, the rule now detects and reports them properly, enabling accurate fixes.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

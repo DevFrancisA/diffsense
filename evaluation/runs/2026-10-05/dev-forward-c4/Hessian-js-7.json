@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-7",
+  "project": "Hessian.js",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "dcdf3132e536702b6d7fa5dd3afbfd63c77f439a",
+  "buggySha": "2dbb2c005738a69cf0e7160bc358e8a92505aa39",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "bf609bfd77fc1813eb47af0dddea955d0614ea12cbd69d014dfb4c5cc57b9a67",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "2dbb2c005738a69cf0e7160bc358e8a92505aa39",
+    "maxFiles": 40,
+    "filesIndexed": 26,
+    "chunksIndexed": 119,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/object.js",
+        "contentSha256": "2f0980f670392eca2d66c20d641c3feee966410e10cf556f2b123c3a544f0d8f"
+      },
+      {
+        "path": "lib/v1/encoder.js",
+        "contentSha256": "3173ab171bbf58782695fdaee0324e9b09d6a4f143552316994b9ce58df38095"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "ebf0a80fbaa4fa576ad1f89df230910ff57bc73e71549f5ff0e1387fed9dcb98"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "9b0f32a9d3b90779f828eea3efdb378d002b01fd52a67a132e3902e5d280e8bb"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "626f49293cde8de55ba268123a44091f088c1e6f91716e3bb9828999e0d10dff"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "12f7866f1c4ae3006f012a68ec7174f7f96cfa15980e5a330418539c52235258"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2870d5af95fc4e1ee15134394e55609ff4bc5f105dbfdec05c76dc475756f0f8"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1469,
+      "outputTokens": 0,
+      "totalTokens": 1469
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 11208,
+          "outputTokens": 6,
+          "totalTokens": 11214
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

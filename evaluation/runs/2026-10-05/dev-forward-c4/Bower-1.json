@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Bower-1",
+  "project": "Bower",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/bower",
+  "fixedSha": "197b41d97ac4425978c7b91ad01086d8264785f0",
+  "buggySha": "7b11a57c6f834641e3bd92b9781f262be1329700",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "792d50287cdcf5a2c8343d8de6b0c684ab9923b133bd8efaaab4668b9fdefdae",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/bower",
+    "commitSha": "7b11a57c6f834641e3bd92b9781f262be1329700",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 120,
+    "embeddingUsage": {
+      "inputTokens": 5714,
+      "outputTokens": 0,
+      "totalTokens": 5714
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "77a75123bf24b009bd73bb4d3a17218c0d1a74bf62e45f21e895f0df8b5cdd12"
+      },
+      {
+        "path": "lib/core/resolvers/Resolver.js",
+        "contentSha256": "f271a95561ad4430a9897911abd56b8a4c34c40ee9f4d017f4c74d8d267312ed"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "976ce65f5530fdbedbe8a7d78ffd5d8787cc1e9f890fd2efccd59b684f54f098"
+      },
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "f6a19a7da8c7ecff1f5b1c41930d4348c5d86ba98a02f51a2e8655e414a1d640"
+      },
+      {
+        "path": "lib/core/PackageRepository.js",
+        "contentSha256": "aaa83d50000331e812ecabdfa28b382e7992f1afc8e69eecc152ea2f0b16ef38"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "c301cb3f9e8ee36558da7859bd725d4a3b25b7bac829fdbd98b0866c7fed8ca2"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "a185306c5ccc88e5caa0e0a1448a356ad02efc361ff8a51e0acc730a6eed9081"
+      },
+      {
+        "path": "lib/core/resolvers/Resolver.js",
+        "contentSha256": "9bc74ae2a52b63658b8defd319975d7b441f80c0ef644bd0cb6e9b066dd78bd3"
+      },
+      {
+        "path": "lib/core/ResolveCache.js",
+        "contentSha256": "6febe09b2451f9360d2be471152a083604e6acdd90f06e51330aa15d575a473d"
+      },
+      {
+        "path": "lib/core/resolvers/Resolver.js",
+        "contentSha256": "897f3274282a9c42fc4621f6a652085d81680f99f97f3e7fe44eabb4af848807"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 872,
+      "outputTokens": 0,
+      "totalTokens": 872
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 8438,
+          "outputTokens": 361,
+          "totalTokens": 8799
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect cache bypass check in PackageRepository.fetch",
+            "severity": "high",
+            "file": "lib/core/PackageRepository.js",
+            "line": 49,
+            "explanation": "The patch adds a call to resolver.isNotCacheable() to decide if caching should be bypassed in the fetch function. However, resolver.isNotCacheable() is a new method introduced in Resolver prototype. This new method correctly identifies local sources and branches to disable caching. The fix aligns cache-bypass logic to use this method instead of previous inappropriate checks, improving correctness.",
+            "suggestion": "Keep the new code using resolver.isNotCacheable() as the gate to bypass cache in the fetch method, replacing the old force flag bypass logic."
+          },
+          {
+            "title": "Incorrect cache store logic in PackageRepository._resolve",
+            "severity": "medium",
+            "file": "lib/core/PackageRepository.js",
+            "line": 174,
+            "explanation": "The original code skips caching if the resolved package is a moving target (type 'branch'). The patch refactors this to use resolver.isNotCacheable() for the same decision, which includes local sources and branches. However, before the patch, the code returned canonicalDir without storing to cache if branch. New code skips the else branch and calls store unconditionally after. This effectively removes the branch check and stores all resolved packages in cache, which is incorrect as branches are ",
+            "suggestion": "Restore the branch check in _resolve and skip cache storing if resolver.isNotCacheable() returns true. For example:\n\nif (resolver.isNotCacheable()) {"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect cache bypass check in PackageRepository.fetch",
+            "severity": "high",
+            "file": "lib/core/PackageRepository.js",
+            "line": 49,
+            "explanation": "The patch adds a call to resolver.isNotCacheable() to decide if caching should be bypassed in the fetch function. However, resolver.isNotCacheable() is a new method introduced in Resolver prototype. This new method correctly identifies local sources and branches to disable caching. The fix aligns cache-bypass logic to use this method instead of previous inappropriate checks, improving correctness.",
+            "suggestion": "Keep the new code using resolver.isNotCacheable() as the gate to bypass cache in the fetch method, replacing the old force flag bypass logic."
+          },
+          {
+            "title": "Incorrect cache store logic in PackageRepository._resolve",
+            "severity": "medium",
+            "file": "lib/core/PackageRepository.js",
+            "line": 178,
+            "explanation": "The original code skips caching if the resolved package is a moving target (type 'branch'). The patch refactors this to use resolver.isNotCacheable() for the same decision, which includes local sources and branches. However, before the patch, the code returned canonicalDir without storing to cache if branch. New code skips the else branch and calls store unconditionally after. This effectively removes the branch check and stores all resolved packages in cache, which is incorrect as branches are ",
+            "suggestion": "Restore the branch check in _resolve and skip cache storing if resolver.isNotCacheable() returns true. For example:\n\nif (resolver.isNotCacheable()) {"
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

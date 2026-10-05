@@ -1,0 +1,34 @@
+{
+  "caseId": "Hessian-js-4",
+  "sourceVariant": "dev-forward-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect handling of object properties with $class string and null $ value in writeObject",
+          "severity": "medium",
+          "file": "lib/v1/encoder.js",
+          "line": 302,
+          "explanation": "In proto.writeObject, the added condition `(is.string(obj.$class) && is.nullOrUndefined(obj.$))` causes objects that have a $class string defined but a null or undefined $ property to be encoded as a null value. This means any nested object property that has this form will be serialized as null instead of as an object, which can cause data loss or incorrect encoding for such patterns.",
+          "suggestion": "Remove the condition `(is.string(obj.$class) && is.nullOrUndefined(obj.$))` from the null check in writeObject, or handle nested properties with $class and null $ values explicitly in the serialization logic to preserve object structure if intended.",
+          "failureAfterChange": "Input `{a: {$class: 'some.Class', $: null}}` encoded by writeObject results in the 'a' property being serialized as null; upon decoding, the original structure with $class info is lost.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies that the added condition in writeObject causes objects with a $class string and null $ to be serialized as null, which can lead to data loss or incorrect encoding for nested properties of this form. This is a concrete defect introduced by the change."
+        }
+      ],
+      "usage": {
+        "inputTokens": 4594,
+        "outputTokens": 72,
+        "totalTokens": 4666
+      }
+    }
+  ]
+}

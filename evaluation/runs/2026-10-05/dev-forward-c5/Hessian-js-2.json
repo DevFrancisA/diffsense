@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-2",
+  "project": "Hessian.js",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+  "buggySha": "ed7f966a31c448a62a1414f26196b342631925bb",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "316f71f96e6bdadb997e5f867c7e1012b684c6ae73cf5a53b996babfb3d8e5c7",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "ed7f966a31c448a62a1414f26196b342631925bb",
+    "maxFiles": 40,
+    "filesIndexed": 27,
+    "chunksIndexed": 123,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "ce8d8b1614dd4f3461b8811df50bbb6195d8b4a94f0d79cbe9ab2d11746702e4"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "0b3e9f69dd9c4e06641f2ec83716805452b33b09446761369f5ddb0620858cad"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "afd161535c52166c970bb4c4c2b348fdc9be060281e3856086d4d37de56832dd"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "7a8366fbf0b56d042d4558bb96f533927830a952cda30c26a1842197331ea8d3"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "68cef63dc14d7685650144fdfd65a3e5499bc06f3021929bfcb5dc040fcc754e"
+      },
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "7075ce1686099fbb6575a58a82f0ae26bb351f1fa86d83903f00efe3bde10530"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f073ba8dc7741227e07fa99c5a90b438a7cf995ec7de430f7df5964e4fd5293c"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "87595a4935247e661ab4f4aa8b61ca8758fa48e7a2dde3628d376f4dea5be99f"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "0b43e4c1e6eda6739f62c810d54b471d06f05a3710f455a82b2eada2c4c9066c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "264f52071d21bf6d178fed63b6faa81d022c546a59eb7ded68514e81e80f7e38"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 16346,
+          "outputTokens": 707,
+          "totalTokens": 17053
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of object keys in v1 Decoder causing omission of non-string keys",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 430,
+            "explanation": "In v1 Decoder's readObject method, the condition to add properties to the result object was changed from allowing only string or number keys to allowing any key type without type checking. This relaxes the type restriction, which is generally safe as JavaScript coerces keys to strings, but the removal of type check might introduce unexpected behavior if keys are other types like undefined or symbols.",
+            "suggestion": "Restore or explicitly handle key type checks to avoid unexpected keys, or coerce keys to strings before assignment.",
+            "failureAfterChange": "Input an object with keys of non-string/non-number types, such as symbol or undefined keys; these keys might now be blindly assigned, potentially breaking expected object structure.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Incorrect assignment of keys in v2 Decoder _readMap causing all keys to be assigned regardless of type",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 732,
+            "explanation": "In v2 Decoder's _readMap method, the type check for 'string' or 'number' keys was removed, causing all keys regardless of type to be assigned to the map object. This change may introduce keys that are not strings or numbers, which can cause unexpected behavior during map usage or serialization.",
+            "suggestion": "Restore the type checking for keys before assignment or explicitly coerce keys to strings if necessary.",
+            "failureAfterChange": "Decode a map where keys are of unexpected types (e.g., objects), resulting in keys being object references as keys in a plain object, which is unsupported in JS and can lead to unexpected behavior.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Test expectation updated incorrectly resulting in unexpected map key for Java null key in decoded map",
+            "severity": "critical",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The test case expectation for decoding a map with a null key was changed from expecting an empty object {} to an object with a key 'null' and value 'null'. This indicates the code after the change does not treat null keys correctly and instead converts null key to a string 'null', which deviates from expected behavior.",
+            "suggestion": "Fix decoder logic to properly handle null keys without converting them to string 'null' or fix test expectations if the new behavior is intended but inconsistent with spec.",
+            "failureAfterChange": "Input: decode a map containing a null key. Expected: empty object or skipped key. Got: object with string key 'null'.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Test expectation updated incorrectly causing plainObject to expect incorrect key String from object key",
+            "severity": "critical",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "The test changed the expected plainObject from {} to having a key '[object Object]' mapping to a number, indicating that the decoding now treats an object key as string '[object Object]', which is incorrect behavior and likely unintended.",
+            "suggestion": "Fix decoder logic to handle object keys correctly, possibly by not allowing them as keys or by using a Map, or revert test if original behavior is preferred.",
+            "failureAfterChange": "Input: decode a map with an object key. Expected: key is not stringified or map keys preserved properly. Got: key '[object Object]' as string in plain object, corrupting data.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of object keys in v1 Decoder causing omission of non-string keys",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 429,
+            "explanation": "In v1 Decoder's readObject method, the condition to add properties to the result object was changed from allowing only string or number keys to allowing any key type without type checking. This relaxes the type restriction, which is generally safe as JavaScript coerces keys to strings, but the removal of type check might introduce unexpected behavior if keys are other types like undefined or symbols.",
+            "suggestion": "Restore or explicitly handle key type checks to avoid unexpected keys, or coerce keys to strings before assignment.",
+            "failureAfterChange": "Input an object with keys of non-string/non-number types, such as symbol or undefined keys; these keys might now be blindly assigned, potentially breaking expected object structure.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Incorrect assignment of keys in v2 Decoder _readMap causing all keys to be assigned regardless of type",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 732,
+            "explanation": "In v2 Decoder's _readMap method, the type check for 'string' or 'number' keys was removed, causing all keys regardless of type to be assigned to the map object. This change may introduce keys that are not strings or numbers, which can cause unexpected behavior during map usage or serialization.",
+            "suggestion": "Restore the type checking for keys before assignment or explicitly coerce keys to strings if necessary.",
+            "failureAfterChange": "Decode a map where keys are of unexpected types (e.g., objects), resulting in keys being object references as keys in a plain object, which is unsupported in JS and can lead to unexpected behavior.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Test expectation updated incorrectly resulting in unexpected map key for Java null key in decoded map",
+            "severity": "critical",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The test case expectation for decoding a map with a null key was changed from expecting an empty object {} to an object with a key 'null' and value 'null'. This indicates the code after the change does not treat null keys correctly and instead converts null key to a string 'null', which deviates from expected behavior.",
+            "suggestion": "Fix decoder logic to properly handle null keys without converting them to string 'null' or fix test expectations if the new behavior is intended but inconsistent with spec.",
+            "failureAfterChange": "Input: decode a map containing a null key. Expected: empty object or skipped key. Got: object with string key 'null'.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Test expectation updated incorrectly causing plainObject to expect incorrect key String from object key",
+            "severity": "critical",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "The test changed the expected plainObject from {} to having a key '[object Object]' mapping to a number, indicating that the decoding now treats an object key as string '[object Object]', which is incorrect behavior and likely unintended.",
+            "suggestion": "Fix decoder logic to handle object keys correctly, possibly by not allowing them as keys or by using a Map, or revert test if original behavior is preferred.",
+            "failureAfterChange": "Input: decode a map with an object key. Expected: key is not stringified or map keys preserved properly. Got: key '[object Object]' as string in plain object, corrupting data.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

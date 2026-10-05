@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-4",
+  "project": "Hessian.js",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+  "buggySha": "d996501c087a3cecc5ce3e470106ebdb90657ca9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "d16f0577c01839ba538555f121c42f20edc728361d761328be66c99b67de5de6",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "d996501c087a3cecc5ce3e470106ebdb90657ca9",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 111,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/encoder.js",
+        "contentSha256": "e88e806da81116df5681235f3fe039b0ba4190135ce14cad0b88aee57af5d39e"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "52338a1f604c9d5ab739ad5b10708d72c9a80d7510a15e6f1c0ab423acbd46cd"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "e1bdc09f27a821e8fd61f4825a540507fb83a2cd169824ee9164738f89c70292"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "209c85b7914448a48b85c8e6a01c8be9f05c99b89c10c59c01d2827393fae261"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 688,
+      "outputTokens": 0,
+      "totalTokens": 688
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 9627,
+          "outputTokens": 194,
+          "totalTokens": 9821
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of object properties with $class but null $ value in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The patch changes the condition in writeObject to treat objects that have a $class property as string but whose $ property is null or undefined as null values and directly encodes them as null. However, this change impacts serialization of objects like {$class: 'xxx', $: null}, causing them to be serialized as null rather than as an object with a null field. This is not consistent with the expected Hessian behavior and does not support correct object encoding for null-valued properties inside ob",
+            "suggestion": "Remove the added condition checking for is.string(obj.$class) && is.nullOrUndefined(obj.$) in writeObject to prevent improper serialization of such objects as null. Instead, handle null values within the object properties correctly during serialization."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of object properties with $class but null $ value in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The patch changes the condition in writeObject to treat objects that have a $class property as string but whose $ property is null or undefined as null values and directly encodes them as null. However, this change impacts serialization of objects like {$class: 'xxx', $: null}, causing them to be serialized as null rather than as an object with a null field. This is not consistent with the expected Hessian behavior and does not support correct object encoding for null-valued properties inside ob",
+            "suggestion": "Remove the added condition checking for is.string(obj.$class) && is.nullOrUndefined(obj.$) in writeObject to prevent improper serialization of such objects as null. Instead, handle null values within the object properties correctly during serialization."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,34 @@
+{
+  "caseId": "Hexo-8",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect URL resolution for relative image paths in open_graph helper",
+          "severity": "high",
+          "file": "lib/plugins/helper/open_graph.js",
+          "line": 89,
+          "explanation": "The original code used urlFn.resolve to resolve relative image paths against the page URL or site URL, correctly handling cases such as subdirectory hosting and relative paths. The changed code simply prepends the site's base URL to the image path after ensuring it starts with '/', which breaks resolution of relative paths based on the page URL and fails to handle subdirectory base URLs correctly.",
+          "suggestion": "Revert to using urlFn.resolve(url || config.url, path) to correctly resolve relative image paths based on the current page URL or site base URL.",
+          "failureAfterChange": "When the site is hosted in a subdirectory like 'http://example.com/blog/', and the page URL is 'http://example.com/blog/foo/bar/index.html', specifying an image path as 'test.jpg' leads to og:image URL 'http://example.com/blog/test.jpg' instead of the correct 'http://example.com/blog/foo/bar/test.jpg'. This breaks image URLs in Open Graph tags and results in incorrect image display on social platforms.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies a concrete defect introduced by the change. The modified code no longer resolves relative image paths against the current page URL or site base URL, instead just concatenating the site's base URL with the path. This breaks proper URL resolution, especially for sites hosted in subdirectories, causing incorrect Open Graph image URLs. Therefore, the finding should be kept."
+        }
+      ],
+      "usage": {
+        "inputTokens": 1756,
+        "outputTokens": 91,
+        "totalTokens": 1847
+      }
+    }
+  ]
+}

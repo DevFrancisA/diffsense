@@ -1,0 +1,34 @@
+{
+  "caseId": "Hexo-8",
+  "sourceVariant": "dev-forward-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Invalid usage of url.resolve causing incorrect image URL resolution for relative paths",
+          "severity": "high",
+          "file": "lib/plugins/helper/open_graph.js",
+          "line": 90,
+          "explanation": "The change replaces direct string concatenation and modification of the path with url.resolve, which is appropriate. However, the replaced code appears to assume 'path' is a string starting with '/'. The new code uses url.resolve with 'url || config.url' as the base, and 'path' as the relative path. If 'url' (current page URL) includes a full URL ending with 'index.html', url.resolve will correctly resolve relative paths against that. However, the test added sets 'postUrl' with a path ending in ",
+          "suggestion": "Ensure 'url' is correctly set to the full current page URL including path component for resolving relative image paths, or provide a fallback that reflects the current page path relative to config.url.",
+          "failureAfterChange": "Given options.images = 'test.jpg' and current page URL 'http://yoursite.com/blog/foo/bar/index.html', the image URL resolves to 'http://yoursite.com/blog/foo/bar/test.jpg' as expected. But if 'url' is null and config.url is 'http://yoursite.com', it resolves to 'http://yoursite.com/test.jpg', which may be incorrect for pages in subdirectories.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding points out a real issue in how relative image paths are resolved when 'url' is null and only 'config.url' is used, potentially leading to incorrect image URLs for pages in subdirectories. The current code uses url.resolve with 'url || config.url', which may not preserve the correct path context, thus the problem described exists and is introduced or exposed by the change."
+        }
+      ],
+      "usage": {
+        "inputTokens": 1823,
+        "outputTokens": 96,
+        "totalTokens": 1919
+      }
+    }
+  ]
+}

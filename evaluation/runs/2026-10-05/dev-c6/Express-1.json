@@ -1,0 +1,34 @@
+{
+  "caseId": "Express-1",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Duplicate HTTP methods in OPTIONS Allow header",
+          "severity": "medium",
+          "file": "lib/router/index.js",
+          "line": 210,
+          "explanation": "The patch changes the handling of accumulating HTTP methods for OPTIONS requests by pushing all methods directly to the 'options' array without deduplication. Previously, the function 'appendMethods' ensured only unique methods were added, preventing duplicates. The new code may cause duplicate HTTP methods in the 'Allow' header.",
+          "suggestion": "Restore deduplication logic when adding methods for OPTIONS requests to avoid duplicate entries in the 'Allow' header.",
+          "failureAfterChange": "Making an OPTIONS request to a path with multiple route handlers for the same HTTP method returns an 'Allow' header containing duplicate method names, e.g., 'GET,GET' instead of 'GET'.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies a defect introduced by the change. The patch replaces a deduplication function 'appendMethods' with a direct push of methods, which can cause duplicates in the 'options' array. This leads to duplicate HTTP methods in the 'Allow' header for OPTIONS requests, which the code now allows but should not. Therefore, the finding should be kept as it describes a concrete regression introduced by the change."
+        }
+      ],
+      "usage": {
+        "inputTokens": 4120,
+        "outputTokens": 103,
+        "totalTokens": 4223
+      }
+    }
+  ]
+}

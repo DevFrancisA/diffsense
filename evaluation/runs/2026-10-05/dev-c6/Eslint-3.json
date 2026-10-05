@@ -1,0 +1,34 @@
+{
+  "caseId": "Eslint-3",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect handling of TemplateLiteral node in hasNonLiteral",
+          "severity": "high",
+          "file": "lib/rules/prefer-template.js",
+          "line": 34,
+          "explanation": "The function hasNonLiteral now only returns false for Literal nodes but does not consider TemplateLiteral nodes. Previously, TemplateLiteral nodes were considered as literals (i.e., returning false), but the change removed that check. As a result, nodes of type TemplateLiteral will incorrectly return true for hasNonLiteral, affecting the detection logic for string concatenations involving template literals.",
+          "suggestion": "Add back the check for TemplateLiteral node type in hasNonLiteral function to return false for these nodes as well, e.g., change to: return node.type !== \"Literal\" && node.type !== \"TemplateLiteral\";",
+          "failureAfterChange": "For input code using template literals like `var foo = `hello, ${name}!` + 'test';`, the rule incorrectly reports unexpected string concatenation, despite the usage of template literals.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies a defect introduced by the change in the hasNonLiteral function. The removal of the TemplateLiteral check causes the rule to incorrectly classify TemplateLiteral nodes as non-literals, leading to false positives."
+        }
+      ],
+      "usage": {
+        "inputTokens": 1204,
+        "outputTokens": 62,
+        "totalTokens": 1266
+      }
+    }
+  ]
+}

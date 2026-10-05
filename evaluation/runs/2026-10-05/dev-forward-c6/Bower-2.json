@@ -1,0 +1,34 @@
+{
+  "caseId": "Bower-2",
+  "sourceVariant": "dev-forward-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect handling of --saveExact option when saving dependencies in Project.install",
+          "severity": "medium",
+          "file": "lib/core/Project.js",
+          "line": 89,
+          "explanation": "The modified Project.install method now treats --saveExact differently from --save and --saveDev regarding how the dependency version is saved into bower.json. However, the new code incorrectly adds the dependency with the source URL plus '#' plus version, only when saveExact is set, and only adds it to dependencies when save is set. This means if only --saveExact is specified (without save or saveDev), the new entry is not saved to either dependencies or devDependencies, and thus is omitted fro",
+          "suggestion": "Change the logic to ensure that if --saveExact is set, the dependency string is properly saved to dependencies or devDependencies depending on the presence of --save or --saveDev, and when both save and saveDev are false but saveExact is true, still add it sensibly (likely to dependencies).",
+          "failureAfterChange": "Running 'bower install package --save-exact' without --save or --save-dev does not add the package to bower.json dependencies or devDependencies, causing the package not to be saved as expected.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding identifies a concrete defect in how the code incorrectly handles the --saveExact option. Specifically, when only --saveExact is used without --save or --saveDev, the code sets the version string in jsonEndpoint but fails to add this entry to either dependencies or devDependencies in the package's bower.json, resulting in the package not being saved as expected. This defect exists in the changed code and was introduced by the current modifications, so the finding should be kept."
+        }
+      ],
+      "usage": {
+        "inputTokens": 6658,
+        "outputTokens": 115,
+        "totalTokens": 6773
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "caseId": "Bower-3",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect global replacement of '%' placeholder in hook function",
+          "severity": "medium",
+          "file": "lib/core/scripts.js",
+          "line": 86,
+          "explanation": "The change replaces a global regular expression replacement for '%' with a single string replacement. The original code replaced all '%' characters globally, but the new code replaces only the first occurrence. This change could cause problems if the script command string contains multiple '%' placeholders, as only one will be replaced with the ordered package names instead of all.",
+          "suggestion": "Change the replacement back to using a global regex to replace all '%' characters: use new RegExp('%', 'g') as the first argument to mout.string.replace.",
+          "failureAfterChange": "If config.scripts[action] contains more than one '%' character, only the first '%' is replaced with the package list, resulting in incorrect command strings being run and possibly failing scripts.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies that the change replaced a global replacement of '%' with a single replacement, causing only the first '%' character to be replaced. The code after change only replaces the first occurrence, which is a concrete defect if the script string contains multiple '%' placeholders, leading to incorrect script commands being run. This is a valid, concrete defect introduced by the change."
+        }
+      ],
+      "usage": {
+        "inputTokens": 1616,
+        "outputTokens": 91,
+        "totalTokens": 1707
+      }
+    }
+  ]
+}

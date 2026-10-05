@@ -51,3 +51,23 @@ Run the chosen configuration once on HOLDOUT, reversed and forward. Compare it w
 | **Total** | **~310 calls, ~3M tokens** |
 
 The ledger refuses any batch that would pass 1,300 calls or 13M tokens.
+
+## DEV results (logged before any further run)
+
+| DEV | Reversed: found / 59 (run 1) | Forward: cases flagged / 30 | Forward findings | Combined precision |
+|---|---:|---:|---:|---:|
+| C4 | 26 (runs 2-3: 27, 32) | 16 | 22 | 26/48 = 54.2% |
+| C5 | 23 | **6** | 9 | 23/32 = 71.9% |
+| C6 | 23 | 6 | 9 | 23/32 = 71.9% |
+
+- The verifier kept every C5 finding on both arms, so C6 had no effect.
+- C5 cut DEV false-alarm cases from 16 to 6 but **fails the recall floor** (23 < 26).
+- Under the rule above, **C4 stays** among C4–C6.
+- C5 produced only 26 raw findings on the reversed diffs. Its `alreadyFixedByChange` filter dropped just 2 findings near a label. So the recall loss comes from the model reporting less, not from the filter.
+
+## C7 (added after the DEV results above; registered before it runs)
+
+- **C7** = C5 sampled **twice** per diff. The accepted findings of the two samples are united, removing duplicates by file and line.
+- The second sample is a fresh one-run C5 variant (`dev-c5-r2`, `dev-forward-c5-r2`). C5's own eligibility still uses its preregistered run 1.
+- C7 joins the candidate set under the **same selection rule**: the fewest DEV forward cases flagged, with DEV reversed recall ≥ 26/59.
+- Cost: about 60 DEV calls, and about 120 on HOLDOUT if C7 is chosen (two samples on each arm).

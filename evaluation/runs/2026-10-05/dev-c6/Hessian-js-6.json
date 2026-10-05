@@ -1,0 +1,49 @@
+{
+  "caseId": "Hessian-js-6",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 2,
+      "kept": [
+        {
+          "title": "Incorrect filtering of 'this$' properties removed in v1 decoder readObject",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 418,
+          "explanation": "The change removed the check that omitted properties with keys matching /^this\\$\\d+$/ in the readObject method of the v1 decoder. This causes properties like 'this$0' to be included in the decoded object, changing semantics and breaking compatibility with prior expectations and test cases.",
+          "suggestion": "Restore the filtering to exclude keys matching /^this\\$\\d+$/ when reading object properties in v1 decoder readObject.",
+          "failureAfterChange": "Decoding an object with a property named 'this$0' now includes it in the output object, whereas before it was excluded. This breaks backward compatibility and test expectations.",
+          "alreadyFixedByChange": false
+        },
+        {
+          "title": "Incorrect filtering of 'this$' properties removed in v2 decoder readObject",
+          "severity": "high",
+          "file": "lib/v2/decoder.js",
+          "line": 588,
+          "explanation": "Similar to v1, the filter that omitted properties with keys matching /^this\\$\\d+$/ was removed in the v2 decoder's readObject method. This causes properties like 'this$0' to be included in the decoded object, which may break expectations and compatibility.",
+          "suggestion": "Restore the filtering to exclude keys matching /^this\\$\\d+$/ when reading object properties in v2 decoder readObject.",
+          "failureAfterChange": "Decoding an object with a property named 'this$0' in v2 now includes it in the output, potentially breaking compatibility with previous behavior and tests.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding identifies a concrete defect introduced by the change in lib/v1/decoder.js. The removed filtering for keys matching /^this\\$\\d+$/ leads to inclusion of properties like 'this$0' which previously were excluded. This breaks backward compatibility and test expectations, so the finding should be kept."
+        },
+        {
+          "index": 1,
+          "keep": true,
+          "reason": "Similarly, in lib/v2/decoder.js the removal of filtering for keys matching /^this\\$\\d+$/ causes inclusion of these properties in the decoded object, changing the output and breaking compatibility. This is a concrete defect introduced by the change and thus the finding should be kept."
+        }
+      ],
+      "usage": {
+        "inputTokens": 12814,
+        "outputTokens": 151,
+        "totalTokens": 12965
+      }
+    }
+  ]
+}

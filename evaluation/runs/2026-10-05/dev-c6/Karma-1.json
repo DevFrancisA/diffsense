@@ -1,0 +1,34 @@
+{
+  "caseId": "Karma-1",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Incorrect URL_REGEXP removes optional http prefix with localhost",
+          "severity": "medium",
+          "file": "lib/reporter.js",
+          "line": 24,
+          "explanation": "The URL_REGEXP regex was changed from allowing optional 'http://' and optional domain prefix (with '(?:http:\\/\\/[^\\/]*)?\\/?') to requiring 'http://' and a domain name (via 'http:\\/\\/[^\\/]*\\/'). This change breaks matching local URLs (like 'http://localhost/base/...' or 'http://127.0.0.1/base/...') that might not have trailing slashes exactly as assumed, thus breaking the source map path resolution for some stack traces.",
+          "suggestion": "Revert the URL_REGEXP to the previous version that allowed optional 'http://' and optional domain and optional leading slash to correctly match all possible URLs in stack traces.",
+          "failureAfterChange": "Any stack trace string with a URL starting with 'http://localhost/base/file.js:line:column' will not be matched and thus won't be rewritten to source-map original positions, causing less informative error messages.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding correctly identifies that the URL_REGEXP was changed from an optional 'http://' and optional host prefix to a required 'http://' plus host prefix. This regex change can cause failures to match URLs from localhost or other hosts, breaking source map rewriting functionality. The problem is concrete and exists in the changed code."
+        }
+      ],
+      "usage": {
+        "inputTokens": 1746,
+        "outputTokens": 82,
+        "totalTokens": 1828
+      }
+    }
+  ]
+}

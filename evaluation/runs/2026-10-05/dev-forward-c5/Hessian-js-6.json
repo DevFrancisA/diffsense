@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-6",
+  "project": "Hessian.js",
+  "bugId": 6,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "bd14cde77ed746286fbef304076d56c8b37547ff",
+  "buggySha": "4c439be9f4cd477d47f3bd28946cb055fba4432b",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "00e3642efc2eda4ab9fbcae66efd6811c3a5b74e346da892cf8d511e2acf2965",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "4c439be9f4cd477d47f3bd28946cb055fba4432b",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 116,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "6f514150655976aaaf460d7a3ef5ecde69adc7a9d68792f1f2aad1e38ac4cbb4"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "c3bc4b6ef4518f902e19c347b79dc9b8dc21a52c57016361cffcea3f3109535c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "4a9703ac11552bdc7ffdb82af37418dcbe06c18497770ffab24bce2fdcf1481c"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "16eda6809ee9d217fdc65fb0872699e4eece5c25027c25fce173a68105e25346"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "1b60f0939db787736884fa24902af3cb1a26dd27ac585d86ebae1007056ae3c5"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "f08d670adda905f09c18b21d33966da937f6d9b816d9bc8af76323690283edda"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 17752,
+          "outputTokens": 304,
+          "totalTokens": 18056
+        },
+        "rawFindings": [
+          {
+            "title": "Missing read invocation for object property value in v1 readObject",
+            "severity": "critical",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In v1 decoder's readObject, the code reads a key but does not read the corresponding value before setting the property, causing key and value mismatch and potential decoding errors.",
+            "suggestion": "Add invocation of this.read(withType) to obtain the value corresponding to the key before updating the result object.",
+            "failureAfterChange": "Decoding a v1 object with properties will throw an error or produce incorrect deserialization because values are not read properly (e.g., object keys will be assigned invalid or undefined values).",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Missing read invocation for object field value in v2 readObject",
+            "severity": "critical",
+            "file": "lib/v2/decoder.js",
+            "line": 588,
+            "explanation": "In v2 decoder's readObject method, when reading object fields, the code reads the field name but fails to read its value from the buffer before setting the property. This leads to incorrect or missing values in the decoded object.",
+            "suggestion": "Read the field's value using this.read(withType) and assign it to the corresponding property instead of calling this.read twice or assigning incorrectly.",
+            "failureAfterChange": "Attempting to decode a Hessian v2 object with fields results in incorrect property values or reading errors since values are not properly read from the buffer.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

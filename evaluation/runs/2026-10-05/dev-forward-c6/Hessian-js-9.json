@@ -1,0 +1,34 @@
+{
+  "caseId": "Hessian-js-9",
+  "sourceVariant": "dev-forward-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Missing string conversion for map keys in readObject method",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 415,
+          "explanation": "In the readObject function, the property name 'key' is used as an object key without being converted to string. Hessian map keys can be non-string types (e.g., integers, null), and using them as object keys without string conversion can lead to incorrect decoding results or unexpected behavior.",
+          "suggestion": "Convert the 'key' to string before using it as an object key, for example, add 'key = key.toString();' before assigning 'result.$[key] = this.read(withType);'.",
+          "failureAfterChange": "Decoding a hessian map with a key of null will result in a property key 'null' as string in the object, but without the fix, it may lead to incorrect behavior or an error.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding points out a concrete defect in the code: the key used as an object property is not converted to string in readObject method. The code comment acknowledges string conversion is needed but the actual conversion line is missing, which may cause issues when the key is non-string, such as null. The supplied test shows decoding with a null key results in string 'null', which would fail without conversion. Thus, the finding correctly identifies a missing conversion defect introduced or unresolved in the current code."
+        }
+      ],
+      "usage": {
+        "inputTokens": 4393,
+        "outputTokens": 117,
+        "totalTokens": 4510
+      }
+    }
+  ]
+}

@@ -50,6 +50,10 @@ const configs = [
   ["HOLDOUT", "C3", "results-holdout-final.json"],
   ["HOLDOUT", "baseline + remap", "results-holdout-baseline-remap.json"],
   ["HOLDOUT", "C4 (final)", "results-holdout-final-c4.json"],
+  ["DEV", "C5 (post-change)", "results-dev-c5.json"],
+  ["DEV", "C6 (C5 + verifier)", "results-dev-c6.json"],
+  ["HOLDOUT", "C5 (post-change)", "results-holdout-c5.json"],
+  ["HOLDOUT", "C6 (C5 + verifier)", "results-holdout-c6.json"],
 ] as const;
 const loaded = new Map<string, Run[]>();
 const rows: Record<string, unknown>[] = [];
@@ -146,8 +150,17 @@ for (const pair of pairs) {
 }
 
 const falseAlarms: Record<string, unknown>[] = [];
-lines.push("", "| Forward-fix arm (HOLDOUT, correct code) | Cases flagged | Cases flagged on source | Findings (source / test) |", "|---|---|---|---|");
-for (const [label, file] of [["baseline", "falsealarms-holdout-forward-baseline.json"], ["final (C4)", "falsealarms-holdout-forward-final.json"]]) {
+const forwardFiles = [
+  ["HOLDOUT baseline", "falsealarms-holdout-forward-baseline.json", "results-holdout-baseline.json"],
+  ["HOLDOUT C4", "falsealarms-holdout-forward-final.json", "results-holdout-final-c4.json"],
+  ["HOLDOUT C5", "falsealarms-holdout-forward-c5.json", "results-holdout-c5.json"],
+  ["HOLDOUT C6", "falsealarms-holdout-forward-c6.json", "results-holdout-c6.json"],
+  ["DEV C4", "falsealarms-dev-forward-c4.json", "results-dev-c4.json"],
+  ["DEV C5", "falsealarms-dev-forward-c5.json", "results-dev-c5.json"],
+  ["DEV C6", "falsealarms-dev-forward-c6.json", "results-dev-c6.json"],
+] as const;
+lines.push("", "| Forward-fix arm (correct code) | Cases flagged | Cases flagged on source | Findings (source / test) |", "|---|---|---|---|");
+for (const [label, file] of forwardFiles) {
   const path = join(root, file);
   if (!existsSync(path)) continue;
   const { summary: raw } = JSON.parse(readFileSync(path, "utf8")) as { summary: { cases: number; casesReviewed: number; casesFlagged: number; casesFlaggedOnSource: number; findings: number; sourceFindings: number; testFindings: number } };
@@ -157,5 +170,19 @@ for (const [label, file] of [["baseline", "falsealarms-holdout-forward-baseline.
   lines.push(`| ${label} | ${summary.casesFlagged}/${summary.cases} = ${rate(summary.casesFlagged, summary.cases)} | ${summary.casesFlaggedOnSource}/${summary.cases} = ${rate(summary.casesFlaggedOnSource, summary.cases)} | ${summary.findings} (${summary.sourceFindings} / ${summary.testFindings}) |`);
 }
 
-writeFileSync(join(root, "comparison.json"), `${JSON.stringify({ interval: "Wilson score, 95%", bootstrap: "10,000 case resamples, seed 20261005, percentile", rows, pairs, falseAlarms }, null, 2)}\n`, "utf8");
+// Combined precision (evaluation/ROUND3.md): labelled ranges found on the reversed diffs, over every accepted finding on
+// the reversed diffs (run 1) plus every accepted finding on the correct forward fixes.
+const combined: Record<string, unknown>[] = [];
+lines.push("", "| Config (run 1) | Found (bug diffs) | Findings on bug diffs | Findings on correct fixes | Combined precision (Wilson 95%) |", "|---|---:|---:|---:|---|");
+for (const [label, forwardFile, reversedFile] of forwardFiles) {
+  const run = loaded.get(reversedFile)?.[0];
+  if (!run || !existsSync(join(root, forwardFile))) continue;
+  const forwardFindings = (JSON.parse(readFileSync(join(root, forwardFile), "utf8")) as { summary: { findings: number } }).summary.findings;
+  const found = run.metrics.assistedDefectsFound;
+  const total = run.metrics.findings.assisted + forwardFindings;
+  combined.push({ label, found, reversedFindings: run.metrics.findings.assisted, forwardFindings, combinedPrecision: total ? found / total : null, wilson: wilson(found, total) });
+  lines.push(`| ${label} | ${found} | ${run.metrics.findings.assisted} | ${forwardFindings} | ${rate(found, total)} |`);
+}
+
+writeFileSync(join(root, "comparison.json"), `${JSON.stringify({ interval: "Wilson score, 95%", bootstrap: "10,000 case resamples, seed 20261005, percentile", rows, pairs, falseAlarms, combined }, null, 2)}\n`, "utf8");
 console.log(lines.join("\n"));

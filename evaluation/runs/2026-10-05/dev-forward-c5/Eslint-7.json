@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-7",
+  "project": "Eslint",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "09594ef29673c206641d291ff5d0f45c6e03716b",
+  "buggySha": "311295c6f8867b83263a9fe8744809b0c56b8c28",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1eebbc47de305d71c158cb71b2a6594234e58fe9d23830a785fde862b641a05b",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "311295c6f8867b83263a9fe8744809b0c56b8c28",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 111,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "e7239a2989af980db3b54db2bbf2ad5c54b6afe2dc7072c26f52d5b191b4b31c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/rules/comma-dangle.js",
+        "contentSha256": "36bcf0bc107a79596443200663ea3ce368661694b157c19ddd2520fd4cfb616d"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "1ba80027c7817a8ecdf4233790eb60c5212186b564b8a42ab9af47e391992e12"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "00cd6a559616a267da5a5cff7904f031ed5b6b4c275654c1c1a0ce3e7c95bc0b"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "c4eed0ad1fd072e94eb880efa64242188eaeba21d252a8d75d911d8ad5fedde1"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "3b403ee7e13deb3e3ada242bbd377577877e19705c238a1080bec38129b9d58d"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "f97c8f20d28a031fc8d6a7ef368d17225f1a131b8fec0184d15c27f86e68d139"
+      },
+      {
+        "path": "lib/rules/comma-spacing.js",
+        "contentSha256": "76b5fef49b7ffe70b08031fdb3b8e40712f6cf0f317e6228d11c5558037d2bb2"
+      },
+      {
+        "path": "lib/rules/dot-location.js",
+        "contentSha256": "faac2349c32780d387546b5b259f997b09453086d31f0a284ce7ef46904890dc"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5847,
+          "outputTokens": 214,
+          "totalTokens": 6061
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect trailing comma detection on multiline objects and arrays",
+            "severity": "medium",
+            "file": "lib/rules/comma-dangle.js",
+            "line": 42,
+            "explanation": "The updated rule logic calculates whether the penultimate token (comma) is on a new line relative to the node's end line, but this does not account correctly for all multiline cases resulting in reporting unexpected trailing commas in valid multiline structures (e.g., trailing commas allowed but nodeIsMultiLine replaced with lastTokenOnNewLine check).",
+            "suggestion": "Restore or adjust the check to base conditions on nodeIsMultiLine (node start line vs end line) instead of lastTokenOnNewLine, ensuring the rule correctly handles trailing commas on multiline objects and arrays per the 'always-multiline' option.",
+            "failureAfterChange": "Input: a multiline object or array with a trailing comma as allowed by 'always-multiline' option.\nResult: The rule incorrectly reports an 'Unexpected trailing comma.' error for valid code.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect trailing comma detection on multiline objects and arrays",
+            "severity": "medium",
+            "file": "lib/rules/comma-dangle.js",
+            "line": 42,
+            "explanation": "The updated rule logic calculates whether the penultimate token (comma) is on a new line relative to the node's end line, but this does not account correctly for all multiline cases resulting in reporting unexpected trailing commas in valid multiline structures (e.g., trailing commas allowed but nodeIsMultiLine replaced with lastTokenOnNewLine check).",
+            "suggestion": "Restore or adjust the check to base conditions on nodeIsMultiLine (node start line vs end line) instead of lastTokenOnNewLine, ensuring the rule correctly handles trailing commas on multiline objects and arrays per the 'always-multiline' option.",
+            "failureAfterChange": "Input: a multiline object or array with a trailing comma as allowed by 'always-multiline' option.\nResult: The rule incorrectly reports an 'Unexpected trailing comma.' error for valid code.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

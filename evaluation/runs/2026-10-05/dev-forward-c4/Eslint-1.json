@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-1",
+  "project": "Eslint",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+  "buggySha": "4742d82ee9daf68c9095c283ce1d0dab42fe9e32",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "cf0c6cb6e9ecc13ce6813a30fe934e3ae80aed8e8a557de0cc3c4a32cdbb7a9c",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "4742d82ee9daf68c9095c283ce1d0dab42fe9e32",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 186,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/no-obj-calls.js",
+        "contentSha256": "0d00f58e530378c673c64e26ab379cf358f451d8c6a5a608cb60528039b364f3"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "9a1a1acbf3ce16cc62f5738cd32f9cc508ac9438acda90570cfb883000eae163"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "5e883404183491b59413b544e673370bef9d02452603b6e9f3f1655ef0092a1d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2184d0c36ae059355db97131389723026e255863e2eae47fde6fb8f1e2ba9ff1"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "6ba4794bb0193119faf1cd4da7453c3aa438f0ce28a9d6504f184ac4d6526880"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bac555b5b248028f13a5e4d88551658fb6a52f234ef1467d311ded0ce5b4ce83"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "f6b680b4efd4cbc127df6854f7061e53f55c553079ec944d6910e04b7ef19e74"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "7d0680761a3e53c42cea61ddbf2b2aa9def4d2d5501ae19d903cb46daa569d69"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 594,
+      "outputTokens": 0,
+      "totalTokens": 594
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 5971,
+          "outputTokens": 6,
+          "totalTokens": 5977
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

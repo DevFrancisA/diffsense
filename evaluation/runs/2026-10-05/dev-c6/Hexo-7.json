@@ -1,0 +1,34 @@
+{
+  "caseId": "Hexo-7",
+  "sourceVariant": "dev-c5",
+  "verifierPromptHash": "472a2a52375e0f9126528beb064c96ada4824a0a33e9b0a9f3827254d4b7b7a4",
+  "runs": [
+    {
+      "input": 1,
+      "kept": [
+        {
+          "title": "Insecure HTML Extraction Leading to Unescaped Content in TOC",
+          "severity": "high",
+          "file": "lib/plugins/helper/toc.js",
+          "line": 28,
+          "explanation": "This change removes escaping of heading text in the table of contents helper by replacing `_.escape($(this).text())` with `$(this).html()`. Using `html()` directly inserts raw HTML from headings into the TOC output, which can lead to cross-site scripting (XSS) if the headings contain malicious HTML or scripts. Previously, escaping text ensured safe output by converting special characters to HTML entities.",
+          "suggestion": "Restore escaping for the heading text to prevent XSS. Replace line 29 with `var text = _.escape($(this).text());` after re-adding the lodash require statement at top of file.",
+          "failureAfterChange": "When rendering a markdown document with headings that contain HTML or JavaScript code, the TOC helper outputs that code unescaped as raw HTML, leading to potential XSS vulnerabilities in the generated HTML.",
+          "alreadyFixedByChange": false
+        }
+      ],
+      "verdicts": [
+        {
+          "index": 0,
+          "keep": true,
+          "reason": "The finding describes a concrete security defect introduced by the change: the removal of escaping on heading text in the TOC helper. The code now inserts raw HTML from headings into the TOC output, causing potential XSS vulnerabilities, as the finding correctly explains. This problem exists in the supplied code after the change, and the change introduced it by removing escaping and lodash dependency."
+        }
+      ],
+      "usage": {
+        "inputTokens": 1415,
+        "outputTokens": 93,
+        "totalTokens": 1508
+      }
+    }
+  ]
+}
