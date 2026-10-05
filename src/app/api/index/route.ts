@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getOpenAIClient } from "@/lib/server/ai";
 import { indexRepository } from "@/lib/server/context";
-import { getPullRequestHeadSha, parseGitHubSource } from "@/lib/server/github";
+import { getPullRequestMergeBase, parseGitHubSource } from "@/lib/server/github";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -14,7 +14,8 @@ export async function POST(request: Request) {
     const body = requestSchema.parse(await request.json());
     const source = parseGitHubSource(body.sourceUrl);
     getOpenAIClient();
-    const ref = body.ref ?? (source.pullNumber ? await getPullRequestHeadSha(source) : undefined);
+    // A pull request is indexed at its merge-base (pre-change side), the commit its review context must come from.
+    const ref = body.ref ?? (source.pullNumber ? await getPullRequestMergeBase(source) : undefined);
     const result = await indexRepository(source.owner, source.repository, ref);
     return NextResponse.json(result);
   } catch (error) {

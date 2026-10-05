@@ -57,12 +57,16 @@ export async function getPullRequestDiff(source: GitHubSource) {
   return diff;
 }
 
-export async function getPullRequestHeadSha(source: GitHubSource) {
-  if (!source.pullNumber) throw new Error("A pull request URL is required to resolve its head commit.");
-  const url = `https://api.github.com/repos/${encodeURIComponent(source.owner)}/${encodeURIComponent(source.repository)}/pulls/${source.pullNumber}`;
-  const response = await githubFetch(url);
-  const pullRequest = (await response.json()) as { head: { sha: string } };
-  return pullRequest.head.sha;
+/**
+ * The pull request's merge-base: the commit its diff applies to. Reviews read repository context and full changed files at
+ * this pre-change commit, matching how the benchmark was measured.
+ */
+export async function getPullRequestMergeBase(source: GitHubSource) {
+  if (!source.pullNumber) throw new Error("A pull request URL is required to resolve its merge-base.");
+  const repo = `https://api.github.com/repos/${encodeURIComponent(source.owner)}/${encodeURIComponent(source.repository)}`;
+  const pullRequest = (await (await githubFetch(`${repo}/pulls/${source.pullNumber}`)).json()) as { base: { sha: string }; head: { sha: string } };
+  const comparison = (await (await githubFetch(`${repo}/compare/${pullRequest.base.sha}...${pullRequest.head.sha}`)).json()) as { merge_base_commit: { sha: string } };
+  return comparison.merge_base_commit.sha;
 }
 
 export async function getRepositoryTree(owner: string, repository: string, ref?: string) {

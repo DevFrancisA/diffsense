@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getOpenAIClient } from "@/lib/server/ai";
-import { retrieveRepositoryContext } from "@/lib/server/context";
-import { getPullRequestDiff, parseGitHubSource } from "@/lib/server/github";
-import { getAddedLines, reviewDiff } from "@/lib/server/review";
+import { getIndexedCommit } from "@/lib/server/context";
+import { getPullRequestDiff, getPullRequestMergeBase, parseGitHubSource } from "@/lib/server/github";
+import { getAddedLines, reviewDiffDetailed } from "@/lib/server/review";
+import { appReviewConfig, buildReviewContext } from "@/lib/server/review-pipeline";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -11,6 +12,7 @@ export const maxDuration = 90;
 const requestSchema = z.object({
   diff: z.string().max(500_000).optional(),
   pullRequestUrl: z.string().url(),
+  skipTestFiles: z.boolean().optional(),
 });
 
 export async function POST(request: Request) {
@@ -27,19 +29,41 @@ export async function POST(request: Request) {
     if (addedLines.length === 0) return NextResponse.json({ error: "No added lines were found in the unified diff." }, { status: 400 });
 
     getOpenAIClient();
-    const repository = `${source.owner}/${source.repository}`.toLowerCase();
-    const context = await retrieveRepositoryContext(repository, diff);
-    if (context.length === 0) {
+    const repositoryKey = `${source.owner}/${source.repository}`.toLowerCase();
+    const indexedCommit = await getIndexedCommit(repositoryKey);
+    if (!indexedCommit) {
+      return NextResponse.json(
+        { error: "No repository context is indexed yet. Index this GitHub repository, then run the review again." },
+        { status: 409 },
+      );
+    }
+    // Context and full changed files must come from the diff's pre-change side, as in the benchmark.
+    if (source.pullNumber) {
+      const mergeBase = await getPullRequestMergeBase(source);
+      if (mergeBase !== indexedCommit) {
+        return NextResponse.json(
+          { error: `The index is at ${indexedCommit.slice(0, 7)}, but this pull request's merge-base is ${mergeBase.slice(0, 7)}. Index the pull request again, then review.` },
+          { status: 409 },
+        );
+      }
+    }
+
+    const config = appReviewConfig(body.skipTestFiles ?? true);
+    const built = await buildReviewContext({ owner: source.owner, repository: source.repository, repositoryKey, baseCommit: indexedCommit, diff, config });
+    if (built.chunks.length === 0) {
       return NextResponse.json(
         { error: "No repository context is indexed yet. Index this GitHub repository, then run the review again." },
         { status: 409 },
       );
     }
 
-    const review = await reviewDiff(diff, addedLines, context);
+    const review = await reviewDiffDetailed(diff, addedLines, built.context, undefined, config.promptRevision, config.acceptance);
     return NextResponse.json({
-      ...review,
-      contextUsed: context.length,
+      findings: review.findings,
+      model: review.model,
+      contextUsed: built.chunks.length,
+      changedFilesIncluded: built.changedFiles.length,
+      contextCommit: indexedCommit,
       durationMs: Date.now() - startedAt,
     });
   } catch (error) {

@@ -190,3 +190,10 @@ export async function getChangedFileContext(owner: string, repository: string, c
   }
   return files;
 }
+
+/** The single commit the repository is currently indexed at, or null when nothing is indexed. */
+export async function getIndexedCommit(repository: string) {
+  const pool = await ensureDatabaseSchema();
+  const result = await pool.query<{ commit_sha: string }>("SELECT DISTINCT commit_sha FROM repository_chunks WHERE repository = $1", [repository]);
+  return result.rows.length === 1 ? result.rows[0].commit_sha : null;
+}

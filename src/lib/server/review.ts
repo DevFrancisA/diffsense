@@ -134,11 +134,6 @@ type ReviewFinding = {
   suggestion: string;
 };
 
-export async function reviewDiff(diff: string, addedLines: AddedLine[], context: { path: string; content: string }[]) {
-  const result = await reviewDiffDetailed(diff, addedLines, context);
-  return { findings: result.findings, model: result.model };
-}
-
 const baselineSystemPrompt = "You are a conservative senior code reviewer. Report only concrete defects introduced by this change. Use the supplied repository context to verify behavior. Do not report style preferences, speculative concerns, or issues already present. Each finding must cite an added line from the diff and propose a concise fix. If no actionable defect is supported, return an empty findings array.";
 
 // Every revision keeps the baseline text verbatim; revisions only append. See evaluation/IMPROVEMENTS.md.
