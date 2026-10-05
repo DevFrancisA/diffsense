@@ -1,0 +1,257 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "holdout-forward-m55",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "models": {
+    "review": "gpt-5.5",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 6,
+    "casesFlaggedOnSource": 6,
+    "findings": 6,
+    "sourceFindings": 6,
+    "testFindings": 0
+  },
+  "cases": [
+    {
+      "caseId": "Eslint-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Same-line leading comments now suppress `multi-or-nest` brace removal",
+          "severity": "low",
+          "file": "lib/rules/curly.js",
+          "line": 295,
+          "explanation": "This treats any leading comment on the single statement as requiring braces. For a collapsed one-line body such as `if (foo) { /* note */ bar(); }`, the body is still single-line and non-nested, but the block comment is a leading comment for `bar()`, so the rule no longer reports the unnecessary braces under `multi-or-nest`.",
+          "suggestion": "Only require braces for leading comments that make the body span multiple lines, e.g. check the comment/statement line numbers instead of `leadingComments.length > 0`.",
+          "failureAfterChange": "With config `{ \"curly\": [\"error\", \"multi-or-nest\"] }`, linting `if (foo) { /* note */ bar(); }` produces no error, although this is a single-line non-nested body whose braces should be reported as unnecessary.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-14",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-16",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-8",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Nested middleware arrays starting with an empty array are now misclassified as a path",
+          "severity": "medium",
+          "file": "lib/application.js",
+          "line": 169,
+          "explanation": "This broader path-detection condition treats any non-function first leaf as a mount path. For a valid middleware array such as `app.use([[], mw])`, the first leaf after unwrapping is an empty array, so the whole first argument is treated as the path and skipped from the middleware list, leaving no middleware functions to register.",
+          "suggestion": "Keep the previous empty-array disambiguation while special-casing empty string paths, e.g. `if (typeof arg !== 'function' && (arg === '' || arg == null || arg.length !== 0)) { ... }`.",
+          "failureAfterChange": "Calling `app.use([[], function (req, res) { res.end('ok') }])` now throws `TypeError: app.use() requires middleware functions` during setup instead of registering the middleware and responding `ok` to `GET /`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-11",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Paginator crashes when called without a page object",
+          "severity": "medium",
+          "file": "lib/plugins/helper/paginator.js",
+          "line": 7,
+          "explanation": "The helper now dereferences `this.page.current` while computing defaults. If the helper is invoked in a context that has no `page` object and no explicit `current` option, it throws before reaching the new `if (!current) return ''` guard.",
+          "suggestion": "Default `this.page` before reading from it, e.g. `var page = this.page || {}; var current = options.current || page.current || 0; var total = options.total || page.total || 1;`.",
+          "failureAfterChange": "Calling `paginatorHelper.call({url_for: function(p){ return p; }}, {})` now throws `TypeError` instead of returning an empty string for missing current page.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-11",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Extglob operators @() and ?() are not stripped when choosing the watched directory",
+          "severity": "medium",
+          "file": "lib/watcher.js",
+          "line": 12,
+          "explanation": "The new extglob handling only recognizes `!(` and `+(`. Minimatch also supports `@(...)` and `?(...)`; those patterns used to be stripped by the previous `(` check, but now `baseDirFromPattern` leaves the extglob segment in the path. That makes `watchPatterns` add a glob/nonexistent path instead of the stable parent directory, so new matching files can be missed.",
+          "suggestion": "Include the remaining extglob operators when stripping extglob segments, e.g. handle `[!+@?](` (with proper escaping) in addition to the existing `*` handling.",
+          "failureAfterChange": "With a watched pattern like `/project/src/@(foo|bar).js` or `/project/src/?(foo|bar).js`, `baseDirFromPattern` returns the full pattern instead of `/project/src`, so `watchPatterns` calls `watcher.add` with `/project/src/@(foo|bar).js` or `/project/src/?(foo|bar).js`; creating `/project/src/foo.js` later is not watched from the parent directory.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-11",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Compiling a schema as a model leaks the version key into embedded uses of the same schema",
+          "severity": "medium",
+          "file": "lib/model.js",
+          "line": 1960,
+          "explanation": "`schema.add(o)` mutates the original Schema object during model compilation. If that same Schema object is also used as an embedded/document-array schema, compiling a top-level model from it adds `__v` to the embedded schema too, despite the intended behavior that versioning is only for top-level documents.",
+          "suggestion": "Avoid mutating the shared schema object when adding the model-only version path; add the version path to a model-specific schema clone or otherwise exclude schemas when used as embedded schemas.",
+          "failureAfterChange": "Given `var child = new Schema({ name: String }); mongoose.model('Child', child); var Parent = mongoose.model('Parent', new Schema({ children: [child] }));`, `new Parent({ children: [{ name: 'a', __v: 7 }] }).children[0].__v` is accepted/preserved, but embedded children should not have a version key.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Lean propagation persists on reused queries",
+          "severity": "low",
+          "file": "lib/query.js",
+          "line": 1769,
+          "explanation": "This assignment mutates the populate option objects stored on the query. After one execution with `lean` enabled, those populate options keep `options.lean = true`, so later executions of the same query cannot turn lean population back off.",
+          "suggestion": "Clone each populate option (including its nested `options`) before setting `lean`, and pass the cloned array to `model.populate()` instead of mutating `query.options.populate`.",
+          "failureAfterChange": "`var q = BlogPost.findOne().populate('fans').lean(); q.exec(cb1); q.lean(false).exec(cb2);` In `cb2`, `fans[0]` is still a plain object without document methods such as `update`, even though the query was changed to non-lean before the second execution.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Node-redis-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Node-redis-4",
+      "skipped": null,
+      "findings": []
+    }
+  ]
+}

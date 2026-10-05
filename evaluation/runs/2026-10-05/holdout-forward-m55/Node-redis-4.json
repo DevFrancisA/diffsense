@@ -84,8 +84,20 @@
     }
   },
   "arms": {
-    "withContext": [],
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 12708,
+          "outputTokens": 293,
+          "totalTokens": 13001
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
     "withoutContext": null
   },
-  "complete": false
+  "complete": true
 }

@@ -2,12 +2,12 @@
   "session": "session-2",
   "callLimit": 2500,
   "tokenLimit": 25000000,
-  "reservedCalls": 1522,
-  "completedCalls": 1512,
-  "estimatedInputTokens": 15390964,
-  "observedInputTokens": 10799151,
-  "observedOutputTokens": 388183,
-  "observedTotalTokens": 11187334,
+  "reservedCalls": 1523,
+  "completedCalls": 1513,
+  "estimatedInputTokens": 15410335,
+  "observedInputTokens": 10811859,
+  "observedOutputTokens": 388476,
+  "observedTotalTokens": 11200335,
   "byLabel": {
     "regressions/index_embeddings": {
       "calls": 1,
@@ -194,8 +194,8 @@
       "totalTokens": 350148
     },
     "benchmark/holdout-forward-m55/review_response": {
-      "calls": 29,
-      "totalTokens": 355790
+      "calls": 30,
+      "totalTokens": 368791
     }
   },
   "log": [
@@ -24300,6 +24300,22 @@
       "label": "benchmark/holdout-forward-m55/review_response",
       "calls": 1,
       "estimatedTokens": 19371
+    },
+    {
+      "at": "2026-10-05T22:40:44.419Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 19371
+    },
+    {
+      "at": "2026-10-05T22:40:50.902Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12708,
+        "outputTokens": 293,
+        "totalTokens": 13001
+      }
     }
   ]
 }
