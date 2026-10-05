@@ -20,8 +20,9 @@ For each candidate, inspect the Git diff from the fixing commit to its first par
 
 1. The fix changes 1 to 3 non-test JavaScript source files (`.js`, `.jsx`, `.mjs`, or `.cjs`).
 2. At least one changed path is a non-test source file. Test files/directories, documentation files/directories, and configuration-only files do not count as source files. A fix that changes only tests, only documentation, or only configuration is excluded.
-3. The complete fix diff changes at most 150 lines, counting both additions and deletions across source, tests, documentation, and configuration.
-4. The project has fewer than six previously selected bugs.
+3. Reversing the fix produces at least one added line in an eligible non-test source file, so the known defect has a non-empty line-range label.
+4. The complete fix diff changes at most 150 lines, counting both additions and deletions across source, tests, documentation, and configuration.
+5. The project has fewer than six previously selected bugs.
 
 Test paths include `test/`, `tests/`, `__tests__/`, and filenames ending in `.test.*` or `.spec.*`. Documentation paths include `docs/`, `doc/`, and Markdown, reStructuredText, and plain-text documentation files. Configuration-only paths include JSON, YAML, TOML, INI, lockfiles, dotfiles, and conventional `*config*` files. Source eligibility is restricted to the JavaScript extensions above and excludes generated, vendor, and dependency directories (`dist/`, `build/`, `vendor/`, and `node_modules/`).
 
@@ -29,7 +30,7 @@ Record each inspected rejected candidate and every applicable exclusion reason. 
 
 ## Single fallback if needed
 
-If fewer than 30 candidates pass the initial rules, relax only the complete-diff size cap from 150 to 200 changed lines and re-scan in the same order. Keep the file-count, source classification, project cap, and cohort-size rules unchanged. Record the fallback and all additional candidate decisions in the manifest. If that still yields fewer than 30, stop and report the shortfall rather than relaxing another rule.
+If fewer than 30 candidates pass the initial rules, relax only the complete-diff size cap from 150 to 200 changed lines and re-scan in the same order. Keep the file-count, source classification, non-empty label, project cap, and cohort-size rules unchanged. Record the fallback and all additional candidate decisions in the manifest. If that still yields fewer than 30, stop and report the shortfall rather than relaxing another rule.
 
 ## Label construction
 
