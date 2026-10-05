@@ -91,7 +91,14 @@ export async function generateRegressionPlan(diff: string, context: { path: stri
   };
   await budget?.recordUsage("test_plan", usage);
   if (!response.output_text) throw new Error("The model returned no regression test plan.");
-  const plan = planSchema.parse(JSON.parse(response.output_text));
-  validatePlanTargets(plan.scenarios);
+  let plan: RegressionPlan;
+  try {
+    plan = planSchema.parse(JSON.parse(response.output_text));
+    validatePlanTargets(plan.scenarios);
+  } catch (error) {
+    // Keep the rejected model output so callers that audit generation (the regression harness) can store it.
+    if (error && typeof error === "object") Object.assign(error, { rejectedOutput: response.output_text });
+    throw error;
+  }
   return { plan, usage, model: process.env.OPENAI_REVIEW_MODEL ?? "gpt-4.1-mini", promptHash: testPlanPromptHash };
 }

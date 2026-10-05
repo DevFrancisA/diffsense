@@ -62,8 +62,8 @@ function credentialFreeEnv(port?: number) {
 }
 
 function run(command: string, args: string[], cwd: string, env: NodeJS.ProcessEnv = credentialFreeEnv()) {
-  // npm/npx are .cmd shims on Windows and need a shell; git must not use one because paths contain spaces.
-  const result = spawnSync(command, args, { cwd, env, encoding: "utf8", shell: isWindows && command !== "git", maxBuffer: 64 * 1024 * 1024 });
+  // Only npm (a .cmd shim on Windows) needs a shell; everything else is spawned directly, since paths contain spaces.
+  const result = spawnSync(command, args, { cwd, env, encoding: "utf8", shell: isWindows && command === "npm", maxBuffer: 64 * 1024 * 1024 });
   return { ok: result.status === 0, output: `${result.stdout ?? ""}${result.stderr ?? ""}` };
 }
 
@@ -82,8 +82,10 @@ function prepareWorktree(name: string, base: string) {
   return directory;
 }
 
+const nextBin = (directory: string) => join(directory, "node_modules", "next", "dist", "bin", "next");
+
 function build(directory: string) {
-  return run("npx", ["next", "build"], directory);
+  return run(process.execPath, [nextBin(directory), "build"], directory);
 }
 
 async function waitForServer(port: number, timeoutMs = 60_000) {
@@ -101,7 +103,7 @@ async function waitForServer(port: number, timeoutMs = 60_000) {
 }
 
 function startServer(directory: string, port: number) {
-  return spawn("npx", ["next", "start", "-p", String(port)], { cwd: directory, env: credentialFreeEnv(port), shell: isWindows, stdio: "ignore" });
+  return spawn(process.execPath, [nextBin(directory), "start", "-p", String(port)], { cwd: directory, env: credentialFreeEnv(port), stdio: "ignore" });
 }
 
 function stopServer(server: ChildProcess | null) {
@@ -139,8 +141,9 @@ function classifyTest(result: JsonResult): Omit<TestRecord, "title"> {
 
 function runPlan(planPath: string, port: number): PlanRun {
   const env = { ...credentialFreeEnv(), CI: "1", PLAYWRIGHT_BASE_URL: `http://127.0.0.1:${port}`, DIFFSENSE_TEST_PLAN: planPath } as NodeJS.ProcessEnv;
-  const result = spawnSync("npx", ["playwright", "test", "tests/generated-plan.spec.ts", "--retries=0", "--workers=1", "--reporter=json"], {
-    cwd: root, env, encoding: "utf8", shell: isWindows, maxBuffer: 64 * 1024 * 1024,
+  const playwrightCli = join(root, "node_modules", "@playwright", "test", "cli.js");
+  const result = spawnSync(process.execPath, [playwrightCli, "test", "tests/generated-plan.spec.ts", "--retries=0", "--workers=1", "--reporter=json"], {
+    cwd: root, env, encoding: "utf8", maxBuffer: 64 * 1024 * 1024,
   });
   let report: { suites: JsonSuite[] };
   try {
@@ -244,7 +247,11 @@ async function main() {
       const diff = readFileSync(patchPath, "utf8").trim();
       const planPath = join(plansRoot, `${scenario.id}.json`);
       let planInfo: ScenarioRecord["plan"];
-      try {
+      const savedPlan = readJson<{ plan: { scenarios: { steps: unknown[] }[] }; info: ScenarioRecord["plan"] }>(`${planPath}.meta`);
+      if (savedPlan) {
+        // A plan generated before an interruption is reused, never regenerated.
+        planInfo = savedPlan.info;
+      } else try {
         const context = await contextModule.retrieveRepositoryContextDetailed(repository, diff, budget);
         if (context.chunks.length === 0) throw new Error("No indexed context was retrieved.");
         const generated = await planModule.generateRegressionPlan(diff, context.chunks, budget);
@@ -255,8 +262,11 @@ async function main() {
           usage: { inputTokens: generated.usage.inputTokens + context.embeddingUsage.inputTokens, outputTokens: generated.usage.outputTokens, totalTokens: generated.usage.totalTokens + context.embeddingUsage.totalTokens },
           contextChunks: context.chunks.map((chunk) => chunk.path),
         };
+        writeJson(`${planPath}.meta`, { plan: generated.plan, info: planInfo });
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
+        const rejectedOutput = error && typeof error === "object" && "rejectedOutput" in error ? String(error.rejectedOutput) : null;
+        if (rejectedOutput) writeJson(join(plansRoot, `${scenario.id}.rejected.json`), JSON.parse(rejectedOutput));
         if (/cap would be exceeded/.test(message)) throw error;
         finish({ status: isApiError(error) ? "infra-invalid" : "invalid-plan", reason: `plan generation failed: ${message.slice(0, 300)}`, plan: null, baselineRuns: [], patchedRun: null });
         continue;

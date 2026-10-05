@@ -1,0 +1,1697 @@
+{
+  "generatedAt": "2026-10-05T10:32:36.643Z",
+  "source": "evaluation/runs/2026-10-05 with-context runs 1-3 (baseline prompt b60c051b...)",
+  "totalRanges": 59,
+  "matchedPerRun": [
+    18,
+    17,
+    17
+  ],
+  "missesPerRun": [
+    41,
+    42,
+    42
+  ],
+  "byCategory": {
+    "retrieved-silent": 23,
+    "wrong-line": 39,
+    "outside-index-cap": 45,
+    "not-retrieved": 18
+  },
+  "byFirstPassCategory": {
+    "wrong-line": 78,
+    "retrieved-silent": 12,
+    "outside-index-cap": 25,
+    "not-retrieved": 10
+  },
+  "bySubcategory": {
+    "retrieved-silent: defect file retrieved; no finding targeting this range (another range in this file was found)": 11,
+    "wrong-line: nearby finding already matched to an adjacent range (one-to-one)": 3,
+    "retrieved-silent: defect file retrieved; no finding targeting this range": 12,
+    "wrong-line: nearby raw finding rejected by the exact-added-line gate": 23,
+    "outside-index-cap: defect file not among indexed files (another range in this file was found)": 20,
+    "outside-index-cap: defect file not among indexed files": 25,
+    "not-retrieved: defect file indexed but no chunk of it retrieved (another range in this file was found)": 8,
+    "wrong-line: unmatched finding in the same file more than 2 lines away": 13,
+    "not-retrieved: defect file indexed but no chunk of it retrieved": 10
+  },
+  "byCategoryPerRun": [
+    {
+      "retrieved-silent": 8,
+      "wrong-line": 14,
+      "outside-index-cap": 14,
+      "not-retrieved": 5
+    },
+    {
+      "retrieved-silent": 8,
+      "wrong-line": 10,
+      "outside-index-cap": 17,
+      "not-retrieved": 7
+    },
+    {
+      "retrieved-silent": 7,
+      "wrong-line": 15,
+      "outside-index-cap": 14,
+      "not-retrieved": 6
+    }
+  ],
+  "missedInAllThreeRuns": {
+    "count": 27,
+    "byCategoryInRun1": {
+      "retrieved-silent": 4,
+      "outside-index-cap": 12,
+      "wrong-line": 8,
+      "not-retrieved": 3
+    }
+  },
+  "rangeBeyondFirst12000DiffChars": {
+    "false": 125
+  },
+  "misses": [
+    {
+      "caseId": "Bower-1",
+      "run": 1,
+      "range": {
+        "file": "lib/core/PackageRepository.js",
+        "startLine": 174,
+        "endLine": 175
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-1",
+      "run": 2,
+      "range": {
+        "file": "lib/core/PackageRepository.js",
+        "startLine": 49,
+        "endLine": 49
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-1",
+      "run": 2,
+      "range": {
+        "file": "lib/core/PackageRepository.js",
+        "startLine": 177,
+        "endLine": 178
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby finding already matched to an adjacent range (one-to-one)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-1",
+      "run": 3,
+      "range": {
+        "file": "lib/core/PackageRepository.js",
+        "startLine": 174,
+        "endLine": 175
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-2",
+      "run": 1,
+      "range": {
+        "file": "lib/core/Project.js",
+        "startLine": 89,
+        "endLine": 89
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-2",
+      "run": 1,
+      "range": {
+        "file": "lib/core/Project.js",
+        "startLine": 97,
+        "endLine": 101
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-2",
+      "run": 2,
+      "range": {
+        "file": "lib/core/Project.js",
+        "startLine": 97,
+        "endLine": 101
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-2",
+      "run": 3,
+      "range": {
+        "file": "lib/core/Project.js",
+        "startLine": 89,
+        "endLine": 89
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-2",
+      "run": 3,
+      "range": {
+        "file": "lib/core/Project.js",
+        "startLine": 97,
+        "endLine": 101
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-3",
+      "run": 1,
+      "range": {
+        "file": "lib/core/scripts.js",
+        "startLine": 86,
+        "endLine": 86
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Bower-3",
+      "run": 3,
+      "range": {
+        "file": "lib/core/scripts.js",
+        "startLine": 86,
+        "endLine": 86
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-3",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/prefer-template.js",
+        "startLine": 34,
+        "endLine": 34
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 258,
+        "endLine": 258
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 265,
+        "endLine": 266
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 409,
+        "endLine": 409
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 436,
+        "endLine": 437
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 258,
+        "endLine": 258
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 265,
+        "endLine": 266
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 270,
+        "endLine": 271
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 409,
+        "endLine": 409
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 415,
+        "endLine": 415
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 436,
+        "endLine": 437
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 258,
+        "endLine": 258
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 265,
+        "endLine": 266
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 409,
+        "endLine": 409
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 415,
+        "endLine": 415
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-5",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/indent.js",
+        "startLine": 436,
+        "endLine": 437
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 54,
+        "endLine": 55
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 57,
+        "endLine": 59
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 61,
+        "endLine": 61
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 63,
+        "endLine": 63
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 57,
+        "endLine": 59
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby finding already matched to an adjacent range (one-to-one)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 61,
+        "endLine": 61
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 63,
+        "endLine": 63
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 57,
+        "endLine": 59
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 61,
+        "endLine": 61
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-6",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/arrow-spacing.js",
+        "startLine": 63,
+        "endLine": 63
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-7",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/comma-dangle.js",
+        "startLine": 42,
+        "endLine": 42
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-7",
+      "run": 1,
+      "range": {
+        "file": "lib/rules/comma-dangle.js",
+        "startLine": 44,
+        "endLine": 44
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-7",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/comma-dangle.js",
+        "startLine": 28,
+        "endLine": 28
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-7",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/comma-dangle.js",
+        "startLine": 42,
+        "endLine": 42
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-7",
+      "run": 2,
+      "range": {
+        "file": "lib/rules/comma-dangle.js",
+        "startLine": 44,
+        "endLine": 44
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-7",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/comma-dangle.js",
+        "startLine": 28,
+        "endLine": 28
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Eslint-7",
+      "run": 3,
+      "range": {
+        "file": "lib/rules/comma-dangle.js",
+        "startLine": 44,
+        "endLine": 44
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby finding already matched to an adjacent range (one-to-one)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-2",
+      "run": 1,
+      "range": {
+        "file": "lib/request.js",
+        "startLine": 361,
+        "endLine": 361
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-2",
+      "run": 2,
+      "range": {
+        "file": "lib/request.js",
+        "startLine": 361,
+        "endLine": 361
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-2",
+      "run": 3,
+      "range": {
+        "file": "lib/request.js",
+        "startLine": 361,
+        "endLine": 361
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-3",
+      "run": 1,
+      "range": {
+        "file": "lib/response.js",
+        "startLine": 609,
+        "endLine": 609
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-3",
+      "run": 2,
+      "range": {
+        "file": "lib/response.js",
+        "startLine": 609,
+        "endLine": 609
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-3",
+      "run": 3,
+      "range": {
+        "file": "lib/response.js",
+        "startLine": 609,
+        "endLine": 609
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-4",
+      "run": 1,
+      "range": {
+        "file": "lib/request.js",
+        "startLine": 457,
+        "endLine": 457
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-4",
+      "run": 2,
+      "range": {
+        "file": "lib/request.js",
+        "startLine": 457,
+        "endLine": 457
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-4",
+      "run": 3,
+      "range": {
+        "file": "lib/request.js",
+        "startLine": 457,
+        "endLine": 457
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 1,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 402,
+        "endLine": 404
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 1,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 406,
+        "endLine": 406
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 1,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 423,
+        "endLine": 425
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 2,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 402,
+        "endLine": 404
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 2,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 406,
+        "endLine": 406
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 2,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 423,
+        "endLine": 425
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 3,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 402,
+        "endLine": 404
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 3,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 406,
+        "endLine": 406
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Express-6",
+      "run": 3,
+      "range": {
+        "file": "lib/application.js",
+        "startLine": 423,
+        "endLine": 425
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 1,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 430,
+        "endLine": 431
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 1,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 728,
+        "endLine": 728
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 1,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 733,
+        "endLine": 737
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 2,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 421,
+        "endLine": 421
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 2,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 430,
+        "endLine": 431
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 2,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 728,
+        "endLine": 728
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 3,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 421,
+        "endLine": 421
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 3,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 728,
+        "endLine": 728
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "run": 3,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 733,
+        "endLine": 737
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-4",
+      "run": 1,
+      "range": {
+        "file": "lib/v1/encoder.js",
+        "startLine": 302,
+        "endLine": 302
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-4",
+      "run": 3,
+      "range": {
+        "file": "lib/v1/encoder.js",
+        "startLine": 302,
+        "endLine": 302
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "run": 1,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 417,
+        "endLine": 418
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "run": 1,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 563,
+        "endLine": 563
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "run": 1,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 575,
+        "endLine": 575
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "run": 2,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 417,
+        "endLine": 418
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "run": 2,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 563,
+        "endLine": 563
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "run": 2,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 588,
+        "endLine": 588
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "run": 3,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 563,
+        "endLine": 563
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "run": 3,
+      "range": {
+        "file": "lib/v2/decoder.js",
+        "startLine": 575,
+        "endLine": 575
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-7",
+      "run": 2,
+      "range": {
+        "file": "lib/v1/encoder.js",
+        "startLine": 330,
+        "endLine": 331
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-7",
+      "run": 3,
+      "range": {
+        "file": "lib/v1/encoder.js",
+        "startLine": 330,
+        "endLine": 331
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "run": 1,
+      "range": {
+        "file": "lib/utils.js",
+        "startLine": 15,
+        "endLine": 19
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "run": 1,
+      "range": {
+        "file": "lib/utils.js",
+        "startLine": 42,
+        "endLine": 49
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "run": 2,
+      "range": {
+        "file": "lib/utils.js",
+        "startLine": 15,
+        "endLine": 19
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "run": 2,
+      "range": {
+        "file": "lib/utils.js",
+        "startLine": 42,
+        "endLine": 49
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "run": 3,
+      "range": {
+        "file": "lib/utils.js",
+        "startLine": 15,
+        "endLine": 19
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "run": 3,
+      "range": {
+        "file": "lib/utils.js",
+        "startLine": 42,
+        "endLine": 49
+      },
+      "category": "not-retrieved",
+      "subcategory": "defect file indexed but no chunk of it retrieved",
+      "firstPassCategory": "not-retrieved",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-9",
+      "run": 1,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 415,
+        "endLine": 415
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-9",
+      "run": 2,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 415,
+        "endLine": 415
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hessian-js-9",
+      "run": 3,
+      "range": {
+        "file": "lib/v1/decoder.js",
+        "startLine": 415,
+        "endLine": 415
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-2",
+      "run": 1,
+      "range": {
+        "file": "lib/box/file.js",
+        "startLine": 42,
+        "endLine": 46
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-2",
+      "run": 1,
+      "range": {
+        "file": "lib/box/file.js",
+        "startLine": 61,
+        "endLine": 65
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-2",
+      "run": 2,
+      "range": {
+        "file": "lib/box/file.js",
+        "startLine": 42,
+        "endLine": 46
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-2",
+      "run": 2,
+      "range": {
+        "file": "lib/box/file.js",
+        "startLine": 61,
+        "endLine": 65
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-2",
+      "run": 3,
+      "range": {
+        "file": "lib/box/file.js",
+        "startLine": 42,
+        "endLine": 46
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-2",
+      "run": 3,
+      "range": {
+        "file": "lib/box/file.js",
+        "startLine": 61,
+        "endLine": 65
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-3",
+      "run": 2,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 32,
+        "endLine": 32
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-3",
+      "run": 2,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 35,
+        "endLine": 35
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-3",
+      "run": 3,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 26,
+        "endLine": 26
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-3",
+      "run": 3,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 32,
+        "endLine": 32
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-3",
+      "run": 3,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 35,
+        "endLine": 35
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-4",
+      "run": 1,
+      "range": {
+        "file": "lib/models/post_asset.js",
+        "startLine": 5,
+        "endLine": 5
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-4",
+      "run": 1,
+      "range": {
+        "file": "lib/models/post_asset.js",
+        "startLine": 21,
+        "endLine": 21
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-4",
+      "run": 2,
+      "range": {
+        "file": "lib/models/post_asset.js",
+        "startLine": 5,
+        "endLine": 5
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-4",
+      "run": 2,
+      "range": {
+        "file": "lib/models/post_asset.js",
+        "startLine": 21,
+        "endLine": 21
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-4",
+      "run": 3,
+      "range": {
+        "file": "lib/models/post_asset.js",
+        "startLine": 5,
+        "endLine": 5
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-5",
+      "run": 1,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 4,
+        "endLine": 4
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-5",
+      "run": 1,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 9,
+        "endLine": 9
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-5",
+      "run": 1,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 14,
+        "endLine": 14
+      },
+      "category": "wrong-line",
+      "subcategory": "unmatched finding in the same file more than 2 lines away",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-5",
+      "run": 2,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 9,
+        "endLine": 9
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-5",
+      "run": 2,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 14,
+        "endLine": 14
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-5",
+      "run": 3,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 9,
+        "endLine": 9
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-5",
+      "run": 3,
+      "range": {
+        "file": "lib/plugins/helper/is.js",
+        "startLine": 14,
+        "endLine": 14
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-7",
+      "run": 1,
+      "range": {
+        "file": "lib/plugins/helper/toc.js",
+        "startLine": 28,
+        "endLine": 28
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-7",
+      "run": 2,
+      "range": {
+        "file": "lib/plugins/helper/toc.js",
+        "startLine": 28,
+        "endLine": 28
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-7",
+      "run": 3,
+      "range": {
+        "file": "lib/plugins/helper/toc.js",
+        "startLine": 28,
+        "endLine": 28
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-8",
+      "run": 2,
+      "range": {
+        "file": "lib/plugins/helper/open_graph.js",
+        "startLine": 88,
+        "endLine": 89
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Hexo-8",
+      "run": 3,
+      "range": {
+        "file": "lib/plugins/helper/open_graph.js",
+        "startLine": 88,
+        "endLine": 89
+      },
+      "category": "wrong-line",
+      "subcategory": "nearby raw finding rejected by the exact-added-line gate",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Karma-2",
+      "run": 1,
+      "range": {
+        "file": "lib/middleware/proxy.js",
+        "startLine": 43,
+        "endLine": 44
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Karma-2",
+      "run": 1,
+      "range": {
+        "file": "lib/middleware/proxy.js",
+        "startLine": 46,
+        "endLine": 46
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range",
+      "firstPassCategory": "retrieved-silent",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Karma-2",
+      "run": 2,
+      "range": {
+        "file": "lib/middleware/proxy.js",
+        "startLine": 46,
+        "endLine": 46
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Karma-2",
+      "run": 3,
+      "range": {
+        "file": "lib/middleware/proxy.js",
+        "startLine": 46,
+        "endLine": 46
+      },
+      "category": "retrieved-silent",
+      "subcategory": "defect file retrieved; no finding targeting this range (another range in this file was found)",
+      "firstPassCategory": "wrong-line",
+      "rangeBeyondRetrievalQuery": false
+    },
+    {
+      "caseId": "Karma-3",
+      "run": 1,
+      "range": {
+        "file": "lib/reporter.js",
+        "startLine": 99,
+        "endLine": 99
+      },
+      "category": "outside-index-cap",
+      "subcategory": "defect file not among indexed files",
+      "firstPassCategory": "outside-index-cap",
+      "rangeBeyondRetrievalQuery": false
+    }
+  ]
+}

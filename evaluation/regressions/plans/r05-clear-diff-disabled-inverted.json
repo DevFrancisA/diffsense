@@ -1,0 +1,154 @@
+{
+  "scenarios": [
+    {
+      "title": "Load example diff and check diff editor watermark hiding",
+      "purpose": "Verify the editor watermark disappears when diff content is loaded and reappears when cleared.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": "Invoice not found"
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".editor-watermark",
+          "value": "",
+          "expected": "not visible"
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button:has-text('Clear diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".editor-watermark",
+          "value": "",
+          "expected": "visible"
+        }
+      ]
+    },
+    {
+      "title": "Clear diff button enabled state tests",
+      "purpose": "Verify the Clear diff button is disabled when there is no diff and enabled when diff is present",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.text-button:has-text('Clear diff')",
+          "value": "",
+          "expected": "disabled"
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "Invoice not found",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.text-button:has-text('Clear diff')",
+          "value": "",
+          "expected": "enabled"
+        }
+      ]
+    },
+    {
+      "title": "Navigation view switching",
+      "purpose": "Verify that clicking navigation buttons updates the active view",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.nav-item:has-text('Pull requests')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.breadcrumbs > strong:has-text('Pull requests')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.nav-item:has-text('Evaluations')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.breadcrumbs > strong:has-text('Evaluations')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.nav-item:has-text('Test lab')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.breadcrumbs > strong:has-text('Test lab')",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Check API Ready Setup Message Visibility",
+      "purpose": "Verify that the setup guide message appears when API is not configured",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".setup-inline",
+          "value": "",
+          "expected": "visible if apiReady is false"
+        }
+      ]
+    }
+  ]
+}

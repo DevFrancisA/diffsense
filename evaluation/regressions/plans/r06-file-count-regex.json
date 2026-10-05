@@ -1,0 +1,136 @@
+{
+  "scenarios": [
+    {
+      "title": "Index repository context with valid pull request URL",
+      "purpose": "Verify that the repository context indexing works and displays a success message when a valid pull request URL is provided and API is ready.",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": ".index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "span[role='status']",
+          "value": "",
+          "expected": "Indexed "
+        }
+      ]
+    },
+    {
+      "title": "Show error when indexing repository context with empty PR URL",
+      "purpose": "Ensure that the index repository context button is disabled when the pull request URL input is empty and no indexing is triggered.",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": ".index-button",
+          "value": "Index repository context",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Display error message when review fails",
+      "purpose": "Check that submitting the review form with invalid data and API not ready shows the correct error message.",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "invalid-url",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": ".run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".error-inline[role='alert']",
+          "value": "",
+          "expected": "Review could not be completed."
+        }
+      ]
+    },
+    {
+      "title": "Generate Playwright regression test plan",
+      "purpose": "Confirm that clicking the generate Playwright plan button triggers plan generation and shows the plan in the generated plan section.",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "diff --git a/file b/file\n+++ a/file\n@@ -1 +1 @@\n+added line\n",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:text('Generate Playwright plan')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".generated-plan.panel",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Download generated test plan JSON",
+      "purpose": "Verify that the download button for the generated plan triggers a file download.",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "diff --git a/file b/file\n+++ a/file\n@@ -1 +1 @@\n+added line\n",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:text('Generate Playwright plan')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": ".generated-plan .button-secondary",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

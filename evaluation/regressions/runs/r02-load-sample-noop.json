@@ -1,0 +1,11 @@
+{
+  "id": "r02-load-sample-noop",
+  "role": "primary",
+  "intendedBreak": "Loading the example diff leaves the editor unchanged",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:32:15.906Z"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "r01-load-sample-label",
+  "role": "primary",
+  "intendedBreak": "Example-diff button label changes",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:32:05.502Z"
+}

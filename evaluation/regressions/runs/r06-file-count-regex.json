@@ -1,0 +1,82 @@
+{
+  "id": "r06-file-count-regex",
+  "role": "primary",
+  "intendedBreak": "Changed-file counter stays at 0",
+  "status": "infra-invalid",
+  "reason": "infrastructure failure on baseline",
+  "plan": {
+    "scenarios": 5,
+    "steps": 17,
+    "usage": {
+      "inputTokens": 8197,
+      "outputTokens": 606,
+      "totalTokens": 8803
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/layout.tsx",
+      "src/app/page.tsx",
+      "scripts/build-dataset.ts",
+      "src/lib/server/review.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "infra",
+      "tests": [
+        {
+          "title": "generated plan: Index repository context with valid pull request URL",
+          "status": "failed",
+          "failedStep": null,
+          "error": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\Anto Francis\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disa",
+          "outcome": "infra"
+        },
+        {
+          "title": "generated plan: Show error when indexing repository context with empty PR URL",
+          "status": "failed",
+          "failedStep": null,
+          "error": "Error: worker process exited unexpectedly (code=3221225794, signal=null)",
+          "outcome": "infra"
+        },
+        {
+          "title": "generated plan: Display error message when review fails",
+          "status": "skipped",
+          "failedStep": null,
+          "error": "",
+          "outcome": "infra"
+        },
+        {
+          "title": "generated plan: Generate Playwright regression test plan",
+          "status": "skipped",
+          "failedStep": null,
+          "error": "",
+          "outcome": "infra"
+        },
+        {
+          "title": "generated plan: Download generated test plan JSON",
+          "status": "skipped",
+          "failedStep": null,
+          "error": "",
+          "outcome": "infra"
+        }
+      ]
+    },
+    {
+      "outcome": "infra",
+      "tests": [
+        {
+          "title": "(runner)",
+          "status": "error",
+          "failedStep": null,
+          "error": "",
+          "outcome": "infra"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:33:16.968Z"
+}

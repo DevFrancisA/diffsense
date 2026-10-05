@@ -1,0 +1,11 @@
+{
+  "id": "r03-sample-message",
+  "role": "primary",
+  "intendedBreak": "Example diff content changes",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: [\n  {\n    \"origin\": \"array\",\n    \"code\": \"too_big\",\n    \"maximum\": 12,\n    \"inclusive\": true,\n    \"path\": [\n      \"scenarios\",\n      4,\n      \"steps\"\n    ],\n    \"message\": \"Too big: expected array to have <=12 items\"\n  }\n]",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:32:28.995Z"
+}
