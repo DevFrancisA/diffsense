@@ -60,3 +60,16 @@ Per-run C3: precision 100.0% / 100.0% / 92.6%, recall 35.6% / 33.9% / 42.4%. The
 Configurations meeting mean precision ≥ 90%: baseline (29.4% recall) and C3 (37.3% recall). **Final = C3.** C1 and C2 had higher DEV recall but fail the precision floor.
 
 HOLDOUT is next: one context-arm run of C3 (`holdout-final`) and one of the original baseline configuration (`holdout-baseline`), each run exactly once.
+
+## HOLDOUT (each configuration run exactly once)
+
+`npm run compare-results` (writes `comparison.json`). Intervals are Wilson 95% score intervals on the raw counts:
+
+| Config | Found / 56 | Predictions | FP | Recall (95% CI) | Precision (95% CI) |
+|---|---:|---:|---:|---|---|
+| Original baseline (`results-holdout-baseline.json`) | 20 | 22 | 2 | 35.7% (24.5%–48.8%) | 90.9% (72.2%–97.5%) |
+| Final = C3 (`results-holdout-final.json`) | 25 | 25 | 0 | 44.6% (32.4%–57.6%) | 100.0% (86.7%–100.0%) |
+
+On HOLDOUT, C3 found 5 more labeled defects than the baseline configuration (25 vs 20 of 56) with no false positives. The counts are small and the intervals overlap substantially: each configuration ran once on 30 cases, so this is consistent with an improvement but does not establish one. Run-to-run variance on DEV spanned 5 ranges for C3 (20, 21, 25 found), comparable to the HOLDOUT difference of 5.
+
+Session ledger after HOLDOUT: 643 calls reserved, 642 completed, 4,879,594 API-reported tokens.

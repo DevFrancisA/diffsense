@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-7",
+  "project": "Express",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "3387916efcac19302188151a24927a0405a373e8",
+  "buggySha": "f76403b717dc59d0fea41e5da68bd50d95b42fdf",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "4cf257972a2bffaa0df79d377e95ec9d5b9cd92c3b1baf3a42cca2d0bf04ca0c",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "3387916efcac19302188151a24927a0405a373e8",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "e347dfa0febb367795f914fffd48c49605821099d17c604e2bedbc78503c0f02"
+      },
+      {
+        "path": "examples/downloads/index.js",
+        "contentSha256": "aada9116f33ae53b22db57d4c2e90130037da6a3e737d15bf3e510d41211219b"
+      },
+      {
+        "path": "examples/auth/index.js",
+        "contentSha256": "48ac3f18137be0c232ed79c3753a09725345e4a0f548a77b3766cfb05d824df3"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "efb362efb0ebc869920f10a897d5bd06c52b967b76adebc36a2db13252d7d39c"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "4c6d3b95f985fd39ea3cafd10f65ddf11d29bce1b6fa6b07f9aebe0a0378c869"
+      },
+      {
+        "path": "examples/content-negotiation/index.js",
+        "contentSha256": "42d0034e9e3acd608726afcede103a11a7e7844590968e183cbb366980dbc079"
+      },
+      {
+        "path": "examples/auth/index.js",
+        "contentSha256": "133a1aaf9c0cc38e7f37d0d681533c2a185b0aa17fa5bd21af3f3cec7e777a3a"
+      },
+      {
+        "path": "examples/resource/index.js",
+        "contentSha256": "227bfcecfe94c1786a630c028a84390c813abf02982ca0fad393e76fc515c66d"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1225,
+      "outputTokens": 0,
+      "totalTokens": 1225
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4728,
+          "outputTokens": 6,
+          "totalTokens": 4734
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

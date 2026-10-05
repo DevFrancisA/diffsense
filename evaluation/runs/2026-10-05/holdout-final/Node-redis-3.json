@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-3",
+  "project": "Node-redis",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "304abe431828b1931c32187d4888f460ba99f8c5",
+  "buggySha": "ce4a67bb746e5ea5736c61d2524645ad9f3aaa73",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "bf3ff0b49e2c720c4c6297ac24d1f2d11818058836ec6e7bf6cd75f773be1f8a",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "304abe431828b1931c32187d4888f460ba99f8c5",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 81,
+    "embeddingUsage": {
+      "inputTokens": 70422,
+      "outputTokens": 0,
+      "totalTokens": 70422
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "8975d7cfd8c43cddf105c606a5d48f91d63c5c80c9145ecc6f6c9fb920b6fe70"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "b44ee6b9cf444a605a127672fbd83dfa7e2a7441d6cbeea198cacbeed22b9568"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "7be32774bc24f82a25f2db32bb2c667ddd841ca17276599fe5dbcf5bc8aad234"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "f861b5823a1270b2e0d079cb5b356191235dd85ef1381049d8d5c62ef5def3c7"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "81de6705e6707385a8ccd3ebdd5346a5fbb451c3cf4850abe9a5fbecbd7820a0"
+      },
+      {
+        "path": "benchmarks/multi_bench.js",
+        "contentSha256": "4a919eaa458fbd39f2e21d4a8631e9b5fb4c2e301c1e0164fd6fb38fa7cca3a2"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "1b535ca5544ef77c17734c744daa07eed8c9d5d27063147e8231666cba3c6553"
+      },
+      {
+        "path": "test/commands/client.spec.js",
+        "contentSha256": "06925e1492a7180e991186e75a7b740f8278616df583beffc79c604fc3164f20"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "6bf7f4d645b1d9aff72217f01945a229de49e5520cb92ed53dc0b9f67ebcb695"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 533,
+      "outputTokens": 0,
+      "totalTokens": 533
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 15128,
+          "outputTokens": 6,
+          "totalTokens": 15134
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

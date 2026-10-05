@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-15",
+  "project": "Eslint",
+  "bugId": 15,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "1170e678b3656eaf6656d3fcc4b5a212f4d44827",
+  "buggySha": "2bd57b6bbd11b23fdec65dc11c691f74c6a8db75",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "bdd93a0bb32196f40b1e421f97e647614703a56f7f7e5fcd98dac0778b21e17a",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "1170e678b3656eaf6656d3fcc4b5a212f4d44827",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 171,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "8086f3820a2b712db9e2a94f128dfee6df073b50f53aec9aa12c5e44e294a202"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "e45dc49c577e9f0b42b27c45a59993f25ab0328e74e0504c28a9eae164982f1b"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "d009672ac323cd66b1fa50627880c7e28d67c1b056e77cb7376b277d3cadd378"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "3e6208b5d3422e96efa820bf4f4ce890e54619cc232fe2c4bd21301a897a5dd7"
+      },
+      {
+        "path": "lib/formatters/checkstyle.js",
+        "contentSha256": "c632becdefad481fd7e58dac86c3a851495d7a75b027b56bfc534b399d3d2308"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "f03a01346ef4ad5482c2e993715f179e6d6204eff3266fdcc297e4e8d4913ced"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fcfc092843ead2bad9fe0211977f73e1b23b6e888044087e237bb45d74b6c400"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "7dd783aa9976d81aae36be21c114b062f52af8dc67bd8f3ef022086085ae93c4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 279,
+      "outputTokens": 0,
+      "totalTokens": 279
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4707,
+          "outputTokens": 93,
+          "totalTokens": 4800
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect removal of NewExpression type check in indent.js",
+            "severity": "high",
+            "file": "lib/rules/indent.js",
+            "line": 454,
+            "explanation": "The change removed the check for parent.type === \"NewExpression\" in the condition, which could alter behavior of the indent rule in contexts where NewExpression nodes should be handled specially.",
+            "suggestion": "Restore the removed condition line: parent.type === \"NewExpression\""
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

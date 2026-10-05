@@ -2,12 +2,12 @@
   "session": "session-2",
   "callLimit": 1000,
   "tokenLimit": 10000000,
-  "reservedCalls": 488,
-  "completedCalls": 487,
-  "estimatedInputTokens": 5204764,
-  "observedInputTokens": 3754531,
-  "observedOutputTokens": 71539,
-  "observedTotalTokens": 3826070,
+  "reservedCalls": 643,
+  "completedCalls": 642,
+  "estimatedInputTokens": 6743837,
+  "observedInputTokens": 4798526,
+  "observedOutputTokens": 81068,
+  "observedTotalTokens": 4879594,
   "byLabel": {
     "regressions/index_embeddings": {
       "calls": 1,
@@ -48,6 +48,26 @@
     "benchmark/dev-c3/review_response": {
       "calls": 90,
       "totalTokens": 718140
+    },
+    "benchmark/holdout-final/index_embeddings": {
+      "calls": 35,
+      "totalTokens": 557686
+    },
+    "benchmark/holdout-final/context_embedding": {
+      "calls": 30,
+      "totalTokens": 17481
+    },
+    "benchmark/holdout-final/review_response": {
+      "calls": 30,
+      "totalTokens": 313001
+    },
+    "benchmark/holdout-baseline/context_embedding": {
+      "calls": 30,
+      "totalTokens": 17481
+    },
+    "benchmark/holdout-baseline/review_response": {
+      "calls": 30,
+      "totalTokens": 147875
     }
   },
   "log": [
@@ -7763,6 +7783,2414 @@
         "inputTokens": 7237,
         "outputTokens": 117,
         "totalTokens": 7354
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:17.032Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 3,
+      "estimatedTokens": 123202
+    },
+    {
+      "at": "2026-10-05T11:11:17.679Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 34661,
+        "outputTokens": 0,
+        "totalTokens": 34661
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:21.110Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 31660,
+        "outputTokens": 0,
+        "totalTokens": 31660
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:24.304Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 13311,
+        "outputTokens": 0,
+        "totalTokens": 13311
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:25.905Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 783
+    },
+    {
+      "at": "2026-10-05T11:11:26.097Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 522,
+        "outputTokens": 0,
+        "totalTokens": 522
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:26.320Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 14423
+    },
+    {
+      "at": "2026-10-05T11:11:28.273Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8656,
+        "outputTokens": 194,
+        "totalTokens": 8850
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:31.557Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 2321
+    },
+    {
+      "at": "2026-10-05T11:11:31.723Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1547,
+        "outputTokens": 0,
+        "totalTokens": 1547
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:32.110Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 362
+    },
+    {
+      "at": "2026-10-05T11:11:32.292Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 349,
+        "outputTokens": 0,
+        "totalTokens": 349
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:32.481Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 13728
+    },
+    {
+      "at": "2026-10-05T11:11:34.167Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8235,
+        "outputTokens": 162,
+        "totalTokens": 8397
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:37.371Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 3,
+      "estimatedTokens": 124481
+    },
+    {
+      "at": "2026-10-05T11:11:37.805Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 32523,
+        "outputTokens": 0,
+        "totalTokens": 32523
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:41.202Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 32376,
+        "outputTokens": 0,
+        "totalTokens": 32376
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:44.482Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 14807,
+        "outputTokens": 0,
+        "totalTokens": 14807
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:46.256Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 249
+    },
+    {
+      "at": "2026-10-05T11:11:46.421Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 219,
+        "outputTokens": 0,
+        "totalTokens": 219
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:46.618Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 30157
+    },
+    {
+      "at": "2026-10-05T11:11:48.801Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18423,
+        "outputTokens": 195,
+        "totalTokens": 18618
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:51.891Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 3,
+      "estimatedTokens": 130920
+    },
+    {
+      "at": "2026-10-05T11:11:52.329Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 31678,
+        "outputTokens": 0,
+        "totalTokens": 31678
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:55.855Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 31917,
+        "outputTokens": 0,
+        "totalTokens": 31917
+      }
+    },
+    {
+      "at": "2026-10-05T11:11:59.171Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18890,
+        "outputTokens": 0,
+        "totalTokens": 18890
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:01.503Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 837
+    },
+    {
+      "at": "2026-10-05T11:12:01.692Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 715,
+        "outputTokens": 0,
+        "totalTokens": 715
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:01.884Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 11506
+    },
+    {
+      "at": "2026-10-05T11:12:03.440Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6949,
+        "outputTokens": 148,
+        "totalTokens": 7097
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:06.590Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 3,
+      "estimatedTokens": 124186
+    },
+    {
+      "at": "2026-10-05T11:12:07.105Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 31737,
+        "outputTokens": 0,
+        "totalTokens": 31737
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:10.468Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 31154,
+        "outputTokens": 0,
+        "totalTokens": 31154
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:13.675Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15615,
+        "outputTokens": 0,
+        "totalTokens": 15615
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:15.494Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 338
+    },
+    {
+      "at": "2026-10-05T11:12:15.726Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 279,
+        "outputTokens": 0,
+        "totalTokens": 279
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:15.971Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 17380
+    },
+    {
+      "at": "2026-10-05T11:12:18.289Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10426,
+        "outputTokens": 152,
+        "totalTokens": 10578
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:21.529Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 52419
+    },
+    {
+      "at": "2026-10-05T11:12:21.968Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 33221,
+        "outputTokens": 0,
+        "totalTokens": 33221
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:24.899Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 529
+    },
+    {
+      "at": "2026-10-05T11:12:25.095Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 456,
+        "outputTokens": 0,
+        "totalTokens": 456
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:25.422Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 10429
+    },
+    {
+      "at": "2026-10-05T11:12:28.422Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7116,
+        "outputTokens": 232,
+        "totalTokens": 7348
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:30.936Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1333
+    },
+    {
+      "at": "2026-10-05T11:12:31.160Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1225,
+        "outputTokens": 0,
+        "totalTokens": 1225
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:31.326Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 14853
+    },
+    {
+      "at": "2026-10-05T11:12:32.191Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11062,
+        "outputTokens": 6,
+        "totalTokens": 11068
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:34.743Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 5187
+    },
+    {
+      "at": "2026-10-05T11:12:35.099Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4134,
+        "outputTokens": 0,
+        "totalTokens": 4134
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:35.726Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 344
+    },
+    {
+      "at": "2026-10-05T11:12:35.941Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 333,
+        "outputTokens": 0,
+        "totalTokens": 333
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:36.118Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 10219
+    },
+    {
+      "at": "2026-10-05T11:12:36.807Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7224,
+        "outputTokens": 6,
+        "totalTokens": 7230
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:38.948Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 1118
+    },
+    {
+      "at": "2026-10-05T11:12:39.147Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 842,
+        "outputTokens": 0,
+        "totalTokens": 842
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:39.322Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 405
+    },
+    {
+      "at": "2026-10-05T11:12:39.517Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 360,
+        "outputTokens": 0,
+        "totalTokens": 360
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:39.750Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 9433
+    },
+    {
+      "at": "2026-10-05T11:12:41.625Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6468,
+        "outputTokens": 201,
+        "totalTokens": 6669
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:43.720Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 2959
+    },
+    {
+      "at": "2026-10-05T11:12:43.970Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 2203,
+        "outputTokens": 0,
+        "totalTokens": 2203
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:44.320Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 802
+    },
+    {
+      "at": "2026-10-05T11:12:44.497Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 726,
+        "outputTokens": 0,
+        "totalTokens": 726
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:44.663Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 10125
+    },
+    {
+      "at": "2026-10-05T11:12:46.822Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7170,
+        "outputTokens": 188,
+        "totalTokens": 7358
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:49.041Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 499
+    },
+    {
+      "at": "2026-10-05T11:12:49.234Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 459,
+        "outputTokens": 0,
+        "totalTokens": 459
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:49.405Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 12202
+    },
+    {
+      "at": "2026-10-05T11:12:51.007Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8979,
+        "outputTokens": 148,
+        "totalTokens": 9127
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:53.188Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 789
+    },
+    {
+      "at": "2026-10-05T11:12:53.372Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 776,
+        "outputTokens": 0,
+        "totalTokens": 776
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:53.539Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 7340
+    },
+    {
+      "at": "2026-10-05T11:12:54.130Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5200,
+        "outputTokens": 6,
+        "totalTokens": 5206
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:56.850Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 4330
+    },
+    {
+      "at": "2026-10-05T11:12:57.130Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3313,
+        "outputTokens": 0,
+        "totalTokens": 3313
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:57.579Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 461
+    },
+    {
+      "at": "2026-10-05T11:12:57.808Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 408,
+        "outputTokens": 0,
+        "totalTokens": 408
+      }
+    },
+    {
+      "at": "2026-10-05T11:12:58.041Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 7438
+    },
+    {
+      "at": "2026-10-05T11:12:59.580Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4938,
+        "outputTokens": 158,
+        "totalTokens": 5096
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:02.530Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 2,
+      "estimatedTokens": 27617
+    },
+    {
+      "at": "2026-10-05T11:13:02.970Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 19177,
+        "outputTokens": 0,
+        "totalTokens": 19177
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:06.106Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1185,
+        "outputTokens": 0,
+        "totalTokens": 1185
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:06.420Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 915
+    },
+    {
+      "at": "2026-10-05T11:13:06.614Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 773,
+        "outputTokens": 0,
+        "totalTokens": 773
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:06.877Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 14429
+    },
+    {
+      "at": "2026-10-05T11:13:09.136Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9849,
+        "outputTokens": 152,
+        "totalTokens": 10001
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:12.227Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 1377
+    },
+    {
+      "at": "2026-10-05T11:13:12.517Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1050,
+        "outputTokens": 0,
+        "totalTokens": 1050
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:12.703Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 598
+    },
+    {
+      "at": "2026-10-05T11:13:12.894Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 553,
+        "outputTokens": 0,
+        "totalTokens": 553
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:12.980Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 10824
+    },
+    {
+      "at": "2026-10-05T11:13:13.827Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7465,
+        "outputTokens": 6,
+        "totalTokens": 7471
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:16.550Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 15867
+    },
+    {
+      "at": "2026-10-05T11:13:16.960Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11758,
+        "outputTokens": 0,
+        "totalTokens": 11758
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:18.361Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 553
+    },
+    {
+      "at": "2026-10-05T11:13:18.561Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 470,
+        "outputTokens": 0,
+        "totalTokens": 470
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:18.623Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 9996
+    },
+    {
+      "at": "2026-10-05T11:13:21.334Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6933,
+        "outputTokens": 274,
+        "totalTokens": 7207
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:23.455Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 15221
+    },
+    {
+      "at": "2026-10-05T11:13:23.941Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10928,
+        "outputTokens": 0,
+        "totalTokens": 10928
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:25.074Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 511
+    },
+    {
+      "at": "2026-10-05T11:13:25.255Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 435,
+        "outputTokens": 0,
+        "totalTokens": 435
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:25.416Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 9670
+    },
+    {
+      "at": "2026-10-05T11:13:27.288Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6575,
+        "outputTokens": 173,
+        "totalTokens": 6748
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:29.384Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 2,
+      "estimatedTokens": 45532
+    },
+    {
+      "at": "2026-10-05T11:13:29.769Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 24231,
+        "outputTokens": 0,
+        "totalTokens": 24231
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:33.011Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8681,
+        "outputTokens": 0,
+        "totalTokens": 8681
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:34.127Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 388
+    },
+    {
+      "at": "2026-10-05T11:13:34.407Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 329,
+        "outputTokens": 0,
+        "totalTokens": 329
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:34.485Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 10145
+    },
+    {
+      "at": "2026-10-05T11:13:35.967Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6891,
+        "outputTokens": 152,
+        "totalTokens": 7043
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:38.479Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 4153
+    },
+    {
+      "at": "2026-10-05T11:13:38.751Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 2977,
+        "outputTokens": 0,
+        "totalTokens": 2977
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:39.116Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1595
+    },
+    {
+      "at": "2026-10-05T11:13:39.445Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1377,
+        "outputTokens": 0,
+        "totalTokens": 1377
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:39.634Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 9595
+    },
+    {
+      "at": "2026-10-05T11:13:42.751Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6671,
+        "outputTokens": 359,
+        "totalTokens": 7030
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:46.130Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 2,
+      "estimatedTokens": 39800
+    },
+    {
+      "at": "2026-10-05T11:13:46.613Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 25001,
+        "outputTokens": 0,
+        "totalTokens": 25001
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:49.830Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3865,
+        "outputTokens": 0,
+        "totalTokens": 3865
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:50.334Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 572
+    },
+    {
+      "at": "2026-10-05T11:13:50.514Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 537,
+        "outputTokens": 0,
+        "totalTokens": 537
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:50.589Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 7706
+    },
+    {
+      "at": "2026-10-05T11:13:52.751Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5110,
+        "outputTokens": 162,
+        "totalTokens": 5272
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:54.772Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 11014
+    },
+    {
+      "at": "2026-10-05T11:13:55.058Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7967,
+        "outputTokens": 0,
+        "totalTokens": 7967
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:55.871Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 2195
+    },
+    {
+      "at": "2026-10-05T11:13:56.036Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1810,
+        "outputTokens": 0,
+        "totalTokens": 1810
+      }
+    },
+    {
+      "at": "2026-10-05T11:13:56.097Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 9919
+    },
+    {
+      "at": "2026-10-05T11:13:58.802Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6638,
+        "outputTokens": 303,
+        "totalTokens": 6941
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:01.042Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 986
+    },
+    {
+      "at": "2026-10-05T11:14:01.222Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 970,
+        "outputTokens": 0,
+        "totalTokens": 970
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:01.369Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 494
+    },
+    {
+      "at": "2026-10-05T11:14:01.510Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 418,
+        "outputTokens": 0,
+        "totalTokens": 418
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:01.575Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 8723
+    },
+    {
+      "at": "2026-10-05T11:14:04.176Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6232,
+        "outputTokens": 178,
+        "totalTokens": 6410
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:06.304Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 18194
+    },
+    {
+      "at": "2026-10-05T11:14:06.746Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 14224,
+        "outputTokens": 0,
+        "totalTokens": 14224
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:09.265Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 404
+    },
+    {
+      "at": "2026-10-05T11:14:09.491Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 366,
+        "outputTokens": 0,
+        "totalTokens": 366
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:09.792Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 32445
+    },
+    {
+      "at": "2026-10-05T11:14:11.778Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 24549,
+        "outputTokens": 127,
+        "totalTokens": 24676
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:14.366Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 412
+    },
+    {
+      "at": "2026-10-05T11:14:14.535Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 325,
+        "outputTokens": 0,
+        "totalTokens": 325
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:14.799Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 24132
+    },
+    {
+      "at": "2026-10-05T11:14:16.773Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18190,
+        "outputTokens": 136,
+        "totalTokens": 18326
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:19.028Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 662
+    },
+    {
+      "at": "2026-10-05T11:14:19.236Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 549,
+        "outputTokens": 0,
+        "totalTokens": 549
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:19.464Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 20694
+    },
+    {
+      "at": "2026-10-05T11:14:21.015Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15410,
+        "outputTokens": 123,
+        "totalTokens": 15533
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:23.279Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 1788
+    },
+    {
+      "at": "2026-10-05T11:14:23.522Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1503,
+        "outputTokens": 0,
+        "totalTokens": 1503
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:23.759Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 653
+    },
+    {
+      "at": "2026-10-05T11:14:23.933Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 528,
+        "outputTokens": 0,
+        "totalTokens": 528
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:24.111Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 26932
+    },
+    {
+      "at": "2026-10-05T11:14:25.238Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 20935,
+        "outputTokens": 6,
+        "totalTokens": 20941
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:28.340Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 548
+    },
+    {
+      "at": "2026-10-05T11:14:28.500Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 465,
+        "outputTokens": 0,
+        "totalTokens": 465
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:29.687Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 9738
+    },
+    {
+      "at": "2026-10-05T11:14:31.604Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7088,
+        "outputTokens": 157,
+        "totalTokens": 7245
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:33.752Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1001
+    },
+    {
+      "at": "2026-10-05T11:14:33.955Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 897,
+        "outputTokens": 0,
+        "totalTokens": 897
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:34.138Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 27527
+    },
+    {
+      "at": "2026-10-05T11:14:37.204Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21497,
+        "outputTokens": 139,
+        "totalTokens": 21636
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:39.673Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 2,
+      "estimatedTokens": 52982
+    },
+    {
+      "at": "2026-10-05T11:14:40.200Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 27362,
+        "outputTokens": 0,
+        "totalTokens": 27362
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:43.336Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7849,
+        "outputTokens": 0,
+        "totalTokens": 7849
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:44.289Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 804
+    },
+    {
+      "at": "2026-10-05T11:14:44.471Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 533,
+        "outputTokens": 0,
+        "totalTokens": 533
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:44.549Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 23581
+    },
+    {
+      "at": "2026-10-05T11:14:45.735Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15128,
+        "outputTokens": 6,
+        "totalTokens": 15134
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:48.152Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "estimatedTokens": 32541
+    },
+    {
+      "at": "2026-10-05T11:14:48.515Z",
+      "label": "benchmark/holdout-final/index_embeddings",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 23369,
+        "outputTokens": 0,
+        "totalTokens": 23369
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:51.450Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 411
+    },
+    {
+      "at": "2026-10-05T11:14:51.633Z",
+      "label": "benchmark/holdout-final/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 289,
+        "outputTokens": 0,
+        "totalTokens": 289
+      }
+    },
+    {
+      "at": "2026-10-05T11:14:51.704Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "estimatedTokens": 19177
+    },
+    {
+      "at": "2026-10-05T11:14:53.767Z",
+      "label": "benchmark/holdout-final/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12576,
+        "outputTokens": 169,
+        "totalTokens": 12745
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:04.037Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 783
+    },
+    {
+      "at": "2026-10-05T11:15:04.350Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 522,
+        "outputTokens": 0,
+        "totalTokens": 522
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:04.402Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 9856
+    },
+    {
+      "at": "2026-10-05T11:15:06.862Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6018,
+        "outputTokens": 182,
+        "totalTokens": 6200
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:08.063Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 362
+    },
+    {
+      "at": "2026-10-05T11:15:08.284Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 349,
+        "outputTokens": 0,
+        "totalTokens": 349
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:08.334Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 8434
+    },
+    {
+      "at": "2026-10-05T11:15:10.136Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5171,
+        "outputTokens": 158,
+        "totalTokens": 5329
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:11.368Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 249
+    },
+    {
+      "at": "2026-10-05T11:15:11.512Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 219,
+        "outputTokens": 0,
+        "totalTokens": 219
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:11.562Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 7937
+    },
+    {
+      "at": "2026-10-05T11:15:13.454Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5488,
+        "outputTokens": 161,
+        "totalTokens": 5649
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:14.840Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 837
+    },
+    {
+      "at": "2026-10-05T11:15:15.045Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 715,
+        "outputTokens": 0,
+        "totalTokens": 715
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:15.093Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 9175
+    },
+    {
+      "at": "2026-10-05T11:15:17.560Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5652,
+        "outputTokens": 261,
+        "totalTokens": 5913
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:18.864Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 338
+    },
+    {
+      "at": "2026-10-05T11:15:19.055Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 279,
+        "outputTokens": 0,
+        "totalTokens": 279
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:19.105Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 8340
+    },
+    {
+      "at": "2026-10-05T11:15:20.256Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4707,
+        "outputTokens": 93,
+        "totalTokens": 4800
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:21.449Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 529
+    },
+    {
+      "at": "2026-10-05T11:15:21.595Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 456,
+        "outputTokens": 0,
+        "totalTokens": 456
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:21.645Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 9076
+    },
+    {
+      "at": "2026-10-05T11:15:28.843Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6302,
+        "outputTokens": 308,
+        "totalTokens": 6610
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:30.048Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1333
+    },
+    {
+      "at": "2026-10-05T11:15:30.253Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1225,
+        "outputTokens": 0,
+        "totalTokens": 1225
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:30.304Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 6803
+    },
+    {
+      "at": "2026-10-05T11:15:31.057Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4728,
+        "outputTokens": 6,
+        "totalTokens": 4734
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:32.259Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 344
+    },
+    {
+      "at": "2026-10-05T11:15:32.444Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 333,
+        "outputTokens": 0,
+        "totalTokens": 333
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:32.492Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 5896
+    },
+    {
+      "at": "2026-10-05T11:15:34.260Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3931,
+        "outputTokens": 138,
+        "totalTokens": 4069
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:35.326Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 405
+    },
+    {
+      "at": "2026-10-05T11:15:35.533Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 360,
+        "outputTokens": 0,
+        "totalTokens": 360
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:35.584Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 5286
+    },
+    {
+      "at": "2026-10-05T11:15:37.823Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3317,
+        "outputTokens": 149,
+        "totalTokens": 3466
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:38.972Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 802
+    },
+    {
+      "at": "2026-10-05T11:15:39.125Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 726,
+        "outputTokens": 0,
+        "totalTokens": 726
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:39.176Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 5091
+    },
+    {
+      "at": "2026-10-05T11:15:39.960Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3323,
+        "outputTokens": 6,
+        "totalTokens": 3329
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:41.021Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 499
+    },
+    {
+      "at": "2026-10-05T11:15:41.209Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 459,
+        "outputTokens": 0,
+        "totalTokens": 459
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:41.260Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 5537
+    },
+    {
+      "at": "2026-10-05T11:15:43.262Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3646,
+        "outputTokens": 204,
+        "totalTokens": 3850
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:44.234Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 789
+    },
+    {
+      "at": "2026-10-05T11:15:44.453Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 776,
+        "outputTokens": 0,
+        "totalTokens": 776
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:44.503Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 6221
+    },
+    {
+      "at": "2026-10-05T11:15:46.217Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4304,
+        "outputTokens": 6,
+        "totalTokens": 4310
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:47.544Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 461
+    },
+    {
+      "at": "2026-10-05T11:15:47.757Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 408,
+        "outputTokens": 0,
+        "totalTokens": 408
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:47.807Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 6205
+    },
+    {
+      "at": "2026-10-05T11:15:49.393Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3975,
+        "outputTokens": 129,
+        "totalTokens": 4104
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:50.301Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 915
+    },
+    {
+      "at": "2026-10-05T11:15:50.472Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 773,
+        "outputTokens": 0,
+        "totalTokens": 773
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:50.523Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 6648
+    },
+    {
+      "at": "2026-10-05T11:15:52.198Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4284,
+        "outputTokens": 150,
+        "totalTokens": 4434
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:53.149Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 598
+    },
+    {
+      "at": "2026-10-05T11:15:53.346Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 553,
+        "outputTokens": 0,
+        "totalTokens": 553
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:53.395Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 6881
+    },
+    {
+      "at": "2026-10-05T11:15:55.100Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4581,
+        "outputTokens": 6,
+        "totalTokens": 4587
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:55.978Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 553
+    },
+    {
+      "at": "2026-10-05T11:15:56.250Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 470,
+        "outputTokens": 0,
+        "totalTokens": 470
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:56.299Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 7062
+    },
+    {
+      "at": "2026-10-05T11:15:58.521Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4705,
+        "outputTokens": 251,
+        "totalTokens": 4956
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:59.549Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 511
+    },
+    {
+      "at": "2026-10-05T11:15:59.718Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 435,
+        "outputTokens": 0,
+        "totalTokens": 435
+      }
+    },
+    {
+      "at": "2026-10-05T11:15:59.767Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 8175
+    },
+    {
+      "at": "2026-10-05T11:16:01.557Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5423,
+        "outputTokens": 179,
+        "totalTokens": 5602
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:02.590Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 388
+    },
+    {
+      "at": "2026-10-05T11:16:02.785Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 329,
+        "outputTokens": 0,
+        "totalTokens": 329
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:02.834Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 7601
+    },
+    {
+      "at": "2026-10-05T11:16:04.509Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5000,
+        "outputTokens": 150,
+        "totalTokens": 5150
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:05.382Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1595
+    },
+    {
+      "at": "2026-10-05T11:16:05.575Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1377,
+        "outputTokens": 0,
+        "totalTokens": 1377
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:05.627Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 8746
+    },
+    {
+      "at": "2026-10-05T11:16:08.189Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6019,
+        "outputTokens": 328,
+        "totalTokens": 6347
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:09.199Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 572
+    },
+    {
+      "at": "2026-10-05T11:16:09.354Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 537,
+        "outputTokens": 0,
+        "totalTokens": 537
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:09.402Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 6627
+    },
+    {
+      "at": "2026-10-05T11:16:11.285Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4340,
+        "outputTokens": 228,
+        "totalTokens": 4568
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:12.235Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 2195
+    },
+    {
+      "at": "2026-10-05T11:16:12.423Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1810,
+        "outputTokens": 0,
+        "totalTokens": 1810
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:12.470Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 8935
+    },
+    {
+      "at": "2026-10-05T11:16:17.137Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5939,
+        "outputTokens": 511,
+        "totalTokens": 6450
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:18.065Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 494
+    },
+    {
+      "at": "2026-10-05T11:16:18.229Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 418,
+        "outputTokens": 0,
+        "totalTokens": 418
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:18.278Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 7377
+    },
+    {
+      "at": "2026-10-05T11:16:20.132Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5014,
+        "outputTokens": 154,
+        "totalTokens": 5168
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:21.051Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 404
+    },
+    {
+      "at": "2026-10-05T11:16:21.331Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 366,
+        "outputTokens": 0,
+        "totalTokens": 366
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:21.382Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 6957
+    },
+    {
+      "at": "2026-10-05T11:16:23.480Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4956,
+        "outputTokens": 250,
+        "totalTokens": 5206
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:24.543Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 412
+    },
+    {
+      "at": "2026-10-05T11:16:24.744Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 325,
+        "outputTokens": 0,
+        "totalTokens": 325
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:24.793Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 5469
+    },
+    {
+      "at": "2026-10-05T11:16:28.188Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3973,
+        "outputTokens": 394,
+        "totalTokens": 4367
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:29.377Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 662
+    },
+    {
+      "at": "2026-10-05T11:16:29.573Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 549,
+        "outputTokens": 0,
+        "totalTokens": 549
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:29.621Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 7215
+    },
+    {
+      "at": "2026-10-05T11:16:31.391Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5145,
+        "outputTokens": 200,
+        "totalTokens": 5345
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:32.320Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 653
+    },
+    {
+      "at": "2026-10-05T11:16:32.525Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 528,
+        "outputTokens": 0,
+        "totalTokens": 528
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:32.573Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 5666
+    },
+    {
+      "at": "2026-10-05T11:16:34.261Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4166,
+        "outputTokens": 139,
+        "totalTokens": 4305
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:35.134Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 548
+    },
+    {
+      "at": "2026-10-05T11:16:35.278Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 465,
+        "outputTokens": 0,
+        "totalTokens": 465
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:35.329Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 7100
+    },
+    {
+      "at": "2026-10-05T11:16:36.973Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5118,
+        "outputTokens": 143,
+        "totalTokens": 5261
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:37.845Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1001
+    },
+    {
+      "at": "2026-10-05T11:16:38.062Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 897,
+        "outputTokens": 0,
+        "totalTokens": 897
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:38.113Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 6014
+    },
+    {
+      "at": "2026-10-05T11:16:39.960Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4545,
+        "outputTokens": 215,
+        "totalTokens": 4760
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:41.043Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 804
+    },
+    {
+      "at": "2026-10-05T11:16:41.224Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 533,
+        "outputTokens": 0,
+        "totalTokens": 533
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:41.273Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 9214
+    },
+    {
+      "at": "2026-10-05T11:16:42.000Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5453,
+        "outputTokens": 6,
+        "totalTokens": 5459
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:42.923Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 411
+    },
+    {
+      "at": "2026-10-05T11:16:43.135Z",
+      "label": "benchmark/holdout-baseline/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 289,
+        "outputTokens": 0,
+        "totalTokens": 289
+      }
+    },
+    {
+      "at": "2026-10-05T11:16:43.189Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "estimatedTokens": 5974
+    },
+    {
+      "at": "2026-10-05T11:16:43.779Z",
+      "label": "benchmark/holdout-baseline/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 3541,
+        "outputTokens": 6,
+        "totalTokens": 3547
       }
     }
   ]

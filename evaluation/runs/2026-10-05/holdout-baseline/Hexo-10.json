@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-10",
+  "project": "Hexo",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "f1d896f71333b1158c1e0e996fcb42fdac6ddd92",
+  "buggySha": "45f39dfe2fd9dd29571c8618380a6e9ed1e3d274",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "ca1209cb7a23a05295aed4036b77f4a5fa17c2cf79b1577605066560f99ce529",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "f1d896f71333b1158c1e0e996fcb42fdac6ddd92",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 68,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "abf2b5d5d9c11737a434053a1f0978b448c1dfc74b09804eebbb0e1cc087040d"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "f7ccf93bfeee0cbb330b63d7c7fbb6ba8d5a4708b2ca39b931a2188ab8be9c3a"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "933c58a7e217d0ecc91f95332d701bc35b275df9e2eddeb56093198adb50789b"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "2d5478c4f449b7909376f8ee4292d137686b5fdc918cea97681868f88b4d333e"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "ddcc4806a6c2e32d7990f717d0ac1d7354a34094a8c8b6f148091c2fdb895130"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "41544078718e7ff54dda60044eeef32c19248a142915e21176052290aac5432a"
+      },
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "a83794377402332444d16b98094861fd535a9dabea5ffb5705f86c8c695ded14"
+      },
+      {
+        "path": "lib/hexo/source.js",
+        "contentSha256": "a101f4230b1d3db5f4fb2ecd48d785a8554eea75c0080527335b3d264ca1ab29"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 773,
+      "outputTokens": 0,
+      "totalTokens": 773
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4284,
+          "outputTokens": 150,
+          "totalTokens": 4434
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect concatenation of generator results in Hexo._generate",
+            "severity": "high",
+            "file": "lib/hexo/index.js",
+            "line": 308,
+            "explanation": "The change at line 308 modifies the concatenation logic of generator results to 'return data ? result.concat(data) : data;'. Previously it was returning 'result.concat(data)', ensuring the accumulation continues. Returning 'data' alone when data is falsy breaks the accumulation chain, causing subsequent generator results to be lost or result to be non-array. This can cause runtime errors or incomplete route generation.",
+            "suggestion": "Restore the original return statement to 'return data ? result.concat(data) : result;' to maintain correct accumulation of generator outputs."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

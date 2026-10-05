@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-10",
+  "project": "Karma",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+  "buggySha": "ee8303cc3ffa45a8d233e781bd14d0dd8b108300",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "26bffe7511f576d31752129acd29a019f85aa1df4dfbcd92ca99019e30750ed8",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "da43f4dbef3c12e8a84f76938c02edc1824fe8872e0b829f8534bd71683d3333"
+      },
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "b3ffc58ae09d1c32908c75438848a48428c05641b4a28cdb9e8a20d5388980b1"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "c51c353fdc503775b1e4ae5bf272f20bd7564f64a828a047b43526b4a05b2970"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "022fbae7b79fc4583235efd0bfd9653726502691c8fa14bd810fc00c5792d755"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "ca6391a7232e90355d6df04c511a07a3bed6786bdc6862d273d8ede104227127"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "31ec52399f2a01f78a0ab65a0d2f4df1223196d5a894c82ac4a5a2457b96c42b"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "99bbebb4d55f16f624605b469f5a866fa8833c659ec88ccc5d89fa21ec4210bf"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "244db0632f9db0b71a404bf34edcfd795bc9d2de481e90706e7afaae2c389a26"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1810,
+      "outputTokens": 0,
+      "totalTokens": 1810
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5939,
+          "outputTokens": 511,
+          "totalTokens": 6450
+        },
+        "rawFindings": [
+          {
+            "title": "Inaccurate watching of patterns in watcher.js",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 21,
+            "explanation": "The previous implementation of 'watchPatterns' iterated over 'patterns' assuming they were strings. The new implementation expects 'patterns' to be an array of pattern objects and skips those with 'watched' property false. However, the 'exports.watch' function now calls 'watchPatterns' with the entire 'patterns' argument (array of pattern objects), whereas previously it provided only the string patterns that were watched. This change might cause incorrectly watching folders like '/' for URLs or ",
+            "suggestion": "Ensure 'watchPatterns' receives only the watched pattern objects, or adapt 'watchPatterns' so it correctly handles all pattern objects, especially skipping URLs and unwatched patterns as before. For example, keep filtering inside 'exports.watch' to pass only watched patterns to 'watchPatterns' as earlier."
+          },
+          {
+            "title": "Incorrect implementation of createIgnore function in watcher.js",
+            "severity": "critical",
+            "file": "lib/watcher.js",
+            "line": 42,
+            "explanation": "The original 'createIgnore' accepted both watched patterns and excludes and filtered files based on whether they matched watched patterns and excluded patterns. The new implementation ignores the 'patterns' argument entirely and only returns an ignore function based on excludes. Consequently, files not matching watched patterns are no longer ignored, and chokidar may watch unwanted files. This can lead to incorrect behavior by processing files that should not be watched.",
+            "suggestion": "Restore the logic in 'createIgnore' that considers watched patterns to ignore files that do not match any watched pattern, in addition to excluding files matching exclude patterns. This can be done by accepting both watched patterns and excludes and checking for matches accordingly as in the previous implementation."
+          },
+          {
+            "title": "Dependency chokidar downgraded to incompatible version",
+            "severity": "critical",
+            "file": "package.json",
+            "line": 94,
+            "explanation": "The 'chokidar' dependency version was downgraded from '~0.7.0' to '~0.6'. This version downgrade might break compatibility since the code uses chokidar features introduced or stabilized in versions >=0.7. This can cause runtime errors or improper behavior of the watcher functionality.",
+            "suggestion": "Ensure the version of chokidar is at least '~0.7.0' to maintain compatibility with the code using it, or verify that all API calls used are supported by version 0.6."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Inaccurate watching of patterns in watcher.js",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 21,
+            "explanation": "The previous implementation of 'watchPatterns' iterated over 'patterns' assuming they were strings. The new implementation expects 'patterns' to be an array of pattern objects and skips those with 'watched' property false. However, the 'exports.watch' function now calls 'watchPatterns' with the entire 'patterns' argument (array of pattern objects), whereas previously it provided only the string patterns that were watched. This change might cause incorrectly watching folders like '/' for URLs or ",
+            "suggestion": "Ensure 'watchPatterns' receives only the watched pattern objects, or adapt 'watchPatterns' so it correctly handles all pattern objects, especially skipping URLs and unwatched patterns as before. For example, keep filtering inside 'exports.watch' to pass only watched patterns to 'watchPatterns' as earlier."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-9",
+  "project": "Eslint",
+  "bugId": 9,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0a9a90f82e4d3e6e2ca4e6719567b9d9ebcaa045",
+  "buggySha": "734846b1557a45eb43286c4da2bdc1e13b89d1c6",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "a38bb7de49a5562e5fe2319d3b96491276ddf164ab46b5ca6ceaeb28c0dba60c",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "0a9a90f82e4d3e6e2ca4e6719567b9d9ebcaa045",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 193,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "2c140f07b88d4ab8ca7128adb322ac29a187aa0ae15753afdf8f5521acbe8017"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "6b8dca1d83279b37f1dc34dfebbbbdbe236457ae5aaca8b421e57497af4ced78"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "9e782bd3906223cda1b9e39b1863fb958007ff34f92435eb829909067da57852"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "4d08a7b5d9fa799ea4d8ce7fd9873f1e9cb2c916201ed2d3454d5af11266a62d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "93e48ae202ec472e5944f84c13268915611281e3d3446c2c11b6f8a9156931d8"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "8975e9b73c743302e374a7c63e3b248603aaf892e60ff17b6a7f62550f2e1217"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "67196ad19ddaf2c2a1b96b9645ffd8937e8e620607916bb34768c4148602d5f7"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fa2cc2dbe84b0acb24ea873f60326d8a677e1ce3e2d72b70bcf794c72d31280a"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 522,
+      "outputTokens": 0,
+      "totalTokens": 522
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 6018,
+          "outputTokens": 182,
+          "totalTokens": 6200
+        },
+        "rawFindings": [
+          {
+            "title": "Removed variable `commentLengthApplies` that was previously used for conditional reporting of comment length violations",
+            "severity": "medium",
+            "file": "lib/rules/max-len.js",
+            "line": 323,
+            "explanation": "In the original code, the variable `commentLengthApplies` was set to determine if a line is a comment and maxCommentLength is set. This allowed for clearer intention and possibly reuse if additional conditions were added later. The new code removes this variable and directly uses the if condition `if (lineIsComment && lineLength > maxCommentLength)`. While this is a simplification, if in future changes the logic needs to be more complex, the removal makes it less clear and breaks the explicit va",
+            "suggestion": "Restore the `commentLengthApplies` variable assignment to maintain clarity of logic and conditional checks related to comment length handling."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-12",
+  "project": "Hexo",
+  "bugId": 12,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "fc145f72a104aeb1451a7f78ce6d421946a6e385",
+  "buggySha": "36545fb147f554ccc303b2a2d41ba7e533bd3020",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "2b756c4a5a19072b38d59ea1288261feacda6a36f1fcc4715fc38699bb750096",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "fc145f72a104aeb1451a7f78ce6d421946a6e385",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "e657db37e55fe897285a9d85031c469bc3a7703d0bfe16549c0e4c2ec63ff45b"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "ef93d1a3b368bf4e2253a858b277aa003fe241a1d4cab5f55531c68b68a518cb"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "d4600cca49436c9f1661e191b9c64f263a348bd838fb4cf5019706b8ad869c60"
+      },
+      {
+        "path": "lib/hexo/post.js",
+        "contentSha256": "8d02e2e8ee0689eefcf82fe16d957598c8bbd7bec45809b7d4eb1ed96687a4da"
+      },
+      {
+        "path": "lib/models/post.js",
+        "contentSha256": "552f1e25b560e625f9fcccfe89a0ad8efe9af98f26273394ffe31d83d2ca1ed8"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "d6744c4fa425855ecc9137f6424860c53f534ba58516de5980e97a6fd73af9dc"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "feff21029f272434627d52eeb5c5eba89c594405049340670a8fdb6148e1b9fc"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a89a78dce98fcd41f27cd6407e0eab867ac25e7ef199b516ffedcd82de593e8e"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 470,
+      "outputTokens": 0,
+      "totalTokens": 470
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4705,
+          "outputTokens": 251,
+          "totalTokens": 4956
+        },
+        "rawFindings": [
+          {
+            "title": "Possible TypeError when slug is a number in Post.prototype.create",
+            "severity": "high",
+            "file": "lib/hexo/post.js",
+            "line": 50,
+            "explanation": "Changed code uses `data.slug || data.title` directly as argument to `slugize` without toString conversion. If `data.slug` or `data.title` is a number (non-string), slugize may throw or behave unexpectedly since it expects a string.",
+            "suggestion": "Convert `data.slug || data.title` to string before passing to `slugize`, e.g. `(data.slug || data.title).toString()` as was done previously."
+          },
+          {
+            "title": "Possible TypeError when slug is a number in Post.prototype.publish",
+            "severity": "high",
+            "file": "lib/hexo/post.js",
+            "line": 207,
+            "explanation": "Changed code uses `data.slug` directly as argument to `slugize` without toString conversion. If `data.slug` is a number, `slugize` may throw or misbehave.",
+            "suggestion": "Convert `data.slug` to string before passing to `slugize`, e.g. `slugize(data.slug.toString(), {transform: config.filename_case})` as was done previously."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Possible TypeError when slug is a number in Post.prototype.create",
+            "severity": "high",
+            "file": "lib/hexo/post.js",
+            "line": 50,
+            "explanation": "Changed code uses `data.slug || data.title` directly as argument to `slugize` without toString conversion. If `data.slug` or `data.title` is a number (non-string), slugize may throw or behave unexpectedly since it expects a string.",
+            "suggestion": "Convert `data.slug || data.title` to string before passing to `slugize`, e.g. `(data.slug || data.title).toString()` as was done previously."
+          },
+          {
+            "title": "Possible TypeError when slug is a number in Post.prototype.publish",
+            "severity": "high",
+            "file": "lib/hexo/post.js",
+            "line": 207,
+            "explanation": "Changed code uses `data.slug` directly as argument to `slugize` without toString conversion. If `data.slug` is a number, `slugize` may throw or misbehave.",
+            "suggestion": "Convert `data.slug` to string before passing to `slugize`, e.g. `slugize(data.slug.toString(), {transform: config.filename_case})` as was done previously."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

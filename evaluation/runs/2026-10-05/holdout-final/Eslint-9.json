@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-9",
+  "project": "Eslint",
+  "bugId": 9,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0a9a90f82e4d3e6e2ca4e6719567b9d9ebcaa045",
+  "buggySha": "734846b1557a45eb43286c4da2bdc1e13b89d1c6",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "a38bb7de49a5562e5fe2319d3b96491276ddf164ab46b5ca6ceaeb28c0dba60c",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "0a9a90f82e4d3e6e2ca4e6719567b9d9ebcaa045",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 193,
+    "embeddingUsage": {
+      "inputTokens": 159264,
+      "outputTokens": 0,
+      "totalTokens": 159264
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/max-len.js",
+        "contentSha256": "9bc5f6c8d82a638a8dac14f042b3fb7a5b59df3e75e1f0dc685616d392b5fc56"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "2c140f07b88d4ab8ca7128adb322ac29a187aa0ae15753afdf8f5521acbe8017"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "6b8dca1d83279b37f1dc34dfebbbbdbe236457ae5aaca8b421e57497af4ced78"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "9e782bd3906223cda1b9e39b1863fb958007ff34f92435eb829909067da57852"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "4d08a7b5d9fa799ea4d8ce7fd9873f1e9cb2c916201ed2d3454d5af11266a62d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "93e48ae202ec472e5944f84c13268915611281e3d3446c2c11b6f8a9156931d8"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "8975e9b73c743302e374a7c63e3b248603aaf892e60ff17b6a7f62550f2e1217"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "67196ad19ddaf2c2a1b96b9645ffd8937e8e620607916bb34768c4148602d5f7"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fa2cc2dbe84b0acb24ea873f60326d8a677e1ce3e2d72b70bcf794c72d31280a"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 522,
+      "outputTokens": 0,
+      "totalTokens": 522
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 8656,
+          "outputTokens": 194,
+          "totalTokens": 8850
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect condition skips reporting comment length violations when maxCommentLength is falsy",
+            "severity": "high",
+            "file": "lib/rules/max-len.js",
+            "line": 329,
+            "explanation": "The removed condition used 'commentLengthApplies', which required both 'lineIsComment' and 'maxCommentLength' to be truthy to report an error. The replacement condition only checks if 'lineIsComment' is true and line length exceeds 'maxCommentLength'. Since 'maxCommentLength' might be zero or undefined, the original condition prevented reporting in some cases where maxCommentLength is zero or falsy. However, the replacement fixes this by properly checking with maxCommentLength for the comparison",
+            "suggestion": "Replace 'commentLengthApplies' with direct check for 'lineIsComment && lineLength > maxCommentLength' to correctly report errors when maxCommentLength is set."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect condition skips reporting comment length violations when maxCommentLength is falsy",
+            "severity": "high",
+            "file": "lib/rules/max-len.js",
+            "line": 329,
+            "explanation": "The removed condition used 'commentLengthApplies', which required both 'lineIsComment' and 'maxCommentLength' to be truthy to report an error. The replacement condition only checks if 'lineIsComment' is true and line length exceeds 'maxCommentLength'. Since 'maxCommentLength' might be zero or undefined, the original condition prevented reporting in some cases where maxCommentLength is zero or falsy. However, the replacement fixes this by properly checking with maxCommentLength for the comparison",
+            "suggestion": "Replace 'commentLengthApplies' with direct check for 'lineIsComment && lineLength > maxCommentLength' to correctly report errors when maxCommentLength is set."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

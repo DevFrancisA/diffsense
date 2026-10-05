@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-7",
+  "project": "Karma",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "3481500e88c6b73e957ad562671c2bb1b5e7ceea",
+  "buggySha": "3f1d934be3ae946ab6292d6e9de00c0e1aa16de5",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "ee6e401894bb2367b05e8ba3f40cf985bc4f662c18f85ff54b20f55adf81e01d",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "3481500e88c6b73e957ad562671c2bb1b5e7ceea",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 84,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "08b482f8913f990d5fe5df328ed48c6ce5acb041501b94f1ad5ac6bf39381024"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "5892956b5cf1c6a58923c0404057ee02c38443e4d8719a3e135214e17c6f2785"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "b63c36cacc6bf3073105c142d917bd6ce3d54bc02e35996924eccd64bfda2d20"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "84567916743659c8122298471585ef69569a34f46c085059d58cc573844e9c83"
+      },
+      {
+        "path": "lib/launchers/process.js",
+        "contentSha256": "592ce61e22cbff42a28713a74eb0be5ea4a1499e0a419bdc2dea6b80d28724a8"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "17602d14c6f091ef35217a6d89152c6822510858cc4881c9941d286445841876"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "c9cbdcd896f15c7a3739947e65557965564626544832b8fa844b5ed4825866a8"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "fbbd8531ef12732a258a42f2cb555ce8a6f7e9c452825dd969d4551848b98809"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1377,
+      "outputTokens": 0,
+      "totalTokens": 1377
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 6019,
+          "outputTokens": 328,
+          "totalTokens": 6347
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect return type in parseExitCode function",
+            "severity": "critical",
+            "file": "lib/runner.js",
+            "line": 13,
+            "explanation": "The changed code on line 13 modifies parseExitCode to return just an exitCode (number), whereas before it returned an object with exitCode and buffer. This changes the function's return type and breaks existing callers expecting an object.",
+            "suggestion": "Restore returning an object containing both exitCode and buffer, or refactor callers accordingly."
+          },
+          {
+            "title": "Mutating input buffer by overwriting exit code section with null characters",
+            "severity": "high",
+            "file": "lib/runner.js",
+            "line": 20,
+            "explanation": "The newly inserted line at 20 calls tail.fill('\\x00'), which zeros out the exit code area of the buffer. This mutates the caller's buffer directly and can lead to loss of original data.",
+            "suggestion": "Avoid mutating the input buffer or explicitly clone it before modifications to preserve original data."
+          },
+          {
+            "title": "Inconsistent buffer handling and output side-effects in parseExitCode and run function",
+            "severity": "high",
+            "file": "lib/runner.js",
+            "line": 52,
+            "explanation": "The updated parseExitCode now returns only exitCode (number), but the runner's exports.run function still attempts to write the original buffer to stdout after parseExitCode call. This can cause confusion and inconsistent output behavior as the buffer is not sliced or cleaned of exit code info as before.",
+            "suggestion": "Either revert parseExitCode to return both exitCode and processed buffer or update exports.run to handle buffer output consistently with changed parseExitCode behavior."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect return type in parseExitCode function",
+            "severity": "critical",
+            "file": "lib/runner.js",
+            "line": 13,
+            "explanation": "The changed code on line 13 modifies parseExitCode to return just an exitCode (number), whereas before it returned an object with exitCode and buffer. This changes the function's return type and breaks existing callers expecting an object.",
+            "suggestion": "Restore returning an object containing both exitCode and buffer, or refactor callers accordingly."
+          },
+          {
+            "title": "Mutating input buffer by overwriting exit code section with null characters",
+            "severity": "high",
+            "file": "lib/runner.js",
+            "line": 20,
+            "explanation": "The newly inserted line at 20 calls tail.fill('\\x00'), which zeros out the exit code area of the buffer. This mutates the caller's buffer directly and can lead to loss of original data.",
+            "suggestion": "Avoid mutating the input buffer or explicitly clone it before modifications to preserve original data."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

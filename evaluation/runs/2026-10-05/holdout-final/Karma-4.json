@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-4",
+  "project": "Karma",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "2080221e6bac3ef6dbff0e4aab7784385034d227",
+  "buggySha": "47066ea538b89627d4a65d061f16d4d2dd0037c8",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "d9329344d138afcb93162d599a34b3b0e3b3a41c0b1858aef9c48147dd889b60",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "2080221e6bac3ef6dbff0e4aab7784385034d227",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 21856,
+      "outputTokens": 0,
+      "totalTokens": 21856
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/reporter.js",
+        "contentSha256": "16adf979e0a4f03a7a4770e55734627b7d1a600a4705b6596668d92349d5dee8"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "84567916743659c8122298471585ef69569a34f46c085059d58cc573844e9c83"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "6d17baebcf4fb1b1689ca6a4c0616d18295f56d6f7555b16e6cd97450a2726c8"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "3f804a32220054606a865ace922b8aa0c9da5d359d06a37d756a4ae33e4a9155"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "afa26804b55becd74c91251bb079257b7cab0ddff7160c42ed9b18f2de2cab89"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "06aa86bec132862709ed3c76a24c48ce113aa2f4a4e26a5fb08a87463b3a11c3"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "fd2afa01c2c3dc643903cf2587aa9f848d3837fd34112ba7b97d4faa32495e55"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "f36c17834c39947e383abe9bf17a6d681c2d739f9003e3eeb0b4c3b2db113cbe"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "0ce0f0fdb3add867cb6b9f91bc3807650af1a0ffad425865462b378f1ee76628"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 435,
+      "outputTokens": 0,
+      "totalTokens": 435
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 6575,
+          "outputTokens": 173,
+          "totalTokens": 6748
+        },
+        "rawFindings": [
+          {
+            "title": "Source map error formatting attempted without line number",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 52,
+            "explanation": "The original code only attempted source map error formatting if both a source map and a line number were present. The changed code removes the line number check, allowing source map error formatting even if the line number is missing (line is falsy). This leads to parseInt(line) being called with undefined or null, resulting in NaN, which causes .originalPositionFor to be called with an invalid line value and likely triggers an error or incorrect behavior.",
+            "suggestion": "Restore the condition to require the line number as well: change line 52 back to `if (file && file.sourceMap && line) {` to ensure source map mapping only occurs when line number is available."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Source map error formatting attempted without line number",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 52,
+            "explanation": "The original code only attempted source map error formatting if both a source map and a line number were present. The changed code removes the line number check, allowing source map error formatting even if the line number is missing (line is falsy). This leads to parseInt(line) being called with undefined or null, resulting in NaN, which causes .originalPositionFor to be called with an invalid line value and likely triggers an error or incorrect behavior.",
+            "suggestion": "Restore the condition to require the line number as well: change line 52 back to `if (file && file.sourceMap && line) {` to ensure source map mapping only occurs when line number is available."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

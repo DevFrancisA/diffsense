@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-4",
+  "project": "Node-redis",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "97db227a8d2098f82472b08e107e02532e73616d",
+  "buggySha": "b35a685c27126fe92c3d205781695b1691cf8476",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "52642903d71504574d8ea60ce3dc43ec30dd611da3c8446d6b665f75ec591c23",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "97db227a8d2098f82472b08e107e02532e73616d",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "benches/sub_quit_test.js",
+        "contentSha256": "ca72fbdc94accb84b5f889f337f0aa0b229b1ef6fc7a251d5446814f7ce2d05a"
+      },
+      {
+        "path": "examples/pub_sub.js",
+        "contentSha256": "51964d22aa14cf10d2c65a505fd6179a089b1506f250f5ccdffa96d01aef6bc3"
+      },
+      {
+        "path": "benches/re_sub_test.js",
+        "contentSha256": "25afa4e2767e5be215b30f030aba601c808bb3ba849b7801dec1964041472f02"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "021861c75c426c48857e4abf2f99d272add8a0b1cc24f4b49e722dbaf75987f5"
+      },
+      {
+        "path": "examples/psubscribe.js",
+        "contentSha256": "df14574f2c1299264261a71581082ab9358464ecbe57c36ac748e574d913b41c"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "4e0e8c0c8b5689d9dab0d2bd3516222bef444983681b7b8c96281ea5603a3c86"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "890615a434991c633f75013a7be75255a540835f5bb3dffa67ed4abbaf89bc5d"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "de331acb420f8b99f5ee0690d3f4031df33d96b0be932b9d8d5a65df89ad71af"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 289,
+      "outputTokens": 0,
+      "totalTokens": 289
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 3541,
+          "outputTokens": 6,
+          "totalTokens": 3547
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

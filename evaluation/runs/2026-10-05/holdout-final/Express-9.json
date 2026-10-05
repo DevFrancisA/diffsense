@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-9",
+  "project": "Express",
+  "bugId": 9,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "3e32721e24bb0169cbb348ae4654caa90fdfb1c0",
+  "buggySha": "8ba3f39b33042f59d50ef5b5fb87109d3f3a2a26",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "1f6dc79d6b203502781fdf0403650a983f9f1782f74bde3bc7da04bd1132ba48",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "3e32721e24bb0169cbb348ae4654caa90fdfb1c0",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 1684,
+      "outputTokens": 0,
+      "totalTokens": 1684
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/application.js",
+        "contentSha256": "900131de01f54550c20e70034e4f870db4dc9554858b2a9db5537598f9c014c6"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/mvc/lib/boot.js",
+        "contentSha256": "3a211d0607b7560438035bae9f61d0f192065a2be131d4f024a3e9d89b0d2b82"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "4c6d3b95f985fd39ea3cafd10f65ddf11d29bce1b6fa6b07f9aebe0a0378c869"
+      },
+      {
+        "path": "examples/mvc/lib/boot.js",
+        "contentSha256": "1f0e5f5362c590e85d262b4484cbd28417dd92eed1bd5c8c0688987c6a7a1ee3"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "133a1aaf9c0cc38e7f37d0d681533c2a185b0aa17fa5bd21af3f3cec7e777a3a"
+      },
+      {
+        "path": "examples/route-separation/index.js",
+        "contentSha256": "f42b0d50918a299adc9651616e9bad5115681f3e5cc1910edbd173f90ecdc26a"
+      },
+      {
+        "path": "examples/route-map/index.js",
+        "contentSha256": "d7709e448a5bddf16a22a1a39fda95f9b8a1e8d70c8a149b67542972957b2613"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "45e2e820e850032eaa58eaa0cec8d8647b4a9989a1f73db951c60ca5553ddc15"
+      },
+      {
+        "path": "examples/cookies/app.js",
+        "contentSha256": "c0df2c09f8f807be43c98e57121f1cefdbcac02ee9f475153d569541e116ca51"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 360,
+      "outputTokens": 0,
+      "totalTokens": 360
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 6468,
+          "outputTokens": 201,
+          "totalTokens": 6669
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect 'mountpath' assignment for mounted sub-applications",
+            "severity": "medium",
+            "file": "lib/application.js",
+            "line": 171,
+            "explanation": "The line `mount_app.mountpath = path;` sets the mountpath of the sub-application to the 'path' argument, but 'path' may not always be a string representing the mount path, especially when called as `app.use(subapp)` where 'path' is the function (subapp) itself. The original code assigned `mount_app.mountpath = mount_path;`, ensuring it is always a string path (either the first argument if string, or '/' by default). This change breaks the mountpath assignment logic and can cause mount_app.mountp",
+            "suggestion": "Restore the original assignment `mount_app.mountpath = mount_path;` to ensure the mountpath is always a string representing the mount point."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect 'mountpath' assignment for mounted sub-applications",
+            "severity": "medium",
+            "file": "lib/application.js",
+            "line": 171,
+            "explanation": "The line `mount_app.mountpath = path;` sets the mountpath of the sub-application to the 'path' argument, but 'path' may not always be a string representing the mount path, especially when called as `app.use(subapp)` where 'path' is the function (subapp) itself. The original code assigned `mount_app.mountpath = mount_path;`, ensuring it is always a string path (either the first argument if string, or '/' by default). This change breaks the mountpath assignment logic and can cause mount_app.mountp",
+            "suggestion": "Restore the original assignment `mount_app.mountpath = mount_path;` to ensure the mountpath is always a string representing the mount point."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

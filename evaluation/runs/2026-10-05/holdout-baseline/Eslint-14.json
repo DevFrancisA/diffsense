@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-14",
+  "project": "Eslint",
+  "bugId": 14,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "113c1a878446e1f4c37984484bdfed936f2f4225",
+  "buggySha": "03beb27ee80ef5e1c58936888d66cde41fc03d15",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "b2144490c420e219187093c02371fa5ef703216345c52bdc814eb54885c69034",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "113c1a878446e1f4c37984484bdfed936f2f4225",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 180,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "c98958141aa162d49914bddf4a157acc8031d5c605ec279117a6c65eb47f5ff7"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "e40e5ea3f58cfa3117c7e36dfd0429459f1bd1473f6f61c23d7d88e93a3b7deb"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "b30510ea34400d9ec1c1c237fa603e9799382242dffaeb19f8947e9d1a07f884"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "046dbbddaec1a29e087b9b173da93a2d1003ec1532879505c4eb46b9871449d1"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "ed0f94fb7464ece3b8e9d762b524badf95e4bbb865081110dbfbb1fc04d5cb94"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1d2b9a91bb989673848c85cd35337f4c4e9a3bc9a1a7c9659aca0c099107331d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1d305e23a66ae45318eec2220b4e0c30a4d09c454798fc3dce997f9799857235"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bdab1bfc2ea8cbc05ee1891bbef619ae8483e4c7c93c976e7decd10b709da35c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 715,
+      "outputTokens": 0,
+      "totalTokens": 715
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5652,
+          "outputTokens": 261,
+          "totalTokens": 5913
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect regex leads to incorrect handling of Export declarations",
+            "severity": "high",
+            "file": "lib/rules/max-statements-per-line.js",
+            "line": 46,
+            "explanation": "The original regex `SINGLE_CHILD_ALLOWED` matched ExportDefaultDeclaration and ExportNamedDeclaration, but the updated regex removed these alternatives, which will cause the rule to no longer recognize export declarations as single child allowed nodes. This likely breaks the rule behavior for export statements.",
+            "suggestion": "Restore the export declarations alternatives in the regex to correctly match export statements:\n```js\nvar SINGLE_CHILD_ALLOWED = /^(?:(?:DoWhile|For|ForIn|ForOf|If|Labeled|While)Statement|Export(?:Default|Named)Declaration)$/;"
+          },
+          {
+            "title": "Removal of valid tests decreases test coverage",
+            "severity": "medium",
+            "file": "tests/lib/rules/max-statements-per-line.js",
+            "line": 88,
+            "explanation": "A large block of tests for export declarations (export default, export let, export function) has been completely removed in this change. These tests corresponding to the functionality removed from the regex are also lost, decreasing coverage and potentially allowing regressions.",
+            "suggestion": "Restore tests for export declarations to maintain coverage and ensure rule correctness for these syntax types."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect regex leads to incorrect handling of Export declarations",
+            "severity": "high",
+            "file": "lib/rules/max-statements-per-line.js",
+            "line": 46,
+            "explanation": "The original regex `SINGLE_CHILD_ALLOWED` matched ExportDefaultDeclaration and ExportNamedDeclaration, but the updated regex removed these alternatives, which will cause the rule to no longer recognize export declarations as single child allowed nodes. This likely breaks the rule behavior for export statements.",
+            "suggestion": "Restore the export declarations alternatives in the regex to correctly match export statements:\n```js\nvar SINGLE_CHILD_ALLOWED = /^(?:(?:DoWhile|For|ForIn|ForOf|If|Labeled|While)Statement|Export(?:Default|Named)Declaration)$/;"
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

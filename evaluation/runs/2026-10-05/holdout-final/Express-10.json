@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-10",
+  "project": "Express",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "51f52901eb1f00571e18d404e10b27310215234c",
+  "buggySha": "8b6dc6ceec1b36e74ee9c6d362aa04e46237c227",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "202d82923add39cd17dd1c6b8eda4252fb74327bf184f3571e9e05e68b9d68a4",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "51f52901eb1f00571e18d404e10b27310215234c",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 48,
+    "embeddingUsage": {
+      "inputTokens": 4406,
+      "outputTokens": 0,
+      "totalTokens": 4406
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/router/index.js",
+        "contentSha256": "d10d25c9d9b865b48329f2339392aad5d44a9469138bb02630c4080be167bdf7"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/route-middleware/index.js",
+        "contentSha256": "712baa0298844ee1bc9cc79343e7df3dd62e61b982252ae4c20f29f1a14fdf0f"
+      },
+      {
+        "path": "examples/multi-router/index.js",
+        "contentSha256": "dce7c949f395dfe1b7272197c80c6d2574990bb983091c4747ba30b935136662"
+      },
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "e7547cd941b2de6ac98e3a4d7b0e5aa51046a567a1b35d5255b18e80410a7ed6"
+      },
+      {
+        "path": "examples/route-map/index.js",
+        "contentSha256": "d7709e448a5bddf16a22a1a39fda95f9b8a1e8d70c8a149b67542972957b2613"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "200d7613fa4a62495d06d075cc179aa33d87698592b9f313d5a66343034dcb41"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "cd42522974d9010d0f44789cacaebe34f46d6c2eb1828b9a27cca10fce099218"
+      },
+      {
+        "path": "examples/route-separation/index.js",
+        "contentSha256": "6a670d333044d7c9d75f27eaa3c1bb5e4d2f02eea103ce6b6a5380f3078cac76"
+      },
+      {
+        "path": "examples/multi-router/controllers/api_v1.js",
+        "contentSha256": "88ad3a30a97fbb345f73a757ff0dd0b70cb08e0e46c78e3d13cd91d86119df0e"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 726,
+      "outputTokens": 0,
+      "totalTokens": 726
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 7170,
+          "outputTokens": 188,
+          "totalTokens": 7358
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect order in trimming prefix matching in router.handle",
+            "severity": "high",
+            "file": "lib/router/index.js",
+            "line": 286,
+            "explanation": "The original code checks if (layerPath.length !== 0) before validating the path separator character after the layerPath in the request path. The patch reverses this order, first accessing path[layerPath.length] without ensuring layerPath is non-empty, then conditionally returning next(layerError) if the character is invalid, and only after this performing the length check and trim. Calling path[layerPath.length] when layerPath is empty leads to incorrect behavior or runtime errors. The correct l",
+            "suggestion": "Restore the original ordering by first checking if (layerPath.length !== 0) before accessing path[layerPath.length] and validating the character, then trimming the prefix as before."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect order in trimming prefix matching in router.handle",
+            "severity": "high",
+            "file": "lib/router/index.js",
+            "line": 286,
+            "explanation": "The original code checks if (layerPath.length !== 0) before validating the path separator character after the layerPath in the request path. The patch reverses this order, first accessing path[layerPath.length] without ensuring layerPath is non-empty, then conditionally returning next(layerError) if the character is invalid, and only after this performing the length check and trim. Calling path[layerPath.length] when layerPath is empty leads to incorrect behavior or runtime errors. The correct l",
+            "suggestion": "Restore the original ordering by first checking if (layerPath.length !== 0) before accessing path[layerPath.length] and validating the character, then trimming the prefix as before."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

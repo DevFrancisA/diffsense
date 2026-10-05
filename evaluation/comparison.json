@@ -1,0 +1,342 @@
+{
+  "generatedAt": "2026-10-05T11:16:53.671Z",
+  "interval": "Wilson score, 95%",
+  "rows": [
+    {
+      "cohort": "DEV",
+      "config": "baseline",
+      "file": "results.json",
+      "run": 1,
+      "found": 18,
+      "known": 59,
+      "predictions": 18,
+      "falsePositives": 0,
+      "recall": {
+        "value": 0.3050847457627119,
+        "ci": {
+          "low": 0.20253631980116063,
+          "high": 0.4314632653194519
+        }
+      },
+      "precision": {
+        "value": 1,
+        "ci": {
+          "low": 0.8241207763533425,
+          "high": 1
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "baseline",
+      "file": "results.json",
+      "run": 2,
+      "found": 17,
+      "known": 59,
+      "predictions": 18,
+      "falsePositives": 1,
+      "recall": {
+        "value": 0.288135593220339,
+        "ci": {
+          "low": 0.188364996358223,
+          "high": 0.4138084657293992
+        }
+      },
+      "precision": {
+        "value": 0.9444444444444444,
+        "ci": {
+          "low": 0.7424269921812741,
+          "high": 0.990124809021697
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "baseline",
+      "file": "results.json",
+      "run": 3,
+      "found": 17,
+      "known": 59,
+      "predictions": 18,
+      "falsePositives": 1,
+      "recall": {
+        "value": 0.288135593220339,
+        "ci": {
+          "low": 0.188364996358223,
+          "high": 0.4138084657293992
+        }
+      },
+      "precision": {
+        "value": 0.9444444444444444,
+        "ci": {
+          "low": 0.7424269921812741,
+          "high": 0.990124809021697
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C1",
+      "file": "results-dev-c1.json",
+      "run": 1,
+      "found": 22,
+      "known": 59,
+      "predictions": 29,
+      "falsePositives": 7,
+      "recall": {
+        "value": 0.3728813559322034,
+        "ci": {
+          "low": 0.2608399879232115,
+          "high": 0.5004640893293619
+        }
+      },
+      "precision": {
+        "value": 0.7586206896551724,
+        "ci": {
+          "low": 0.5789239838218867,
+          "high": 0.8778157755747991
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C1",
+      "file": "results-dev-c1.json",
+      "run": 2,
+      "found": 23,
+      "known": 59,
+      "predictions": 26,
+      "falsePositives": 3,
+      "recall": {
+        "value": 0.3898305084745763,
+        "ci": {
+          "low": 0.2757936183396798,
+          "high": 0.5173365819458838
+        }
+      },
+      "precision": {
+        "value": 0.8846153846153846,
+        "ci": {
+          "low": 0.7102409678828635,
+          "high": 0.9599675537638938
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C1",
+      "file": "results-dev-c1.json",
+      "run": 3,
+      "found": 24,
+      "known": 59,
+      "predictions": 27,
+      "falsePositives": 3,
+      "recall": {
+        "value": 0.4067796610169492,
+        "ci": {
+          "low": 0.29089033587192775,
+          "high": 0.5340659874466261
+        }
+      },
+      "precision": {
+        "value": 0.8888888888888888,
+        "ci": {
+          "low": 0.7194219918172017,
+          "high": 0.9614796517169016
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C2",
+      "file": "results-dev-c2.json",
+      "run": 1,
+      "found": 22,
+      "known": 59,
+      "predictions": 26,
+      "falsePositives": 4,
+      "recall": {
+        "value": 0.3728813559322034,
+        "ci": {
+          "low": 0.2608399879232115,
+          "high": 0.5004640893293619
+        }
+      },
+      "precision": {
+        "value": 0.8461538461538461,
+        "ci": {
+          "low": 0.6646880067178652,
+          "high": 0.9384996627642165
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C2",
+      "file": "results-dev-c2.json",
+      "run": 2,
+      "found": 23,
+      "known": 59,
+      "predictions": 28,
+      "falsePositives": 5,
+      "recall": {
+        "value": 0.3898305084745763,
+        "ci": {
+          "low": 0.2757936183396798,
+          "high": 0.5173365819458838
+        }
+      },
+      "precision": {
+        "value": 0.8214285714285714,
+        "ci": {
+          "low": 0.6440857521065705,
+          "high": 0.9212149805439572
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C2",
+      "file": "results-dev-c2.json",
+      "run": 3,
+      "found": 29,
+      "known": 59,
+      "predictions": 33,
+      "falsePositives": 4,
+      "recall": {
+        "value": 0.4915254237288136,
+        "ci": {
+          "low": 0.3684383690774015,
+          "high": 0.6156485694061034
+        }
+      },
+      "precision": {
+        "value": 0.8787878787878788,
+        "ci": {
+          "low": 0.7267449482892476,
+          "high": 0.9518383869058644
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C3",
+      "file": "results-dev-c3.json",
+      "run": 1,
+      "found": 21,
+      "known": 59,
+      "predictions": 21,
+      "falsePositives": 0,
+      "recall": {
+        "value": 0.3559322033898305,
+        "ci": {
+          "low": 0.2460329140381331,
+          "high": 0.48344504018145007
+        }
+      },
+      "precision": {
+        "value": 1,
+        "ci": {
+          "low": 0.8453609810751531,
+          "high": 1
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C3",
+      "file": "results-dev-c3.json",
+      "run": 2,
+      "found": 20,
+      "known": 59,
+      "predictions": 20,
+      "falsePositives": 0,
+      "recall": {
+        "value": 0.3389830508474576,
+        "ci": {
+          "low": 0.23137653685587656,
+          "high": 0.46627529433071635
+        }
+      },
+      "precision": {
+        "value": 1,
+        "ci": {
+          "low": 0.8388748419471806,
+          "high": 1
+        }
+      }
+    },
+    {
+      "cohort": "DEV",
+      "config": "C3",
+      "file": "results-dev-c3.json",
+      "run": 3,
+      "found": 25,
+      "known": 59,
+      "predictions": 27,
+      "falsePositives": 2,
+      "recall": {
+        "value": 0.423728813559322,
+        "ci": {
+          "low": 0.30612727435188697,
+          "high": 0.5506551719996571
+        }
+      },
+      "precision": {
+        "value": 0.9259259259259259,
+        "ci": {
+          "low": 0.7663040731697686,
+          "high": 0.9794453459390113
+        }
+      }
+    },
+    {
+      "cohort": "HOLDOUT",
+      "config": "baseline",
+      "file": "results-holdout-baseline.json",
+      "run": 1,
+      "found": 20,
+      "known": 56,
+      "predictions": 22,
+      "falsePositives": 2,
+      "recall": {
+        "value": 0.35714285714285715,
+        "ci": {
+          "low": 0.24456571707649905,
+          "high": 0.4880611219860049
+        }
+      },
+      "precision": {
+        "value": 0.9090909090909091,
+        "ci": {
+          "low": 0.7218505315839417,
+          "high": 0.9747045710090046
+        }
+      }
+    },
+    {
+      "cohort": "HOLDOUT",
+      "config": "final",
+      "file": "results-holdout-final.json",
+      "run": 1,
+      "found": 25,
+      "known": 56,
+      "predictions": 25,
+      "falsePositives": 0,
+      "recall": {
+        "value": 0.44642857142857145,
+        "ci": {
+          "low": 0.3238672125478337,
+          "high": 0.5758678521006054
+        }
+      },
+      "precision": {
+        "value": 1,
+        "ci": {
+          "low": 0.8668077490609515,
+          "high": 0.9999999999999999
+        }
+      }
+    }
+  ]
+}

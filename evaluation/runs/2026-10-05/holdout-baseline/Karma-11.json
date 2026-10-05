@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-11",
+  "project": "Karma",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6cf795576bd6d77decac68ecc4838871b6df4836",
+  "buggySha": "449b0f5686dffcf4bde2c47b56ef17bd49c1c58c",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "b0119d6841808cdff3ebafc449b0a9eca58bb5d8a0eedb58e488831a9a84271b",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "6cf795576bd6d77decac68ecc4838871b6df4836",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 85,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "5edbd9164264debf5603c5a22fb366d207006ef52f6a23c1f87ac91bbd43c787"
+      },
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "53afca2245d5f0ee6751e637e7052791367f15911e58bbf8379cc35417af0c8e"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "17c59e0ff175bf3a1e41f390a885cabb2311c504a5eeacf97c087ee13762c9e7"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "3b120dfe77fa6fc1bcbad75d0d30f975d4077c4b3b2752b6ea97ae20169bb054"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "7444e7e982e11aa47c1398cc778f3ae31695e098847df2e0f0d4faf016610d1c"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "c33a5339ad804675530634acef3dfd1cb9c37b4c983b588030cfecbc7b7e9ab7"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "b8c1e536551eec06304b160c1fda2e98eecfa882039ea2d023b59879cdbf8dc0"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "2c9bc2e6b91e6456cd830c2e33009455be7398991c7941e297a8f4956c7811e6"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 418,
+      "outputTokens": 0,
+      "totalTokens": 418
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5014,
+          "outputTokens": 154,
+          "totalTokens": 5168
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect SHA calculation for binary files in createPreprocessor",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 96,
+            "explanation": "The SHA hash for the file content is recalculated at line 96 using 'buffer' instead of 'content'. For non-binary files, 'content' is a string after preprocessing, but for binary files, 'content' is a Buffer. The recalculation at line 96 uses 'buffer', which is not defined in this scope, likely causing a ReferenceError or incorrect behavior.",
+            "suggestion": "Replace 'file.sha = sha1(buffer);' at line 96 with 'file.sha = sha1(content);' to ensure consistent SHA calculation regardless of file type."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect SHA calculation for binary files in createPreprocessor",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 96,
+            "explanation": "The SHA hash for the file content is recalculated at line 96 using 'buffer' instead of 'content'. For non-binary files, 'content' is a string after preprocessing, but for binary files, 'content' is a Buffer. The recalculation at line 96 uses 'buffer', which is not defined in this scope, likely causing a ReferenceError or incorrect behavior.",
+            "suggestion": "Replace 'file.sha = sha1(buffer);' at line 96 with 'file.sha = sha1(content);' to ensure consistent SHA calculation regardless of file type."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-11",
+  "project": "Karma",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6cf795576bd6d77decac68ecc4838871b6df4836",
+  "buggySha": "449b0f5686dffcf4bde2c47b56ef17bd49c1c58c",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "b0119d6841808cdff3ebafc449b0a9eca58bb5d8a0eedb58e488831a9a84271b",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "6cf795576bd6d77decac68ecc4838871b6df4836",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 85,
+    "embeddingUsage": {
+      "inputTokens": 1940,
+      "outputTokens": 0,
+      "totalTokens": 1940
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "12cf15d6051519673d0aff337fa9f26e3f25c5b0aada86d4bb98119533aed401"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "5edbd9164264debf5603c5a22fb366d207006ef52f6a23c1f87ac91bbd43c787"
+      },
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "53afca2245d5f0ee6751e637e7052791367f15911e58bbf8379cc35417af0c8e"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "17c59e0ff175bf3a1e41f390a885cabb2311c504a5eeacf97c087ee13762c9e7"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "3b120dfe77fa6fc1bcbad75d0d30f975d4077c4b3b2752b6ea97ae20169bb054"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "7444e7e982e11aa47c1398cc778f3ae31695e098847df2e0f0d4faf016610d1c"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "c33a5339ad804675530634acef3dfd1cb9c37b4c983b588030cfecbc7b7e9ab7"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "b8c1e536551eec06304b160c1fda2e98eecfa882039ea2d023b59879cdbf8dc0"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "2c9bc2e6b91e6456cd830c2e33009455be7398991c7941e297a8f4956c7811e6"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 418,
+      "outputTokens": 0,
+      "totalTokens": 418
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 6232,
+          "outputTokens": 178,
+          "totalTokens": 6410
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect SHA hash assignment for processed files",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 96,
+            "explanation": "The SHA hash is recomputed only for the original file buffer content in the callback of fs.readFile. When preprocessors modify the content, the final computed SHA is still based on the original buffer, not the processed content. The removed line at 55 was setting the SHA after all preprocessors completed, correctly based on the final content value, but it was removed. This leads to incorrect SHA hashes for preprocessed files.",
+            "suggestion": "Restore the line 'file.sha = sha1(content);' after all preprocessors have run and the final content is available, and remove or adjust the line 'file.sha = sha1(buffer);' that uses the original buffer at the end of fs.readFile callback."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect SHA hash assignment for processed files",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 96,
+            "explanation": "The SHA hash is recomputed only for the original file buffer content in the callback of fs.readFile. When preprocessors modify the content, the final computed SHA is still based on the original buffer, not the processed content. The removed line at 55 was setting the SHA after all preprocessors completed, correctly based on the final content value, but it was removed. This leads to incorrect SHA hashes for preprocessed files.",
+            "suggestion": "Restore the line 'file.sha = sha1(content);' after all preprocessors have run and the final content is available, and remove or adjust the line 'file.sha = sha1(buffer);' that uses the original buffer at the end of fs.readFile callback."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

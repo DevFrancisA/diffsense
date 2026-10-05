@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-11",
+  "project": "Eslint",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0d60db771446cbc2ab6a905da202e6fdf1d50148",
+  "buggySha": "5003b1cf6f37c1a89e8dedf446576ab892579173",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "098a3dde56048fab59a78de893302e06a7427067325e7fd8daeafc931255c425",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "0d60db771446cbc2ab6a905da202e6fdf1d50148",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 180,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "91d9aebe5fbdf0763715f0f408828db9592ee208d86d6cc36a33004a992be2a2"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bef4866f19d3bbe8d9fca6594d28594d7e9aa14595d06dca7359ecd7b59b80d9"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "5891d7660de14fbc1dfe0031f44a6d33a3b0ac4da5e56c36919c973cb343ee96"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "f6eb9ceb8dc3f9b025adc9c1633acf1be68d64c89e80c2048e12c535dd37789a"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "590afbd3e0c6a5213d9a77485d24470e1ba8a6934e44c33aaa3c96e6fccf6862"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "3b6da0ee54f953f4fcf568ee2db3e2e4c3c91fa824a18e97e3848e3c51c84ae4"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "9c00aa92f9675708584b22de999e3482db13c7fddc8bdc0d6242ced750aff3bc"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 349,
+      "outputTokens": 0,
+      "totalTokens": 349
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5171,
+          "outputTokens": 158,
+          "totalTokens": 5329
+        },
+        "rawFindings": [
+          {
+            "title": "Removed code that checked for leading comments in curly.js rule, changing expected behavior",
+            "severity": "high",
+            "file": "lib/rules/curly.js",
+            "line": 294,
+            "explanation": "The code changed from determining the 'expected' boolean based on the presence of leading comments on the first statement inside a block to always setting 'expected' to false. This alters the rule logic and likely affects detection of multi-line or nested blocks that contain comments, potentially breaking intended functionality.",
+            "suggestion": "Restore the original line to compute 'expected' based on leadingComments length, i.e., replace 'expected = false;' with 'const leadingComments = sourceCode.getComments(body.body[0]).leading; expected = leadingComments.length > 0;'."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}
