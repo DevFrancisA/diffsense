@@ -6,6 +6,7 @@
 - Dataset Git revision used for metadata: `7abbad3e4df12cd5294110bb5db11b7d5bc758a6`.
 - The dataset README describes 453 bugs across 10 projects. `Projects.csv` lists their upstream repository URLs and per-project bug counts.
 - Each `*_issues.bin` record provides the benchmark bug ID, original report ID, and fixing commit SHA. The `.proto` schema calls these fields `id`, `orig_id`, and `fix.hash`.
+- Group issue records by numeric BugsJS `id`, because a single bug ID can have multiple original reports. In the pinned source, the grouped unique-ID counts match all 10 `Projects.csv` counts (453 total), and each group has exactly one distinct fix SHA. Keep all distinct original report URLs, sorted by numeric `orig_id`, in the selected manifest entry.
 - The fixing commit's first parent is the buggy revision. The fixing commit itself is the fixed revision. BugsJS snapshot tags are not substituted for those commit SHAs.
 - A report reference is the upstream repository's GitHub issue URL using `orig_id`; no third-party source is copied into this repository.
 
