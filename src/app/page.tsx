@@ -49,6 +49,27 @@ type ReviewResult = {
 type TestStep = { action: string; selector: string; value: string; expected: string };
 type TestScenario = { title: string; purpose: string; steps: TestStep[] };
 type GeneratedPlan = { scenarios: TestScenario[] };
+type MetricRange = { min: number; max: number } | null;
+type EvaluationSummary = {
+  available: boolean;
+  message?: string;
+  date?: string;
+  cohort?: number;
+  reviewModel?: string;
+  withContext?: {
+    runs: { runNumber: number; precision: number | null; recall: number | null; falsePositives: number }[];
+    precisionRange: MetricRange;
+    recallRange: MetricRange;
+  };
+  withoutContext?: { runNumber: number; precision: number | null; recall: number | null; falsePositives: number }[];
+  manualReview?: { status: string; reason: string };
+  regressionEvaluation?: { status: string; reason: string };
+};
+
+function formatPercentRange(range: MetricRange) {
+  if (!range) return "—";
+  return `${(range.min * 100).toFixed(1)}–${(range.max * 100).toFixed(1)}`;
+}
 
 const sampleDiff = `diff --git a/src/api/invoices/[id]/route.ts b/src/api/invoices/[id]/route.ts
 index 62e14fc..d0a31b4 100644
@@ -77,6 +98,7 @@ export default function Home() {
   const [generatingTests, setGeneratingTests] = useState(false);
   const [planError, setPlanError] = useState("");
   const [apiReady, setApiReady] = useState<boolean | null>(null);
+  const [evaluation, setEvaluation] = useState<EvaluationSummary | null>(null);
   const [activeView, setActiveView] = useState("Review desk");
 
   useEffect(() => {
@@ -84,6 +106,13 @@ export default function Home() {
       .then((response) => response.json())
       .then((status: { ready?: boolean }) => setApiReady(Boolean(status.ready)))
       .catch(() => setApiReady(false));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/evaluation/results")
+      .then((response) => response.json())
+      .then((summary: EvaluationSummary) => setEvaluation(summary))
+      .catch(() => setEvaluation({ available: false, message: "Evaluation results unavailable." }));
   }, []);
 
   async function runReview(event: FormEvent<HTMLFormElement>) {
@@ -225,10 +254,10 @@ export default function Home() {
           </section>
 
           <section className="metrics-strip" aria-label="Evaluation metrics">
-            <div className="metric-cell"><span className="metric-label">PRECISION</span><strong>--<small>%</small></strong><span className="metric-foot"><span className="metric-neutral">Not measured</span> · labeled set needed</span></div>
-            <div className="metric-cell"><span className="metric-label">RECALL</span><strong>--<small>%</small></strong><span className="metric-foot"><span className="metric-neutral">Not measured</span> · labeled set needed</span></div>
-            <div className="metric-cell"><span className="metric-label">REVIEW TIME</span><strong>--<small>min</small></strong><span className="metric-foot"><span className="metric-neutral">No paired runs</span> · baseline needed</span></div>
-            <div className="metric-cell metric-last"><span className="metric-label">REGRESSION CATCH RATE</span><strong>--<small>%</small></strong><span className="metric-foot"><span className="metric-neutral">No scenarios</span> · test suite needed</span></div>
+            <div className="metric-cell"><span className="metric-label">PRECISION · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.precisionRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `${evaluation.cohort} BugsJS cases · ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
+            <div className="metric-cell"><span className="metric-label">RECALL · WITH CONTEXT</span><strong>{formatPercentRange(evaluation?.withContext?.recallRange ?? null)}<small>%</small></strong><span className="metric-foot">{evaluation?.available ? `Range across ${evaluation.withContext?.runs.length} runs` : evaluation ? "No results yet" : "Loading results"}</span></div>
+            <div className="metric-cell"><span className="metric-label">REVIEW TIME</span><strong>—<small>min</small></strong><span className="metric-foot"><span className="metric-neutral">Unmeasured</span> · paired human study pending</span></div>
+            <div className="metric-cell metric-last"><span className="metric-label">REGRESSION CATCH RATE</span><strong>—<small>%</small></strong><span className="metric-foot"><span className="metric-neutral">Unmeasured</span> · scenarios not run</span></div>
           </section>
 
           <form className="review-form" onSubmit={runReview}>
@@ -264,8 +293,8 @@ export default function Home() {
           </form>
 
           <section className="evaluation-panel panel">
-            <div className="evaluation-copy"><span className="evaluation-mark"><Activity size={16} /></span><div><h2>Evidence, not vibes</h2><p>Score reviews against labeled defects and seeded regressions.</p></div></div>
-            <div className="evaluation-status"><span className="status-dot" />No evaluation data yet</div>
+            <div className="evaluation-copy"><span className="evaluation-mark"><Activity size={16} /></span><div><h2>{evaluation?.available ? "BugsJS review baseline" : "Evidence, not vibes"}</h2><p>{evaluation?.available ? `${evaluation.cohort} pre-labeled cases · ${evaluation.reviewModel} · ${evaluation.date}` : "Score reviews against labeled defects and seeded regressions."}</p></div></div>
+            <div className="evaluation-status"><span className="status-dot" />{evaluation?.available ? "Results saved" : evaluation ? "No results yet" : "Loading results"}</div>
             <button className="text-button evaluation-link" type="button" onClick={generateTests} disabled={generatingTests || apiReady !== true || (!diff.trim() && !pullRequestUrl.trim())}>{generatingTests ? <LoaderCircle size={13} className="spin" /> : <ShieldCheck size={14} />}{generatingTests ? "Generating plan…" : "Generate Playwright plan"}</button>
           </section>
 

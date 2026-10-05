@@ -115,7 +115,24 @@ For each case, the benchmark indexes the fixed commit, reviews the reversed diff
 
 Raw outputs are limited to structured finding fields, model/date, and token usage. Long finding text is clipped; retrieved context is represented only by source path and content hash. Raw runs are stored under `evaluation/runs/<date>/`; aggregate per-run precision/recall and false-positive rows are written to `evaluation/results.json`. The results file is not created until all cases and arms complete.
 
-**Current results:** the baseline has not run yet. Human review findings and paired minutes are unmeasured; the timing-study feature is intentionally not included. The 40 seeded regression scenarios have not been authored or executed, so regression catch rate is also unmeasured. Do not interpret the synthetic metrics fixture or empty UI values as benchmark results.
+## Results
+
+Baseline run: **2026-10-05**, model `gpt-4.1-mini`, embedding model `text-embedding-3-small`, review prompt fingerprint `b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50`.
+
+The cohort is 30 bug-introducing diffs reconstructed from real fixes in [BugsJS/bug-dataset](https://github.com/BugsJS/bug-dataset) (version 1.0, MIT), across six projects, with 59 labeled defect ranges. Labels were created from each fixing commit and its first parent, reviewed and committed in `evaluation/manifest.json` before any DiffSense output. No 100-PR dataset exists; 100 was an incorrect count.
+
+| Arm | Run | Findings | Labeled defects found | False positives | Precision | Recall |
+|---|---:|---:|---:|---:|---:|---:|
+| With retrieved context | 1 | 18 | 18 | 0 | 100.0% | 30.5% |
+| With retrieved context | 2 | 18 | 17 | 1 | 94.4% | 28.8% |
+| With retrieved context | 3 | 18 | 17 | 1 | 94.4% | 28.8% |
+| No-context ablation | 1 | 14 | 13 | 1 | 92.9% | 22.0% |
+
+Matching requires the same file and a finding line within the inclusive defect range extended by two lines on either side. The same committed evaluator rules were used for every run. Context-retrieval recall ranged from 28.8% to 30.5%; these results do **not** support the previous 80% recall claim. The no-context ablation is reported separately, not pooled with the context arm.
+
+**Not measured:** paired manual-vs-assisted review time and human finding comparability. No timing sessions have run, so claim 2 has no measured time-saving result. **Not measured:** seeded-regression catch rate. The 40 regression patches and outcomes have not been authored or executed, so claim 3 has no catch-rate result. These are not zeros or estimates.
+
+The baseline made 211 API calls with recorded usage; the budget ledger conservatively reserved 212 calls (one reservation had no usage response) against the 500-call ceiling. API-reported token usage was 1,935,588 total (1,917,798 input and 17,790 output). The runner recorded three independent context runs to expose model variance; this is a historical BugsJS cohort, limited to six projects, the pre-registered selection rules, and at most 40 indexed files per case. Results should not be generalized to arbitrary repositories without further evaluation.
 
 ## Data handling and deployment limits
 
