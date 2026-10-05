@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "dev-forward-m55",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "models": {
+    "review": "gpt-5.5",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 11,
+    "casesFlaggedOnSource": 11,
+    "findings": 13,
+    "sourceFindings": 13,
+    "testFindings": 0
+  },
+  "cases": [
+    {
+      "caseId": "Bower-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Windows absolute local paths are still treated as cacheable",
+          "severity": "medium",
+          "file": "lib/core/resolvers/Resolver.js",
+          "line": 120,
+          "explanation": "The new local-source check only recognizes paths beginning with a slash, backslash, ./, ../, or file:// followed by a slash. A Windows absolute path such as `C:\\work\\dep` or `C:/work/dep` does not match, so `isNotCacheable()` returns false even though it is a local dependency. PackageRepository will then use and store this dependency in the resolve cache, allowing stale cached contents to be returned for a changed local package.",
+          "suggestion": "Recognize drive-letter absolute paths as local as well, e.g. include `/^[A-Za-z]:[\\\\/]/` or normalize/strip file prefixes and use an absolute-path helper appropriate for Windows.",
+          "failureAfterChange": "On Windows, fetch a dependency with source `C:\\work\\dep`, then modify files in that local package and fetch it again with the same target; the second fetch may come from the resolve cache instead of the current local directory contents.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Bower-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Bower-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Flags locally callable Reflect bindings as non-callable",
+          "severity": "medium",
+          "file": "lib/rules/no-obj-calls.js",
+          "line": 31,
+          "explanation": "The new `Reflect` check reports any call whose callee identifier is named `Reflect`, even when that identifier is a local function or parameter rather than the ES2015 global Reflect object. Unlike `Math` and `JSON`, `Reflect` can be a perfectly valid user-defined callable in ES5 or as a shadowing local binding, so this introduces false positives for valid code.",
+          "suggestion": "Before reporting `Reflect()`, resolve the identifier in the current scope and only report when it refers to the global built-in, or skip reporting when a local binding named `Reflect` exists.",
+          "failureAfterChange": "Input `function Reflect() { return 1; } Reflect();` is now reported as `\"'Reflect' is not a function.\"` even though the called local function is callable.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Template literals with interpolations are treated as literals",
+          "severity": "medium",
+          "file": "lib/rules/prefer-template.js",
+          "line": 37,
+          "explanation": "This added condition makes every TemplateLiteral count as literal-only. A template literal containing expressions is non-literal for this rule, so concatenating it with a string literal is no longer reported even though it is still avoidable string concatenation.",
+          "suggestion": "Only exempt template literals without expressions, e.g. handle `TemplateLiteral` separately with `return node.expressions.length > 0;` before the final literal check.",
+          "failureAfterChange": "With prefer-template enabled, `var foo = `hello ${name}` + \"!\";` produces no lint error, but it should report the string concatenation.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Case-sensitive RegExp routes collide in the base-route cache",
+          "severity": "medium",
+          "file": "lib/application.js",
+          "line": 547,
+          "explanation": "The cache key is lower-cased whenever the app router is not case-sensitive. That setting applies to string paths, but RegExp paths keep their own case sensitivity. As a result, distinct regex routes such as `/abc/` and `/ABC/` get the same cache key and the second method is attached to the first route's regex.",
+          "suggestion": "Only apply the router case-sensitivity lower-casing to string paths, or include the original RegExp string/flags without lower-casing for RegExp paths.",
+          "failureAfterChange": "With default settings: `app.get(/abc/, getHandler); app.post(/ABC/, postHandler);` then `POST /ABC` incorrectly returns 404 because the POST handler was attached to the existing `/abc/` route instead of a new `/ABC/` route.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Object keys with a non-callable toString now make v1 decoding throw",
+          "severity": "medium",
+          "file": "lib/v1/decoder.js",
+          "line": 429,
+          "explanation": "This added condition passes every decoded key to `RegExp.test`, which coerces the key to a string. A valid Hessian map can use an object/map as a key, and that decoded object can contain a data property named `toString` (for example `{ toString: 'x' }`). Such an object cannot be converted with the normal property-key coercion, so decoding throws `TypeError: Cannot convert object to primitive value` before the entry can be stored in `$map` or skipped. The previous type guard avoided coercing non-",
+          "suggestion": "Do not coerce arbitrary object keys in the regex check; either restore the string/number guard for plain object assignment, or derive a safe property name for object keys with `Object.prototype.toString.call(key)` before testing/assigning.",
+          "failureAfterChange": "Decoding a Hessian v1 map whose key is a nested object/map with field `toString` set to a string and whose value is `1` now throws a TypeError instead of decoding the map entry/preserving it in `$map`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Object keys with a non-callable toString now make v2 map decoding throw",
+          "severity": "medium",
+          "file": "lib/v2/decoder.js",
+          "line": 733,
+          "explanation": "This unconditional property assignment coerces every decoded map key to a JavaScript property name. For a valid Hessian map with an object key whose decoded shape includes a non-function `toString` property, that coercion throws `TypeError: Cannot convert object to primitive value`, so decoding aborts before the key can be preserved in the non-enumerable ES6 `$map`. The removed type guard avoided this coercion for non-primitive keys.",
+          "suggestion": "Avoid direct property-key coercion for arbitrary object keys; restore the primitive-only assignment and rely on `$map`, or convert object keys with a safe fallback such as `Object.prototype.toString.call(k)` before assigning.",
+          "failureAfterChange": "Decoding a Hessian v2 untyped map containing a nested map/object key like `{ toString: 'x' }` and any value now throws a TypeError at `map[k] = v` instead of returning the decoded map with the entry preserved in `$map`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Objects with a `$class` key but no `$` value now encode as null",
+          "severity": "medium",
+          "file": "lib/v1/encoder.js",
+          "line": 304,
+          "explanation": "This new condition treats any value with a string `$class` and an undefined `$` property as null. However `write()` deliberately routes objects that do not have an own `$` property to `writeObject()` as plain maps, so a normal object like `{ $class: 'Foo' }` should still be encoded as a map containing the `$class` field. After this change it is serialized as Hessian null instead.",
+          "suggestion": "Only apply the typed-null shortcut when the object actually has an own `$` property, e.g. `utils.hasOwnProperty(obj, '$') && is.string(obj.$class) && is.nullOrUndefined(obj.$)`.",
+          "failureAfterChange": "Encoding and then decoding `{ $class: 'Foo' }` with v1 returns `null` instead of an object/map containing `{ $class: 'Foo' }`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Decoder drops valid v1 object fields named this$<digits>",
+          "severity": "medium",
+          "file": "lib/v1/decoder.js",
+          "line": 419,
+          "explanation": "This newly added filter discards any decoded object property whose name matches `this$\\d+`. Hessian field names are data from the stream, and `this$0` can be a legitimate field name; the decoder now loses that value instead of returning the serialized object contents.",
+          "suggestion": "Always assign the decoded field value here; handle circular references or JSON serialization concerns outside the decoder, or behind an explicit opt-in option.",
+          "failureAfterChange": "Decoding the v1 buffer `4d7400074578616d706c65530006746869732430530001787a` now returns `{}` instead of `{ \"this$0\": \"x\" }`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Decoder drops valid v2 object fields named this$<digits>",
+          "severity": "medium",
+          "file": "lib/v2/decoder.js",
+          "line": 588,
+          "explanation": "This newly added filter discards any decoded compact-object field whose name matches `this$\\d+`. That silently removes serialized data for any class that legitimately has such a field name, so the decoded object no longer reflects the Hessian payload.",
+          "suggestion": "Always assign the decoded field value here; handle circular references or JSON serialization concerns outside the decoder, or behind an explicit opt-in option.",
+          "failureAfterChange": "Decoding the v2 buffer `43074578616d706c659106746869732430600178` now returns `{}` instead of `{ \"this$0\": \"x\" }`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "`java.util.Map` with a non-map payload is silently encoded as an empty map",
+          "severity": "low",
+          "file": "lib/v1/encoder.js",
+          "line": 330,
+          "explanation": "This new branch treats `java.util.Map` the same as an untyped hash map and sends `obj.$` directly to `_writeHashMap`, which does not validate that the payload is an object or ES6 Map. A payload such as `{$class: 'java.util.Map', $: 123}` now reaches `Object.keys(123)` and encodes as an empty map instead of being rejected. Before this change, `java.util.Map` used `_writeObject`, whose assertion rejected the non-object payload.",
+          "suggestion": "Before mapping `java.util.Map` to the untyped hash-map path, validate that `obj.$` is a plain object or supported ES6 `Map`; otherwise throw the same type error as `_writeObject`.",
+          "failureAfterChange": "Encoding `hessian.encode({ $class: 'java.util.Map', $: 123 })` now produces an empty map that decodes to `{}` instead of throwing a type error for the invalid map payload.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hessian-js-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-8",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Root-relative image paths lose the configured site subdirectory",
+          "severity": "medium",
+          "file": "lib/plugins/helper/open_graph.js",
+          "line": 90,
+          "explanation": "Using `url.resolve` with a path that starts with `/` resolves it against the domain root, not against Hexo's configured `config.url`. For sites published under a subdirectory, this drops the subdirectory from generated `og:image`/`twitter:image` URLs. The previous code appended such paths to `config.url`, preserving the subdirectory.",
+          "suggestion": "Handle leading-slash paths separately, e.g. `return path[0] === '/' ? config.url + path : urlFn.resolve(url || config.url, path);` (with any needed slash normalization).",
+          "failureAfterChange": "With `config.url = 'https://example.com/blog'`, current page URL `https://example.com/blog/posts/a/`, and `{images: '/img/a.jpg'}`, the new code emits `https://example.com/img/a.jpg` instead of `https://example.com/blog/img/a.jpg`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Bare `base`/`absolute` substrings in error messages are rewritten as URLs",
+          "severity": "medium",
+          "file": "lib/reporter.js",
+          "line": 24,
+          "explanation": "Making both the host and leading slash optional allows the regexp to match the word `base` or `absolute` anywhere in ordinary text, not just URL paths. The formatter then treats that substring as a Karma URL and rewrites it using `basePath`.",
+          "suggestion": "Keep a URL/path delimiter mandatory, for example match either `http://host/` or `/` before `(base|absolute)` instead of making the slash optional.",
+          "failureAfterChange": "With `basePath` `/some/base`, formatting the message `database failure` now returns `data/some/base failure\\n` instead of leaving the text unchanged as `database failure\\n`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "formatError is still invoked once for the entire multi-line message",
+          "severity": "medium",
+          "file": "lib/reporter.js",
+          "line": 99,
+          "explanation": "The formatter now returns the custom formatter result directly, but it still passes the whole formatted error string to `config.formatError` in a single call. With a multi-line assertion/stack trace, a formatter that is meant to operate on individual lines cannot remove or transform one stack-frame line independently.",
+          "suggestion": "Apply `config.formatError` to each line of `msg` and join the retained formatted lines before returning, e.g. split on `\\n`, map the formatter, filter out `''` if empty strings should remove lines, then join with `\\n`.",
+          "failureAfterChange": "With `formatError: line => line.includes('vendor.js') ? '' : line` and an error message `\"Assertion failed\\n at vendor.js:1\\n at spec.js:2\"`, the new code calls the formatter once with the whole string, so the entire error is removed instead of only the `vendor.js` line.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    }
+  ]
+}

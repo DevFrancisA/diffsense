@@ -51,3 +51,14 @@ Two blind Claude judges (no OpenAI calls) audit TEST findings with the Round-2 r
   - `dev-m55`: 18 of 30 cases complete and resumable, `gpt-5.5`.
 - **Stopped: the OpenAI account ran out of credits** (HTTP 429 "no credits remaining") at 1,329 reserved calls / 9,211,326 tokens. No further runs are possible until credits are added.
 - No phase-A result has been used for any decision yet. The forward (false-alarm) arm has not run for either new model.
+- **Phase A, attempt 2.** Resumed after credits were added. A transient "fetch failed" during indexing was retried. Complete:
+  - `gpt-5.4-mini`: both arms on DEV and HOLDOUT;
+  - `gpt-5.5`: DEV both arms, HOLDOUT reversed.
+- **Stopped again: credits ran out** (HTTP 429) after `holdout-forward-m55` had completed 29 of 30 cases. Ledger: 1,522 reserved / 1,512 completed calls, 11,187,334 tokens.
+- **Interim DEV scores, one sample each** (no decision taken; the development set is incomplete for `gpt-5.5`):
+
+  | Model | Found / 59 | Correct fixes flagged / 30 | Combined precision | Combined F1 |
+  |---|---:|---:|---:|---:|
+  | `gpt-4.1-mini` ×2 (C7) | 30 | 10 | 66.7% | 0.577 |
+  | `gpt-5.4-mini` ×1 | 27 | 20 | 56.3% | 0.505 |
+  | `gpt-5.5` ×1 | 31 | 11 | 70.5% | 0.602 |

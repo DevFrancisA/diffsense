@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-3",
+  "project": "Mongoose",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "6753ed14f868ce9e909e1ac3ec5f3c5d1a71f233",
+  "buggySha": "e85e4b7269a59704e33ed102aae5db0e2e2815d7",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "0b4ecbfcc5d575c75b374927ada676ad1d71bfbf65ea4ee18bc1681e5383c0f2",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "6753ed14f868ce9e909e1ac3ec5f3c5d1a71f233",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/document.js",
+        "contentSha256": "a3f4665108fddeca61dff1f1028665344ad85ca1bd079be5d8faaedb42462fb8"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "45b9dd8609df2257863ad91be57ec1f0b5f9d8902996e35d7b5b63842aba3708"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "2372b3a9635ac49bb698c6077703bddb29afe9f47ce3361779667a5da07cb094"
+      },
+      {
+        "path": "docs/3.2.x/docs/source/api.js",
+        "contentSha256": "68b5aa0f248a2a1a5e84717ef9cc80f1e58e3bdd4449d8b929bc68a62155930d"
+      },
+      {
+        "path": "docs/3.1.x/docs/source/api.js",
+        "contentSha256": "68b5aa0f248a2a1a5e84717ef9cc80f1e58e3bdd4449d8b929bc68a62155930d"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 15568,
+          "outputTokens": 1323,
+          "totalTokens": 16891
+        },
+        "rawFindings": [
+          {
+            "title": "Falsy subpath values prevent array atomics from being converted to $set",
+            "severity": "high",
+            "file": "lib/document.js",
+            "line": 1079,
+            "explanation": "This new guard returns when the later dirty subpath's current value is falsy. For document arrays, a modified subdocument path can become `undefined` after an element is pulled, but the parent array still has atomics and must be converted to a full `$set` to preserve both the pull and the subdocument edit. Skipping that conversion leaves only the array pull atomic, so the subdocument field change is not persisted.",
+            "suggestion": "Do not require `item.value` to be truthy. For example, change this guard to `if (!top.value) return;` or restore the `top.value && top.value._atomics` check before accessing atomics.",
+            "failureAfterChange": "Given a document with `comments: [{body:'a'}, {body:'b'}, {body:'c'}]`, load it, set `comments[2].body = 'changed'`, then call `comments.pull(comments[1])` and save. The saved document ends up with `[{body:'a'}, {body:'c'}]` instead of preserving `[{body:'a'}, {body:'changed'}]`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Falsy subpath values prevent array atomics from being converted to $set",
+            "severity": "high",
+            "file": "lib/document.js",
+            "line": 1079,
+            "explanation": "This new guard returns when the later dirty subpath's current value is falsy. For document arrays, a modified subdocument path can become `undefined` after an element is pulled, but the parent array still has atomics and must be converted to a full `$set` to preserve both the pull and the subdocument edit. Skipping that conversion leaves only the array pull atomic, so the subdocument field change is not persisted.",
+            "suggestion": "Do not require `item.value` to be truthy. For example, change this guard to `if (!top.value) return;` or restore the `top.value && top.value._atomics` check before accessing atomics.",
+            "failureAfterChange": "Given a document with `comments: [{body:'a'}, {body:'b'}, {body:'c'}]`, load it, set `comments[2].body = 'changed'`, then call `comments.pull(comments[1])` and save. The saved document ends up with `[{body:'a'}, {body:'c'}]` instead of preserving `[{body:'a'}, {body:'changed'}]`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

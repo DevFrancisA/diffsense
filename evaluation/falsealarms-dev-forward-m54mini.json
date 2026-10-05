@@ -1,0 +1,436 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "dev-forward-m54mini",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "models": {
+    "review": "gpt-5.4-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 20,
+    "casesFlaggedOnSource": 20,
+    "findings": 21,
+    "sourceFindings": 21,
+    "testFindings": 0
+  },
+  "cases": [
+    {
+      "caseId": "Bower-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Local file dependencies are no longer cacheable in force mode, but _resolve still always stores them",
+          "severity": "medium",
+          "file": "lib/core/PackageRepository.js",
+          "line": 52,
+          "explanation": "This new early return bypasses the existing force-path behavior for local dependencies, but the later _resolve path still unconditionally writes resolved packages into the resolve cache. A call like fetch({source: './path/to/pkg', ...}) with config.force=true will now skip the force cache-write path entirely and resolve without persisting through the normal forced-cache flow expected by the rest of fetch, which can leave subsequent reads out of sync with the advertised 'write to cache anyway' se",
+          "suggestion": "If local dependencies must bypass cache lookup, keep the force handling separate: allow the force branch to run after the non-cacheable check when force is set, or document/adjust _resolve so it consistently performs the intended cache write for local sources.",
+          "failureAfterChange": "With config.force=true and a local dependency source like './packages/a', fetch() now returns a resolved package without going through the forced cache path, so a later fetch of the same endpoint does not reuse the cached entry as expected.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Bower-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "--save-exact now writes the source path for renamed packages, breaking normal registry installs",
+          "severity": "high",
+          "file": "lib/core/Project.js",
+          "line": 99,
+          "explanation": "For a package installed from a registry endpoint with a declared name different from the source string, this branch now saves `<source>#<version>` instead of the version when `--save-exact` is used. The resulting `bower.json` entry is not a valid semver pin for registry packages and changes the dependency type from a version to a path-like endpoint.",
+          "suggestion": "Only append `source#` for explicit local/git/file endpoints; keep registry installs saved as the exact version string.",
+          "failureAfterChange": "Installing `jquery-ui` with `bower install jquery-ui --save --save-exact` writes `dependencies.jquery-ui = 'jquery-ui#1.12.1'` instead of `'1.12.1'`, so a subsequent install/update no longer treats it as an exact version pin.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Bower-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Unary expressions can now hide mixed concatenations from the rule",
+          "severity": "medium",
+          "file": "lib/rules/prefer-template.js",
+          "line": 37,
+          "explanation": "`hasNonLiteral()` now treats any `UnaryExpression` as recursively acceptable. That makes an expression like `+100 + 'yen'` look like a fully literal chain, so `prefer-template` stops reporting it even though the concatenation still contains a non-string operand and should be flagged.",
+          "suggestion": "Only recurse into unary expressions that are safe to treat as literal-like (for example, numeric `+/-` or `void`), and otherwise return `true` for non-literal unary expressions.",
+          "failureAfterChange": "Running ESLint on `var foo = +100 + 'yen';` produces no `prefer-template` warning, even though the rule should report unexpected string concatenation.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Arrow token lookup can walk past the start of the expression and throw on malformed input",
+          "severity": "high",
+          "file": "lib/rules/arrow-spacing.js",
+          "line": 57,
+          "explanation": "The new `while (arrow.value !== \"=>\") { arrow = sourceCode.getTokenBefore(arrow); }` loop assumes there is always a preceding `=>`. For an arrow function body whose previous token chain does not contain `=>` (for example, an AST produced for partially invalid code or a parser edge case), `getTokenBefore()` can eventually return `null`, and the next loop test dereferences `arrow.value`, crashing the linter instead of reporting or skipping the node.",
+          "suggestion": "Guard the loop against a null token and bail out if `=>` is not found before reaching the start of the token stream.",
+          "failureAfterChange": "Linting a file that parses into an ArrowFunctionExpression node but has no `=>` token immediately before `node.body` now throws `TypeError: Cannot read property 'value' of null` instead of completing linting.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "`always-multiline` now misses multiline arrays/objects whose closing bracket shares the last item’s line",
+          "severity": "medium",
+          "file": "lib/rules/comma-dangle.js",
+          "line": 42,
+          "explanation": "The new multiline check only treats the node as multiline when the closing token is on a different line from the last item’s end. For a multiline literal like `var x = [1,\n2]` or `var x = {a: 1,\nb: 2}`, `node.loc.start.line !== node.loc.end.line` is true, but `node.loc.end.line === penultimateToken.loc.end.line` is also true, so the rule no longer reports the missing dangling comma required by `always-multiline`.",
+          "suggestion": "Detect multiline status from the node span or from the last item’s start/end line, not from the closing token’s line relative to the last token; e.g. keep the original `node.loc.start.line !== node.loc.end.line` check for `always-multiline` missing-comma enforcement.",
+          "failureAfterChange": "With options `[\"always-multiline\"]`, `var x = [1,\n2]` is accepted, even though it should report `Missing trailing comma.` on the last element.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-8",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Escapes for U+2028/U+2029 are now ignored in strings even when they are unnecessary",
+          "severity": "medium",
+          "file": "lib/rules/no-useless-escape.js",
+          "line": 27,
+          "explanation": "Adding U+2028 and U+2029 to `VALID_STRING_ESCAPES` makes the rule treat `\\u2028` and `\\u2029` as valid string escapes everywhere. In JavaScript source, those line-separator characters are already allowed inside string literals when escaped, so the rule should only suppress reports when the escape is actually needed to keep the character out of the token stream. With this change, a literal like `var s = \"foo \\u2028 bar\";` is no longer reported if the escape is redundant in the chosen syntax posit",
+          "suggestion": "Do not add U+2028/U+2029 to `VALID_STRING_ESCAPES`; instead handle them explicitly only where the parser requires escaping for literal line terminators.",
+          "failureAfterChange": "`var s = 'foo \\u2028 bar';` is accepted without a `no-useless-escape` warning even when the escape is unnecessary in the source form being linted.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "IPv6 hosts are misclassified as having subdomains when the host header includes brackets",
+          "severity": "medium",
+          "file": "lib/request.js",
+          "line": 458,
+          "explanation": "`req.subdomains` now treats any value recognized by `net.isIP()` as a single host, but `Host`/`X-Forwarded-Host` headers for IPv6 literals are commonly bracketed (for example `[::1]`). `isIP('[::1]')` returns 0, so the code falls back to splitting on dots and returns `['[::1]']` only by accident for some offsets, while `req.subdomains` on a bracketed IPv6 host with the default offset can still behave inconsistently with the intended 'no subdomains' behavior. A request with `Host: [2001:db8::1]` ",
+          "suggestion": "Normalize bracketed IPv6 literals before calling `isIP`, or strip brackets first and then return an empty subdomain array for any valid IP literal.",
+          "failureAfterChange": "A request with `Host: [2001:db8::1]` and default `subdomain offset` should produce `[]`, but `req.subdomains` can return a non-empty array based on dot splitting of the bracketed string.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-5",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "`isAbsolute` now misses Windows UNC paths that use forward slashes after the drive letter",
+          "severity": "medium",
+          "file": "lib/utils.js",
+          "line": 70,
+          "explanation": "The new check only treats `c:/...` and `c:\\...` as drive-rooted paths, but `path` inputs like `C:/tmp` are now accepted even though the function still returns `undefined` for any other drive-relative or UNC-style path forms. Because this helper is used as a boolean predicate, callers may mis-handle mixed-slash Windows paths that should still be considered absolute by the surrounding path logic.",
+          "suggestion": "Return a boolean explicitly and keep the Windows root checks aligned with Node's path semantics; e.g. add a final `return false` and ensure UNC/device-path forms are covered as intended.",
+          "failureAfterChange": "Calling `utils.isAbsolute('C:/temp/file.txt')` returns `true`, but `utils.isAbsolute('C:temp/file.txt')` and `utils.isAbsolute('\\\\server/share')` still fall through as non-boolean `undefined`, which callers interpreting the helper strictly as `=== true` will treat as false.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Case-sensitive route deduping breaks `app.all()` reuse for non-string paths when router is case-sensitive",
+          "severity": "medium",
+          "file": "lib/application.js",
+          "line": 548,
+          "explanation": "`_baseRoute()` now indexes routes by lowercasing the path whenever `this._router.caseSensitive` is false, but it still uses `path.ignoreCase` without first ensuring `path` is a string-like route object. If a non-string path object is passed to `app.all()`/`app.VERB()` in a case-sensitive app, the new cache key logic can collapse distinct route objects with different case-sensitivity flags into the same cached route, so later handlers are attached to the wrong route instance.",
+          "suggestion": "Only derive the cache key from `ignoreCase` when `path` is a route object, and include the route object's own case-sensitivity in the cache key; otherwise skip the lowercase normalization for non-string paths.",
+          "failureAfterChange": "Calling `app.all({ path: '/Users', ignoreCase: false }, fn1)` and then `app.all({ path: '/users', ignoreCase: true }, fn2)` in the same app can attach both handlers to the same cached route, so requests match the wrong handler ordering/case behavior.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "v2 hash map decoding now stringifies unsupported keys into object collisions",
+          "severity": "medium",
+          "file": "lib/v2/decoder.js",
+          "line": 733,
+          "explanation": "`_readMap()` now writes every decoded key directly onto a plain object. Hessian maps can contain non-string keys, and plain-object assignment coerces them to strings, so different object keys collapse to the same property name and earlier entries are lost.",
+          "suggestion": "Keep the plain-object assignment only for string/number keys, or store non-string keys in the existing `$map` representation instead of the object literal.",
+          "failureAfterChange": "Decoding a v2 untyped hash map with two distinct object keys (for example two different `java.lang.Long` wrapper objects) now returns one property like `{\"[object Object]\": ...}` instead of two separate entries.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Nullable typed values are now encoded as null even when the field type should be preserved",
+          "severity": "medium",
+          "file": "lib/v1/encoder.js",
+          "line": 304,
+          "explanation": "This new branch returns `writeNull()` whenever any nested value has a string `$class` and a null `$`. That changes the wire format for typed scalar fields such as `{ $class: 'java.lang.Long', $: null }` or `{ $class: 'java.lang.Boolean', $: null }` from a typed value to an untyped null. A decoder that expects the field type metadata will lose it and can no longer round-trip the object as the original typed value.",
+          "suggestion": "Restrict this null-shortcut to map-like/object-like serializers only, or handle typed nulls in the specific serializer methods instead of in the generic `writeObject` path.",
+          "failureAfterChange": "Encoding `{ $class: 'java.lang.Long', $: null }` now produces a bare `N`, so decoding yields `null` instead of preserving the `java.lang.Long` typed field.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Dropping `this$N` fields breaks round-tripping of v2 object references",
+          "severity": "high",
+          "file": "lib/v2/decoder.js",
+          "line": 590,
+          "explanation": "The same new filter removes v2 synthetic back-reference fields from decoded objects. Those fields are used to preserve object identity in nested/self-referential instances. After this change, a decoded object that contains a back-reference no longer retains that edge, so object graphs with cycles or shared references are flattened incorrectly.",
+          "suggestion": "Do not skip `this$N` fields during decode; instead preserve them or resolve them to the referenced object before returning.",
+          "failureAfterChange": "Decoding `v2/object/ConnectionRequest` now yields a structure whose `ctx` object has only `id`, so any subsequent logic expecting the self-reference (or re-encoding the object) cannot reconstruct the original graph.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hessian-js-8",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Safe-range check can no longer detect out-of-range Longs in some inputs",
+          "severity": "high",
+          "file": "lib/utils.js",
+          "line": 43,
+          "explanation": "`handleLong()` now relies on `Long#greaterThan/lessThan` against a Long boundary. When `val` is already a `Long` that compares using unsigned semantics or is a non-Long object with the same API, values outside the signed 64-bit safe range may be treated as safe and returned as numbers instead of strings. For example, decoding a Hessian long larger than 2^53 can now produce a rounded JS number instead of the original string representation expected by the library's existing behavior.",
+          "suggestion": "Use explicit signed comparison on the underlying 64-bit parts, or keep the prior `high/low` range test, so only truly safe values are converted to Number.",
+          "failureAfterChange": "Decoding a Hessian long representing 9007199254740993 now returns a rounded Number instead of the string '9007199254740993'.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hessian-js-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Missing string conversion for map keys breaks non-string keys",
+          "severity": "high",
+          "file": "lib/v1/decoder.js",
+          "line": 415,
+          "explanation": "Removing the `key.toString()` conversion means `readObject()` now stores decoded map keys as whatever type `this.read()` returns. For v1 maps, keys can be integers or null-like values, and JavaScript object property assignment will coerce them implicitly; however, other code paths such as reference handling and equality checks in consumers expect the decoder to normalize keys to strings at read time. A v1 map encoded with an integer key like `I\\x00\\x00\\x00\\x01 S\\x00\\x03fee z` will now produce an",
+          "suggestion": "Restore `key = key.toString();` before assigning into `result.$`, or explicitly normalize all map keys to strings in a single place.",
+          "failureAfterChange": "Decoding a v1 map with key `1` now yields a property keyed by the raw decoded value path instead of the expected normalized string key, causing downstream equality checks against `{ '1': 'fee' }` to fail.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "`read()` now drops the caller's explicit no-escape setting when content is served from cache",
+          "severity": "medium",
+          "file": "lib/box/file.js",
+          "line": 23,
+          "explanation": "`wrapReadOptions()` forces `escape` to `true` whenever the option is absent, and the cached-content branch now always applies `escapeContent()`. That means a processor calling `file.read({escape: false})` on a cached file will still receive BOM/EOL-normalized text, unlike the uncached `fs.readFile` path which will honor the option.",
+          "suggestion": "Propagate `escape` through to the cached branch: only call `escapeContent()` when `options.escape` is truthy, and preserve the raw string otherwise.",
+          "failureAfterChange": "Calling `file.read({escape: false})` on a cached file whose buffer contains `\\ufefffoo\\r\\nbar` returns `foo\\nbar` instead of the expected raw `\\ufefffoo\\r\\nbar`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "`readSync()` now ignores `escape: false` for cached files",
+          "severity": "medium",
+          "file": "lib/box/file.js",
+          "line": 68,
+          "explanation": "The synchronous cached path also unconditionally normalizes string output when `encoding` is set, because `escape` defaults to `true` and the branch applies `escapeContent()` whenever `options.escape` is truthy. A caller explicitly requesting unescaped content will therefore get modified text from cache.",
+          "suggestion": "Mirror the uncached behavior by checking `options.escape` before calling `escapeContent()`, and return the decoded string unchanged when it is false.",
+          "failureAfterChange": "Calling `file.readSync({escape: false})` on a cached file backed by `new Buffer('\\ufefffoo\\r\\nbar')` returns `foo\\nbar` instead of the raw decoded string.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Post asset paths now stop resolving against the public URL base",
+          "severity": "high",
+          "file": "lib/models/post_asset.js",
+          "line": 21,
+          "explanation": "`pathFn.join(post.path, this.slug)` treats `post.path` as a filesystem path, not a URL path. For a post whose permalink is `/foo/` and an asset slug containing a space, `path.join('/foo/', 'file with space')` produces `/foo/file with space`, but for a post path that is a full URL or contains a protocol (for example `http://example.com/foo/`), `path.join` drops the protocol and returns an invalid path. This changes `PostAsset.path` from a URL-safe resolver to a platform-dependent filesystem join.",
+          "suggestion": "Keep using URL resolution for `PostAsset.path` or otherwise construct the asset URL with a URL-aware join that preserves the scheme and host while still avoiding escaping only the asset slug.",
+          "failureAfterChange": "If `post.path` is `http://example.com/foo/` and `slug` is `bar`, `PostAsset.path` now becomes `http:/example.com/foo/bar` on POSIX instead of `http://example.com/foo/bar`, so generated asset URLs are broken.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-5",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "`is.current('/')` now fails to match the home page path `index.html`",
+          "severity": "medium",
+          "file": "lib/plugins/helper/is.js",
+          "line": 5,
+          "explanation": "The new default path of `'/'` combined with the added special-case `path === '/'` makes non-strict home checks succeed only when `this.path` is `'/index.html'`. In Hexo, `this.path` for the home page is often `'index.html'`, so templates that call `is.current('/')` on the homepage will now return false instead of true.",
+          "suggestion": "Normalize `currentPath` to `'/index.html'` when it is `'index.html'`, or compare against both `'/index.html'` and `'index.html'` in the home-page branch.",
+          "failureAfterChange": "On the homepage with `this.path === 'index.html'`, `is.current('/')` returns false, so active nav items using this helper are no longer highlighted.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "TOC helper now strips inline markup from heading titles",
+          "severity": "medium",
+          "file": "lib/plugins/helper/toc.js",
+          "line": 29,
+          "explanation": "Replacing `$(this).html()` with `_.escape($(this).text())` removes all inline HTML from heading content. If a heading contains emphasis, code, or an anchor wrapped around the visible title, the generated TOC entry will now show only plain text instead of preserving the original markup/rendered text structure. For example, `<h1 id=\"x\">Install <code>npm</code></h1>` now renders as `Install npm` rather than including the code markup that was previously emitted.",
+          "suggestion": "If the intention is only to escape raw heading text, keep using the text content but ensure any required inline markup is preserved separately; otherwise revert to `$(this).html()` and sanitize it before insertion.",
+          "failureAfterChange": "Rendering a post with `<h1 id=\"x\">Install <code>npm</code></h1>` produces a TOC entry `Install npm` with no code markup, changing the displayed content from the previous behavior.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Proxy target with no explicit port now ignores config.port when target URL has a path",
+          "severity": "high",
+          "file": "lib/middleware/proxy.js",
+          "line": 45,
+          "explanation": "For a proxy like `{ '/api': 'http://example.com/api' }` with `config.port` set to a non-default backend port, the new branch falls back to `80` as soon as the target URL includes any protocol, even when no port was specified. Before this change, `config.port` was used in that case. Requests will now be sent to the wrong backend port.",
+          "suggestion": "Only default to 80/443 when neither `proxyDetails.port` nor `config.port` is defined; otherwise prefer `config.port` for protocol-based targets without an explicit port.",
+          "failureAfterChange": "Given `config.port = '8081'` and `proxies = { '/api': 'http://example.com/api' }`, proxying `/api/users` is sent to `example.com:80` instead of `example.com:8081`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "formatError output now drops indentation and newline handling for custom formatters",
+          "severity": "medium",
+          "file": "lib/reporter.js",
+          "line": 99,
+          "explanation": "The change returns `config.formatError(msg)` immediately, so the built-in indentation/newline wrapping is skipped whenever a custom formatter is configured. A formatter that returns a single line now becomes the final response verbatim, which changes existing reporter output semantics and can break multi-line formatting that relied on the previous wrapper.",
+          "suggestion": "Apply indentation/newline processing after calling `formatError`, or document/guard that custom formatters must return fully formatted output including trailing newline.",
+          "failureAfterChange": "With `config.formatError = msg => msg.toUpperCase()` and an uncaught error string `Error: boom`, the reporter now outputs `ERROR: BOOM` with no trailing newline or indentation instead of the previously formatted message ending in `\\n`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    }
+  ]
+}

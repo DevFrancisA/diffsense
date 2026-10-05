@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-10",
+  "project": "Karma",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+  "buggySha": "ee8303cc3ffa45a8d233e781bd14d0dd8b108300",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "26bffe7511f576d31752129acd29a019f85aa1df4dfbcd92ca99019e30750ed8",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "e41ed9513020ae43792cf7c7852f4a1268cfc5e5743502254be8f63e835a317c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "da43f4dbef3c12e8a84f76938c02edc1824fe8872e0b829f8534bd71683d3333"
+      },
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "b3ffc58ae09d1c32908c75438848a48428c05641b4a28cdb9e8a20d5388980b1"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "c51c353fdc503775b1e4ae5bf272f20bd7564f64a828a047b43526b4a05b2970"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "022fbae7b79fc4583235efd0bfd9653726502691c8fa14bd810fc00c5792d755"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "ca6391a7232e90355d6df04c511a07a3bed6786bdc6862d273d8ede104227127"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "31ec52399f2a01f78a0ab65a0d2f4df1223196d5a894c82ac4a5a2457b96c42b"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "99bbebb4d55f16f624605b469f5a866fa8833c659ec88ccc5d89fa21ec4210bf"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "244db0632f9db0b71a404bf34edcfd795bc9d2de481e90706e7afaae2c389a26"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6695,
+          "outputTokens": 4050,
+          "totalTokens": 10745
+        },
+        "rawFindings": [
+          {
+            "title": "Unwatched patterns still generate watch events when they share a watched directory",
+            "severity": "medium",
+            "file": "lib/watcher.js",
+            "line": 61,
+            "explanation": "The ignored predicate now only receives exclude patterns, so files that match a `watched: false` pattern are not filtered out if another watched pattern causes the same parent directory to be watched. `fileList.changeFile` will still see those files in the file list and trigger the modified event.",
+            "suggestion": "Pass the watched patterns into `createIgnore` again and ignore non-directory paths that do not match any watched pattern, while still applying excludes.",
+            "failureAfterChange": "With files `[Pattern('/tmp/app/*.js', true, true, true), Pattern('/tmp/app/*.css', true, true, false)]` and no excludes, a change to `/tmp/app/style.css` is delivered by chokidar and causes `fileList.changeFile('/tmp/app/style.css')`, even though that pattern is marked `watched: false`.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Excluded directories can prevent watching included descendant files",
+            "severity": "medium",
+            "file": "lib/watcher.js",
+            "line": 54,
+            "explanation": "The new ignore function applies exclude patterns to every chokidar item without checking whether the item is a directory. If an exclude pattern matches a directory itself but not its child files, chokidar can skip traversing that directory even though the file list includes matching files inside it.",
+            "suggestion": "Keep directories unignored in the chokidar ignore callback, for example by using a stat-aware ignored callback and returning `false` for directories before applying exclude patterns.",
+            "failureAfterChange": "With `files: ['/tmp/app/**/*.js']` and `exclude: ['/tmp/app/vendor']`, the initial file list still includes `/tmp/app/vendor/a.js` because that file does not match the exclude pattern, but chokidar ignores the `/tmp/app/vendor` directory and changes to `/tmp/app/vendor/a.js` are not reported.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Unwatched patterns still generate watch events when they share a watched directory",
+            "severity": "medium",
+            "file": "lib/watcher.js",
+            "line": 61,
+            "explanation": "The ignored predicate now only receives exclude patterns, so files that match a `watched: false` pattern are not filtered out if another watched pattern causes the same parent directory to be watched. `fileList.changeFile` will still see those files in the file list and trigger the modified event.",
+            "suggestion": "Pass the watched patterns into `createIgnore` again and ignore non-directory paths that do not match any watched pattern, while still applying excludes.",
+            "failureAfterChange": "With files `[Pattern('/tmp/app/*.js', true, true, true), Pattern('/tmp/app/*.css', true, true, false)]` and no excludes, a change to `/tmp/app/style.css` is delivered by chokidar and causes `fileList.changeFile('/tmp/app/style.css')`, even though that pattern is marked `watched: false`.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Excluded directories can prevent watching included descendant files",
+            "severity": "medium",
+            "file": "lib/watcher.js",
+            "line": 54,
+            "explanation": "The new ignore function applies exclude patterns to every chokidar item without checking whether the item is a directory. If an exclude pattern matches a directory itself but not its child files, chokidar can skip traversing that directory even though the file list includes matching files inside it.",
+            "suggestion": "Keep directories unignored in the chokidar ignore callback, for example by using a stat-aware ignored callback and returning `false` for directories before applying exclude patterns.",
+            "failureAfterChange": "With `files: ['/tmp/app/**/*.js']` and `exclude: ['/tmp/app/vendor']`, the initial file list still includes `/tmp/app/vendor/a.js` because that file does not match the exclude pattern, but chokidar ignores the `/tmp/app/vendor` directory and changes to `/tmp/app/vendor/a.js` are not reported.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

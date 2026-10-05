@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-9",
+  "project": "Karma",
+  "bugId": 9,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "438eb8ddbc0b82cd5ab299f6f27f5ae3cc29a20f",
+  "buggySha": "4858f39e121348764b094c8966579f5d05f3defc",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "d0f57ce28e6cd9e10f97beeb613718dcd6ec7c9d11236c87aa7ac8eae60eb8a3",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "438eb8ddbc0b82cd5ab299f6f27f5ae3cc29a20f",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "384475580e5387c4a878ffec808ec930807aaa85c95fdc5c5c8f6b41223a19e2"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "ef9dae3ba09b8b52d928f6f6369ea7dbd2aa65834a340cbfa6f70510440f42a3"
+      },
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "d099597ad363d81f879e5dc266596e335dc6d54b4d210c1e7af6296518e0da6a"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "022fbae7b79fc4583235efd0bfd9653726502691c8fa14bd810fc00c5792d755"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "bacd63de69c1ff51de72dd939443594f46dbd9846bc4cab62821d22bb88bc9ce"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "10eb80855591d4f00ee6bc43bb32bf20fb7075a611ccd5f5c397b1a18edaf954"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "6009b8af051f81bcd766ec46b08bed777d0dce5cd21536a7b01a89ffba595c47"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "d28e56d6274f19ad293db86c489dab3dc941c7732ea374a66d034546b627bc5c"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "730a24ff35a395fd02eaf6194a3326678af7d935ee598fe8a9a39c7092593f82"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5210,
+          "outputTokens": 3374,
+          "totalTokens": 8584
+        },
+        "rawFindings": [
+          {
+            "title": "Literal parentheses in paths cause watching an ancestor directory",
+            "severity": "medium",
+            "file": "lib/watcher.js",
+            "line": 11,
+            "explanation": "This now treats any `(` in a path segment as a glob character. Parentheses are valid literal filename characters, so a config under a directory such as `/home/alice/project (copy)` with a watched pattern like `/home/alice/project (copy)/**/*.js` computes the base directory as `/home/alice` instead of `/home/alice/project (copy)`. Chokidar then recursively watches a much larger unrelated tree, which can exhaust watch descriptors and prevent reliable auto-watch behavior.",
+            "suggestion": "Do not strip on a bare `(`; only strip segments containing real glob/extglob syntax, e.g. restore the previous extglob-specific replacements or require an extglob operator before `(`.",
+            "failureAfterChange": "Given watched pattern `/home/alice/project (copy)/**/*.js` and a home directory large enough to exceed the OS watch limit, the watcher adds `/home/alice` instead of `/home/alice/project (copy)`, causing chokidar to hit the watch limit while scanning unrelated files and auto-watch fails for the intended project files.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Literal parentheses in paths cause watching an ancestor directory",
+            "severity": "medium",
+            "file": "lib/watcher.js",
+            "line": 11,
+            "explanation": "This now treats any `(` in a path segment as a glob character. Parentheses are valid literal filename characters, so a config under a directory such as `/home/alice/project (copy)` with a watched pattern like `/home/alice/project (copy)/**/*.js` computes the base directory as `/home/alice` instead of `/home/alice/project (copy)`. Chokidar then recursively watches a much larger unrelated tree, which can exhaust watch descriptors and prevent reliable auto-watch behavior.",
+            "suggestion": "Do not strip on a bare `(`; only strip segments containing real glob/extglob syntax, e.g. restore the previous extglob-specific replacements or require an extglob operator before `(`.",
+            "failureAfterChange": "Given watched pattern `/home/alice/project (copy)/**/*.js` and a home directory large enough to exceed the OS watch limit, the watcher adds `/home/alice` instead of `/home/alice/project (copy)`, causing chokidar to hit the watch limit while scanning unrelated files and auto-watch fails for the intended project files.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

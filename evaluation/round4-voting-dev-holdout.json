@@ -49,6 +49,21 @@
       "fixesFlagged": 10,
       "fixes": 60,
       "callsPerDiff": 2
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "n": 1,
+      "k": 1,
+      "found": 55,
+      "ranges": 115,
+      "recall": 0.4782608695652174,
+      "reversedFindings": 55,
+      "forwardFindings": 39,
+      "combinedPrecision": 0.5851063829787234,
+      "f1": 0.5263157894736843,
+      "fixesFlagged": 38,
+      "fixes": 60,
+      "callsPerDiff": 1
     }
   ]
 }

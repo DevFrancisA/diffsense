@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "holdout-forward-m54mini",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "models": {
+    "review": "gpt-5.4-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 18,
+    "casesFlaggedOnSource": 18,
+    "findings": 18,
+    "sourceFindings": 18,
+    "testFindings": 0
+  },
+  "cases": [
+    {
+      "caseId": "Eslint-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Comment-length exceptions are ignored when `comments` is set to 0",
+          "severity": "medium",
+          "file": "lib/rules/max-len.js",
+          "line": 324,
+          "explanation": "`commentLengthApplies` is computed as `lineIsComment && maxCommentLength`, so a configured comment limit of `0` is treated as falsy and the comment-length branch is skipped entirely. After this change, `{\"max-len\": [\"error\", {\"comments\": 0}]}` no longer reports any comment lines, even though a zero limit should make every comment too long.",
+          "suggestion": "Test the option explicitly for presence, e.g. `const commentLengthApplies = lineIsComment && maxCommentLength !== undefined;` and keep the numeric comparison against `maxCommentLength`.",
+          "failureAfterChange": "With `/* eslint max-len: [\"error\", {\"comments\": 0}] */\n// abc`, ESLint reports no max-len violation for the comment line.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "`multi-or-nest` now ignores a nested block with leading comments, even when the block has multiple statements",
+          "severity": "medium",
+          "file": "lib/rules/curly.js",
+          "line": 293,
+          "explanation": "For `multi-or-nest`, the new `leadingComments` check changes `expected` from false to true whenever the first statement in a single-statement block has any leading comment. That means a block like `if (foo) { /* comment */ bar(); baz(); }` is now reported as needing braces removed, even though `multi-or-nest` is supposed to allow nested blocks and this block is not a single nested one-liner; the rule will incorrectly strip braces and alter formatting guidance for valid multi-statement blocks wit",
+          "suggestion": "Limit the comment-based exception to the specific single nested one-liner case, and leave multi-statement blocks unchanged (keep `expected = false` unless the body is a single one-liner nested statement with no comments).",
+          "failureAfterChange": "With `curly: ['error', 'multi-or-nest']`, linting `if (foo) { /* c */ bar(); baz(); }` now produces an incorrect braces-removal warning/fix path for a block that should remain valid under the option.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "ExportNamedDeclaration is skipped even when it contains multiple statements on one line",
+          "severity": "medium",
+          "file": "lib/rules/max-statements-per-line.js",
+          "line": 46,
+          "explanation": "The new regex treats every `ExportNamedDeclaration` as a special single-child container, so `export function foo() { console.log('a'); console.log('b'); }` and `export {a}; export {b};` on the same line can be under-counted because the export node itself is skipped instead of being counted as a statement. This makes the rule miss violations whenever a named export is present on a line with other statements.",
+          "suggestion": "Limit the exemption to export declarations that actually wrap a single statement child in a block-like way, or handle `ExportNamedDeclaration` separately only when `node.declaration` is a function/class declaration; otherwise count the export node as a statement.",
+          "failureAfterChange": "With `{max: 1}` and `sourceType: 'module'`, the code `export {a}; var b = 1;` is accepted even though there are two statements on the same line.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-16",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "The new regex skips spaces after an escaped quantifier opener",
+          "severity": "medium",
+          "file": "lib/rules/no-regex-spaces.js",
+          "line": 40,
+          "explanation": "The updated pattern only recognizes a run of spaces when it is followed by `+`, `*`, `{`, `?`, another non-quantifier character, or end-of-string. This narrows detection compared with the previous implementation and fails to report patterns where the run precedes other regex punctuation that is still part of the same tokenization, such as spaces before `)` inside a grouped subpattern. A concrete example is `/a(  )b/`, which contains multiple spaces in the regex source but is no longer matched by",
+          "suggestion": "Use a token-based scan that looks for any run of two or more spaces in the regex source rather than constraining the following character, or explicitly enumerate all valid continuations the rule should handle.",
+          "failureAfterChange": "`/a(  )b/` is no longer reported even though it contains multiple spaces in the regex source.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "`.send(status, number)` now never emits the intended JSON body",
+          "severity": "medium",
+          "file": "lib/response.js",
+          "line": 109,
+          "explanation": "The new branch handles any single numeric argument as a status message, but the two-argument `res.send(code, num)` path no longer exists. After this change, `res.send(200, 0.123)` falls through to the `switch` with `body === 0.123`; because `0.123` is a number it is converted to an error body via `this.json(body)` rather than sending a JSON response with status 200 and body `0.123` as the new history entry claims.",
+          "suggestion": "Add an explicit two-argument `res.send(status, body)` branch that detects a numeric second argument and delegates to `this.json(arguments[1])` after setting `statusCode = arguments[0]`, while keeping the one-argument numeric status-message case separate.",
+          "failureAfterChange": "Calling `res.send(200, 0.123)` returns a JSON error/status payload path instead of `Content-Type: application/json; charset=utf-8` with body `0.123`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-12",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Wildcard-only route params no longer populate numeric indexes",
+          "severity": "high",
+          "file": "lib/router/layer.js",
+          "line": 140,
+          "explanation": "`key` is now assumed to exist for every capture. For routes with a bare wildcard segment like `/*/user/:id`, path-to-regexp still produces an unnamed capture in `m[1]`, but `keys[0]` is undefined. Accessing `key.name` throws, so matching such routes crashes instead of filling `req.params[0]` and `req.params.id`.",
+          "suggestion": "Restore support for unnamed captures by deriving the param name from `key ? key.name : n++` and only reading `key.name` when `key` is present.",
+          "failureAfterChange": "A request to `GET /1/user/2` against route `/*/user/:id` now throws `TypeError: Cannot read property 'name' of undefined` instead of responding with `{\"0\":\"1\",\"id\":\"2\"}`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Paginator now drops valid zero-valued totals/current pages from explicit options",
+          "severity": "medium",
+          "file": "lib/plugins/helper/paginator.js",
+          "line": 7,
+          "explanation": "Using `||` here treats `0` as absent. After this change, calling the helper with `options.current: 0` or `options.total: 0` cannot be distinguished from not passing the option, so the early return at line 22 will always suppress pagination for page 0 and the total will silently fall back to 1.",
+          "suggestion": "Read the option with an explicit property check (as already done for `end_size`/`mid_size`), e.g. `options.hasOwnProperty('current') ? options.current : this.page.current`, and likewise for `total`.",
+          "failureAfterChange": "A theme/helper call like `paginator({current: 0, total: 10})` returns `''` instead of rendering the first page state; `paginator({current: 5, total: 0})` renders against a fake total of 1.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Missing support for generator handlers that return arrays of routes",
+          "severity": "high",
+          "file": "lib/hexo/index.js",
+          "line": 307,
+          "explanation": "The generator aggregation now only concatenates when a handler returns a truthy value and otherwise returns the accumulated result unchanged. If a generator returns an array of route objects, `result.concat(data)` still works, but the surrounding flow now relies on `Promise.reduce` results being passed into the `.each()` stage with no normalization. More importantly, the new guard at line 313 only accepts plain objects with a `path`, so any generator that yields an array via a promise chain and ",
+          "suggestion": "Preserve the previous route collection contract by accepting arrays in the reducer output, e.g. return `data ? result.concat(data) : result;` and let the later iteration handle both arrays and objects, or explicitly flatten arrays before the `.each()` stage.",
+          "failureAfterChange": "A generator that returns `[ { path: 'a', data: '1' }, { path: 'b', data: '2' } ]` no longer creates routes `/a` and `/b`; the generated site omits both pages.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Invalid module construction for multi-config helper",
+          "severity": "high",
+          "file": "lib/hexo/index.js",
+          "line": 36,
+          "explanation": "`require('./multi_config_path')` returns a plain function, but the new code invokes it with `new`. That creates an object instead of the callable path resolver, so `mcp(base, args.config)` later throws `TypeError: mcp is not a function` for any `--config` value.",
+          "suggestion": "Call the exported factory directly: `var mcp = require('./multi_config_path')(this);` or change the module to export a constructor consistently.",
+          "failureAfterChange": "Starting Hexo with `new Hexo('/site', {config: '_config.yml'})` now crashes when reading `this.config_path` because `mcp` is not callable.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-12",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "publish() now crashes when called without an explicit slug",
+          "severity": "medium",
+          "file": "lib/hexo/post.js",
+          "line": 207,
+          "explanation": "`publish()` now unconditionally calls `data.slug.toString()`. If a caller relies on draft front matter or previous behavior and invokes `publish({layout: 'draft'})` without setting `slug`, this throws `TypeError: Cannot read property 'toString' of undefined'` before the draft can be located.",
+          "suggestion": "Fallback to the draft title or another derived value before stringifying, e.g. `var slug = data.slug = slugize((data.slug || data.title).toString(), ...)` or validate `data.slug` and report a friendly error.",
+          "failureAfterChange": "Calling `hexo.post.publish({layout: 'draft'})` on a draft whose slug should be inferred now throws a TypeError instead of publishing the draft.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Duplicate CLI options now discard all but the last value type-incorrectly for non-scalars",
+          "severity": "medium",
+          "file": "lib/cli.js",
+          "line": 24,
+          "explanation": "When an option is repeated, `Array.isArray(argumentValue)` triggers and `.pop()` returns only the last element. For options that are meant to accumulate or be arrays (for example `--browsers Chrome --browsers Firefox` or `--reporters dots --reporters progress`), the new code collapses them to a single string before later normalization, changing the resulting config after this change.",
+          "suggestion": "Only de-duplicate scalar options that are known to be single-valued, or merge repeated values for array-valued options instead of unconditionally taking the last element.",
+          "failureAfterChange": "Running the CLI with `start --browsers Chrome --browsers Firefox` now yields `options.browsers === 'Firefox'` at this stage, so the later split logic produces `['Firefox']` instead of both browsers.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Runner now discards streamed test output when no exit-code trailer is present",
+          "severity": "medium",
+          "file": "lib/runner.js",
+          "line": 53,
+          "explanation": "`parseExitCode()` now returns `{exitCode, buffer}` and the caller writes `parsedResult.buffer`. For any normal response chunk that does not end with the `EXIT_CODE` trailer, this helper returns the original chunk unchanged, but when the trailer is present at the end of a chunk the helper strips it from the returned buffer. That means the test runner will no longer print the final chunk contents after the trailer, so any stdout emitted in the same chunk as the exit code is lost to the user.",
+          "suggestion": "Keep writing the original chunk to stdout and only strip the trailer for exit-code detection, or accumulate and emit all non-trailer bytes across chunks before writing.",
+          "failureAfterChange": "A server response chunk like `\"specs done\\n$EXIT_CODE10\"` no longer prints `specs done` to stdout; only the earlier bytes in previous chunks are shown, and the final chunk content is omitted.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "`baseDirFromPattern` now drops non-glob paths containing `+(` in the directory name",
+          "severity": "high",
+          "file": "lib/watcher.js",
+          "line": 13,
+          "explanation": "The new regex treats any `/(...)+(` sequence as glob syntax, even when `+(` appears in a literal folder name. For example, a config pattern like `/tmp/a+(old)/**/*.js` is converted to `/tmp`, so the watcher no longer watches the actual directory tree and file changes under `/tmp/a+(old)` are missed.",
+          "suggestion": "Restrict the special-case stripping to actual extglob syntax by matching only segments that begin with `+(` or `!(` immediately after a path separator and are followed by a closing `)`/trailing glob characters, or use a real glob parser instead of ad hoc regexes.",
+          "failureAfterChange": "With a watched pattern of `/tmp/a+(old)/**/*.js`, chokidar is started on `/tmp` instead of `/tmp/a+(old)`, so edits under `/tmp/a+(old)/src/app.js` do not trigger `add/change/unlink` events.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Watched-file filtering now ignores glob-rooted files",
+          "severity": "high",
+          "file": "lib/watcher.js",
+          "line": 45,
+          "explanation": "`createIgnore` now returns `true` for any file that does not match one of the watched patterns. For a watched glob like `/some/*.js`, chokidar will still emit `change` events for files under `/some`, but the ignore callback receives concrete file paths (e.g. `/some/a.js`) and can end up excluding them if the glob implementation does not treat the concrete path as a match. That makes watched files stop being reported to `fileList` even though they were selected for watching.",
+          "suggestion": "Do not re-check watched patterns in the chokidar ignore callback; only apply the exclude patterns there, and rely on `watchPatterns` to determine which directories to add.",
+          "failureAfterChange": "With config files `['/some/*.js']`, editing `/some/a.js` no longer triggers `changeFile` because chokidar ignores the event path.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-11",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Populate now silently queries the wrong collection when no ref is defined",
+          "severity": "high",
+          "file": "lib/model.js",
+          "line": 1603,
+          "explanation": "The new fallback to `model.modelName` means `populate()` no longer errors when a path has no `ref` and no `options.model`. For example, `User.find().populate('missingRefPath')` will now issue a query against the current model name instead of failing fast, and populate the path with unrelated documents or `null` results.",
+          "suggestion": "Restore the guard for missing model names, or only apply the `model.modelName` fallback when the populated value is an ad-hoc model that was explicitly bound to a known collection.",
+          "failureAfterChange": "Calling `someModel.populate(doc, [{ path: 'untypedPath' }], cb)` on a schema path without `ref` now completes without an error and queries `someModel`'s collection instead of returning the previous 'unable to determine model name' error.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Lean populate is not applied to nested populate options",
+          "severity": "medium",
+          "file": "lib/query.js",
+          "line": 1746,
+          "explanation": "`preparePopulationOptions()` only marks the top-level populate entries as lean. If a populated path contains nested populate definitions (for example, `populate({ path: 'blogposts', populate: { path: 'fans' } })`) and the parent query is executed with `lean()`, the nested populate queries still run without `lean` and return hydrated documents with methods like `update`.",
+          "suggestion": "Recursively apply `makeLean()` to any nested `option.populate` entries, or have `preparePopulationOptions()` walk the full populate tree when `options.lean` is set.",
+          "failureAfterChange": "`Model.find().lean().populate({ path: 'blogposts', populate: { path: 'fans' } }).exec(...)` returns populated `fans` documents that still have an `update` method instead of plain objects.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "findOneAndUpdate loses the populated path when `lean` is enabled",
+          "severity": "medium",
+          "file": "lib/query.js",
+          "line": 2432,
+          "explanation": "In the new `findAndModify` completion path, population is performed before checking `opts.lean`. If the query is lean, `model.populate()` returns a plain object, but the code still routes it through `completeOne()` when no populate options are present, and in the populated branch it returns the populated object. This change is fine for the added tests, but it also means a lean `findOneAndUpdate().populate(...).exec()` no longer preserves the previous behavior of returning the raw populated resul",
+          "suggestion": "After `model.populate()`, return `promise.complete(doc)` immediately when `opts.lean` is true; only call `completeOne()` for non-lean queries.",
+          "failureAfterChange": "`Model.findOneAndUpdate({}, {$set:{x:1}}).lean().populate('a').exec(cb)` now returns a hydrated document path handling instead of the expected plain populated object.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Node-redis-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Node-redis-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Pub/sub resubscribe parsing breaks channels containing spaces",
+          "severity": "medium",
+          "file": "index.js",
+          "line": 311,
+          "explanation": "When reconnecting in pub/sub mode, subscription keys are now split with `indexOf(' ')` and sliced. For a channel name like `subscribe('a nice channel')`, the restored subscription becomes command `sub` with argument `nice channel` instead of `a nice channel`, so the client silently resubscribes to the wrong channel after reconnect.",
+          "suggestion": "Store the command and channel separately in `subscription_set` (or split only on the first delimiter after a fixed prefix) so reconnect can rebuild the exact original subscription argument.",
+          "failureAfterChange": "A client that subscribes to `client.subscribe('a nice channel')`, loses the connection, and reconnects will emit `subscribe` for `nice channel` instead of `a nice channel`, so messages on the original channel are no longer received.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    }
+  ]
+}

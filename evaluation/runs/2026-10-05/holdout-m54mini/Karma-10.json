@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-10",
+  "project": "Karma",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+  "buggySha": "ee8303cc3ffa45a8d233e781bd14d0dd8b108300",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "26bffe7511f576d31752129acd29a019f85aa1df4dfbcd92ca99019e30750ed8",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.4-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "e41ed9513020ae43792cf7c7852f4a1268cfc5e5743502254be8f63e835a317c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "da43f4dbef3c12e8a84f76938c02edc1824fe8872e0b829f8534bd71683d3333"
+      },
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "b3ffc58ae09d1c32908c75438848a48428c05641b4a28cdb9e8a20d5388980b1"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "c51c353fdc503775b1e4ae5bf272f20bd7564f64a828a047b43526b4a05b2970"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "022fbae7b79fc4583235efd0bfd9653726502691c8fa14bd810fc00c5792d755"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "ca6391a7232e90355d6df04c511a07a3bed6786bdc6862d273d8ede104227127"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "31ec52399f2a01f78a0ab65a0d2f4df1223196d5a894c82ac4a5a2457b96c42b"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "99bbebb4d55f16f624605b469f5a866fa8833c659ec88ccc5d89fa21ec4210bf"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "244db0632f9db0b71a404bf34edcfd795bc9d2de481e90706e7afaae2c389a26"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.4-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6695,
+          "outputTokens": 477,
+          "totalTokens": 7172
+        },
+        "rawFindings": [
+          {
+            "title": "Watched patterns now include non-watched globs when deciding which directories to add",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 20,
+            "explanation": "`watchPatterns` now iterates every pattern object, only skipping those with `watched === false`, but the watcher still uses the full pattern list to derive watched directories. A config entry like `files: [{pattern: '/tmp/**', watched: false}, {pattern: '/src/**/*.js'}]` will still cause `/tmp` to be added if the unwatched pattern is more generic than the watched one. That makes chokidar observe files that the config explicitly marked as unwatched.",
+            "suggestion": "Derive the watch list from only `patternObject.watched === true` entries before calling `watchPatterns`, or restore a watched-pattern filter inside `watchPatterns` and use it consistently for both directory selection and ignored-path checks.",
+            "failureAfterChange": "With `files: [{pattern: '/tmp/**', watched: false}, {pattern: '/src/**/*.js'}]`, the watcher adds `/tmp` and emits events for changes under `/tmp`, even though those files are configured as not watched.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Excluded directories are no longer ignored before stat events, so excluded subtrees can still be observed",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 45,
+            "explanation": "`createIgnore` now only checks glob matches against `excludes` and no longer short-circuits for directories or for paths that do not match any watched pattern. As a result, chokidar can descend into excluded directories and emit add/change/unlink events for files below them before the ignore predicate filters them, which reintroduces events for paths the watcher should never see.",
+            "suggestion": "Keep the previous directory/non-match guards in `createIgnore`, or pass both watched patterns and excludes so the predicate can ignore non-matching items and entire excluded directories up front.",
+            "failureAfterChange": "With `files: ['/src/**/*.js']` and `exclude: ['/src/vendor/**']`, creating `/src/vendor/lib.js` can still trigger `add`/`change` events because the directory `/src/vendor` is not ignored early enough.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Watched patterns now include non-watched globs when deciding which directories to add",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 20,
+            "explanation": "`watchPatterns` now iterates every pattern object, only skipping those with `watched === false`, but the watcher still uses the full pattern list to derive watched directories. A config entry like `files: [{pattern: '/tmp/**', watched: false}, {pattern: '/src/**/*.js'}]` will still cause `/tmp` to be added if the unwatched pattern is more generic than the watched one. That makes chokidar observe files that the config explicitly marked as unwatched.",
+            "suggestion": "Derive the watch list from only `patternObject.watched === true` entries before calling `watchPatterns`, or restore a watched-pattern filter inside `watchPatterns` and use it consistently for both directory selection and ignored-path checks.",
+            "failureAfterChange": "With `files: [{pattern: '/tmp/**', watched: false}, {pattern: '/src/**/*.js'}]`, the watcher adds `/tmp` and emits events for changes under `/tmp`, even though those files are configured as not watched.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Excluded directories are no longer ignored before stat events, so excluded subtrees can still be observed",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 45,
+            "explanation": "`createIgnore` now only checks glob matches against `excludes` and no longer short-circuits for directories or for paths that do not match any watched pattern. As a result, chokidar can descend into excluded directories and emit add/change/unlink events for files below them before the ignore predicate filters them, which reintroduces events for paths the watcher should never see.",
+            "suggestion": "Keep the previous directory/non-match guards in `createIgnore`, or pass both watched patterns and excludes so the predicate can ignore non-matching items and entire excluded directories up front.",
+            "failureAfterChange": "With `files: ['/src/**/*.js']` and `exclude: ['/src/vendor/**']`, creating `/src/vendor/lib.js` can still trigger `add`/`change` events because the directory `/src/vendor` is not ignored early enough.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

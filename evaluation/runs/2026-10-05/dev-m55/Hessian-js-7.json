@@ -87,8 +87,42 @@
     }
   },
   "arms": {
-    "withContext": [],
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 11696,
+          "outputTokens": 1565,
+          "totalTokens": 13261
+        },
+        "rawFindings": [
+          {
+            "title": "`java.util.Map` ES6 Map entries are dropped during v1 encoding",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 331,
+            "explanation": "The new condition no longer treats `$class: 'java.util.Map'` as an untyped hash map. When the payload is an ES6 `Map`, `writeObject()` now falls through to `_writeObject()`, which enumerates `Object.keys()` on the `Map` instance and writes no entries, losing all data.",
+            "suggestion": "Restore handling for `java.util.Map` as an untyped map, e.g. compare against `'java.util.Map'`/a restored default constant in this condition so it calls `_writeHashMap(realObj)`.",
+            "failureAfterChange": "`hessian.decode(hessian.encode({ $class: 'java.util.Map', $: new Map([['a', 1]]) }))` now returns `{}` instead of `{ a: 1 }`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "`java.util.Map` ES6 Map entries are dropped during v1 encoding",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 331,
+            "explanation": "The new condition no longer treats `$class: 'java.util.Map'` as an untyped hash map. When the payload is an ES6 `Map`, `writeObject()` now falls through to `_writeObject()`, which enumerates `Object.keys()` on the `Map` instance and writes no entries, losing all data.",
+            "suggestion": "Restore handling for `java.util.Map` as an untyped map, e.g. compare against `'java.util.Map'`/a restored default constant in this condition so it calls `_writeHashMap(realObj)`.",
+            "failureAfterChange": "`hessian.decode(hessian.encode({ $class: 'java.util.Map', $: new Map([['a', 1]]) }))` now returns `{}` instead of `{ a: 1 }`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
     "withoutContext": null
   },
-  "complete": false
+  "complete": true
 }

@@ -1,0 +1,83 @@
+{
+  "cohorts": [
+    "dev"
+  ],
+  "identity": "file:line",
+  "rows": [
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 1,
+      "k": 1,
+      "found": 23,
+      "ranges": 59,
+      "recall": 0.3898305084745763,
+      "reversedFindings": 23,
+      "forwardFindings": 9,
+      "combinedPrecision": 0.71875,
+      "f1": 0.5054945054945055,
+      "fixesFlagged": 6,
+      "fixes": 30,
+      "callsPerDiff": 1
+    },
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 2,
+      "k": 1,
+      "found": 30,
+      "ranges": 59,
+      "recall": 0.5084745762711864,
+      "reversedFindings": 30,
+      "forwardFindings": 15,
+      "combinedPrecision": 0.6666666666666666,
+      "f1": 0.576923076923077,
+      "fixesFlagged": 10,
+      "fixes": 30,
+      "callsPerDiff": 2
+    },
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 2,
+      "k": 2,
+      "found": 15,
+      "ranges": 59,
+      "recall": 0.2542372881355932,
+      "reversedFindings": 15,
+      "forwardFindings": 6,
+      "combinedPrecision": 0.7142857142857143,
+      "f1": 0.375,
+      "fixesFlagged": 4,
+      "fixes": 30,
+      "callsPerDiff": 2
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "n": 1,
+      "k": 1,
+      "found": 27,
+      "ranges": 59,
+      "recall": 0.4576271186440678,
+      "reversedFindings": 27,
+      "forwardFindings": 21,
+      "combinedPrecision": 0.5625,
+      "f1": 0.5046728971962616,
+      "fixesFlagged": 20,
+      "fixes": 30,
+      "callsPerDiff": 1
+    },
+    {
+      "model": "gpt-5.5",
+      "n": 1,
+      "k": 1,
+      "found": 31,
+      "ranges": 59,
+      "recall": 0.5254237288135594,
+      "reversedFindings": 31,
+      "forwardFindings": 13,
+      "combinedPrecision": 0.7045454545454546,
+      "f1": 0.6019417475728156,
+      "fixesFlagged": 11,
+      "fixes": 30,
+      "callsPerDiff": 1
+    }
+  ]
+}

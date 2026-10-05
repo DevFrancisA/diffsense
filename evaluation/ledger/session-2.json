@@ -2,12 +2,12 @@
   "session": "session-2",
   "callLimit": 2500,
   "tokenLimit": 25000000,
-  "reservedCalls": 1329,
-  "completedCalls": 1321,
-  "estimatedInputTokens": 12785480,
-  "observedInputTokens": 9004604,
-  "observedOutputTokens": 206722,
-  "observedTotalTokens": 9211326,
+  "reservedCalls": 1522,
+  "completedCalls": 1512,
+  "estimatedInputTokens": 15390964,
+  "observedInputTokens": 10799151,
+  "observedOutputTokens": 388183,
+  "observedTotalTokens": 11187334,
   "byLabel": {
     "regressions/index_embeddings": {
       "calls": 1,
@@ -170,8 +170,32 @@
       "totalTokens": 244941
     },
     "benchmark/dev-m55/review_response": {
-      "calls": 18,
-      "totalTokens": 190448
+      "calls": 30,
+      "totalTokens": 285451
+    },
+    "benchmark/dev-forward-m54mini/review_response": {
+      "calls": 30,
+      "totalTokens": 244688
+    },
+    "benchmark/holdout-m54mini/review_response": {
+      "calls": 30,
+      "totalTokens": 320290
+    },
+    "benchmark/holdout-forward-m54mini/review_response": {
+      "calls": 30,
+      "totalTokens": 319194
+    },
+    "benchmark/dev-forward-m55/review_response": {
+      "calls": 30,
+      "totalTokens": 290895
+    },
+    "benchmark/holdout-m55/review_response": {
+      "calls": 30,
+      "totalTokens": 350148
+    },
+    "benchmark/holdout-forward-m55/review_response": {
+      "calls": 29,
+      "totalTokens": 355790
     }
   },
   "log": [
@@ -21208,6 +21232,3074 @@
       "label": "benchmark/holdout-forward-m55/review_response",
       "calls": 1,
       "estimatedTokens": 14644
+    },
+    {
+      "at": "2026-10-05T21:29:13.186Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 14306
+    },
+    {
+      "at": "2026-10-05T21:29:31.305Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11696,
+        "outputTokens": 1565,
+        "totalTokens": 13261
+      }
+    },
+    {
+      "at": "2026-10-05T21:29:33.258Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11286
+    },
+    {
+      "at": "2026-10-05T21:30:07.500Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9917,
+        "outputTokens": 2860,
+        "totalTokens": 12777
+      }
+    },
+    {
+      "at": "2026-10-05T21:30:09.430Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10966
+    },
+    {
+      "at": "2026-10-05T21:30:16.757Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8814,
+        "outputTokens": 487,
+        "totalTokens": 9301
+      }
+    },
+    {
+      "at": "2026-10-05T21:30:19.274Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7508
+    },
+    {
+      "at": "2026-10-05T21:30:49.676Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4852,
+        "outputTokens": 2759,
+        "totalTokens": 7611
+      }
+    },
+    {
+      "at": "2026-10-05T21:30:52.920Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7163
+    },
+    {
+      "at": "2026-10-05T21:31:07.720Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4730,
+        "outputTokens": 1379,
+        "totalTokens": 6109
+      }
+    },
+    {
+      "at": "2026-10-05T21:31:09.967Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 6377
+    },
+    {
+      "at": "2026-10-05T21:31:20.679Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4197,
+        "outputTokens": 705,
+        "totalTokens": 4902
+      }
+    },
+    {
+      "at": "2026-10-05T21:31:23.164Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7015
+    },
+    {
+      "at": "2026-10-05T21:31:46.217Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4603,
+        "outputTokens": 1879,
+        "totalTokens": 6482
+      }
+    },
+    {
+      "at": "2026-10-05T21:31:48.904Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7151
+    },
+    {
+      "at": "2026-10-05T21:32:05.745Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4779,
+        "outputTokens": 1232,
+        "totalTokens": 6011
+      }
+    },
+    {
+      "at": "2026-10-05T21:32:08.351Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7909
+    },
+    {
+      "at": "2026-10-05T21:32:24.313Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5282,
+        "outputTokens": 1764,
+        "totalTokens": 7046
+      }
+    },
+    {
+      "at": "2026-10-05T21:39:59.811Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9270
+    },
+    {
+      "at": "2026-10-05T21:40:09.168Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6287,
+        "outputTokens": 778,
+        "totalTokens": 7065
+      }
+    },
+    {
+      "at": "2026-10-05T21:40:11.292Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 8905
+    },
+    {
+      "at": "2026-10-05T21:40:22.286Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 8905
+    },
+    {
+      "at": "2026-10-05T21:40:31.474Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5840,
+        "outputTokens": 678,
+        "totalTokens": 6518
+      }
+    },
+    {
+      "at": "2026-10-05T21:40:33.918Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10839
+    },
+    {
+      "at": "2026-10-05T21:40:42.457Z",
+      "label": "benchmark/dev-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7388,
+        "outputTokens": 532,
+        "totalTokens": 7920
+      }
+    },
+    {
+      "at": "2026-10-05T21:40:47.044Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 14138
+    },
+    {
+      "at": "2026-10-05T21:40:49.399Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8707,
+        "outputTokens": 265,
+        "totalTokens": 8972
+      }
+    },
+    {
+      "at": "2026-10-05T21:40:51.759Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 18340
+    },
+    {
+      "at": "2026-10-05T21:40:54.267Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10934,
+        "outputTokens": 224,
+        "totalTokens": 11158
+      }
+    },
+    {
+      "at": "2026-10-05T21:40:56.586Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10156
+    },
+    {
+      "at": "2026-10-05T21:40:58.046Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6289,
+        "outputTokens": 14,
+        "totalTokens": 6303
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:01.499Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9341
+    },
+    {
+      "at": "2026-10-05T21:41:03.898Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6127,
+        "outputTokens": 199,
+        "totalTokens": 6326
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:07.617Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9084
+    },
+    {
+      "at": "2026-10-05T21:41:09.684Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5209,
+        "outputTokens": 198,
+        "totalTokens": 5407
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:13.091Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 23615
+    },
+    {
+      "at": "2026-10-05T21:41:13.958Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 13809,
+        "outputTokens": 14,
+        "totalTokens": 13823
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:17.364Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10560
+    },
+    {
+      "at": "2026-10-05T21:41:19.577Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6138,
+        "outputTokens": 241,
+        "totalTokens": 6379
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:22.758Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9836
+    },
+    {
+      "at": "2026-10-05T21:41:25.385Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5845,
+        "outputTokens": 283,
+        "totalTokens": 6128
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:28.626Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 11328
+    },
+    {
+      "at": "2026-10-05T21:41:31.157Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7158,
+        "outputTokens": 288,
+        "totalTokens": 7446
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:33.281Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 11025
+    },
+    {
+      "at": "2026-10-05T21:41:34.594Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7755,
+        "outputTokens": 14,
+        "totalTokens": 7769
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:36.946Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9929
+    },
+    {
+      "at": "2026-10-05T21:41:38.178Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7069,
+        "outputTokens": 14,
+        "totalTokens": 7083
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:42.098Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 14282
+    },
+    {
+      "at": "2026-10-05T21:41:43.526Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10462,
+        "outputTokens": 14,
+        "totalTokens": 10476
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:46.151Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10491
+    },
+    {
+      "at": "2026-10-05T21:41:50.907Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7567,
+        "outputTokens": 308,
+        "totalTokens": 7875
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:53.294Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7687
+    },
+    {
+      "at": "2026-10-05T21:41:56.565Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5203,
+        "outputTokens": 260,
+        "totalTokens": 5463
+      }
+    },
+    {
+      "at": "2026-10-05T21:41:58.808Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10734
+    },
+    {
+      "at": "2026-10-05T21:42:02.735Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7640,
+        "outputTokens": 281,
+        "totalTokens": 7921
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:04.745Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 19031
+    },
+    {
+      "at": "2026-10-05T21:42:07.706Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 16344,
+        "outputTokens": 394,
+        "totalTokens": 16738
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:09.351Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 12461
+    },
+    {
+      "at": "2026-10-05T21:42:12.118Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9813,
+        "outputTokens": 241,
+        "totalTokens": 10054
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:13.864Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 20550
+    },
+    {
+      "at": "2026-10-05T21:42:17.354Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 17750,
+        "outputTokens": 434,
+        "totalTokens": 18184
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:19.155Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 13915
+    },
+    {
+      "at": "2026-10-05T21:42:21.145Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11389,
+        "outputTokens": 14,
+        "totalTokens": 11403
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:22.876Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 11147
+    },
+    {
+      "at": "2026-10-05T21:42:24.960Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9765,
+        "outputTokens": 235,
+        "totalTokens": 10000
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:26.594Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 11406
+    },
+    {
+      "at": "2026-10-05T21:42:29.551Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9073,
+        "outputTokens": 275,
+        "totalTokens": 9348
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:32.367Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7505
+    },
+    {
+      "at": "2026-10-05T21:42:36.491Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4857,
+        "outputTokens": 414,
+        "totalTokens": 5271
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:40.386Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7179
+    },
+    {
+      "at": "2026-10-05T21:42:42.341Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4747,
+        "outputTokens": 14,
+        "totalTokens": 4761
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:44.985Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 6520
+    },
+    {
+      "at": "2026-10-05T21:42:47.495Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4276,
+        "outputTokens": 275,
+        "totalTokens": 4551
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:50.188Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7118
+    },
+    {
+      "at": "2026-10-05T21:42:53.297Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4683,
+        "outputTokens": 221,
+        "totalTokens": 4904
+      }
+    },
+    {
+      "at": "2026-10-05T21:42:56.257Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7164
+    },
+    {
+      "at": "2026-10-05T21:42:58.292Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4787,
+        "outputTokens": 251,
+        "totalTokens": 5038
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:00.890Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7947
+    },
+    {
+      "at": "2026-10-05T21:43:04.189Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5306,
+        "outputTokens": 279,
+        "totalTokens": 5585
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:06.379Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9130
+    },
+    {
+      "at": "2026-10-05T21:43:08.343Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6119,
+        "outputTokens": 14,
+        "totalTokens": 6133
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:10.226Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9612
+    },
+    {
+      "at": "2026-10-05T21:43:12.011Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6355,
+        "outputTokens": 239,
+        "totalTokens": 6594
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:13.999Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10839
+    },
+    {
+      "at": "2026-10-05T21:43:16.253Z",
+      "label": "benchmark/dev-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7389,
+        "outputTokens": 206,
+        "totalTokens": 7595
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:27.736Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 14587
+    },
+    {
+      "at": "2026-10-05T21:43:30.042Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8784,
+        "outputTokens": 267,
+        "totalTokens": 9051
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:33.525Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 13911
+    },
+    {
+      "at": "2026-10-05T21:43:35.766Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8364,
+        "outputTokens": 213,
+        "totalTokens": 8577
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:40.270Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 30415
+    },
+    {
+      "at": "2026-10-05T21:43:42.891Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18598,
+        "outputTokens": 268,
+        "totalTokens": 18866
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:46.253Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 11714
+    },
+    {
+      "at": "2026-10-05T21:43:49.357Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7089,
+        "outputTokens": 213,
+        "totalTokens": 7302
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:53.070Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 17581
+    },
+    {
+      "at": "2026-10-05T21:43:55.316Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10567,
+        "outputTokens": 226,
+        "totalTokens": 10793
+      }
+    },
+    {
+      "at": "2026-10-05T21:43:58.899Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10644
+    },
+    {
+      "at": "2026-10-05T21:44:02.378Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7255,
+        "outputTokens": 207,
+        "totalTokens": 7462
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:03.668Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 14971
+    },
+    {
+      "at": "2026-10-05T21:44:07.068Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11129,
+        "outputTokens": 405,
+        "totalTokens": 11534
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:10.038Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10443
+    },
+    {
+      "at": "2026-10-05T21:44:14.409Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7378,
+        "outputTokens": 208,
+        "totalTokens": 7586
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:16.599Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9652
+    },
+    {
+      "at": "2026-10-05T21:44:18.348Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6617,
+        "outputTokens": 204,
+        "totalTokens": 6821
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:20.428Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10328
+    },
+    {
+      "at": "2026-10-05T21:44:24.742Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7311,
+        "outputTokens": 255,
+        "totalTokens": 7566
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:27.067Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 12374
+    },
+    {
+      "at": "2026-10-05T21:44:29.989Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9088,
+        "outputTokens": 217,
+        "totalTokens": 9305
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:32.285Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7584
+    },
+    {
+      "at": "2026-10-05T21:44:34.384Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5379,
+        "outputTokens": 277,
+        "totalTokens": 5656
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:37.432Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7646
+    },
+    {
+      "at": "2026-10-05T21:44:42.137Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5079,
+        "outputTokens": 454,
+        "totalTokens": 5533
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:45.529Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 14791
+    },
+    {
+      "at": "2026-10-05T21:44:49.162Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10100,
+        "outputTokens": 207,
+        "totalTokens": 10307
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:52.006Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 11038
+    },
+    {
+      "at": "2026-10-05T21:44:56.385Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7608,
+        "outputTokens": 208,
+        "totalTokens": 7816
+      }
+    },
+    {
+      "at": "2026-10-05T21:44:59.313Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10209
+    },
+    {
+      "at": "2026-10-05T21:45:01.628Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7077,
+        "outputTokens": 340,
+        "totalTokens": 7417
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:03.972Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9888
+    },
+    {
+      "at": "2026-10-05T21:45:06.424Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6723,
+        "outputTokens": 246,
+        "totalTokens": 6969
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:08.506Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10298
+    },
+    {
+      "at": "2026-10-05T21:45:11.198Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7000,
+        "outputTokens": 230,
+        "totalTokens": 7230
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:13.786Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9768
+    },
+    {
+      "at": "2026-10-05T21:45:16.265Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6784,
+        "outputTokens": 247,
+        "totalTokens": 7031
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:18.279Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7860
+    },
+    {
+      "at": "2026-10-05T21:45:21.795Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5210,
+        "outputTokens": 204,
+        "totalTokens": 5414
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:24.079Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9999
+    },
+    {
+      "at": "2026-10-05T21:45:27.673Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6695,
+        "outputTokens": 477,
+        "totalTokens": 7172
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:29.810Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 8943
+    },
+    {
+      "at": "2026-10-05T21:45:31.590Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6382,
+        "outputTokens": 194,
+        "totalTokens": 6576
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:33.803Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 32616
+    },
+    {
+      "at": "2026-10-05T21:45:38.453Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 24663,
+        "outputTokens": 226,
+        "totalTokens": 24889
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:41.884Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 24333
+    },
+    {
+      "at": "2026-10-05T21:45:43.921Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18341,
+        "outputTokens": 221,
+        "totalTokens": 18562
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:46.281Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 20926
+    },
+    {
+      "at": "2026-10-05T21:45:50.040Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15568,
+        "outputTokens": 422,
+        "totalTokens": 15990
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:52.186Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 26973
+    },
+    {
+      "at": "2026-10-05T21:45:56.485Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 20955,
+        "outputTokens": 235,
+        "totalTokens": 21190
+      }
+    },
+    {
+      "at": "2026-10-05T21:45:58.615Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9938
+    },
+    {
+      "at": "2026-10-05T21:46:01.448Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7223,
+        "outputTokens": 236,
+        "totalTokens": 7459
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:03.640Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 27680
+    },
+    {
+      "at": "2026-10-05T21:46:05.805Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21600,
+        "outputTokens": 213,
+        "totalTokens": 21813
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:07.845Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 23800
+    },
+    {
+      "at": "2026-10-05T21:46:10.652Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15276,
+        "outputTokens": 196,
+        "totalTokens": 15472
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:12.988Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 19368
+    },
+    {
+      "at": "2026-10-05T21:46:16.113Z",
+      "label": "benchmark/holdout-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12703,
+        "outputTokens": 228,
+        "totalTokens": 12931
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:26.811Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 14644
+    },
+    {
+      "at": "2026-10-05T21:46:30.388Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8805,
+        "outputTokens": 228,
+        "totalTokens": 9033
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:33.078Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 13954
+    },
+    {
+      "at": "2026-10-05T21:46:35.551Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8414,
+        "outputTokens": 284,
+        "totalTokens": 8698
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:38.043Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 30415
+    },
+    {
+      "at": "2026-10-05T21:46:40.350Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18468,
+        "outputTokens": 248,
+        "totalTokens": 18716
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:42.979Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 11727
+    },
+    {
+      "at": "2026-10-05T21:46:45.167Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7098,
+        "outputTokens": 251,
+        "totalTokens": 7349
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:47.901Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 17445
+    },
+    {
+      "at": "2026-10-05T21:46:50.783Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10444,
+        "outputTokens": 298,
+        "totalTokens": 10742
+      }
+    },
+    {
+      "at": "2026-10-05T21:46:53.541Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10650
+    },
+    {
+      "at": "2026-10-05T21:46:58.169Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7266,
+        "outputTokens": 544,
+        "totalTokens": 7810
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:00.451Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 15074
+    },
+    {
+      "at": "2026-10-05T21:47:02.531Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11212,
+        "outputTokens": 208,
+        "totalTokens": 11420
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:04.647Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10440
+    },
+    {
+      "at": "2026-10-05T21:47:06.615Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7376,
+        "outputTokens": 14,
+        "totalTokens": 7390
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:08.558Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9654
+    },
+    {
+      "at": "2026-10-05T21:47:09.654Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6618,
+        "outputTokens": 14,
+        "totalTokens": 6632
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:11.777Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10893
+    },
+    {
+      "at": "2026-10-05T21:47:12.973Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7678,
+        "outputTokens": 14,
+        "totalTokens": 7692
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:15.174Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 12423
+    },
+    {
+      "at": "2026-10-05T21:47:17.526Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9130,
+        "outputTokens": 265,
+        "totalTokens": 9395
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:20.751Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7527
+    },
+    {
+      "at": "2026-10-05T21:47:22.835Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5329,
+        "outputTokens": 228,
+        "totalTokens": 5557
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:25.578Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 7659
+    },
+    {
+      "at": "2026-10-05T21:47:27.816Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5088,
+        "outputTokens": 241,
+        "totalTokens": 5329
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:30.143Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 15302
+    },
+    {
+      "at": "2026-10-05T21:47:32.831Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10466,
+        "outputTokens": 315,
+        "totalTokens": 10781
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:35.128Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 11020
+    },
+    {
+      "at": "2026-10-05T21:47:37.864Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7601,
+        "outputTokens": 190,
+        "totalTokens": 7791
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:41.170Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10209
+    },
+    {
+      "at": "2026-10-05T21:47:44.380Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7077,
+        "outputTokens": 208,
+        "totalTokens": 7285
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:47.043Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9891
+    },
+    {
+      "at": "2026-10-05T21:47:48.990Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6725,
+        "outputTokens": 14,
+        "totalTokens": 6739
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:51.087Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 10307
+    },
+    {
+      "at": "2026-10-05T21:47:54.087Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7008,
+        "outputTokens": 233,
+        "totalTokens": 7241
+      }
+    },
+    {
+      "at": "2026-10-05T21:47:56.115Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9658
+    },
+    {
+      "at": "2026-10-05T21:47:59.141Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6672,
+        "outputTokens": 245,
+        "totalTokens": 6917
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:01.320Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 8107
+    },
+    {
+      "at": "2026-10-05T21:48:05.993Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5414,
+        "outputTokens": 461,
+        "totalTokens": 5875
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:08.048Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9794
+    },
+    {
+      "at": "2026-10-05T21:48:10.317Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6603,
+        "outputTokens": 236,
+        "totalTokens": 6839
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:12.154Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 8939
+    },
+    {
+      "at": "2026-10-05T21:48:14.765Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6384,
+        "outputTokens": 14,
+        "totalTokens": 6398
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:17.095Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 32666
+    },
+    {
+      "at": "2026-10-05T21:48:18.401Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 24699,
+        "outputTokens": 14,
+        "totalTokens": 24713
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:20.559Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 24352
+    },
+    {
+      "at": "2026-10-05T21:48:22.600Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18340,
+        "outputTokens": 226,
+        "totalTokens": 18566
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:24.871Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 20915
+    },
+    {
+      "at": "2026-10-05T21:48:28.048Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15560,
+        "outputTokens": 121,
+        "totalTokens": 15681
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:30.151Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 27152
+    },
+    {
+      "at": "2026-10-05T21:48:32.323Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21087,
+        "outputTokens": 221,
+        "totalTokens": 21308
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:34.073Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 9954
+    },
+    {
+      "at": "2026-10-05T21:48:35.765Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7238,
+        "outputTokens": 14,
+        "totalTokens": 7252
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:37.529Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 27747
+    },
+    {
+      "at": "2026-10-05T21:48:41.562Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21647,
+        "outputTokens": 294,
+        "totalTokens": 21941
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:43.770Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 23705
+    },
+    {
+      "at": "2026-10-05T21:48:44.904Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15169,
+        "outputTokens": 14,
+        "totalTokens": 15183
+      }
+    },
+    {
+      "at": "2026-10-05T21:48:46.872Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "estimatedTokens": 19371
+    },
+    {
+      "at": "2026-10-05T21:48:49.253Z",
+      "label": "benchmark/holdout-forward-m54mini/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12708,
+        "outputTokens": 213,
+        "totalTokens": 12921
+      }
+    },
+    {
+      "at": "2026-10-05T21:49:00.068Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 14138
+    },
+    {
+      "at": "2026-10-05T21:49:57.270Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8707,
+        "outputTokens": 4833,
+        "totalTokens": 13540
+      }
+    },
+    {
+      "at": "2026-10-05T21:49:59.483Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 18340
+    },
+    {
+      "at": "2026-10-05T21:50:25.077Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10934,
+        "outputTokens": 2086,
+        "totalTokens": 13020
+      }
+    },
+    {
+      "at": "2026-10-05T21:50:27.254Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10156
+    },
+    {
+      "at": "2026-10-05T21:51:02.062Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6289,
+        "outputTokens": 2671,
+        "totalTokens": 8960
+      }
+    },
+    {
+      "at": "2026-10-05T21:51:04.729Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9341
+    },
+    {
+      "at": "2026-10-05T21:51:22.835Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6127,
+        "outputTokens": 1253,
+        "totalTokens": 7380
+      }
+    },
+    {
+      "at": "2026-10-05T21:51:25.302Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9084
+    },
+    {
+      "at": "2026-10-05T21:51:39.969Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5209,
+        "outputTokens": 1214,
+        "totalTokens": 6423
+      }
+    },
+    {
+      "at": "2026-10-05T21:51:42.592Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 23615
+    },
+    {
+      "at": "2026-10-05T21:52:45.975Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 13809,
+        "outputTokens": 4889,
+        "totalTokens": 18698
+      }
+    },
+    {
+      "at": "2026-10-05T21:52:48.543Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10560
+    },
+    {
+      "at": "2026-10-05T21:53:16.818Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6138,
+        "outputTokens": 2056,
+        "totalTokens": 8194
+      }
+    },
+    {
+      "at": "2026-10-05T21:53:18.948Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9836
+    },
+    {
+      "at": "2026-10-05T21:53:36.579Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5845,
+        "outputTokens": 1464,
+        "totalTokens": 7309
+      }
+    },
+    {
+      "at": "2026-10-05T21:53:40.114Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11328
+    },
+    {
+      "at": "2026-10-05T21:53:50.318Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7158,
+        "outputTokens": 880,
+        "totalTokens": 8038
+      }
+    },
+    {
+      "at": "2026-10-05T21:53:52.589Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11025
+    },
+    {
+      "at": "2026-10-05T21:53:57.811Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7755,
+        "outputTokens": 336,
+        "totalTokens": 8091
+      }
+    },
+    {
+      "at": "2026-10-05T21:54:00.012Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9929
+    },
+    {
+      "at": "2026-10-05T21:54:07.019Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7069,
+        "outputTokens": 522,
+        "totalTokens": 7591
+      }
+    },
+    {
+      "at": "2026-10-05T21:54:09.095Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 14282
+    },
+    {
+      "at": "2026-10-05T21:54:13.063Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10462,
+        "outputTokens": 195,
+        "totalTokens": 10657
+      }
+    },
+    {
+      "at": "2026-10-05T21:54:14.971Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10491
+    },
+    {
+      "at": "2026-10-05T21:54:34.566Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7567,
+        "outputTokens": 1629,
+        "totalTokens": 9196
+      }
+    },
+    {
+      "at": "2026-10-05T21:54:36.873Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7687
+    },
+    {
+      "at": "2026-10-05T21:54:43.900Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5203,
+        "outputTokens": 463,
+        "totalTokens": 5666
+      }
+    },
+    {
+      "at": "2026-10-05T21:54:46.069Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10734
+    },
+    {
+      "at": "2026-10-05T21:55:02.643Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7640,
+        "outputTokens": 1253,
+        "totalTokens": 8893
+      }
+    },
+    {
+      "at": "2026-10-05T21:55:04.793Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 19031
+    },
+    {
+      "at": "2026-10-05T21:55:42.098Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 16344,
+        "outputTokens": 3116,
+        "totalTokens": 19460
+      }
+    },
+    {
+      "at": "2026-10-05T21:55:43.973Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 12461
+    },
+    {
+      "at": "2026-10-05T21:56:00.971Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9813,
+        "outputTokens": 1272,
+        "totalTokens": 11085
+      }
+    },
+    {
+      "at": "2026-10-05T21:56:02.828Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 20550
+    },
+    {
+      "at": "2026-10-05T21:56:23.592Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 17750,
+        "outputTokens": 1794,
+        "totalTokens": 19544
+      }
+    },
+    {
+      "at": "2026-10-05T21:56:25.683Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 13915
+    },
+    {
+      "at": "2026-10-05T21:56:57.382Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11389,
+        "outputTokens": 2820,
+        "totalTokens": 14209
+      }
+    },
+    {
+      "at": "2026-10-05T21:56:59.251Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11147
+    },
+    {
+      "at": "2026-10-05T21:57:40.585Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9765,
+        "outputTokens": 3941,
+        "totalTokens": 13706
+      }
+    },
+    {
+      "at": "2026-10-05T21:57:42.614Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11406
+    },
+    {
+      "at": "2026-10-05T21:57:50.370Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9073,
+        "outputTokens": 529,
+        "totalTokens": 9602
+      }
+    },
+    {
+      "at": "2026-10-05T21:57:52.588Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7505
+    },
+    {
+      "at": "2026-10-05T21:58:09.910Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4857,
+        "outputTokens": 1568,
+        "totalTokens": 6425
+      }
+    },
+    {
+      "at": "2026-10-05T21:58:12.155Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7179
+    },
+    {
+      "at": "2026-10-05T21:58:24.323Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4747,
+        "outputTokens": 900,
+        "totalTokens": 5647
+      }
+    },
+    {
+      "at": "2026-10-05T21:58:26.896Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 6520
+    },
+    {
+      "at": "2026-10-05T21:58:45.541Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4276,
+        "outputTokens": 1602,
+        "totalTokens": 5878
+      }
+    },
+    {
+      "at": "2026-10-05T21:58:47.794Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7118
+    },
+    {
+      "at": "2026-10-05T21:59:07.401Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4683,
+        "outputTokens": 1564,
+        "totalTokens": 6247
+      }
+    },
+    {
+      "at": "2026-10-05T21:59:09.904Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7164
+    },
+    {
+      "at": "2026-10-05T21:59:42.094Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4787,
+        "outputTokens": 2571,
+        "totalTokens": 7358
+      }
+    },
+    {
+      "at": "2026-10-05T21:59:44.742Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7947
+    },
+    {
+      "at": "2026-10-05T21:59:56.760Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5306,
+        "outputTokens": 994,
+        "totalTokens": 6300
+      }
+    },
+    {
+      "at": "2026-10-05T21:59:58.871Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9130
+    },
+    {
+      "at": "2026-10-05T22:00:09.523Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6119,
+        "outputTokens": 711,
+        "totalTokens": 6830
+      }
+    },
+    {
+      "at": "2026-10-05T22:00:12.031Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9612
+    },
+    {
+      "at": "2026-10-05T22:00:29.216Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6355,
+        "outputTokens": 1404,
+        "totalTokens": 7759
+      }
+    },
+    {
+      "at": "2026-10-05T22:00:31.447Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10839
+    },
+    {
+      "at": "2026-10-05T22:00:54.168Z",
+      "label": "benchmark/dev-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7389,
+        "outputTokens": 1800,
+        "totalTokens": 9189
+      }
+    },
+    {
+      "at": "2026-10-05T22:00:57.739Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 14587
+    },
+    {
+      "at": "2026-10-05T22:01:09.925Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8784,
+        "outputTokens": 940,
+        "totalTokens": 9724
+      }
+    },
+    {
+      "at": "2026-10-05T22:01:12.444Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 13911
+    },
+    {
+      "at": "2026-10-05T22:01:48.460Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8364,
+        "outputTokens": 2822,
+        "totalTokens": 11186
+      }
+    },
+    {
+      "at": "2026-10-05T22:01:51.378Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 30415
+    },
+    {
+      "at": "2026-10-05T22:02:05.674Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18598,
+        "outputTokens": 1178,
+        "totalTokens": 19776
+      }
+    },
+    {
+      "at": "2026-10-05T22:02:08.255Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11714
+    },
+    {
+      "at": "2026-10-05T22:02:17.385Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7089,
+        "outputTokens": 719,
+        "totalTokens": 7808
+      }
+    },
+    {
+      "at": "2026-10-05T22:02:19.903Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 17581
+    },
+    {
+      "at": "2026-10-05T22:02:34.507Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10567,
+        "outputTokens": 1213,
+        "totalTokens": 11780
+      }
+    },
+    {
+      "at": "2026-10-05T22:02:37.117Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10644
+    },
+    {
+      "at": "2026-10-05T22:02:46.738Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7255,
+        "outputTokens": 728,
+        "totalTokens": 7983
+      }
+    },
+    {
+      "at": "2026-10-05T22:02:48.794Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 14971
+    },
+    {
+      "at": "2026-10-05T22:03:01.939Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11129,
+        "outputTokens": 1131,
+        "totalTokens": 12260
+      }
+    },
+    {
+      "at": "2026-10-05T22:03:04.009Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10443
+    },
+    {
+      "at": "2026-10-05T22:03:12.481Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7378,
+        "outputTokens": 725,
+        "totalTokens": 8103
+      }
+    },
+    {
+      "at": "2026-10-05T22:03:14.768Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9652
+    },
+    {
+      "at": "2026-10-05T22:03:19.759Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6617,
+        "outputTokens": 369,
+        "totalTokens": 6986
+      }
+    },
+    {
+      "at": "2026-10-05T22:03:21.828Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10328
+    },
+    {
+      "at": "2026-10-05T22:03:31.082Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7311,
+        "outputTokens": 718,
+        "totalTokens": 8029
+      }
+    },
+    {
+      "at": "2026-10-05T22:03:32.972Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 12374
+    },
+    {
+      "at": "2026-10-05T22:03:44.838Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9088,
+        "outputTokens": 744,
+        "totalTokens": 9832
+      }
+    },
+    {
+      "at": "2026-10-05T22:03:47.121Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7584
+    },
+    {
+      "at": "2026-10-05T22:04:22.105Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5379,
+        "outputTokens": 3334,
+        "totalTokens": 8713
+      }
+    },
+    {
+      "at": "2026-10-05T22:04:24.590Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7646
+    },
+    {
+      "at": "2026-10-05T22:04:40.209Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5079,
+        "outputTokens": 1230,
+        "totalTokens": 6309
+      }
+    },
+    {
+      "at": "2026-10-05T22:04:42.527Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 14791
+    },
+    {
+      "at": "2026-10-05T22:04:52.110Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10100,
+        "outputTokens": 703,
+        "totalTokens": 10803
+      }
+    },
+    {
+      "at": "2026-10-05T22:04:54.257Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11038
+    },
+    {
+      "at": "2026-10-05T22:05:06.923Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7608,
+        "outputTokens": 989,
+        "totalTokens": 8597
+      }
+    },
+    {
+      "at": "2026-10-05T22:05:08.946Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10209
+    },
+    {
+      "at": "2026-10-05T22:05:16.656Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7077,
+        "outputTokens": 741,
+        "totalTokens": 7818
+      }
+    },
+    {
+      "at": "2026-10-05T22:05:18.697Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9888
+    },
+    {
+      "at": "2026-10-05T22:05:33.499Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6723,
+        "outputTokens": 1267,
+        "totalTokens": 7990
+      }
+    },
+    {
+      "at": "2026-10-05T22:05:35.537Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10298
+    },
+    {
+      "at": "2026-10-05T22:05:44.714Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7000,
+        "outputTokens": 746,
+        "totalTokens": 7746
+      }
+    },
+    {
+      "at": "2026-10-05T22:05:46.873Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9768
+    },
+    {
+      "at": "2026-10-05T22:05:56.432Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6784,
+        "outputTokens": 731,
+        "totalTokens": 7515
+      }
+    },
+    {
+      "at": "2026-10-05T22:05:58.376Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7860
+    },
+    {
+      "at": "2026-10-05T22:06:41.916Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5210,
+        "outputTokens": 3374,
+        "totalTokens": 8584
+      }
+    },
+    {
+      "at": "2026-10-05T22:06:44.366Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9999
+    },
+    {
+      "at": "2026-10-05T22:07:28.464Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6695,
+        "outputTokens": 4050,
+        "totalTokens": 10745
+      }
+    },
+    {
+      "at": "2026-10-05T22:07:30.743Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 8943
+    },
+    {
+      "at": "2026-10-05T22:07:54.270Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6382,
+        "outputTokens": 1746,
+        "totalTokens": 8128
+      }
+    },
+    {
+      "at": "2026-10-05T22:07:56.678Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 32616
+    },
+    {
+      "at": "2026-10-05T22:08:24.932Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 24663,
+        "outputTokens": 2289,
+        "totalTokens": 26952
+      }
+    },
+    {
+      "at": "2026-10-05T22:08:27.153Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 24333
+    },
+    {
+      "at": "2026-10-05T22:08:35.168Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18341,
+        "outputTokens": 532,
+        "totalTokens": 18873
+      }
+    },
+    {
+      "at": "2026-10-05T22:08:37.362Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 20926
+    },
+    {
+      "at": "2026-10-05T22:08:53.702Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15568,
+        "outputTokens": 1323,
+        "totalTokens": 16891
+      }
+    },
+    {
+      "at": "2026-10-05T22:08:56.033Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 26973
+    },
+    {
+      "at": "2026-10-05T22:09:05.410Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 20955,
+        "outputTokens": 835,
+        "totalTokens": 21790
+      }
+    },
+    {
+      "at": "2026-10-05T22:09:07.564Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9938
+    },
+    {
+      "at": "2026-10-05T22:09:16.983Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7223,
+        "outputTokens": 732,
+        "totalTokens": 7955
+      }
+    },
+    {
+      "at": "2026-10-05T22:09:18.923Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 27680
+    },
+    {
+      "at": "2026-10-05T22:09:28.413Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21600,
+        "outputTokens": 750,
+        "totalTokens": 22350
+      }
+    },
+    {
+      "at": "2026-10-05T22:09:30.495Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 23800
+    },
+    {
+      "at": "2026-10-05T22:09:37.227Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15276,
+        "outputTokens": 432,
+        "totalTokens": 15708
+      }
+    },
+    {
+      "at": "2026-10-05T22:09:40.275Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 19368
+    },
+    {
+      "at": "2026-10-05T22:09:47.733Z",
+      "label": "benchmark/holdout-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12703,
+        "outputTokens": 511,
+        "totalTokens": 13214
+      }
+    },
+    {
+      "at": "2026-10-05T22:09:53.761Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 14644
+    },
+    {
+      "at": "2026-10-05T22:10:06.725Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8805,
+        "outputTokens": 1050,
+        "totalTokens": 9855
+      }
+    },
+    {
+      "at": "2026-10-05T22:10:09.307Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 13954
+    },
+    {
+      "at": "2026-10-05T22:10:50.833Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8414,
+        "outputTokens": 3341,
+        "totalTokens": 11755
+      }
+    },
+    {
+      "at": "2026-10-05T22:10:53.663Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 30415
+    },
+    {
+      "at": "2026-10-05T22:10:56.932Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18468,
+        "outputTokens": 200,
+        "totalTokens": 18668
+      }
+    },
+    {
+      "at": "2026-10-05T22:10:59.564Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11727
+    },
+    {
+      "at": "2026-10-05T22:11:10.980Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7098,
+        "outputTokens": 960,
+        "totalTokens": 8058
+      }
+    },
+    {
+      "at": "2026-10-05T22:11:13.728Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 17445
+    },
+    {
+      "at": "2026-10-05T22:11:46.348Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10444,
+        "outputTokens": 2687,
+        "totalTokens": 13131
+      }
+    },
+    {
+      "at": "2026-10-05T22:11:48.957Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10650
+    },
+    {
+      "at": "2026-10-05T22:12:44.018Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7266,
+        "outputTokens": 4223,
+        "totalTokens": 11489
+      }
+    },
+    {
+      "at": "2026-10-05T22:12:46.747Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 15074
+    },
+    {
+      "at": "2026-10-05T22:13:15.034Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11212,
+        "outputTokens": 2137,
+        "totalTokens": 13349
+      }
+    },
+    {
+      "at": "2026-10-05T22:13:17.371Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10440
+    },
+    {
+      "at": "2026-10-05T22:13:55.982Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7376,
+        "outputTokens": 3261,
+        "totalTokens": 10637
+      }
+    },
+    {
+      "at": "2026-10-05T22:13:57.957Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9654
+    },
+    {
+      "at": "2026-10-05T22:14:14.807Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6618,
+        "outputTokens": 1369,
+        "totalTokens": 7987
+      }
+    },
+    {
+      "at": "2026-10-05T22:14:17.225Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10893
+    },
+    {
+      "at": "2026-10-05T22:14:25.179Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7678,
+        "outputTokens": 469,
+        "totalTokens": 8147
+      }
+    },
+    {
+      "at": "2026-10-05T22:14:27.287Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 12423
+    },
+    {
+      "at": "2026-10-05T22:14:45.753Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9130,
+        "outputTokens": 1407,
+        "totalTokens": 10537
+      }
+    },
+    {
+      "at": "2026-10-05T22:14:47.639Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7527
+    },
+    {
+      "at": "2026-10-05T22:15:30.243Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5329,
+        "outputTokens": 3531,
+        "totalTokens": 8860
+      }
+    },
+    {
+      "at": "2026-10-05T22:15:32.596Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 7659
+    },
+    {
+      "at": "2026-10-05T22:15:59.132Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5088,
+        "outputTokens": 2378,
+        "totalTokens": 7466
+      }
+    },
+    {
+      "at": "2026-10-05T22:16:01.322Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 15302
+    },
+    {
+      "at": "2026-10-05T22:16:17.119Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10466,
+        "outputTokens": 1230,
+        "totalTokens": 11696
+      }
+    },
+    {
+      "at": "2026-10-05T22:16:19.231Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 11020
+    },
+    {
+      "at": "2026-10-05T22:16:28.420Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7601,
+        "outputTokens": 532,
+        "totalTokens": 8133
+      }
+    },
+    {
+      "at": "2026-10-05T22:16:30.726Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10209
+    },
+    {
+      "at": "2026-10-05T22:16:38.763Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7077,
+        "outputTokens": 500,
+        "totalTokens": 7577
+      }
+    },
+    {
+      "at": "2026-10-05T22:16:41.810Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9891
+    },
+    {
+      "at": "2026-10-05T22:16:46.651Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6725,
+        "outputTokens": 231,
+        "totalTokens": 6956
+      }
+    },
+    {
+      "at": "2026-10-05T22:16:48.576Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 10307
+    },
+    {
+      "at": "2026-10-05T22:17:12.822Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7008,
+        "outputTokens": 2022,
+        "totalTokens": 9030
+      }
+    },
+    {
+      "at": "2026-10-05T22:17:15.097Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9658
+    },
+    {
+      "at": "2026-10-05T22:17:26.629Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6672,
+        "outputTokens": 971,
+        "totalTokens": 7643
+      }
+    },
+    {
+      "at": "2026-10-05T22:17:28.787Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 8107
+    },
+    {
+      "at": "2026-10-05T22:18:05.450Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5414,
+        "outputTokens": 2874,
+        "totalTokens": 8288
+      }
+    },
+    {
+      "at": "2026-10-05T22:18:07.635Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9794
+    },
+    {
+      "at": "2026-10-05T22:19:20.943Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6603,
+        "outputTokens": 6083,
+        "totalTokens": 12686
+      }
+    },
+    {
+      "at": "2026-10-05T22:19:23.147Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 8939
+    },
+    {
+      "at": "2026-10-05T22:19:37.095Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6384,
+        "outputTokens": 1050,
+        "totalTokens": 7434
+      }
+    },
+    {
+      "at": "2026-10-05T22:19:39.546Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 32666
+    },
+    {
+      "at": "2026-10-05T22:20:14.163Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 24699,
+        "outputTokens": 2834,
+        "totalTokens": 27533
+      }
+    },
+    {
+      "at": "2026-10-05T22:20:16.362Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 24352
+    },
+    {
+      "at": "2026-10-05T22:20:42.062Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 18340,
+        "outputTokens": 1949,
+        "totalTokens": 20289
+      }
+    },
+    {
+      "at": "2026-10-05T22:20:44.294Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 20915
+    },
+    {
+      "at": "2026-10-05T22:20:50.279Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15560,
+        "outputTokens": 440,
+        "totalTokens": 16000
+      }
+    },
+    {
+      "at": "2026-10-05T22:20:52.648Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 27152
+    },
+    {
+      "at": "2026-10-05T22:21:20.225Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21087,
+        "outputTokens": 2274,
+        "totalTokens": 23361
+      }
+    },
+    {
+      "at": "2026-10-05T22:21:22.370Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 9954
+    },
+    {
+      "at": "2026-10-05T22:21:53.887Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7238,
+        "outputTokens": 2564,
+        "totalTokens": 9802
+      }
+    },
+    {
+      "at": "2026-10-05T22:21:56.201Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 27747
+    },
+    {
+      "at": "2026-10-05T22:22:25.514Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21647,
+        "outputTokens": 2317,
+        "totalTokens": 23964
+      }
+    },
+    {
+      "at": "2026-10-05T22:22:27.889Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 23705
+    },
+    {
+      "at": "2026-10-05T22:22:31.922Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15169,
+        "outputTokens": 290,
+        "totalTokens": 15459
+      }
+    },
+    {
+      "at": "2026-10-05T22:22:33.929Z",
+      "label": "benchmark/holdout-forward-m55/review_response",
+      "calls": 1,
+      "estimatedTokens": 19371
     }
   ]
 }
