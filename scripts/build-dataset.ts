@@ -11,7 +11,12 @@ const repositoryRoot = resolve(process.cwd());
 loadEnvConfig(repositoryRoot);
 const cacheRoot = resolve(process.env.DIFFSENSE_BENCHMARK_CACHE ?? join(tmpdir(), "diffsense-benchmark-cache"));
 const metadataPath = process.env.BUGSJS_DATASET_PATH ? resolve(process.env.BUGSJS_DATASET_PATH) : join(cacheRoot, "bug-dataset");
-const manifestPath = join(repositoryRoot, "evaluation", "manifest.json");
+// DIFFSENSE_COHORT=holdout registers the second (HOLDOUT) cohort: the same ordered scan and rules, excluding the 30 DEV cases,
+// with a fresh per-project cap, written to manifest-holdout.json. DEV's manifest.json is never modified.
+const cohort = process.env.DIFFSENSE_COHORT ?? "dev";
+if (cohort !== "dev" && cohort !== "holdout") throw new Error("DIFFSENSE_COHORT must be dev or holdout.");
+const devManifestPath = join(repositoryRoot, "evaluation", "manifest.json");
+const manifestPath = cohort === "holdout" ? join(repositoryRoot, "evaluation", "manifest-holdout.json") : devManifestPath;
 const diffCachePath = join(cacheRoot, "diffs");
 const targetCases = 30;
 const maxPerProject = 6;
@@ -235,7 +240,8 @@ async function inspectCandidate(candidate: ProjectCandidate, projectClones: Map<
   const repoPath = projectClones.get(candidate.upstreamRepository) ?? await ensureProjectClone(candidate);
   projectClones.set(candidate.upstreamRepository, repoPath);
   const fetchKey = `${candidate.upstreamRepository}:${candidate.fixSha}`;
-  if (!fetchedShas.has(fetchKey) && !hasCommit(candidate.fixSha, repoPath)) {
+  // A commit can be present only as a shallow boundary (fetched as another fix's parent), so require its parent too.
+  if (!fetchedShas.has(fetchKey) && !(hasCommit(candidate.fixSha, repoPath) && hasCommit(`${candidate.fixSha}^`, repoPath))) {
     git(["fetch", "--depth=2", "--no-tags", "origin", candidate.fixSha], repoPath, 50 * 1024 * 1024);
   }
   fetchedShas.add(fetchKey);
@@ -337,9 +343,22 @@ async function assertNoExistingResults() {
 }
 
 async function main() {
-  await assertNoExistingResults();
+  let excludedDevCases = 0;
+  if (cohort === "holdout") {
+    if (await pathExists(manifestPath)) throw new Error("manifest-holdout.json already exists; refusing to re-register the HOLDOUT cohort.");
+  } else {
+    await assertNoExistingResults();
+  }
   const sourceRoot = await ensureMetadataCheckout();
-  const candidates = await readCandidates(sourceRoot);
+  let candidates = await readCandidates(sourceRoot);
+  if (cohort === "holdout") {
+    const dev = JSON.parse(await readFile(devManifestPath, "utf8")) as { cases: { project: string; bugId: number }[] };
+    const devKeys = new Set(dev.cases.map((item) => `${item.project}#${item.bugId}`));
+    const before = candidates.length;
+    candidates = candidates.filter((candidate) => !devKeys.has(`${candidate.project}#${candidate.bugId}`));
+    excludedDevCases = before - candidates.length;
+    if (excludedDevCases !== dev.cases.length) throw new Error(`Expected to exclude ${dev.cases.length} DEV cases, excluded ${excludedDevCases}.`);
+  }
   const distinctFixes = new Set(candidates.map((candidate) => `${candidate.upstreamRepository}:${candidate.fixSha}`).filter(Boolean));
   console.log(`DATASET BUDGET: 0 model API calls, 0 tokens; at most ${distinctFixes.size} fix-SHA fetches and 10 project clones.`);
 
@@ -367,6 +386,8 @@ async function main() {
     },
     selection: {
       policy: "evaluation/SELECTION.md",
+      cohort: cohort === "holdout" ? "HOLDOUT" : "DEV",
+      ...(cohort === "holdout" ? { holdoutRule: "Same candidate order and eligibility rules as DEV, restarted from the first candidate, excluding the 30 DEV cases; per-project cap of 6 counted within HOLDOUT only. Registered before any HOLDOUT review run.", excludedDevCases } : {}),
       selectedCases: result.selected.length,
       totalCandidates: candidates.length,
       diffsInspected: result.decisions.filter((decision) => decision.diffInspected).length,

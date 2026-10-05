@@ -37,3 +37,12 @@ If fewer than 30 candidates pass the initial rules, relax only the complete-diff
 Generate each bug-introducing diff as `git diff <fix-sha> <first-parent-sha>`. The known defect locations are the ranges of added lines on the buggy side of that reversed diff, restricted to eligible non-test source files. Merge adjacent added line numbers into inclusive ranges. Store the fixed commit SHA, its first-parent buggy SHA, changed source files, ranges, upstream repo, bug/report IDs, selection decision, and `MAX_INDEX_FILES` cap in `evaluation/manifest.json`.
 
 Selection, diff inspection, and labels are finalized and committed before any DiffSense review or model output is run. Do not alter this protocol or its labels after seeing benchmark results.
+## HOLDOUT cohort (added 2026-10-05, before any HOLDOUT run)
+
+The 30 cases in `manifest.json` are the **DEV** cohort; they were used for the baseline and for choosing improvements. A second cohort, **HOLDOUT**, is registered in `manifest-holdout.json` and committed on its own before any review run on it.
+
+- Rule, chosen by the repository owner: rescan the full candidate list in the same order, excluding the 30 DEV cases, and apply the same eligibility rules, the same 150→200 single fallback, and the same stopping rule. The 6-per-project cap is counted within HOLDOUT only. Continuing strictly after the last DEV candidate (Karma-3) could select at most 28 bugs (the remaining projects' bug counts), so it cannot reach 30.
+- Build: `DIFFSENSE_COHORT=holdout npm run build-dataset` (refuses to overwrite an existing `manifest-holdout.json`; never touches `manifest.json`).
+- Result: 30 cases with 56 defect ranges, no fallback (Eslint 6, Express 6, Hexo 4, Karma 6, Mongoose 6, Node-redis 2).
+- Builder fix made while building HOLDOUT: a fix commit already present only as a shallow-clone boundary was not re-fetched, so its parent was missing. The builder now requires the parent too. The 7 candidates inspected by both builds have identical reasons, changed-line counts, and labels.
+- HOLDOUT is run exactly once with the final chosen configuration and once with the original baseline configuration.
