@@ -26,3 +26,12 @@ The candidate system prompt is:
 The acceptance policy is also explicitly revised: retain only same-file findings within two lines of an added line, and anchor accepted findings to the nearest added line (ties go to the lower line). Raw and anchored findings are both stored. This is logged separately because the baseline used exact added-line equality.
 
 Record the recall-v2 fingerprint, date, per-run metrics, false positives, raw findings, and token usage in the separate output files. Report any score change as an exploratory before/after comparison on this already-seen cohort; do not present it as an unbiased new benchmark or tune it further to the frozen labels.
+
+## Recall-v2 status: abandoned (incomplete, not reported)
+
+- Date: `2026-10-05`
+- Completed: 20 of 30 cases (raw files kept in `runs/2026-10-05/recall-v2/` for transparency); `results-recall-v2.json` was never written.
+- Decision (by the repository owner): abandon rather than finish. It is not counted as one of the post-baseline changes and no metrics from it are reported.
+- Reason: it changed two things at once (prompt wording, which weakened the explicit "do not report speculative concerns" instruction, and a looser ±2-line acceptance gate), so any score change could not be attributed to either one.
+- `src/lib/server/review.ts` was restored to the baseline prompt and exact-added-line gate; the prompt fingerprint is again `b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50`.
+- Ledger at abandonment: 328 calls, 3,336,453 observed tokens (`runs/2026-10-05/budget.json`). Later work uses a separate session ledger.
