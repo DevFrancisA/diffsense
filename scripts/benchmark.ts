@@ -22,7 +22,7 @@ if (!Number.isSafeInteger(withContextRuns) || withContextRuns < 1 || withContext
 // Post-baseline variants are fully described by this configuration; it is stored with every case and result.
 const pipelineConfig = {
   manifest: manifestFile,
-  promptRevision: (process.env.REVIEW_PROMPT_REVISION ?? "baseline") as "baseline" | "cite-added-line" | "cite-added-line-source-focus",
+  promptRevision: (process.env.REVIEW_PROMPT_REVISION ?? "baseline") as "baseline" | "cite-added-line" | "cite-added-line-source-focus" | "post-change",
   includeChangedFiles: process.env.DIFFSENSE_INCLUDE_CHANGED_FILES === "true",
   ...(process.env.DIFFSENSE_CHANGED_FILES_EXCLUDE_TESTS === "true" ? { changedFilesExcludeTests: true } : {}),
   retrievalK: Number(process.env.DIFFSENSE_RETRIEVAL_K ?? 8),
@@ -31,9 +31,10 @@ const pipelineConfig = {
   // Added in Round 2; omitted when at their defaults so earlier variants' stored configs stay identical.
   ...(process.env.DIFFSENSE_ACCEPTANCE === "remap-removed" ? { acceptance: "remap-removed" as const } : {}),
   ...(process.env.DIFFSENSE_DIFF_DIRECTION === "forward" ? { direction: "forward" as const } : {}),
+  ...(process.env.DIFFSENSE_CHANGED_FILE_SIDE === "after" ? { changedFileSide: "after" as const } : {}),
 };
 const forward = pipelineConfig.direction === "forward";
-if (!["baseline", "cite-added-line", "cite-added-line-source-focus"].includes(pipelineConfig.promptRevision)) throw new Error("Unknown REVIEW_PROMPT_REVISION.");
+if (!["baseline", "cite-added-line", "cite-added-line-source-focus", "post-change"].includes(pipelineConfig.promptRevision)) throw new Error("Unknown REVIEW_PROMPT_REVISION.");
 if (!Number.isSafeInteger(pipelineConfig.retrievalK) || pipelineConfig.retrievalK < 1 || pipelineConfig.retrievalK > 32) throw new Error("DIFFSENSE_RETRIEVAL_K must be 1-32.");
 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(runDate) || Number.isNaN(Date.parse(`${runDate}T00:00:00Z`))) {
@@ -67,6 +68,8 @@ type Finding = {
   line: number;
   explanation: string;
   suggestion: string;
+  failureAfterChange?: string;
+  alreadyFixedByChange?: boolean;
 };
 
 type TokenUsage = { inputTokens: number; outputTokens: number; totalTokens: number };
@@ -150,6 +153,8 @@ function sanitizeFindings(findings: Finding[]): Finding[] {
     line: finding.line,
     explanation: clipText(finding.explanation, 3, 500),
     suggestion: clipText(finding.suggestion, 3, 500),
+    ...(finding.failureAfterChange === undefined ? {} : { failureAfterChange: clipText(finding.failureAfterChange, 3, 500) }),
+    ...(finding.alreadyFixedByChange === undefined ? {} : { alreadyFixedByChange: finding.alreadyFixedByChange }),
   }));
 }
 
@@ -336,6 +341,7 @@ async function main() {
         promptRevision: pipelineConfig.promptRevision,
         includeChangedFiles: pipelineConfig.includeChangedFiles,
         changedFilesExcludeTests: pipelineConfig.changedFilesExcludeTests === true,
+        changedFileSide: pipelineConfig.changedFileSide ?? "before",
         retrievalK: pipelineConfig.retrievalK,
         acceptance: pipelineConfig.acceptance ?? "exact",
       },

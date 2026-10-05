@@ -1,5 +1,5 @@
 import type { ApiTokenUsage, OpenAIBudget } from "@/lib/server/ai";
-import { diffAppliesToFile, getChangedFileContext, retrieveRepositoryContextDetailed } from "@/lib/server/context";
+import { applyDiffToFile, diffAppliesToFile, getChangedFileContext, retrieveRepositoryContextDetailed } from "@/lib/server/context";
 import type { AcceptancePolicy, ReviewPromptRevision } from "@/lib/server/review";
 
 export type ReviewPipelineConfig = {
@@ -8,6 +8,8 @@ export type ReviewPipelineConfig = {
   changedFilesExcludeTests: boolean;
   retrievalK: number;
   acceptance: AcceptancePolicy;
+  /** Which side of the change the full changed files show; Round 3 (C5) uses "after". Defaults to "before". */
+  changedFileSide?: "before" | "after";
 };
 
 /** The original 2026-10-05 baseline pipeline. */
@@ -60,7 +62,12 @@ export async function buildReviewContext(input: {
   const changedFilesSkipped = fetched.filter((file) => !changedFiles.includes(file)).map((file) => file.path);
   let total = 0;
   changedFiles = changedFiles.filter((file) => (total += file.content.length) <= maxChangedFileChars);
-  const context = [...changedFiles.map((file) => ({ path: `${file.path} (full file before this change)`, content: file.content })), ...retrieved.chunks];
+  const after = input.config.changedFileSide === "after";
+  const fullFiles = changedFiles.map((file) => ({
+    path: `${file.path} (full file ${after ? "after" : "before"} this change)`,
+    content: after ? applyDiffToFile(input.diff, file.path, file.content) ?? file.content : file.content,
+  }));
+  const context = [...fullFiles, ...retrieved.chunks];
   const embeddingUsage: ApiTokenUsage = retrieved.embeddingUsage;
-  return { context, chunks: retrieved.chunks, changedFiles, changedFilesSkipped, embeddingUsage };
+  return { context, chunks: retrieved.chunks, changedFiles, fullFiles, changedFilesSkipped, embeddingUsage };
 }

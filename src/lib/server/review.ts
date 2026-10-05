@@ -126,6 +126,29 @@ const reviewSchema = {
   required: ["findings"],
 } as const;
 
+// Round 3 (evaluation/ROUND3.md): every finding must name a concrete failure in the post-change code and say whether
+// the change itself already fixes the problem it describes.
+const postChangeReviewSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    findings: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          ...reviewSchema.properties.findings.items.properties,
+          failureAfterChange: { type: "string" },
+          alreadyFixedByChange: { type: "boolean" },
+        },
+        required: [...reviewSchema.properties.findings.items.required, "failureAfterChange", "alreadyFixedByChange"],
+      },
+    },
+  },
+  required: ["findings"],
+} as const;
+
 type ReviewFinding = {
   title: string;
   severity: "critical" | "high" | "medium" | "low";
@@ -133,6 +156,8 @@ type ReviewFinding = {
   line: number;
   explanation: string;
   suggestion: string;
+  failureAfterChange?: string;
+  alreadyFixedByChange?: boolean;
 };
 
 const baselineSystemPrompt = "You are a conservative senior code reviewer. Report only concrete defects introduced by this change. Use the supplied repository context to verify behavior. Do not report style preferences, speculative concerns, or issues already present. Each finding must cite an added line from the diff and propose a concise fix. If no actionable defect is supported, return an empty findings array.";
@@ -142,13 +167,18 @@ export const reviewPromptRevisions = {
   baseline: baselineSystemPrompt,
   "cite-added-line": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context.`,
   "cite-added-line-source-focus": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context. Focus on application source code; do not report findings in test files.`,
+  "post-change": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context. Focus on application source code; do not report findings in test files. Judge the code as it is AFTER this change: the full files supplied for changed paths already include the change. Report a defect only if it exists in the code after the change and the change introduced or exposed it. Never report a problem that this change fixes, never restate or summarize what the change does, and never object to the change's evident intent unless you can name a concrete input that now fails. For each finding, set failureAfterChange to a concrete input or state and the wrong result it produces in the new code, and set alreadyFixedByChange to true if the problem you describe is one the change removes rather than one it leaves or creates.`,
 } as const;
 export type ReviewPromptRevision = keyof typeof reviewPromptRevisions;
+
+function schemaFor(revision: ReviewPromptRevision) {
+  return revision === "post-change" ? postChangeReviewSchema : reviewSchema;
+}
 
 export function getReviewPromptHash(revision: ReviewPromptRevision = "baseline") {
   return createHash("sha256").update(JSON.stringify({
     system: reviewPromptRevisions[revision],
-    schema: reviewSchema,
+    schema: schemaFor(revision),
   })).digest("hex");
 }
 
@@ -184,7 +214,7 @@ export async function reviewDiffDetailed(
         type: "json_schema",
         name: "diffsense_review",
         strict: true,
-        schema: reviewSchema,
+        schema: schemaFor(promptRevision),
       },
     },
   });
@@ -192,9 +222,13 @@ export async function reviewDiffDetailed(
   if (!response.output_text) throw new Error("The review model returned no structured findings.");
   const parsed = JSON.parse(response.output_text) as { findings: ReviewFinding[] };
   const addedLineKeys = new Set(addedLines.map(({ path, line }) => `${path}:${line}`));
+  // post-change: drop findings the model itself marks as fixed by the change or cannot tie to a concrete failure.
+  const candidates = promptRevision === "post-change"
+    ? parsed.findings.filter((finding) => finding.alreadyFixedByChange === false && Boolean(finding.failureAfterChange?.trim()))
+    : parsed.findings;
   const findings = acceptance === "exact"
-    ? parsed.findings.filter((finding) => addedLineKeys.has(`${finding.file}:${finding.line}`))
-    : acceptFindings(parsed.findings, diff, acceptance);
+    ? candidates.filter((finding) => addedLineKeys.has(`${finding.file}:${finding.line}`))
+    : acceptFindings(candidates, diff, acceptance);
   const usage: ApiTokenUsage = {
     inputTokens: response.usage?.input_tokens ?? 0,
     outputTokens: response.usage?.output_tokens ?? 0,

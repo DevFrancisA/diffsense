@@ -204,6 +204,35 @@ export function diffAppliesToFile(diff: string, path: string, content: string) {
   return true;
 }
 
+/**
+ * The post-change text of `path`: `content` (its pre-change text) with the diff's hunks for that file applied.
+ * Returns null when the diff does not apply to `content`.
+ */
+export function applyDiffToFile(diff: string, path: string, content: string) {
+  if (!diffAppliesToFile(diff, path, content)) return null;
+  const oldLines = content.split(/\r?\n/);
+  const output: string[] = [];
+  let next = 0; // index of the next old line not yet copied
+  let inFile = false;
+  for (const line of diff.split(/\r?\n/)) {
+    if (line.startsWith("diff --git ")) { inFile = false; continue; }
+    if (line.startsWith("--- ")) { inFile = line === `--- a/${path}`; continue; }
+    if (!inFile || line.startsWith("+++ ") || line.startsWith("\\")) continue;
+    const header = /^@@ -(\d+)(?:,(\d+))? \+/.exec(line);
+    if (header) {
+      // A zero-length old range ("-12,0") inserts after old line 12; otherwise the hunk starts at that line.
+      const start = Number(header[1]) - (Number(header[2] ?? 1) === 0 ? 0 : 1);
+      while (next < start) output.push(oldLines[next++]);
+      continue;
+    }
+    if (line.startsWith(" ")) output.push(oldLines[next++]);
+    else if (line.startsWith("-")) next += 1;
+    else if (line.startsWith("+")) output.push(line.slice(1));
+  }
+  while (next < oldLines.length) output.push(oldLines[next++]);
+  return output.join("\n");
+}
+
 /** Full text of each source file changed by the diff, read at the given commit (the pre-change side when that commit is the base). */
 export async function getChangedFileContext(owner: string, repository: string, commitSha: string, diff: string, options: { excludeTests?: boolean } = {}) {
   const paths = [...new Set([...diff.matchAll(/^--- a\/(.+)$/gm)].map((match) => match[1].trim()))]

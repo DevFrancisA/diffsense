@@ -18,7 +18,8 @@
     "rescore": "tsx scripts/rescore.ts",
     "forward-diffs": "tsx scripts/forward-diffs.ts",
     "export-audit": "tsx scripts/export-audit.ts",
-    "summarize-audit": "tsx scripts/summarize-audit.ts"
+    "summarize-audit": "tsx scripts/summarize-audit.ts",
+    "verify-run": "tsx scripts/verify-run.ts"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",
