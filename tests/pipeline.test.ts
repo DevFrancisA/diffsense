@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { getPullRequestMergeBase } from "../src/lib/server/github";
-import { getReviewPromptHash } from "../src/lib/server/review";
+import { diffAppliesToFile } from "../src/lib/server/context";
+import { acceptFindings, getReviewPromptHash } from "../src/lib/server/review";
 import { appReviewConfig, baselineReviewConfig, finalReviewConfig } from "../src/lib/server/review-pipeline";
 
 test("resolves a pull request's merge-base through the compare API", async () => {
@@ -35,4 +36,20 @@ test("the app's default review configuration is the measured final configuration
   assert.equal(getReviewPromptHash(finalReviewConfig.promptRevision), measured.reviewPromptSha256);
   const baseline = JSON.parse(readFileSync("evaluation/results.json", "utf8")) as { reviewPromptSha256: string };
   assert.equal(getReviewPromptHash(baselineReviewConfig.promptRevision), baseline.reviewPromptSha256);
+});
+
+test("remaps removed-line citations the same way with or without diff context", () => {
+  const zeroContext = ["--- a/src/x.js", "+++ b/src/x.js", "@@ -13,3 +13 @@", "-a", "-b", "-c", "+x"].join("\n");
+  const withContext = ["--- a/src/x.js", "+++ b/src/x.js", "@@ -10,9 +10,7 @@", " l10", " l11", " l12", "-a", "-b", "-c", "+x", " l16", " l17", " l18"].join("\n");
+  const findings = [{ file: "src/x.js", line: 14 }, { file: "src/x.js", line: 15 }];
+  const expected = [{ file: "src/x.js", line: 13, remappedFrom: 14 }, { file: "src/x.js", line: 13, remappedFrom: 15 }];
+  assert.deepEqual(acceptFindings(findings, zeroContext, "remap-removed"), expected);
+  assert.deepEqual(acceptFindings(findings, withContext, "remap-removed"), expected);
+});
+
+test("labels a changed file as pre-change only when the diff applies to it", () => {
+  const diff = ["diff --git a/src/x.js b/src/x.js", "--- a/src/x.js", "+++ b/src/x.js", "@@ -2,2 +2,2 @@", " keep();", "-old();", "+next();"].join("\n");
+  assert.equal(diffAppliesToFile(diff, "src/x.js", ["first();", "keep();", "old();"].join("\n")), true);
+  assert.equal(diffAppliesToFile(diff, "src/x.js", ["first();", "keep();", "next();"].join("\n")), false);
+  assert.equal(diffAppliesToFile(diff, "src/other.js", "anything"), true);
 });

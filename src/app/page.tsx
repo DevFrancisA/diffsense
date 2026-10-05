@@ -43,6 +43,7 @@ type ReviewResult = {
   findings: Finding[];
   contextUsed: number;
   changedFilesIncluded: number;
+  changedFilesSkipped: string[];
   contextCommit: string;
   model: string;
   durationMs: number;
@@ -293,7 +294,7 @@ export default function Home() {
               <div className="panel-heading results-heading"><div className="panel-title"><span className="title-icon result-icon"><Layers3 size={16} /></span><div><h2>Review findings</h2><p>{result ? `${result.findings.length} candidate${result.findings.length === 1 ? "" : "s"} · ${result.model}` : "Issues are grounded in changed lines and repository context."}</p></div></div><span className="step-indicator"><span>02</span> / 02</span></div>
               {result ? <div className="findings-list">
                 {result.findings.length === 0 ? <div className="empty-result"><span className="empty-result-icon"><Check size={18} /></span><strong>No actionable findings returned</strong><span>Review the change manually before merging.</span></div> : result.findings.map((finding, index) => <article className="finding-card" key={`${finding.file}:${finding.line}:${index}`}><div className="finding-topline"><span className={`severity severity-${finding.severity}`}>{finding.severity}</span><span className="finding-location"><FileCode2 size={13} />{finding.file}<b>:{finding.line}</b></span><button type="button" className="icon-button finding-action" title="Copy suggested fix" aria-label="Copy suggested fix" onClick={() => navigator.clipboard.writeText(finding.suggestion)}><ArrowDownToLine size={15} /></button></div><h3>{finding.title}</h3><p>{finding.explanation}</p><div className="suggestion-block"><div><TerminalSquare size={13} /> SUGGESTED FIX</div><pre>{finding.suggestion}</pre></div></article>)}
-                <div className="result-meta"><span><Search size={13} />{result.contextUsed} context chunks · {result.changedFilesIncluded} full files @ {result.contextCommit.slice(0, 7)}</span><span><Clock3 size={13} />{(result.durationMs / 1000).toFixed(1)}s</span></div>
+                <div className="result-meta"><span><Search size={13} />{result.contextUsed} context chunks · {result.changedFilesIncluded} full files @ {result.contextCommit.slice(0, 7)}{result.changedFilesSkipped.length ? ` · ${result.changedFilesSkipped.length} skipped (diff does not apply at this commit)` : ""}</span><span><Clock3 size={13} />{(result.durationMs / 1000).toFixed(1)}s</span></div>
               </div> : <div className="empty-state"><span className="empty-illustration"><Code2 size={23} /><i /><i /></span><strong>Your review starts here</strong><p>Analyze a pull request or diff to see<br />evidence-linked findings.</p><div className="empty-state-footer"><span><RefreshCw size={13} /> Context retrieval</span><span className="state-pending">waiting</span></div><div className="empty-state-footer"><span><ShieldCheck size={13} /> Regression tests</span><span className="state-pending">waiting</span></div></div>}
             </section>
           </form>

@@ -100,6 +100,9 @@ export async function indexRepository(owner: string, repository: string, ref?: s
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
+    // Serialize re-indexes of one repository: without the lock, two overlapping READ COMMITTED transactions can each
+    // miss the other's inserts in their DELETE and leave chunks from two commits behind.
+    await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [`repository_chunks:${repositoryKey}`]);
     await client.query("DELETE FROM repository_chunks WHERE repository = $1", [repositoryKey]);
     for (let offset = 0; offset < chunks.length; offset += 32) {
       const batch = chunks.slice(offset, offset + 32);
@@ -125,7 +128,7 @@ export async function indexRepository(owner: string, repository: string, ref?: s
   return { repository: repositoryKey, commitSha: tree.commitSha, branch: tree.branch, maxFiles, filesIndexed: files.length, chunksIndexed: chunks.length, chunksEmbedded: missing.length, embeddingUsage };
 }
 
-export async function retrieveRepositoryContextDetailed(repository: string, diff: string, budget?: OpenAIBudget, limit = 8) {
+export async function retrieveRepositoryContextDetailed(repository: string, diff: string, budget?: OpenAIBudget, limit = 8, commitSha?: string) {
   const query = diff.slice(0, 12_000);
   const pool = await ensureDatabaseSchema();
   const queryKey = createHash("sha256").update(query).digest("hex");
@@ -157,10 +160,10 @@ export async function retrieveRepositoryContextDetailed(repository: string, diff
   const result = await pool.query<{ file_path: string; content: string; distance: number }>(
     `SELECT file_path, content, (embedding <=> $2::vector)::float AS distance
      FROM repository_chunks
-     WHERE repository = $1
+     WHERE repository = $1 AND ($4::text IS NULL OR commit_sha = $4)
      ORDER BY embedding <=> $2::vector
      LIMIT $3`,
-    [repository, vector, limit],
+    [repository, vector, limit, commitSha ?? null],
   );
   return {
     chunks: result.rows.map((row) => ({ path: row.file_path, content: row.content, distance: row.distance })),
@@ -173,9 +176,35 @@ export async function retrieveRepositoryContext(repository: string, diff: string
   return result.chunks;
 }
 
-/** Full text of each source file changed by the diff, read at the given commit (the pre-change side when that commit is the base). */
 const testPath = /(?:^|\/)(?:test|tests|__tests__|spec|specs)\/|\.(?:test|spec)\.[^/]+$/i;
 
+export function isTestPath(path: string) {
+  return testPath.test(path);
+}
+
+/**
+ * True when every removed ('-') and context (' ') line the diff shows for `path` is present at its old line number in
+ * `content`, i.e. `content` really is the pre-change side of this diff.
+ */
+export function diffAppliesToFile(diff: string, path: string, content: string) {
+  const lines = content.split(/\r?\n/);
+  let inFile = false;
+  let oldLine = 0;
+  for (const line of diff.split(/\r?\n/)) {
+    if (line.startsWith("diff --git ")) { inFile = false; continue; }
+    if (line.startsWith("--- ")) { inFile = line === `--- a/${path}`; continue; }
+    if (!inFile || line.startsWith("+++ ")) continue;
+    const header = /^@@ -(\d+)/.exec(line);
+    if (header) { oldLine = Number(header[1]); continue; }
+    if (line.startsWith("-") || line.startsWith(" ")) {
+      if (lines[oldLine - 1] !== line.slice(1)) return false;
+      oldLine += 1;
+    }
+  }
+  return true;
+}
+
+/** Full text of each source file changed by the diff, read at the given commit (the pre-change side when that commit is the base). */
 export async function getChangedFileContext(owner: string, repository: string, commitSha: string, diff: string, options: { excludeTests?: boolean } = {}) {
   const paths = [...new Set([...diff.matchAll(/^--- a\/(.+)$/gm)].map((match) => match[1].trim()))]
     .filter((path) => supportedSource.test(path) && !ignoredPath.test(path) && !(options.excludeTests && testPath.test(path)));

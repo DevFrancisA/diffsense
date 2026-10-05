@@ -47,6 +47,7 @@ function matches(ranges: Range[], findings: (Finding & { remappedFrom?: number }
 
 const runCount = source.arms.withContext.length;
 const pullRequestsByRun: { id: string; knownDefects: Range[]; assistedFindings: Finding[] }[][] = Array.from({ length: runCount }, () => []);
+const exactPullRequestsByRun: typeof pullRequestsByRun = Array.from({ length: runCount }, () => []);
 const remappedMatches = Array.from({ length: runCount }, () => 0);
 const remappedFindings = Array.from({ length: runCount }, () => 0);
 for (const item of manifest.cases) {
@@ -58,6 +59,7 @@ for (const item of manifest.cases) {
     const exact = acceptFindings(arm.rawFindings, diff, "exact").map(({ file, line }) => `${file}:${line}`);
     const stored = arm.acceptedFindings.map(({ file, line }) => `${file}:${line}`);
     if (JSON.stringify(exact) !== JSON.stringify(stored)) throw new Error(`${id} run ${runIndex + 1}: exact policy does not reproduce the stored accepted findings.`);
+    exactPullRequestsByRun[runIndex].push({ id, knownDefects: item.defectLineRanges, assistedFindings: arm.acceptedFindings.map(({ file, line }) => ({ file, line })) });
     const accepted = acceptFindings(arm.rawFindings, diff, policy);
     remappedFindings[runIndex] += accepted.filter((finding) => finding.remappedFrom !== undefined).length;
     remappedMatches[runIndex] += matches(item.defectLineRanges, accepted).filter((finding) => finding?.remappedFrom !== undefined).length;
@@ -66,9 +68,12 @@ for (const item of manifest.cases) {
 }
 
 const withContext = pullRequestsByRun.map((pullRequests, index) => ({ runNumber: index + 1, pullRequests, metrics: evaluate({ pullRequests, regressionScenarios: [] }) }));
-withContext.forEach((run, index) => {
-  if (policy === "exact" && run.metrics.assistedDefectsFound !== source.arms.withContext[index].metrics.assistedDefectsFound) {
-    throw new Error(`Run ${run.runNumber}: exact re-score found ${run.metrics.assistedDefectsFound}, committed ${source.arms.withContext[index].metrics.assistedDefectsFound}.`);
+// Whatever the policy, the current evaluator must first reproduce the committed metrics from the committed accepted findings.
+exactPullRequestsByRun.forEach((pullRequests, index) => {
+  const fresh = evaluate({ pullRequests, regressionScenarios: [] });
+  const committed = source.arms.withContext[index].metrics as { assistedDefectsFound: number; falsePositives: number; findings?: { assisted: number } };
+  if (fresh.assistedDefectsFound !== committed.assistedDefectsFound || fresh.falsePositives !== committed.falsePositives || fresh.findings.assisted !== committed.findings?.assisted) {
+    throw new Error(`Run ${index + 1}: exact re-score does not reproduce the committed metrics.`);
   }
 });
 const summary = withContext.map((run, index) => ({ run: run.runNumber, found: run.metrics.assistedDefectsFound, predictions: run.metrics.findings.assisted, falsePositives: run.metrics.falsePositives, remappedFindings: remappedFindings[index], matchesFromRemappedFindings: remappedMatches[index] }));

@@ -77,7 +77,8 @@ export type AcceptancePolicy = "exact" | "remap-removed";
 
 /**
  * Keeps findings on exact added lines. With "remap-removed", a finding citing the old-file number of a removed line
- * (that is not also an unchanged context line) moves to the nearest added line of that removed line's hunk.
+ * moves to the nearest added line of that removed line's hunk. Context lines are deliberately not consulted: the rule was
+ * measured on zero-context diffs, and GitHub diffs with context must remap the same way (evaluation/ROUND2.md, R1 amendment).
  */
 export function acceptFindings<T extends { file: string; line: number }>(findings: T[], diff: string, policy: AcceptancePolicy = "exact") {
   const index = indexDiffLines(diff);
@@ -88,7 +89,7 @@ export function acceptFindings<T extends { file: string; line: number }>(finding
       accepted.push(finding);
       continue;
     }
-    if (policy !== "remap-removed" || index.context.has(key)) continue;
+    if (policy !== "remap-removed") continue;
     const candidates = (index.removed.get(key) ?? []).flatMap((hunk) => hunk.added);
     if (candidates.length === 0) continue;
     const target = candidates.reduce((best, line) => {

@@ -1,5 +1,5 @@
 import type { ApiTokenUsage, OpenAIBudget } from "@/lib/server/ai";
-import { getChangedFileContext, retrieveRepositoryContextDetailed } from "@/lib/server/context";
+import { diffAppliesToFile, getChangedFileContext, retrieveRepositoryContextDetailed } from "@/lib/server/context";
 import type { AcceptancePolicy, ReviewPromptRevision } from "@/lib/server/review";
 
 export type ReviewPipelineConfig = {
@@ -51,13 +51,16 @@ export async function buildReviewContext(input: {
   config: ReviewPipelineConfig;
   budget?: OpenAIBudget;
 }) {
-  const retrieved = await retrieveRepositoryContextDetailed(input.repositoryKey, input.diff, input.budget, input.config.retrievalK);
-  let changedFiles = input.config.includeChangedFiles
+  const retrieved = await retrieveRepositoryContextDetailed(input.repositoryKey, input.diff, input.budget, input.config.retrievalK, input.baseCommit);
+  const fetched = input.config.includeChangedFiles
     ? await getChangedFileContext(input.owner, input.repository, input.baseCommit, input.diff, { excludeTests: input.config.changedFilesExcludeTests })
     : [];
+  // A file is labelled "before this change" only if the diff's removed and context lines match it at baseCommit.
+  let changedFiles = fetched.filter((file) => diffAppliesToFile(input.diff, file.path, file.content));
+  const changedFilesSkipped = fetched.filter((file) => !changedFiles.includes(file)).map((file) => file.path);
   let total = 0;
   changedFiles = changedFiles.filter((file) => (total += file.content.length) <= maxChangedFileChars);
   const context = [...changedFiles.map((file) => ({ path: `${file.path} (full file before this change)`, content: file.content })), ...retrieved.chunks];
   const embeddingUsage: ApiTokenUsage = retrieved.embeddingUsage;
-  return { context, chunks: retrieved.chunks, changedFiles, embeddingUsage };
+  return { context, chunks: retrieved.chunks, changedFiles, changedFilesSkipped, embeddingUsage };
 }

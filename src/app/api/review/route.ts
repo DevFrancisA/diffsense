@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getOpenAIClient } from "@/lib/server/ai";
-import { getIndexedCommit } from "@/lib/server/context";
+import { getIndexedCommit, isTestPath } from "@/lib/server/context";
 import { getPullRequestDiff, getPullRequestMergeBase, parseGitHubSource } from "@/lib/server/github";
 import { getAddedLines, reviewDiffDetailed } from "@/lib/server/review";
 import { appReviewConfig, buildReviewContext } from "@/lib/server/review-pipeline";
@@ -58,11 +58,14 @@ export async function POST(request: Request) {
     }
 
     const review = await reviewDiffDetailed(diff, addedLines, built.context, undefined, config.promptRevision, config.acceptance);
+    // The measured configuration only asks the model to skip tests; the app also enforces the toggle on accepted findings.
+    const findings = (body.skipTestFiles ?? true) ? review.findings.filter((finding) => !isTestPath(finding.file)) : review.findings;
     return NextResponse.json({
-      findings: review.findings,
+      findings,
       model: review.model,
       contextUsed: built.chunks.length,
       changedFilesIncluded: built.changedFiles.length,
+      changedFilesSkipped: built.changedFilesSkipped,
       contextCommit: indexedCommit,
       durationMs: Date.now() - startedAt,
     });

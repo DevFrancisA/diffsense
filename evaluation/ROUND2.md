@@ -38,3 +38,14 @@ For every matched finding in HOLDOUT baseline, HOLDOUT final, and DEV C3, two Cl
 - **(b)** Is the suggestion essentially "restore the removed code"? Answer yes/no.
 
 Report the agreement rate and the counts where both judges say yes. Disagreements are reported, not resolved.
+
+## Amendments after measurement (from the Round-2 code review)
+
+An adversarial review (Claude agents, two skeptics per finding) of the Round-2 code confirmed the issues below. Each fix is shown not to change any measured number.
+
+- **Remap rule: context-line exclusion removed (R1).** All benchmark diffs use `--unified=0` and contain no context lines, so the exclusion never applied to a measured result. On GitHub's 3-line-context diffs, however, it made the app drop findings that the measured rule would have remapped. It was removed so the app behaves as measured. Re-running `scripts/rescore.ts` reproduces `results-dev-c4.json`, `results-holdout-baseline-remap.json`, and `results-holdout-final-c4.json` byte-for-byte. A unit test pins zero-context and context diffs to the same result.
+- **Changed files labelled "before this change" must match the diff.** `buildReviewContext` now keeps a full file only if every removed and context line of the diff matches it at the base commit. This catches pasted diffs whose base is not the indexed commit; skipped files are reported to the user. `scripts/verify-changed-files.ts` re-fetched all 234 full files used by `dev-c1`, `dev-c2`, `dev-c3`, `holdout-final`, and `holdout-forward-final`: every hash matched the stored reference and every file passed the check.
+- **Retrieval is pinned to the base commit, and re-indexing a repository is serialized** with a Postgres advisory lock. Overlapping index requests could otherwise leave chunks from two commits behind. In every benchmark case only one commit was indexed per repository, so retrieval results are unchanged.
+- **The "Skip findings in test files" toggle is enforced.** The app now also drops accepted findings on test paths when the toggle is on. The measured C4 only asked the model to skip tests; on the benchmark, every test-file finding was a false positive, so this filter can only remove findings that were scored as wrong.
+- **The re-scorer verifies committed metrics for every policy** (found, false positives, predictions), not only under `exact`.
+- **Known limitation, not changed:** v2 allows an empty `expected` for `expectValue` only when the selector names `input`, `textarea`, or `select`. This can drop valid form-field assertions such as `#pr-url`. Two HOLDOUT v2 scenarios were dropped as "missing an expected value", and their raw outputs were not saved, so whether this heuristic caused it is unknown. The rule is kept as measured.
