@@ -1,0 +1,468 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "holdout-forward-final",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "models": {
+    "review": "gpt-4.1-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 23,
+    "casesFlaggedOnSource": 22,
+    "findings": 29,
+    "sourceFindings": 27,
+    "testFindings": 2
+  },
+  "cases": [
+    {
+      "caseId": "Eslint-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect conditional logic for reporting comment line length",
+          "severity": "medium",
+          "file": "lib/rules/max-len.js",
+          "line": 324,
+          "explanation": "The inserted line declaring 'commentLengthApplies' uses 'lineIsComment && maxCommentLength', where 'maxCommentLength' is a number or undefined. This means 'commentLengthApplies' could be a number (truthy) even if zero, but semantically it should be a boolean indicating if max comment length applies. Later, the code does not check for 'maxCommentLength' presence before comparing 'lineLength > maxCommentLength', which could cause unexpected behavior if 'maxCommentLength' is undefined or zero.",
+          "suggestion": "Change the condition to 'const commentLengthApplies = lineIsComment && typeof maxCommentLength === \"number\";' and ensure that 'maxCommentLength' is a valid number before comparing line lengths.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect brace expectation for single-statement blocks with leading comments under 'multi-or-nest' option",
+          "severity": "medium",
+          "file": "lib/rules/curly.js",
+          "line": 293,
+          "explanation": "The change modifies the logic determining whether a block body should have braces when the 'multi-or-nest' option is specified. Previously, if the body was a single statement block, expected was false (i.e., braces not required). The patch now sets 'expected' to true if the first statement in the block has leading comments. This means it will require braces whenever there's a leading comment on that statement. This can cause unexpected failures for valid code that omits braces but has comments p",
+          "suggestion": "Adjust the brace expectation logic so that it does not require braces solely based on the presence of leading comments inside a single-statement block, or ensure the rationale for this change is well documented and consistent with the rule's style expectations.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect treatment of ExportDeclaration nodes in max-statements-per-line rule",
+          "severity": "high",
+          "file": "lib/rules/max-statements-per-line.js",
+          "line": 46,
+          "explanation": "The regex for SINGLE_CHILD_ALLOWED was expanded from matching control statement types (DoWhile, For, ForIn, ForOf, If, Labeled, While) to additionally include ExportDefaultDeclaration and ExportNamedDeclaration. This change causes export declarations to be treated as single-child allowed nodes, skipping statement counting for their direct children, which is incorrect. Export declarations are not control statements and should not bypass counting of statements on one line.",
+          "suggestion": "Remove 'Export(?:Default|Named)Declaration' from the SINGLE_CHILD_ALLOWED regex to ensure export declarations are counted as statements on the line.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-15",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of indentation context for NewExpression nodes",
+          "severity": "medium",
+          "file": "lib/rules/indent.js",
+          "line": 453,
+          "explanation": "The change adds 'NewExpression' to the list of parent node types considered for adjusting indentation in the indent rule. This might cause the indentation logic to treat NewExpression nodes similarly to ArrowFunctionExpressions, which is not appropriate as the indentation context for 'new' expressions can be different, potentially leading to incorrect indentation fixes or reports.",
+          "suggestion": "Review the indentation logic to specifically handle 'NewExpression' nodes correctly rather than adding them generically alongside ArrowFunctionExpression. Adjust the condition that includes 'NewExpression' parent type to ensure correct indentation behavior.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-16",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect regex capturing and count calculation in no-regex-spaces rule",
+          "severity": "high",
+          "file": "lib/rules/no-regex-spaces.js",
+          "line": 40,
+          "explanation": "The modified regex /( {2,})( [+*{?]|[^+*{?]|$)/ captures multiple spaces but also captures a following character or end of string. The reported count uses the length of the first capturing group (regexResults[1]) which represents the spaces length, which is correct. However, the previous regex included a non-greedy quantifier that may have missed some patterns, and the new regex also captures the character following the spaces, which may cause off-by-one errors in the fixer range calculation.",
+          "suggestion": "Verify and adjust the regex to ensure it captures only the intended spaces and not the following character, and confirm that the fixer's replaceTextRange uses the correct indices based on regexResults.index and the length of the captured spaces (regexResults[1].length). Adjust the range and replacement string accordingly to avoid removing or overwriting adjacent characters incorrectly.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect callback invocation on res.sendFile for HEAD or 304 responses",
+          "severity": "high",
+          "file": "lib/response.js",
+          "line": 910,
+          "explanation": "The original sendfile() function invoked the callback with a 'Request aborted' error on finish, even for non-error cases like HEAD requests or 304 (Not Modified) responses, which is incorrect behavior. This caused the callback to receive an error when the request was successfully handled with no response body.",
+          "suggestion": "Modify the sendfile() function to track when streaming has started and only invoke the callback with an error if the response is aborted during streaming. For HEAD or 304 responses (where streaming doesn't occur), invoke the callback without error to indicate successful completion.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect mountpath assignment in app.use when mounting sub-app",
+          "severity": "high",
+          "file": "lib/application.js",
+          "line": 171,
+          "explanation": "In the app.use function, when mounting an express sub-application, the mountpath is intended to be set to the resolved mount path (mount_path) rather than the original path argument (path). The patch correctly assigns mount_app.mountpath = mount_path. Without this fix, sub-apps mounted without specifying a path string (i.e., mounted at '/') would have an incorrect mountpath, potentially breaking path resolution in the application.",
+          "suggestion": "Change the assignment from 'mount_app.mountpath = path;' to 'mount_app.mountpath = mount_path;' as done in the patch, ensuring the sub-application's mountpath is correctly set to the resolved mount path.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect validation condition when trimming prefix in router.handle",
+          "severity": "high",
+          "file": "lib/router/index.js",
+          "line": 284,
+          "explanation": "In the updated code, the condition checking the character following the matched layer path changed from `if (c && '/' !== c && '.' !== c)` to `if (c && c !== '/' && c !== '.')`, which preserves the same logic but is now inside the correct code block. However, the previous code incorrectly placed the check outside the new block, skipping crucial behavior for path prefixes. The fix unindents the condition to properly validate path break characters before trimming the prefix, preventing the router ",
+          "suggestion": "Ensure the character validation check for path separators (slash or dot) occurs immediately before trimming the prefix, as demonstrated in the added lines (284-290), to avoid skipping valid route matches.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect argument order handling in res.send for status and number",
+          "severity": "high",
+          "file": "lib/response.js",
+          "line": 106,
+          "explanation": "The original res.send function treated a number argument as status code and converted it to a status message string. The patch adds precedence to differentiate res.send(status) and res.send(status, number), but the new logic only triggers if typeof body is number and arguments.length === 1. If called as res.send(status, number), it sets statusCode to status and body to number, then processes number as number type, which causes JSON logic to be triggered (this.json) but the patch incorrectly reor",
+          "suggestion": "Ensure consistent handling of res.send(status, number) call by processing the two-argument case correctly and avoid switch cases that override the logic. Adjust the number case switch to handle numbers only when a single argument is passed and avoid defaulting to JSON for number bodies after setting status code.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Invalid current page fallback value leading to incorrect pagination",
+          "severity": "high",
+          "file": "lib/plugins/helper/paginator.js",
+          "line": 8,
+          "explanation": "The code changes the fallback for current page from this.current to this.page.current, which may not be defined, causing current to be undefined or 0 and breaking pagination logic.",
+          "suggestion": "Ensure that this.page and this.page.current exist before fallback, or keep fallback to this.current if safer.",
+          "isTest": false
+        },
+        {
+          "title": "No return for current=0 leads to empty pagination",
+          "severity": "medium",
+          "file": "lib/plugins/helper/paginator.js",
+          "line": 22,
+          "explanation": "Addition of 'if (!current) return ''' means that if current is 0 or falsy, pagination returns empty string silently. This might break existing behavior if current page can be 0 or undefined intentionally.",
+          "suggestion": "Confirm that current=0 is invalid state and handle appropriately or document behavior clearly.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of undefined generator return values in Hexo.prototype._generate",
+          "severity": "high",
+          "file": "lib/hexo/index.js",
+          "line": 307,
+          "explanation": "In Hexo.prototype._generate, when a generator returns nothing (undefined), the code concatenates undefined to the result array, causing the result to become undefined and likely crashing subsequent code. The fix replaces `return data ? result.concat(data) : data;` with `return data ? result.concat(data) : result;` to maintain the accumulator type as an array regardless of generator output.",
+          "suggestion": "Change the return statement in Hexo.prototype._generate from `return data ? result.concat(data) : data;` to `return data ? result.concat(data) : result;`.",
+          "isTest": false
+        },
+        {
+          "title": "Missing type check for generator return values in Hexo.prototype._generate",
+          "severity": "medium",
+          "file": "lib/hexo/index.js",
+          "line": 313,
+          "explanation": "In Hexo.prototype._generate, the generator item is assumed to be an object with a path property when adding routes. If a generator returns a non-object or undefined, accessing item.path causes an error. Adding a type check prevents runtime exceptions on invalid generator output.",
+          "suggestion": "Add a check to ensure `item` is an object before accessing `item.path` in Hexo.prototype._generate, e.g., `if (typeof item !== 'object' || item.path == null) return;` before processing routes.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect instantiation of MultiConfigPath",
+          "severity": "high",
+          "file": "lib/hexo/index.js",
+          "line": 36,
+          "explanation": "The patch replaces the previous usage of `multiConfigPath` as a function to instantiates with `new MultiConfigPath(this)`, but the module `multi_config_path.js` exports a function that returns a function (i.e., it is a factory), not a class constructor. Using `new` here will cause incorrect behavior or runtime error.",
+          "suggestion": "Change the line `var mcp = new MultiConfigPath(this);` to `var mcp = MultiConfigPath(this);` to correctly obtain the multiConfigPath function.",
+          "isTest": false
+        },
+        {
+          "title": "Inconsistent usage of MultiConfigPath instance naming",
+          "severity": "medium",
+          "file": "lib/hexo/index.js",
+          "line": 92,
+          "explanation": "The code uses `mcp(base, args.config)` but the assigned variable is `mcp` which is created by `new MultiConfigPath(this)` at line 36, which is incorrect as explained above. Even if usage was consistent, the naming `mcp` resembles an instance, but it is a function. Adding clarity by using the original function style improves readability.",
+          "suggestion": "After fixing the instantiation issue, rename `mcp` to `multiConfigPath` to match original naming or clarify that it is the function returned by the factory.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-12",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Possible error when slugizing non-string data.slug or data.title in create()",
+          "severity": "high",
+          "file": "lib/hexo/post.js",
+          "line": 50,
+          "explanation": "The original code calls slugize with data.slug || data.title without converting to string, which may cause errors if either is a non-string (e.g., number). The change ensures .toString() is called, preventing such errors.",
+          "suggestion": "Call .toString() on (data.slug || data.title) before passing to slugize to guarantee it's a string.",
+          "isTest": false
+        },
+        {
+          "title": "Possible error when slugizing non-string data.slug in publish()",
+          "severity": "high",
+          "file": "lib/hexo/post.js",
+          "line": 207,
+          "explanation": "Original code calls slugize(data.slug, ...) without ensuring data.slug is string. This may cause errors if data.slug is a number. The change calls toString() ensuring safety.",
+          "suggestion": "Call data.slug.toString() before passing to slugize in publish() method.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect source map usage when no line number",
+          "severity": "medium",
+          "file": "lib/reporter.js",
+          "line": 52,
+          "explanation": "The original code attempted to use source maps even if the line number was missing or zero, which is invalid since source maps require a positive line number to find a mapping. The patch fixes this by requiring 'line' to be truthy before using source maps.",
+          "suggestion": "Add check to ensure 'line' is present and non-zero before using source maps (as done in added line 52). This prevents errors and unnecessary source map lookups.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of multiple occurrences of the same CLI argument",
+          "severity": "medium",
+          "file": "lib/cli.js",
+          "line": 21,
+          "explanation": "When the CLI argument is specified multiple times, optimist parses it as an array of values. The original code assigned the array to the option, causing incorrect behavior. The new code attempts to handle this by overriding with the last value. However, the code does this by modifying the iteration variable `argumentValue` after extraction but before assignment, which only affects the local binding and not the array in `argv`. This is acceptable here as it only uses `argumentValue` for assignmen",
+          "suggestion": "Avoid mutating the original `argv` object. Instead, extract the last value without modifying the original array, e.g., use `argumentValue[argumentValue.length - 1]`.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of return type from parseExitCode",
+          "severity": "critical",
+          "file": "lib/runner.js",
+          "line": 53,
+          "explanation": "The function parseExitCode was modified to return an object with properties 'exitCode' and 'buffer', but in exports.run the code still assumes it returns just the exit code integer and a buffer. This causes exitCode to be assigned the entire object and leads to process.stdout.write receiving an object instead of a buffer, which will break output streaming.",
+          "suggestion": "Change the handling inside the 'data' event in exports.run to unpack the returned object correctly: var parsedResult = parseExitCode(buffer, exitCode, config.failOnEmptyTestSuite); exitCode = parsedResult.exitCode; process.stdout.write(parsedResult.buffer);",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect argument type handling in watchPatterns call",
+          "severity": "high",
+          "file": "lib/watcher.js",
+          "line": 39,
+          "explanation": "The watchPatterns function expects an array of pattern objects but was previously called with an array of strings. This can cause runtime errors as the function accesses properties like pattern.watched on these objects.",
+          "suggestion": "Filter the patterns to only those with watched=true before calling watchPatterns, passing the filtered pattern objects instead of strings. This is done correctly by the added getWatchedPatterns function and the modified call to watchPatterns with watchedPatterns.",
+          "isTest": false
+        },
+        {
+          "title": "createIgnore function does not properly filter files based on watched patterns and excludes",
+          "severity": "high",
+          "file": "lib/watcher.js",
+          "line": 45,
+          "explanation": "The original createIgnore function only considered exclude patterns and did not take watched patterns into account, leading to watcher potentially processing files not matching any watched pattern. The new createIgnore function properly checks if the path matches any watched pattern and excludes patterns, returning true to ignore files that do not match or are excluded.",
+          "suggestion": "Replace old createIgnore with the new version that takes watched patterns and excludes, checks if the file is a directory, returns false to never ignore directories, and only ignores files that fail to match watched patterns or match excludes.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect SHA calculation location leading to inconsistent file.sha",
+          "severity": "high",
+          "file": "lib/preprocessor.js",
+          "line": 55,
+          "explanation": "The line that sets file.sha = sha1(content) is placed before any preprocessing occurs, which means the SHA is computed on the raw content string passed to the preprocessor chain, not on the final processed content. This causes file.sha to be inconsistent with the actual content after preprocessing.",
+          "suggestion": "Move the file.sha = sha1(content) assignment inside the nextPreprocessor function after all preprocessors have run and final content is ready, typically right before setting file.content and calling done.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-1",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect error assertion in document.populate.test.js",
+          "severity": "high",
+          "file": "test/document.populate.test.js",
+          "line": 320,
+          "explanation": "This line asserts that an error exists using assert.ok(err), but in this case the test expects no error, so this is a wrong assertion. It should use assert.ifError to correctly fail on unexpected errors.",
+          "suggestion": "Replace 'assert.ok(err);' with 'assert.ifError(err);' at line 320.",
+          "isTest": true
+        },
+        {
+          "title": "Incorrect error assertion in model.populate.test.js",
+          "severity": "high",
+          "file": "test/model.populate.test.js",
+          "line": 1014,
+          "explanation": "This line asserts that an error exists using assert.ok(err), but the test expects no error here. Using assert.ifError is the appropriate way to check for absence of error.",
+          "suggestion": "Replace 'assert.ok(err);' with 'assert.ifError(err);' at line 1014.",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Fix possible runtime error when accessing _atomics property in _dirty method",
+          "severity": "high",
+          "file": "lib/document.js",
+          "line": 1080,
+          "explanation": "The patch adds a check for 'top.value' before accessing 'top.value._atomics' to prevent a potential runtime error if 'top.value' is null or undefined.",
+          "suggestion": "Modify the condition to check that 'top.value' exists before accessing its properties: change 'if (top.value._atomics && top.value.hasAtomics())' to 'if (top.value && top.value._atomics && top.value.hasAtomics())'.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-6",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "_findAndModify does not respect population option when options.lean is true",
+          "severity": "high",
+          "file": "lib/query.js",
+          "line": 2424,
+          "explanation": "In the original _findAndModify implementation, if the 'lean' option is true, the promise completes immediately with the raw document and population is skipped, even if population is requested via this.options.populate. This causes the populated fields to not be included in the returned document which breaks expected behavior when population is requested alongside 'lean'.",
+          "suggestion": "Modify _findAndModify to check if population is requested (this.options.populate) and perform population accordingly, even if 'lean' is true. If population is not requested, keep the current behavior.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Node-redis-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Potential error when creating RedisClient with undefined options",
+          "severity": "high",
+          "file": "index.js",
+          "line": 39,
+          "explanation": "The change modifies line 39 to ensure that if 'options' is undefined or null, it is defaulted to an empty object before being cloned via JSON. Previously, if 'options' was undefined, JSON.parse(JSON.stringify(options)) would throw an error. This fix prevents that error and properly initializes new RedisClient instances without requiring options.",
+          "suggestion": "Use 'options = JSON.parse(JSON.stringify(options || {}))' instead of 'options = JSON.parse(JSON.stringify(options))' in RedisClient constructor.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Node-redis-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect splitting of pub/sub subscription keys on reconnect in on_ready",
+          "severity": "high",
+          "file": "index.js",
+          "line": 311,
+          "explanation": "The code splitting the subscription keys on space currently uses `key.split(\" \")` which can split into more than two elements if the subscription name contains spaces, leading to incorrect command and argument extraction.",
+          "suggestion": "Replace the splitting logic with a single space index based slice: use `var space_index = key.indexOf(\" \"); var parts = [key.slice(0, space_index), key.slice(space_index + 1)];` as done in the diff.",
+          "isTest": false
+        }
+      ]
+    }
+  ]
+}

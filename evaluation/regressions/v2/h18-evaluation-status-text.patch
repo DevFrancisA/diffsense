@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..db6abbf 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -300,7 +300,7 @@ export default function Home() {
+ 
+           <section className="evaluation-panel panel">
+             <div className="evaluation-copy"><span className="evaluation-mark"><Activity size={16} /></span><div><h2>{evaluation?.available ? "BugsJS review baseline" : "Evidence, not vibes"}</h2><p>{evaluation?.available ? `${evaluation.cohort} pre-labeled cases · ${evaluation.reviewModel} · ${evaluation.date}` : "Score reviews against labeled defects and seeded regressions."}</p></div></div>
+-            <div className="evaluation-status"><span className="status-dot" />{evaluation?.available ? "Results saved" : evaluation ? "No results yet" : "Loading results"}</div>
++            <div className="evaluation-status"><span className="status-dot" />{evaluation?.available ? "Saved" : evaluation ? "No results yet" : "Loading results"}</div>
+             <button className="text-button evaluation-link" type="button" onClick={generateTests} disabled={generatingTests || apiReady !== true || (!diff.trim() && !pullRequestUrl.trim())}>{generatingTests ? <LoaderCircle size={13} className="spin" /> : <ShieldCheck size={14} />}{generatingTests ? "Generating plan…" : "Generate Playwright plan"}</button>
+             <input className="test-environment" aria-label="Test environment notes" placeholder="Optional: how the app under test looks (signed-in user, feature flags, …)" value={testEnvironment} onChange={(event) => setTestEnvironment(event.target.value)} />
+           </section>

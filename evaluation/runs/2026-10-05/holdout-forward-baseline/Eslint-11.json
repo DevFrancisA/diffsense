@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-11",
+  "project": "Eslint",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0d60db771446cbc2ab6a905da202e6fdf1d50148",
+  "buggySha": "5003b1cf6f37c1a89e8dedf446576ab892579173",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "26803e623a6a24e2c733659b2268f871338d9a4dcafd5c972fbad2c652454597",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "5003b1cf6f37c1a89e8dedf446576ab892579173",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 180,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "91d9aebe5fbdf0763715f0f408828db9592ee208d86d6cc36a33004a992be2a2"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bef4866f19d3bbe8d9fca6594d28594d7e9aa14595d06dca7359ecd7b59b80d9"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "f6eb9ceb8dc3f9b025adc9c1633acf1be68d64c89e80c2048e12c535dd37789a"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "5891d7660de14fbc1dfe0031f44a6d33a3b0ac4da5e56c36919c973cb343ee96"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "590afbd3e0c6a5213d9a77485d24470e1ba8a6934e44c33aaa3c96e6fccf6862"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "3b6da0ee54f953f4fcf568ee2db3e2e4c3c91fa824a18e97e3848e3c51c84ae4"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5200,
+          "outputTokens": 211,
+          "totalTokens": 5411
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect check for presence of leading comments in curly.js",
+            "severity": "medium",
+            "file": "lib/rules/curly.js",
+            "line": 293,
+            "explanation": "The patch introduces the assignment `expected = leadingComments.length > 0;` where `leadingComments` is obtained as `sourceCode.getComments(body.body[0]).leading`. This usage is incorrect because `sourceCode.getComments(node)` returns an object with arrays `leading`, `trailing`, etc., but here the property access `body.body[0]` does not guarantee the existence of comments, and the variable `expected` is assigned a boolean which might not represent the intended logical condition properly.",
+            "suggestion": "Refactor to correctly retrieve leading comments from the correct node and assign `expected` based on the actual rule logic. For example, check if `body.body[0]` exists and then safely get leading comments, or adjust logic to set `expected` appropriately rather than assigning directly the truthiness of the array length."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect check for presence of leading comments in curly.js",
+            "severity": "medium",
+            "file": "lib/rules/curly.js",
+            "line": 293,
+            "explanation": "The patch introduces the assignment `expected = leadingComments.length > 0;` where `leadingComments` is obtained as `sourceCode.getComments(body.body[0]).leading`. This usage is incorrect because `sourceCode.getComments(node)` returns an object with arrays `leading`, `trailing`, etc., but here the property access `body.body[0]` does not guarantee the existence of comments, and the variable `expected` is assigned a boolean which might not represent the intended logical condition properly.",
+            "suggestion": "Refactor to correctly retrieve leading comments from the correct node and assign `expected` based on the actual rule logic. For example, check if `body.body[0]` exists and then safely get leading comments, or adjust logic to set `expected` appropriately rather than assigning directly the truthiness of the array length."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..3eba2f4 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -204,7 +204,7 @@ export default function Home() {
+   }
+ 
+   const changedFiles = [...new Set(
+-    diff.match(/^\+\+\+ b\/(.+)$/gm)?.map((path) => path.slice(6)) ?? [],
++    diff.match(/^\+\+\+ b\/(.+)$/gm)?.map((path) => path.substring(6)) ?? [],
+   )];
+ 
+   return (

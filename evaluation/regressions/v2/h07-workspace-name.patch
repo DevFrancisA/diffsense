@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..7e239da 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -217,7 +217,7 @@ export default function Home() {
+ 
+         <div className="workspace-switcher">
+           <span className="workspace-avatar">D</span>
+-          <span className="workspace-copy"><strong>Demo workspace</strong><small>Personal plan</small></span>
++          <span className="workspace-copy"><strong>Workspace</strong><small>Personal plan</small></span>
+           <ChevronDown size={15} />
+         </div>
+ 

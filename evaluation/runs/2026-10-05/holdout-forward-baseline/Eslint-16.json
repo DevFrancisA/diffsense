@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-16",
+  "project": "Eslint",
+  "bugId": 16,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "11ffe6b18393fd7448f71463d6a9acd1dea0ed80",
+  "buggySha": "975dacfdec9ee664e83337c1a8c360211a0efb28",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "bdd9ee86b6b57d2990a3ce5a8f3f0f6512729eb6b52ab7a7f22581583f53dd17",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "975dacfdec9ee664e83337c1a8c360211a0efb28",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 181,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "dea4b97fcb758dcf10965d83b486d7857376d21a4fd924b0b939418a11898a10"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "eba64bed5f11a670133b0fbf620e02e056e36b7585dafeb956d02243e23d7342"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "ae5f2802a64a1fdbd805ad362e556f7034c2ad21dd87c197a62e6162190da7ed"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "0d68798c554716c92c73bddb2b1b7772d265ab2211f33cb2437dc0a3f7f9c5eb"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "ff993ba55f6e3438371f1e87b93f73dfc98faf047c9c0aed11b5bbced773fb72"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "67196ad19ddaf2c2a1b96b9645ffd8937e8e620607916bb34768c4148602d5f7"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "93e48ae202ec472e5944f84c13268915611281e3d3446c2c11b6f8a9156931d8"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 6302,
+          "outputTokens": 111,
+          "totalTokens": 6413
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect capture group index in regex result",
+            "severity": "high",
+            "file": "lib/rules/no-regex-spaces.js",
+            "line": 44,
+            "explanation": "The code changed from accessing regexResults[0].length to regexResults[1].length but the regular expression may not correctly capture the expected group, leading to incorrect count calculation for spaces.",
+            "suggestion": "Verify the regular expression and ensure the correct capture group index is used to accurately count spaces. Adjust the regex or the index to achieve correct behavior."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect capture group index in regex result",
+            "severity": "high",
+            "file": "lib/rules/no-regex-spaces.js",
+            "line": 44,
+            "explanation": "The code changed from accessing regexResults[0].length to regexResults[1].length but the regular expression may not correctly capture the expected group, leading to incorrect count calculation for spaces.",
+            "suggestion": "Verify the regular expression and ensure the correct capture group index is used to accurately count spaces. Adjust the regex or the index to achieve correct behavior."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

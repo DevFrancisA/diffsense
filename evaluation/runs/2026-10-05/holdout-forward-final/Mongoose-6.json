@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-6",
+  "project": "Mongoose",
+  "bugId": 6,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "cd1df0bf5753576aef0b275b9adb377f2d5f4c78",
+  "buggySha": "0c9f40e455635b802c33dea8bd5fce8d501a7c8b",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "6630ffff984b8df2efec5a84df58d08516dcd89be7ff65de8a4a56bf88531c90",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "0c9f40e455635b802c33dea8bd5fce8d501a7c8b",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/schema/array.js",
+        "contentSha256": "6af819c213c7ba232f58fb1503f7c16ac9854426b3ec74ce692ed0c2fe4cf9a1"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "9ce01033e7f5f5afcbf9f59a7b0890c13eaccd8cb6fdf3d1924a56b232155014"
+      },
+      {
+        "path": "docs/3.3.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      },
+      {
+        "path": "docs/3.2.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      },
+      {
+        "path": "docs/3.1.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 465,
+      "outputTokens": 0,
+      "totalTokens": 465
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 7073,
+          "outputTokens": 153,
+          "totalTokens": 7226
+        },
+        "rawFindings": [
+          {
+            "title": "Modification of user-supplied cast object",
+            "severity": "high",
+            "file": "lib/schema/array.js",
+            "line": 41,
+            "explanation": "The original code directly assigned `cast` to `castOptions` and then deleted `castOptions.type`, which modifies the user-supplied schema definition object passed as `cast`. This can cause unexpected side effects and bugs since the user's original schema object should remain immutable.",
+            "suggestion": "Clone the `cast` object before modifying it by using `utils.clone(cast)` to create `castOptions`. This avoids modifying the original user object. Replace `castOptions = cast;` with `castOptions = utils.clone(cast);` before deleting `castOptions.type`."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

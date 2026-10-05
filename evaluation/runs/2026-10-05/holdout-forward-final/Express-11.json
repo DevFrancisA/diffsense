@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-11",
+  "project": "Express",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "544c6665f54b1ebdbc54769ba78721c4e13acdf7",
+  "buggySha": "cf8005e63fb2d1d3ade4bc503034126dcdf6e227",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "168101e164eadf644175bab1bf10392001b687207648814fe442369335819b3c",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "cf8005e63fb2d1d3ade4bc503034126dcdf6e227",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/response.js",
+        "contentSha256": "40f420274f6c3c507592872a19fb6ef0924887335f14bf66814020fa449a23ff"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/resource/app.js",
+        "contentSha256": "ad23b11bad1e3b8c5371affdc06671d59418f05da217a92e368496306d1304fd"
+      },
+      {
+        "path": "examples/content-negotiation/index.js",
+        "contentSha256": "899b2a0a7377118ee8717bd0173326927be4474fedec28847f1ff3936043da6b"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "cc988ca789ff7ee675585aa1114b069b8fc8544cbd56cad8acf7f34f7c06c09e"
+      },
+      {
+        "path": "examples/params/app.js",
+        "contentSha256": "080af371787bbb58be905dc4e7d4500728fda011e3d7d450af6d4417b5d926b4"
+      },
+      {
+        "path": "examples/cookies/app.js",
+        "contentSha256": "71d245f27ad27d788c6352b72afe7e638fa7b2334ba2fc94c08e868afd64c2ea"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "edef9b7b1c440501f7e72586ce3a8ebded2eaba6304ef074dc4bad0cc2157fa4"
+      },
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "803e88190c33286d5e6c0b8a5adbeeae553f474504e22f426d7f5ce9506bb3e3"
+      },
+      {
+        "path": "benchmarks/middleware.js",
+        "contentSha256": "e184162b53e89b6c0f9fbd0dce0a735fe87c3b5ce9ce2b61838ff6e511fc4986"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 460,
+      "outputTokens": 0,
+      "totalTokens": 460
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 8939,
+          "outputTokens": 222,
+          "totalTokens": 9161
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect argument order handling in res.send for status and number",
+            "severity": "high",
+            "file": "lib/response.js",
+            "line": 106,
+            "explanation": "The original res.send function treated a number argument as status code and converted it to a status message string. The patch adds precedence to differentiate res.send(status) and res.send(status, number), but the new logic only triggers if typeof body is number and arguments.length === 1. If called as res.send(status, number), it sets statusCode to status and body to number, then processes number as number type, which causes JSON logic to be triggered (this.json) but the patch incorrectly reor",
+            "suggestion": "Ensure consistent handling of res.send(status, number) call by processing the two-argument case correctly and avoid switch cases that override the logic. Adjust the number case switch to handle numbers only when a single argument is passed and avoid defaulting to JSON for number bodies after setting status code."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect argument order handling in res.send for status and number",
+            "severity": "high",
+            "file": "lib/response.js",
+            "line": 106,
+            "explanation": "The original res.send function treated a number argument as status code and converted it to a status message string. The patch adds precedence to differentiate res.send(status) and res.send(status, number), but the new logic only triggers if typeof body is number and arguments.length === 1. If called as res.send(status, number), it sets statusCode to status and body to number, then processes number as number type, which causes JSON logic to be triggered (this.json) but the patch incorrectly reor",
+            "suggestion": "Ensure consistent handling of res.send(status, number) call by processing the two-argument case correctly and avoid switch cases that override the logic. Adjust the number case switch to handle numbers only when a single argument is passed and avoid defaulting to JSON for number bodies after setting status code."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

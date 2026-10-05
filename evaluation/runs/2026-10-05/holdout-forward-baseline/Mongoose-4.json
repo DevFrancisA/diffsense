@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-4",
+  "project": "Mongoose",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "c5527ba0f84a7fa13bc6a4368f715db0253cc916",
+  "buggySha": "129bc78d81df30189269e42a8586cd42b443aeb6",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "918c4fb412a2586234fcd73de299b601ecd16951403e856d839b44203758ada5",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "129bc78d81df30189269e42a8586cd42b443aeb6",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "9ce01033e7f5f5afcbf9f59a7b0890c13eaccd8cb6fdf3d1924a56b232155014"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "9a10640912b3377f1a59ca321aa0a730c45317c74ad5d5e468c6ee0814c1010e"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "67291edf9e28dfea04cd33a640562dd88fefa7d7c3c111a7df79610a0cc192c1"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "873cd57c3319729fbd79b3a529c11cee7c9b8d2b5a959697e8102505f2a0deb3"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4168,
+          "outputTokens": 208,
+          "totalTokens": 4376
+        },
+        "rawFindings": [
+          {
+            "title": "Mongoose 'populate' option handling updated incorrectly in Query API",
+            "severity": "high",
+            "file": "lib/query.js",
+            "line": 1633,
+            "explanation": "In 'lib/query.js', lines 1633 and 1732, the code changes the way the population options are retrieved, replacing 'utils.object.vals(self.options.populate)' with a call to 'preparePopulationOptions(self, options)'. The new function 'preparePopulationOptions' returns a filtered or transformed population options list, applying the 'lean' option from the query options if specified. This changes the original behavior which directly took the population configurations from the query options without add",
+            "suggestion": "Verify that the new 'preparePopulationOptions' method preserves all necessary data and behaviors of the original population options, especially when no 'lean' option is specified in the query options. Ensure that none of the original populate options are lost or altered unexpectedly. Add tests to confirm correct behavior of populate queries with and without 'lean'."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Mongoose 'populate' option handling updated incorrectly in Query API",
+            "severity": "high",
+            "file": "lib/query.js",
+            "line": 1633,
+            "explanation": "In 'lib/query.js', lines 1633 and 1732, the code changes the way the population options are retrieved, replacing 'utils.object.vals(self.options.populate)' with a call to 'preparePopulationOptions(self, options)'. The new function 'preparePopulationOptions' returns a filtered or transformed population options list, applying the 'lean' option from the query options if specified. This changes the original behavior which directly took the population configurations from the query options without add",
+            "suggestion": "Verify that the new 'preparePopulationOptions' method preserves all necessary data and behaviors of the original population options, especially when no 'lean' option is specified in the query options. Ensure that none of the original populate options are lost or altered unexpectedly. Add tests to confirm correct behavior of populate queries with and without 'lean'."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

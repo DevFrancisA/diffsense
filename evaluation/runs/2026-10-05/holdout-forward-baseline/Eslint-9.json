@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-9",
+  "project": "Eslint",
+  "bugId": 9,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0a9a90f82e4d3e6e2ca4e6719567b9d9ebcaa045",
+  "buggySha": "734846b1557a45eb43286c4da2bdc1e13b89d1c6",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "04634ef7ddd498863206c52cc0265fe9890bb1b24834513e21b36f2439093a5e",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "734846b1557a45eb43286c4da2bdc1e13b89d1c6",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 193,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "2c140f07b88d4ab8ca7128adb322ac29a187aa0ae15753afdf8f5521acbe8017"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "6b8dca1d83279b37f1dc34dfebbbbdbe236457ae5aaca8b421e57497af4ced78"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "9e782bd3906223cda1b9e39b1863fb958007ff34f92435eb829909067da57852"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "4d08a7b5d9fa799ea4d8ce7fd9873f1e9cb2c916201ed2d3454d5af11266a62d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "93e48ae202ec472e5944f84c13268915611281e3d3446c2c11b6f8a9156931d8"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "67196ad19ddaf2c2a1b96b9645ffd8937e8e620607916bb34768c4148602d5f7"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "8975e9b73c743302e374a7c63e3b248603aaf892e60ff17b6a7f62550f2e1217"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "fa2cc2dbe84b0acb24ea873f60326d8a677e1ce3e2d72b70bcf794c72d31280a"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 6017,
+          "outputTokens": 262,
+          "totalTokens": 6279
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of comment line length check",
+            "severity": "medium",
+            "file": "lib/rules/max-len.js",
+            "line": 324,
+            "explanation": "The added variable 'commentLengthApplies' checks if a line is a comment and has a maxCommentLength configured but this variable is used to gate the check of line length separately. Previously, the code only reported if the line is a comment and lineLength > maxCommentLength, but now it only checks if 'commentLengthApplies' is true, then inside if lineLength > maxCommentLength, report is called. This is redundant and could cause confusion; however, the main issue is that 'commentLengthApplies' is",
+            "suggestion": "Replace the use of 'commentLengthApplies' with a direct check of 'lineIsComment && lineLength > maxCommentLength' to preserve the original logic without redundant variables or ensure correct initialization and checks for 'maxCommentLength' before using 'commentLengthApplies'."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of comment line length check",
+            "severity": "medium",
+            "file": "lib/rules/max-len.js",
+            "line": 324,
+            "explanation": "The added variable 'commentLengthApplies' checks if a line is a comment and has a maxCommentLength configured but this variable is used to gate the check of line length separately. Previously, the code only reported if the line is a comment and lineLength > maxCommentLength, but now it only checks if 'commentLengthApplies' is true, then inside if lineLength > maxCommentLength, report is called. This is redundant and could cause confusion; however, the main issue is that 'commentLengthApplies' is",
+            "suggestion": "Replace the use of 'commentLengthApplies' with a direct check of 'lineIsComment && lineLength > maxCommentLength' to preserve the original logic without redundant variables or ensure correct initialization and checks for 'maxCommentLength' before using 'commentLengthApplies'."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

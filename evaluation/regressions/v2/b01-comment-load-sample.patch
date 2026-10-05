@@ -1,0 +1,12 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..6271dcd 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -196,6 +196,7 @@ export default function Home() {
+     URL.revokeObjectURL(url);
+   }
+ 
++  // Loads the bundled example so the editor can be tried without a pull request.
+   function loadSample() {
+     setDiff(sampleDiff.replace("\n++++ b/", "\n+++ b/"));
+     setPullRequestUrl("");

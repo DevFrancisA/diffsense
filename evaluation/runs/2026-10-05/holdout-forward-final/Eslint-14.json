@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-14",
+  "project": "Eslint",
+  "bugId": 14,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "113c1a878446e1f4c37984484bdfed936f2f4225",
+  "buggySha": "03beb27ee80ef5e1c58936888d66cde41fc03d15",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "7e002f8a462001821a9396db62920fb47757ba995ab8b0d8cbd4009949a4ff21",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "03beb27ee80ef5e1c58936888d66cde41fc03d15",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 180,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/max-statements-per-line.js",
+        "contentSha256": "59e1dc9fa2fef58bb521205d4db4f2d13a7383de02c61876eef8c62dd4671162"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "e40e5ea3f58cfa3117c7e36dfd0429459f1bd1473f6f61c23d7d88e93a3b7deb"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "c98958141aa162d49914bddf4a157acc8031d5c605ec279117a6c65eb47f5ff7"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "b30510ea34400d9ec1c1c237fa603e9799382242dffaeb19f8947e9d1a07f884"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1d2b9a91bb989673848c85cd35337f4c4e9a3bc9a1a7c9659aca0c099107331d"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "ed0f94fb7464ece3b8e9d762b524badf95e4bbb865081110dbfbb1fc04d5cb94"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "046dbbddaec1a29e087b9b173da93a2d1003ec1532879505c4eb46b9871449d1"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1d305e23a66ae45318eec2220b4e0c30a4d09c454798fc3dce997f9799857235"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bdab1bfc2ea8cbc05ee1891bbef619ae8483e4c7c93c976e7decd10b709da35c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 714,
+      "outputTokens": 0,
+      "totalTokens": 714
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 6938,
+          "outputTokens": 164,
+          "totalTokens": 7102
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect treatment of ExportDeclaration nodes in max-statements-per-line rule",
+            "severity": "high",
+            "file": "lib/rules/max-statements-per-line.js",
+            "line": 46,
+            "explanation": "The regex for SINGLE_CHILD_ALLOWED was expanded from matching control statement types (DoWhile, For, ForIn, ForOf, If, Labeled, While) to additionally include ExportDefaultDeclaration and ExportNamedDeclaration. This change causes export declarations to be treated as single-child allowed nodes, skipping statement counting for their direct children, which is incorrect. Export declarations are not control statements and should not bypass counting of statements on one line.",
+            "suggestion": "Remove 'Export(?:Default|Named)Declaration' from the SINGLE_CHILD_ALLOWED regex to ensure export declarations are counted as statements on the line."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect treatment of ExportDeclaration nodes in max-statements-per-line rule",
+            "severity": "high",
+            "file": "lib/rules/max-statements-per-line.js",
+            "line": 46,
+            "explanation": "The regex for SINGLE_CHILD_ALLOWED was expanded from matching control statement types (DoWhile, For, ForIn, ForOf, If, Labeled, While) to additionally include ExportDefaultDeclaration and ExportNamedDeclaration. This change causes export declarations to be treated as single-child allowed nodes, skipping statement counting for their direct children, which is incorrect. Export declarations are not control statements and should not bypass counting of statements on one line.",
+            "suggestion": "Remove 'Export(?:Default|Named)Declaration' from the SINGLE_CHILD_ALLOWED regex to ensure export declarations are counted as statements on the line."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

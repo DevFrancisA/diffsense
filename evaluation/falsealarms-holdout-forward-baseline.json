@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "holdout-forward-baseline",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "direction": "forward"
+  },
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "models": {
+    "review": "gpt-4.1-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 20,
+    "casesFlaggedOnSource": 18,
+    "findings": 21,
+    "sourceFindings": 18,
+    "testFindings": 3
+  },
+  "cases": [
+    {
+      "caseId": "Eslint-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of comment line length check",
+          "severity": "medium",
+          "file": "lib/rules/max-len.js",
+          "line": 324,
+          "explanation": "The added variable 'commentLengthApplies' checks if a line is a comment and has a maxCommentLength configured but this variable is used to gate the check of line length separately. Previously, the code only reported if the line is a comment and lineLength > maxCommentLength, but now it only checks if 'commentLengthApplies' is true, then inside if lineLength > maxCommentLength, report is called. This is redundant and could cause confusion; however, the main issue is that 'commentLengthApplies' is",
+          "suggestion": "Replace the use of 'commentLengthApplies' with a direct check of 'lineIsComment && lineLength > maxCommentLength' to preserve the original logic without redundant variables or ensure correct initialization and checks for 'maxCommentLength' before using 'commentLengthApplies'.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect check for presence of leading comments in curly.js",
+          "severity": "medium",
+          "file": "lib/rules/curly.js",
+          "line": 293,
+          "explanation": "The patch introduces the assignment `expected = leadingComments.length > 0;` where `leadingComments` is obtained as `sourceCode.getComments(body.body[0]).leading`. This usage is incorrect because `sourceCode.getComments(node)` returns an object with arrays `leading`, `trailing`, etc., but here the property access `body.body[0]` does not guarantee the existence of comments, and the variable `expected` is assigned a boolean which might not represent the intended logical condition properly.",
+          "suggestion": "Refactor to correctly retrieve leading comments from the correct node and assign `expected` based on the actual rule logic. For example, check if `body.body[0]` exists and then safely get leading comments, or adjust logic to set `expected` appropriately rather than assigning directly the truthiness of the array length.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-12",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Possible unintended effect of ignoredNodes option in indent rule test",
+          "severity": "medium",
+          "file": "tests/lib/rules/indent.js",
+          "line": 4697,
+          "explanation": "A new test case is added that uses the 'ignoredNodes' option with 'JSXElement' and 'JSXOpeningElement'. This option causes these nodes to be ignored by the indent rule. While this is valid, it might unintentionally mask indentation issues inside JSX elements, leading to less strict verification for JSX code blocks.",
+          "suggestion": "Verify that ignoring these nodes is intentional and does not allow problematic JSX indentation to go unnoticed. If stricter checks are desired, consider removing or narrowing the ignoredNodes entries.",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Invalid regex pattern for allowed single child statements including ES export declarations",
+          "severity": "high",
+          "file": "lib/rules/max-statements-per-line.js",
+          "line": 46,
+          "explanation": "The regex on line 46 was modified to include 'ExportDefaultDeclaration' and 'ExportNamedDeclaration' inside a non-capturing group, but incorrect grouping caused the regex to potentially malfunction or mismatch intended tokens.",
+          "suggestion": "Replace line 46 with properly grouped regex: var SINGLE_CHILD_ALLOWED = /^(?:DoWhile|For|ForIn|ForOf|If|Labeled|While)Statement|Export(?:Default|Named)Declaration$/; to maintain intended token matching.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-15",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect indentation handling for NewExpression nodes in indent rule",
+          "severity": "medium",
+          "file": "lib/rules/indent.js",
+          "line": 453,
+          "explanation": "The patch adds 'parent.type === \"NewExpression\"' as a condition for a logic branch in the indent rule. However, 'NewExpression' nodes have different formatting and indentation semantics compared to functions or arrow functions. Treating them like arrow functions may cause incorrect indentation detection for 'new' expressions spanning multiple lines.",
+          "suggestion": "Review and adjust the indentation logic to correctly handle 'NewExpression' nodes separately instead of lumping them with 'ArrowFunctionExpression'. Consider writing dedicated tests to validate indentation of 'new' calls to ensure accurate behavior.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-16",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect capture group index in regex result",
+          "severity": "high",
+          "file": "lib/rules/no-regex-spaces.js",
+          "line": 44,
+          "explanation": "The code changed from accessing regexResults[0].length to regexResults[1].length but the regular expression may not correctly capture the expected group, leading to incorrect count calculation for spaces.",
+          "suggestion": "Verify the regular expression and ensure the correct capture group index is used to accurately count spaces. Adjust the regex or the index to achieve correct behavior.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Improper callback invocation on res.sendFile for HEAD and 304 responses",
+          "severity": "high",
+          "file": "lib/response.js",
+          "line": 951,
+          "explanation": "The patch introduces a `streaming` variable to track whether the file stream has started. In the 'onfinish' handler, the callback is only called if 'streaming' is true. For HTTP HEAD or 304 responses, no data streaming occurs, so the callback was previously incorrectly invoked with an error or not invoked properly. This patch corrects this by ensuring the callback is called without error even when no streaming is performed.",
+          "suggestion": "Keep the new logic which sets 'streaming' to true in the 'onstream' event and calls callback only if streaming occurred. This fixes the incorrect 'Request aborted' error on HEAD and 304 responses by invoking the callback without error.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect assignment of mountpath in app.use",
+          "severity": "high",
+          "file": "lib/application.js",
+          "line": 171,
+          "explanation": "The original code assigns the mountpath property using the undefined variable 'path' instead of the correct 'mount_path'. This would result in mount_app.mountpath being set to undefined or a wrong value.",
+          "suggestion": "Change the assignment to use the correct variable: mount_app.mountpath = mount_path; as done in the fixed code line.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect Content-Type when sending number as second argument with status",
+          "severity": "high",
+          "file": "lib/response.js",
+          "line": 106,
+          "explanation": "The new code distinguishes between res.send(status) and res.send(status, num). When sending res.send(status, num) with num as a number, it should send num serialized as JSON with Content-Type 'application/json'. The code sets Content-Type to JSON only inside the case when body is a number argument 2; however, when res.send(status) is called with one numeric argument, Content-Type is 'text/plain'.",
+          "suggestion": "Ensure that when res.send(status, num) is called and num is a number, Content-Type should be set to 'application/json', and the number sent as JSON string. The added test in test/res.send.js confirms this behavior, so no further fix needed unless any errors.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Express-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Paginator helper returns empty string when current page is zero",
+          "severity": "medium",
+          "file": "lib/plugins/helper/paginator.js",
+          "line": 23,
+          "explanation": "A new check was introduced to return an empty string when 'current' page is falsy (including zero). This changes behavior from previous code, where zero would be considered valid and not skip output.",
+          "suggestion": "Ensure that returning an empty string on 'current == 0' is intentional, or else remove the check 'if (!current) return '';' to treat zero as a valid current page.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Hexo-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-11",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Hexo-12",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect handling of repeated arguments resulting in array value assigned to options",
+          "severity": "high",
+          "file": "lib/cli.js",
+          "line": 21,
+          "explanation": "If the same argument is provided multiple times on the command line, optimist parses it into an array. Previously, the code assigned this array directly to the option, leading to incorrect option values downstream.",
+          "suggestion": "Check if argv[name] is an array, and if so, replace it with the last element before assigning to options. This is fixed in the diff by popping the last element when argv[name] is an array.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-9",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect base directory extraction for glob patterns with special characters",
+          "severity": "high",
+          "file": "lib/watcher.js",
+          "line": 11,
+          "explanation": "The new implementation replaces the original single regex with multiple replacements that separately remove parts containing '*', '!(...)' or '+(...)' and '(...)?'. However, these sequential replacements may incorrectly trim the base directory when combined or applied in certain pattern structures. They also may inconsistently handle paths containing parentheses that are part of directory names rather than glob patterns, potentially resulting in incorrect base directory paths being returned. Thi",
+          "suggestion": "Revert to the original regex that correctly removes any part of the pattern starting with a slash followed by any characters up to any special globbing character including '*', '(' etc. or improve the regex to correctly handle all required glob pattern cases in a single expression, preserving directory names with parentheses. Consider adding unit tests for edge cases with parentheses in directory names to validate correctness.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect argument usage in watchPatterns call disables filtering by watched flag",
+          "severity": "high",
+          "file": "lib/watcher.js",
+          "line": 78,
+          "explanation": "The watchPatterns function expects an array of pattern objects, but it previously received such objects and filtered those with watched set to true. The change filters the patterns first and then passes only the pattern strings, which breaks the filtering logic inside watchPatterns that relies on patternObject.watched. The fix is to ensure watchPatterns receives pattern objects having watched true.",
+          "suggestion": "Change the call from watchPatterns(watchedPatterns, chokidarWatcher) back to watchPatterns(patterns, chokidarWatcher) or adjust watchPatterns to accept pattern strings instead of objects.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect SHA hash assignment location in createPreprocessor",
+          "severity": "high",
+          "file": "lib/preprocessor.js",
+          "line": 55,
+          "explanation": "The SHA hash of the file content is assigned to file.sha immediately after invoking the first preprocessor callback with the original content. This causes an incorrect hash when preprocessors are present because the content may still be unprocessed. The correct SHA hash should be assigned only once processing is complete, i.e., after all preprocessors have run, using the processed content passed to nextPreprocessor.",
+          "suggestion": "Move the line `file.sha = sha1(content);` from immediately after the first call to `nextPreprocessor` to inside the `nextPreprocessor` function, before assigning `file.content`, but only in the branch that checks if `preprocessors.length` is empty (processing complete). Remove the duplicate `file.sha` assignment from the original fs.readFile callback.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-1",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Potential conflict when adding version key field to schema dynamically",
+          "severity": "medium",
+          "file": "lib/model.js",
+          "line": 1954,
+          "explanation": "The patch adds the version key field to the schema via schema.add() dynamically if versioning is enabled and the version key path does not exist. This can cause issues if a property with the same name exists in an embedded schema or with default values, as only top-level documents should have the version key field. The schema.add call modifies the schema globally which could affect embedded schemas or subdocuments unexpectedly.",
+          "suggestion": "Ensure the version key field is only added to the top-level schema and not to nested schemas by more precisely scoping the schema addition or checking schema depth before adding the version key.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-2",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect error assertion changed to no error expected",
+          "severity": "medium",
+          "file": "test/document.populate.test.js",
+          "line": 320,
+          "explanation": "The test changed from expecting an error (assert.ok(err)) to expecting no error (assert.ifError(err)) which changes the intended test assertion behavior. If the tested scenario actually produces an error, this change hides the detection of that error, potentially masking bugs.",
+          "suggestion": "Revert the change back to 'assert.ok(err);' unless the tested code has changed to correctly never produce errors in this case.",
+          "isTest": true
+        },
+        {
+          "title": "Incorrect error assertion changed to no error expected",
+          "severity": "medium",
+          "file": "test/model.populate.test.js",
+          "line": 1014,
+          "explanation": "Similar to the previous finding, the test assertion changed from expecting an error to expecting no error. This can cause tests to pass when they should fail, hiding potential issues.",
+          "suggestion": "Revert 'assert.ifError(err)' back to 'assert.ok(err);' unless the test scenario logic has been updated to never produce errors.",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Mongoose 'populate' option handling updated incorrectly in Query API",
+          "severity": "high",
+          "file": "lib/query.js",
+          "line": 1633,
+          "explanation": "In 'lib/query.js', lines 1633 and 1732, the code changes the way the population options are retrieved, replacing 'utils.object.vals(self.options.populate)' with a call to 'preparePopulationOptions(self, options)'. The new function 'preparePopulationOptions' returns a filtered or transformed population options list, applying the 'lean' option from the query options if specified. This changes the original behavior which directly took the population configurations from the query options without add",
+          "suggestion": "Verify that the new 'preparePopulationOptions' method preserves all necessary data and behaviors of the original population options, especially when no 'lean' option is specified in the query options. Ensure that none of the original populate options are lost or altered unexpectedly. Add tests to confirm correct behavior of populate queries with and without 'lean'.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-6",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Original schema argument object is altered",
+          "severity": "high",
+          "file": "lib/schema/array.js",
+          "line": 40,
+          "explanation": "Line 40 was changed from directly assigning castOptions = cast to cloning the cast object before modifying it. Without cloning, the original user argument object passed to the Schema constructor would be mutated when castOptions is modified, which breaks the expectation that input schema definitions are not changed by Mongoose.",
+          "suggestion": "Clone the cast object before using or modifying it to avoid mutating the original argument object, as done by adding 'castOptions = utils.clone(cast);' before assigning 'cast = cast.type'. This is the proper fix to prevent user input alteration.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-7",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Node-redis-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "RedisClient constructor mishandles undefined options argument",
+          "severity": "high",
+          "file": "index.js",
+          "line": 39,
+          "explanation": "The original code calls JSON.parse(JSON.stringify(options)) without providing a default for options. If options is undefined, this throws an error. The patch fixes this by using options || {}, ensuring options is at least an empty object before serialization and parsing.",
+          "suggestion": "Change line 39 from `options = JSON.parse(JSON.stringify(options));` to `options = JSON.parse(JSON.stringify(options || {}));` to safely handle missing options argument.",
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Node-redis-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect splitting of subscription key in on_ready",
+          "severity": "high",
+          "file": "index.js",
+          "line": 311,
+          "explanation": "The original code used key.split(\" \") to separate subscription keys into parts, which splits on all spaces. The new code changes this to use indexOf and slice, correctly splitting only at the first space. This is a fix, but the new code assumes there is always a space character. If there is no space, space_index would be -1, leading to parts[0] being the entire key and parts[1] being the wrong data (slice(-1 + 1) -> slice(0) return full string). This could cause unexpected behavior if keys do no",
+          "suggestion": "Add a check for space_index before slicing, e.g., if (space_index === -1) handle accordingly or fallback to original split.",
+          "isTest": false
+        }
+      ]
+    }
+  ]
+}

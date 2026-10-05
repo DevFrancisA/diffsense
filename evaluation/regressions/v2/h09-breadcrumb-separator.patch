@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..96d7e7f 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -244,7 +244,7 @@ export default function Home() {
+ 
+       <section className="workspace" id="workspace">
+         <header className="topbar">
+-          <div className="breadcrumbs"><span>Workspace</span><span className="breadcrumb-slash">/</span><strong>{activeView}</strong></div>
++          <div className="breadcrumbs"><span>Workspace</span><span className="breadcrumb-slash">›</span><strong>{activeView}</strong></div>
+           <div className="topbar-right">
+             <span className={`connection-pill ${apiReady ? "connected" : "disconnected"}`}><i />{apiReady === null ? "Checking setup" : apiReady ? "Review engine ready" : "Setup required"}</span>
+             <button className="icon-button" title="Documentation" aria-label="Documentation"><BookOpenText size={17} /></button>

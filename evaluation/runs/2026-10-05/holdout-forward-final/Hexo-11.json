@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-11",
+  "project": "Hexo",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "fbdee9043655a89fe0284f61cbaae88fd9a783e9",
+  "buggySha": "ed1fb58ea4769280cbfa9fc42edd917892edb9fc",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "ac84e6782f44799b92c966518bc70f5a5aa175e2ffd1a1cd740b8565a7646198",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "ed1fb58ea4769280cbfa9fc42edd917892edb9fc",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 71,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a0792f6ef7d1199ea9fc70f093e709097e8a7c1c4c346fdba1c9030cc688af7e"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "e3841735e8652759fb729b66799011aa20ea55480e9cd6ddc34f974c9347d14c"
+      },
+      {
+        "path": "lib/hexo/multi_config_path.js",
+        "contentSha256": "efb1d51a8cf3a6f57692b181678f2b9aec583f0e0ad05092af69dc05d42df39f"
+      },
+      {
+        "path": "lib/hexo/load_config.js",
+        "contentSha256": "0d830122123469cf9adeaa28223b5a9c8f87bc6377f2fa9f910025da74b7b541"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "02e11fbdf23aea24789834255ba642093425ec596a449edd9cec83537c136d35"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "a23b6e1908660cec7b59d097f7a7300009e926f268c1bfd813cff411689f80a7"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "e808859ce3195fc0e896c3fecd4c7742573da35667ab97cd4a4841745bdcae9f"
+      },
+      {
+        "path": "lib/hexo/default_config.js",
+        "contentSha256": "b0519ec5fa49241a5d8dcc822c6bcdb0918e2d970037f35166609aa66a32b529"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "ddc20af84bc576aa3e3dee541712d6f525b52d2120add2b8d65e130656600073"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 554,
+      "outputTokens": 0,
+      "totalTokens": 554
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 7444,
+          "outputTokens": 293,
+          "totalTokens": 7737
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect instantiation of MultiConfigPath",
+            "severity": "high",
+            "file": "lib/hexo/index.js",
+            "line": 36,
+            "explanation": "The patch replaces the previous usage of `multiConfigPath` as a function to instantiates with `new MultiConfigPath(this)`, but the module `multi_config_path.js` exports a function that returns a function (i.e., it is a factory), not a class constructor. Using `new` here will cause incorrect behavior or runtime error.",
+            "suggestion": "Change the line `var mcp = new MultiConfigPath(this);` to `var mcp = MultiConfigPath(this);` to correctly obtain the multiConfigPath function."
+          },
+          {
+            "title": "Inconsistent usage of MultiConfigPath instance naming",
+            "severity": "medium",
+            "file": "lib/hexo/index.js",
+            "line": 92,
+            "explanation": "The code uses `mcp(base, args.config)` but the assigned variable is `mcp` which is created by `new MultiConfigPath(this)` at line 36, which is incorrect as explained above. Even if usage was consistent, the naming `mcp` resembles an instance, but it is a function. Adding clarity by using the original function style improves readability.",
+            "suggestion": "After fixing the instantiation issue, rename `mcp` to `multiConfigPath` to match original naming or clarify that it is the function returned by the factory."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect instantiation of MultiConfigPath",
+            "severity": "high",
+            "file": "lib/hexo/index.js",
+            "line": 36,
+            "explanation": "The patch replaces the previous usage of `multiConfigPath` as a function to instantiates with `new MultiConfigPath(this)`, but the module `multi_config_path.js` exports a function that returns a function (i.e., it is a factory), not a class constructor. Using `new` here will cause incorrect behavior or runtime error.",
+            "suggestion": "Change the line `var mcp = new MultiConfigPath(this);` to `var mcp = MultiConfigPath(this);` to correctly obtain the multiConfigPath function."
+          },
+          {
+            "title": "Inconsistent usage of MultiConfigPath instance naming",
+            "severity": "medium",
+            "file": "lib/hexo/index.js",
+            "line": 92,
+            "explanation": "The code uses `mcp(base, args.config)` but the assigned variable is `mcp` which is created by `new MultiConfigPath(this)` at line 36, which is incorrect as explained above. Even if usage was consistent, the naming `mcp` resembles an instance, but it is a function. Adding clarity by using the original function style improves readability.",
+            "suggestion": "After fixing the instantiation issue, rename `mcp` to `multiConfigPath` to match original naming or clarify that it is the function returned by the factory."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

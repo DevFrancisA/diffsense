@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-11",
+  "project": "Karma",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6cf795576bd6d77decac68ecc4838871b6df4836",
+  "buggySha": "449b0f5686dffcf4bde2c47b56ef17bd49c1c58c",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "e6b6ddba741d25f7edf8cb25d2b7d72d6165b233ba5ea8402b258873b51b398d",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "449b0f5686dffcf4bde2c47b56ef17bd49c1c58c",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 85,
+    "embeddingUsage": {
+      "inputTokens": 2428,
+      "outputTokens": 0,
+      "totalTokens": 2428
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "90585fea82784c0fd8e5693e325ce6fbe3aa8ea1ab356124eab351345c1219ce"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "3eb3c3af3e396cd67abd1f384494cef77cfe59ff9f5d44a0b3740082317040dd"
+      },
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "f1a3c6c4e3fc85714e71f9d4ced218000e1ba94194d93e1f0e676498c021aab2"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "17c59e0ff175bf3a1e41f390a885cabb2311c504a5eeacf97c087ee13762c9e7"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "3b120dfe77fa6fc1bcbad75d0d30f975d4077c4b3b2752b6ea97ae20169bb054"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "7444e7e982e11aa47c1398cc778f3ae31695e098847df2e0f0d4faf016610d1c"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "c33a5339ad804675530634acef3dfd1cb9c37b4c983b588030cfecbc7b7e9ab7"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "b8c1e536551eec06304b160c1fda2e98eecfa882039ea2d023b59879cdbf8dc0"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "2c9bc2e6b91e6456cd830c2e33009455be7398991c7941e297a8f4956c7811e6"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 419,
+      "outputTokens": 0,
+      "totalTokens": 419
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 6234,
+          "outputTokens": 136,
+          "totalTokens": 6370
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect SHA calculation location leading to inconsistent file.sha",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 55,
+            "explanation": "The line that sets file.sha = sha1(content) is placed before any preprocessing occurs, which means the SHA is computed on the raw content string passed to the preprocessor chain, not on the final processed content. This causes file.sha to be inconsistent with the actual content after preprocessing.",
+            "suggestion": "Move the file.sha = sha1(content) assignment inside the nextPreprocessor function after all preprocessors have run and final content is ready, typically right before setting file.content and calling done."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect SHA calculation location leading to inconsistent file.sha",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 55,
+            "explanation": "The line that sets file.sha = sha1(content) is placed before any preprocessing occurs, which means the SHA is computed on the raw content string passed to the preprocessor chain, not on the final processed content. This causes file.sha to be inconsistent with the actual content after preprocessing.",
+            "suggestion": "Move the file.sha = sha1(content) assignment inside the nextPreprocessor function after all preprocessors have run and final content is ready, typically right before setting file.content and calling done."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

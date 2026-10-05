@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..b117d7f 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -268,7 +268,7 @@ export default function Home() {
+           <form className="review-form" onSubmit={runReview}>
+             <section className="input-panel panel">
+               <div className="panel-heading input-heading">
+-                <div className="panel-title"><span className="title-icon"><GitPullRequest size={16} /></span><div><h2>Change under review</h2><p>Start with a public pull request or paste a unified diff.</p></div></div>
++                <div className="panel-title"><span className="title-icon"><GitPullRequest size={16} /></span><div><h2>Change</h2><p>Start with a public pull request or paste a unified diff.</p></div></div>
+                 <span className="step-indicator"><span>01</span> / 02</span>
+               </div>
+               <label className="field-label" htmlFor="pr-url">GITHUB REPOSITORY OR PR URL <span>REQUIRED FOR CONTEXT</span></label>

@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..507e970 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -224,7 +224,7 @@ export default function Home() {
+         <div className="nav-label">WORKSPACE</div>
+         <nav className="primary-nav" aria-label="Main navigation">
+           <button className={`nav-item ${activeView === "Review desk" ? "is-active" : ""}`} aria-label="Review desk" title="Review desk" onClick={() => setActiveView("Review desk")}><Code2 size={17} /><span>Review desk</span><span className="nav-key">1</span></button>
+-          <button className={`nav-item ${activeView === "Pull requests" ? "is-active" : ""}`} aria-label="Pull requests" title="Pull requests" onClick={() => setActiveView("Pull requests")}><GitPullRequest size={17} /><span>Pull requests</span><span className="nav-count">0</span></button>
++          <button className={`nav-item ${activeView === "Pull requests" ? "is-active" : ""}`} aria-label="Pull requests" title="Pull requests" onClick={() => setActiveView("Pull requests")}><GitPullRequest size={17} /><span>Pull requests</span><span className="nav-count">—</span></button>
+           <button className={`nav-item ${activeView === "Evaluations" ? "is-active" : ""}`} aria-label="Evaluations" title="Evaluations" onClick={() => setActiveView("Evaluations")}><Activity size={17} /><span>Evaluations</span></button>
+           <button className={`nav-item ${activeView === "Test lab" ? "is-active" : ""}`} aria-label="Test lab" title="Test lab" onClick={() => setActiveView("Test lab")}><ShieldCheck size={17} /><span>Test lab</span></button>
+         </nav>

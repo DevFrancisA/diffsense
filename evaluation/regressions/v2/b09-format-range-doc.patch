@@ -1,0 +1,12 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..c0d5178 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -69,6 +69,7 @@ type EvaluationSummary = {
+   regressions?: { validScenarios: number; detected: number; invalidPlans: number; validPlans: number } | null;
+ };
+ 
++/** Formats a 0-1 range as a percentage range with one decimal place. */
+ function formatPercentRange(range: MetricRange) {
+   if (!range) return "—";
+   return `${(range.min * 100).toFixed(1)}–${(range.max * 100).toFixed(1)}`;

@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..08fcdf4 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -104,7 +104,7 @@ export default function Home() {
+   const [testEnvironment, setTestEnvironment] = useState("");
+   const [apiReady, setApiReady] = useState<boolean | null>(null);
+   const [evaluation, setEvaluation] = useState<EvaluationSummary | null>(null);
+-  const [activeView, setActiveView] = useState("Review desk");
++  const [activeView, setActiveView] = useState<string>("Review desk");
+ 
+   useEffect(() => {
+     fetch("/api/status")

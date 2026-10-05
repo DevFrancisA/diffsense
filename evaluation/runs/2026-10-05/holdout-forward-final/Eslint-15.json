@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-15",
+  "project": "Eslint",
+  "bugId": 15,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "1170e678b3656eaf6656d3fcc4b5a212f4d44827",
+  "buggySha": "2bd57b6bbd11b23fdec65dc11c691f74c6a8db75",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "12a16f6b49bfca219b9c4301f63fcfc959416d328b7e3958341bd36b86fca754",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "2bd57b6bbd11b23fdec65dc11c691f74c6a8db75",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 171,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/indent.js",
+        "contentSha256": "935142e1309941e83582744f67962106d6a068592c51cd07a1bc4aeabf4ea49e"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "e45dc49c577e9f0b42b27c45a59993f25ab0328e74e0504c28a9eae164982f1b"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "8086f3820a2b712db9e2a94f128dfee6df073b50f53aec9aa12c5e44e294a202"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "d009672ac323cd66b1fa50627880c7e28d67c1b056e77cb7376b277d3cadd378"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "3e6208b5d3422e96efa820bf4f4ce890e54619cc232fe2c4bd21301a897a5dd7"
+      },
+      {
+        "path": "lib/formatters/checkstyle.js",
+        "contentSha256": "c632becdefad481fd7e58dac86c3a851495d7a75b027b56bfc534b399d3d2308"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "f03a01346ef4ad5482c2e993715f179e6d6204eff3266fdcc297e4e8d4913ced"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "94cdce6d91d3b5eadce1fdb3cb4d64701f87d8a41bc524a43208b4839b978e14"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "7dd783aa9976d81aae36be21c114b062f52af8dc67bd8f3ef022086085ae93c4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 277,
+      "outputTokens": 0,
+      "totalTokens": 277
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 10285,
+          "outputTokens": 150,
+          "totalTokens": 10435
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of indentation context for NewExpression nodes",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 453,
+            "explanation": "The change adds 'NewExpression' to the list of parent node types considered for adjusting indentation in the indent rule. This might cause the indentation logic to treat NewExpression nodes similarly to ArrowFunctionExpressions, which is not appropriate as the indentation context for 'new' expressions can be different, potentially leading to incorrect indentation fixes or reports.",
+            "suggestion": "Review the indentation logic to specifically handle 'NewExpression' nodes correctly rather than adding them generically alongside ArrowFunctionExpression. Adjust the condition that includes 'NewExpression' parent type to ensure correct indentation behavior."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of indentation context for NewExpression nodes",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 453,
+            "explanation": "The change adds 'NewExpression' to the list of parent node types considered for adjusting indentation in the indent rule. This might cause the indentation logic to treat NewExpression nodes similarly to ArrowFunctionExpressions, which is not appropriate as the indentation context for 'new' expressions can be different, potentially leading to incorrect indentation fixes or reports.",
+            "suggestion": "Review the indentation logic to specifically handle 'NewExpression' nodes correctly rather than adding them generically alongside ArrowFunctionExpression. Adjust the condition that includes 'NewExpression' parent type to ensure correct indentation behavior."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

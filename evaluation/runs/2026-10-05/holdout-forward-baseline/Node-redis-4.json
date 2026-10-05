@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-4",
+  "project": "Node-redis",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "97db227a8d2098f82472b08e107e02532e73616d",
+  "buggySha": "b35a685c27126fe92c3d205781695b1691cf8476",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "04e139690717c5d6336a0cefef089de092d8c05ba5d274175f0bc989ccfd60e4",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "b35a685c27126fe92c3d205781695b1691cf8476",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "benches/sub_quit_test.js",
+        "contentSha256": "ca72fbdc94accb84b5f889f337f0aa0b229b1ef6fc7a251d5446814f7ce2d05a"
+      },
+      {
+        "path": "examples/pub_sub.js",
+        "contentSha256": "51964d22aa14cf10d2c65a505fd6179a089b1506f250f5ccdffa96d01aef6bc3"
+      },
+      {
+        "path": "benches/re_sub_test.js",
+        "contentSha256": "25afa4e2767e5be215b30f030aba601c808bb3ba849b7801dec1964041472f02"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "d6eb308162eb6f9b0c2c884385ce0836994c94ab0b227fe0b3b2615df958c200"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "41c30252b80334af0250ed5e9f48434435b4d6061db9980f36e5ea48639b2c05"
+      },
+      {
+        "path": "examples/psubscribe.js",
+        "contentSha256": "df14574f2c1299264261a71581082ab9358464ecbe57c36ac748e574d913b41c"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "4e0e8c0c8b5689d9dab0d2bd3516222bef444983681b7b8c96281ea5603a3c86"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "de331acb420f8b99f5ee0690d3f4031df33d96b0be932b9d8d5a65df89ad71af"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 3523,
+          "outputTokens": 201,
+          "totalTokens": 3724
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect splitting of subscription key in on_ready",
+            "severity": "high",
+            "file": "index.js",
+            "line": 311,
+            "explanation": "The original code used key.split(\" \") to separate subscription keys into parts, which splits on all spaces. The new code changes this to use indexOf and slice, correctly splitting only at the first space. This is a fix, but the new code assumes there is always a space character. If there is no space, space_index would be -1, leading to parts[0] being the entire key and parts[1] being the wrong data (slice(-1 + 1) -> slice(0) return full string). This could cause unexpected behavior if keys do no",
+            "suggestion": "Add a check for space_index before slicing, e.g., if (space_index === -1) handle accordingly or fallback to original split."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect splitting of subscription key in on_ready",
+            "severity": "high",
+            "file": "index.js",
+            "line": 311,
+            "explanation": "The original code used key.split(\" \") to separate subscription keys into parts, which splits on all spaces. The new code changes this to use indexOf and slice, correctly splitting only at the first space. This is a fix, but the new code assumes there is always a space character. If there is no space, space_index would be -1, leading to parts[0] being the entire key and parts[1] being the wrong data (slice(-1 + 1) -> slice(0) return full string). This could cause unexpected behavior if keys do no",
+            "suggestion": "Add a check for space_index before slicing, e.g., if (space_index === -1) handle accordingly or fallback to original split."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

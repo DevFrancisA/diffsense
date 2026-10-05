@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-10",
+  "project": "Hexo",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "f1d896f71333b1158c1e0e996fcb42fdac6ddd92",
+  "buggySha": "45f39dfe2fd9dd29571c8618380a6e9ed1e3d274",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "bdb3040bc9c4cc871ff13d17f775a55dd5d0a5dfde8f9a8e510a660d2d37dc06",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "45f39dfe2fd9dd29571c8618380a6e9ed1e3d274",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 68,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "f23cf98521e350750e2c9736f59237c874834268fd23ed3f047fd8f5b715b422"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "2a0dfb1e70d94c6f0fb212046db381c0d2fa74d48cdc49b8b9711eb9feee98a5"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "509560db1572a405c7923d2ac3a3abc3e9b2f788b752a4dc9d084551c346f980"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "af77e40d4f819be2669fef957424c3f99d35186cb3dc2657f7ce5095f403cd91"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "9e28ecbd63061fa9bedd944d105daef94078b08e905f2301d4a0c5661057d80f"
+      },
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "e5e96a66e3d2ea760461f5bdee4d6ab6628c161dd0ec53a322d1b2abbd20edbf"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "7cb8a7fb468969c6fb0648180f889b8032288aa88a4f1228ed619a5e72b18000"
+      },
+      {
+        "path": "lib/box/index.js",
+        "contentSha256": "a8196c4c10d5aa4d3c606ccda101961898188e9723d9781d71f2cc3ecae4cfc9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 4751,
+          "outputTokens": 239,
+          "totalTokens": 4990
+        },
+        "rawFindings": [
+          {
+            "title": "_generate() should ignore generators returning non-object or object without path",
+            "severity": "high",
+            "file": "lib/hexo/index.js",
+            "line": 314,
+            "explanation": "If a generator returns a non-object or an object without a path property, the method should skip it to prevent errors when accessing 'item.path'. This change adds a type and null check for item.path before using it in the route generation.",
+            "suggestion": "Add a check `if (typeof item !== 'object' || item.path == null) return;` to skip invalid generator results."
+          },
+          {
+            "title": "_generate() should concatenate generator results correctly",
+            "severity": "high",
+            "file": "lib/hexo/index.js",
+            "line": 308,
+            "explanation": "Previously, if the generator returns falsy (like undefined), the method returns that falsey instead of the accumulated result, breaking the Promise.reduce chain. It should return the accumulated result even if the current generator returns nothing to maintain correct concatenation.",
+            "suggestion": "Change `return data ? result.concat(data) : data;` to `return data ? result.concat(data) : result;` to always return the accumulated result."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

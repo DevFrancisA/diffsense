@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-16",
+  "project": "Eslint",
+  "bugId": 16,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "11ffe6b18393fd7448f71463d6a9acd1dea0ed80",
+  "buggySha": "975dacfdec9ee664e83337c1a8c360211a0efb28",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "bdd9ee86b6b57d2990a3ce5a8f3f0f6512729eb6b52ab7a7f22581583f53dd17",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "975dacfdec9ee664e83337c1a8c360211a0efb28",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 181,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/no-regex-spaces.js",
+        "contentSha256": "44c914e9acb5bf98dd27da2604992640c8604cd95c3723c34d6a62e39ceccfa7"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "dea4b97fcb758dcf10965d83b486d7857376d21a4fd924b0b939418a11898a10"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "eba64bed5f11a670133b0fbf620e02e056e36b7585dafeb956d02243e23d7342"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "ae5f2802a64a1fdbd805ad362e556f7034c2ad21dd87c197a62e6162190da7ed"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "0d68798c554716c92c73bddb2b1b7772d265ab2211f33cb2437dc0a3f7f9c5eb"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "ff993ba55f6e3438371f1e87b93f73dfc98faf047c9c0aed11b5bbced773fb72"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "67196ad19ddaf2c2a1b96b9645ffd8937e8e620607916bb34768c4148602d5f7"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "93e48ae202ec472e5944f84c13268915611281e3d3446c2c11b6f8a9156931d8"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 456,
+      "outputTokens": 0,
+      "totalTokens": 456
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 7105,
+          "outputTokens": 226,
+          "totalTokens": 7331
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect regex capturing and count calculation in no-regex-spaces rule",
+            "severity": "high",
+            "file": "lib/rules/no-regex-spaces.js",
+            "line": 40,
+            "explanation": "The modified regex /( {2,})( [+*{?]|[^+*{?]|$)/ captures multiple spaces but also captures a following character or end of string. The reported count uses the length of the first capturing group (regexResults[1]) which represents the spaces length, which is correct. However, the previous regex included a non-greedy quantifier that may have missed some patterns, and the new regex also captures the character following the spaces, which may cause off-by-one errors in the fixer range calculation.",
+            "suggestion": "Verify and adjust the regex to ensure it captures only the intended spaces and not the following character, and confirm that the fixer's replaceTextRange uses the correct indices based on regexResults.index and the length of the captured spaces (regexResults[1].length). Adjust the range and replacement string accordingly to avoid removing or overwriting adjacent characters incorrectly."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect regex capturing and count calculation in no-regex-spaces rule",
+            "severity": "high",
+            "file": "lib/rules/no-regex-spaces.js",
+            "line": 40,
+            "explanation": "The modified regex /( {2,})( [+*{?]|[^+*{?]|$)/ captures multiple spaces but also captures a following character or end of string. The reported count uses the length of the first capturing group (regexResults[1]) which represents the spaces length, which is correct. However, the previous regex included a non-greedy quantifier that may have missed some patterns, and the new regex also captures the character following the spaces, which may cause off-by-one errors in the fixer range calculation.",
+            "suggestion": "Verify and adjust the regex to ensure it captures only the intended spaces and not the following character, and confirm that the fixer's replaceTextRange uses the correct indices based on regexResults.index and the length of the captured spaces (regexResults[1].length). Adjust the range and replacement string accordingly to avoid removing or overwriting adjacent characters incorrectly."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

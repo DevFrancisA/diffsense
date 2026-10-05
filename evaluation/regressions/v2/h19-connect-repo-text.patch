@@ -1,0 +1,13 @@
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 1626bb5..18d1273 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -232,7 +232,7 @@ export default function Home() {
+         <div className="nav-label repositories-label">REPOSITORIES <button aria-label="Add repository" title="Add repository"><Plus size={14} /></button></div>
+         <button className="repo-empty" onClick={() => document.getElementById("pr-url")?.focus()}>
+           <span className="repo-empty-icon"><GitFork size={15} /></span>
+-          <span><strong>Connect a repository</strong><small>Paste a pull request URL</small></span>
++          <span><strong>Add a repository</strong><small>Paste a pull request URL</small></span>
+           <ArrowUpRight size={14} />
+         </button>
+ 

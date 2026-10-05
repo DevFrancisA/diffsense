@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-10",
+  "project": "Karma",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6a272aa5763eb0c728b76adc3b12bb12abc1aaca",
+  "buggySha": "ee8303cc3ffa45a8d233e781bd14d0dd8b108300",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "4e3da6352965ddc15df6aa83ed08d5364a540d122d9912f4c41ac1e9487c7015",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "ee8303cc3ffa45a8d233e781bd14d0dd8b108300",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 1198,
+      "outputTokens": 0,
+      "totalTokens": 1198
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "2702a09677912502043d5d2f4a6a2c9b05b073cf297d290c3c6bdb780c648565"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "fd24b77e50f09cf024889b17d63a8e9f01239144f88a148a147c209d2715b465"
+      },
+      {
+        "path": "lib/watcher.js",
+        "contentSha256": "afac32f652d7d2bd614df746216ecb59c905239c05a16c0e668bf38f07ee121f"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "c51c353fdc503775b1e4ae5bf272f20bd7564f64a828a047b43526b4a05b2970"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "022fbae7b79fc4583235efd0bfd9653726502691c8fa14bd810fc00c5792d755"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "ca6391a7232e90355d6df04c511a07a3bed6786bdc6862d273d8ede104227127"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "99bbebb4d55f16f624605b469f5a866fa8833c659ec88ccc5d89fa21ec4210bf"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "31ec52399f2a01f78a0ab65a0d2f4df1223196d5a894c82ac4a5a2457b96c42b"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "d2513c137fbd2b976d63ee31c28af7946afc6c9c46fab86f165b8c003d216360"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1809,
+      "outputTokens": 0,
+      "totalTokens": 1809
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 6360,
+          "outputTokens": 268,
+          "totalTokens": 6628
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect argument type handling in watchPatterns call",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 39,
+            "explanation": "The watchPatterns function expects an array of pattern objects but was previously called with an array of strings. This can cause runtime errors as the function accesses properties like pattern.watched on these objects.",
+            "suggestion": "Filter the patterns to only those with watched=true before calling watchPatterns, passing the filtered pattern objects instead of strings. This is done correctly by the added getWatchedPatterns function and the modified call to watchPatterns with watchedPatterns."
+          },
+          {
+            "title": "createIgnore function does not properly filter files based on watched patterns and excludes",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 45,
+            "explanation": "The original createIgnore function only considered exclude patterns and did not take watched patterns into account, leading to watcher potentially processing files not matching any watched pattern. The new createIgnore function properly checks if the path matches any watched pattern and excludes patterns, returning true to ignore files that do not match or are excluded.",
+            "suggestion": "Replace old createIgnore with the new version that takes watched patterns and excludes, checks if the file is a directory, returns false to never ignore directories, and only ignores files that fail to match watched patterns or match excludes."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect argument type handling in watchPatterns call",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 39,
+            "explanation": "The watchPatterns function expects an array of pattern objects but was previously called with an array of strings. This can cause runtime errors as the function accesses properties like pattern.watched on these objects.",
+            "suggestion": "Filter the patterns to only those with watched=true before calling watchPatterns, passing the filtered pattern objects instead of strings. This is done correctly by the added getWatchedPatterns function and the modified call to watchPatterns with watchedPatterns."
+          },
+          {
+            "title": "createIgnore function does not properly filter files based on watched patterns and excludes",
+            "severity": "high",
+            "file": "lib/watcher.js",
+            "line": 45,
+            "explanation": "The original createIgnore function only considered exclude patterns and did not take watched patterns into account, leading to watcher potentially processing files not matching any watched pattern. The new createIgnore function properly checks if the path matches any watched pattern and excludes patterns, returning true to ignore files that do not match or are excluded.",
+            "suggestion": "Replace old createIgnore with the new version that takes watched patterns and excludes, checks if the file is a directory, returns false to never ignore directories, and only ignores files that fail to match watched patterns or match excludes."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

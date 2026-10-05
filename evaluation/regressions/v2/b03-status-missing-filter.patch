@@ -1,0 +1,15 @@
+diff --git a/src/app/api/status/route.ts b/src/app/api/status/route.ts
+index 6d3314a..19cee5e 100644
+--- a/src/app/api/status/route.ts
++++ b/src/app/api/status/route.ts
+@@ -3,9 +3,7 @@ import { NextResponse } from "next/server";
+ export const runtime = "nodejs";
+ 
+ export async function GET() {
+-  const missing: string[] = [];
+-  if (!process.env.OPENAI_API_KEY) missing.push("OPENAI_API_KEY");
+-  if (!process.env.DATABASE_URL) missing.push("DATABASE_URL");
++  const missing: string[] = ["OPENAI_API_KEY", "DATABASE_URL"].filter((name) => !process.env[name]);
+ 
+   if (missing.length === 0) {
+     try {

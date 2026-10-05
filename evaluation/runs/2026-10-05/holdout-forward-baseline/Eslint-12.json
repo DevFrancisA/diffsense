@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-12",
+  "project": "Eslint",
+  "bugId": 12,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "0e4ae22d4adebd1cb603ac9cb55daf70c9b921d0",
+  "buggySha": "47ac478f3272fca771461e1cc6d4e91b1ecaaccc",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "0110b34fd173187860ac151c8494d88d8b4bc30a4a59c68a892de6aa9a2edd2a",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "baseline",
+    "includeChangedFiles": false,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "47ac478f3272fca771461e1cc6d4e91b1ecaaccc",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 183,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "b8bd9678358b12f88520cbd1064ce869deb627e2c4dfa4528ef5141344973c16"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "4ea8868ef14c79ba9181171b891265436975efd073d39bd80a60d02321068716"
+      },
+      {
+        "path": ".eslintrc.js",
+        "contentSha256": "ba89b1c1f8b428b5bfc4c6a19363b9d18f3db45295cd8b7f37f7c40a119a70a1"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "ed1345c28f03d604abb67f32da39132e4c6a617298afb0cdb482258c7be4a57c"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "b9941f3b57a906302f783aa71da24580e21ec43d35fb98db0817273a949073f4"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "8ef565740e8a3bf829ea7330fc15c12083de34cd6dd772661bc5a004201fc7a7"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "cfa36fc50c72c75493b28626f3929d0e587bf7c775b57672bb9472b98e6899e5"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "04bc79198c0e96564c97056cfd715ef212a1b9f0e2dd546af686fd0ed58fbb26"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "b60c051b06adb160195ef8226eec5f807299b834c2611ee79ec9962994899b50",
+        "usage": {
+          "inputTokens": 5383,
+          "outputTokens": 147,
+          "totalTokens": 5530
+        },
+        "rawFindings": [
+          {
+            "title": "Possible unintended effect of ignoredNodes option in indent rule test",
+            "severity": "medium",
+            "file": "tests/lib/rules/indent.js",
+            "line": 4697,
+            "explanation": "A new test case is added that uses the 'ignoredNodes' option with 'JSXElement' and 'JSXOpeningElement'. This option causes these nodes to be ignored by the indent rule. While this is valid, it might unintentionally mask indentation issues inside JSX elements, leading to less strict verification for JSX code blocks.",
+            "suggestion": "Verify that ignoring these nodes is intentional and does not allow problematic JSX indentation to go unnoticed. If stricter checks are desired, consider removing or narrowing the ignoredNodes entries."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Possible unintended effect of ignoredNodes option in indent rule test",
+            "severity": "medium",
+            "file": "tests/lib/rules/indent.js",
+            "line": 4697,
+            "explanation": "A new test case is added that uses the 'ignoredNodes' option with 'JSXElement' and 'JSXOpeningElement'. This option causes these nodes to be ignored by the indent rule. While this is valid, it might unintentionally mask indentation issues inside JSX elements, leading to less strict verification for JSX code blocks.",
+            "suggestion": "Verify that ignoring these nodes is intentional and does not allow problematic JSX indentation to go unnoticed. If stricter checks are desired, consider removing or narrowing the ignoredNodes entries."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

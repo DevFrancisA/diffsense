@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-10",
+  "project": "Express",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "51f52901eb1f00571e18d404e10b27310215234c",
+  "buggySha": "8b6dc6ceec1b36e74ee9c6d362aa04e46237c227",
+  "manifestSha256": "e6a862db3323b5c542c0a89eb04944b58313bf787b6687bd05c78850f4dd0719",
+  "diffSha256": "c54aa334b2e0e8e45e8022ce25759e9ebad1f983aac72ca94dd565921d0cce54",
+  "pipelineConfig": {
+    "manifest": "manifest-holdout.json",
+    "promptRevision": "cite-added-line-source-focus",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "8b6dc6ceec1b36e74ee9c6d362aa04e46237c227",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 48,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/router/index.js",
+        "contentSha256": "800447a04e4959f6a8156b4d454b9cfebd03d590677cb5b2389715b5056893ff"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/route-middleware/index.js",
+        "contentSha256": "712baa0298844ee1bc9cc79343e7df3dd62e61b982252ae4c20f29f1a14fdf0f"
+      },
+      {
+        "path": "examples/multi-router/index.js",
+        "contentSha256": "dce7c949f395dfe1b7272197c80c6d2574990bb983091c4747ba30b935136662"
+      },
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "e7547cd941b2de6ac98e3a4d7b0e5aa51046a567a1b35d5255b18e80410a7ed6"
+      },
+      {
+        "path": "examples/route-separation/index.js",
+        "contentSha256": "6a670d333044d7c9d75f27eaa3c1bb5e4d2f02eea103ce6b6a5380f3078cac76"
+      },
+      {
+        "path": "examples/route-map/index.js",
+        "contentSha256": "d7709e448a5bddf16a22a1a39fda95f9b8a1e8d70c8a149b67542972957b2613"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "200d7613fa4a62495d06d075cc179aa33d87698592b9f313d5a66343034dcb41"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "cd42522974d9010d0f44789cacaebe34f46d6c2eb1828b9a27cca10fce099218"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "4c6d3b95f985fd39ea3cafd10f65ddf11d29bce1b6fa6b07f9aebe0a0378c869"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 703,
+      "outputTokens": 0,
+      "totalTokens": 703
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "e618f3885d697d72924db10f1d16c2075895c362575747e32a645fc54d42dc06",
+        "usage": {
+          "inputTokens": 7519,
+          "outputTokens": 196,
+          "totalTokens": 7715
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect validation condition when trimming prefix in router.handle",
+            "severity": "high",
+            "file": "lib/router/index.js",
+            "line": 284,
+            "explanation": "In the updated code, the condition checking the character following the matched layer path changed from `if (c && '/' !== c && '.' !== c)` to `if (c && c !== '/' && c !== '.')`, which preserves the same logic but is now inside the correct code block. However, the previous code incorrectly placed the check outside the new block, skipping crucial behavior for path prefixes. The fix unindents the condition to properly validate path break characters before trimming the prefix, preventing the router ",
+            "suggestion": "Ensure the character validation check for path separators (slash or dot) occurs immediately before trimming the prefix, as demonstrated in the added lines (284-290), to avoid skipping valid route matches."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect validation condition when trimming prefix in router.handle",
+            "severity": "high",
+            "file": "lib/router/index.js",
+            "line": 284,
+            "explanation": "In the updated code, the condition checking the character following the matched layer path changed from `if (c && '/' !== c && '.' !== c)` to `if (c && c !== '/' && c !== '.')`, which preserves the same logic but is now inside the correct code block. However, the previous code incorrectly placed the check outside the new block, skipping crucial behavior for path prefixes. The fix unindents the condition to properly validate path break characters before trimming the prefix, preventing the router ",
+            "suggestion": "Ensure the character validation check for path separators (slash or dot) occurs immediately before trimming the prefix, as demonstrated in the added lines (284-290), to avoid skipping valid route matches."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

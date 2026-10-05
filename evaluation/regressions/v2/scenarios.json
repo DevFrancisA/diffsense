@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "note": "HOLDOUT v2 for protocol v2 (evaluation/ROUND2.md). Authored with Claude Code assistance and committed before any v2 run. Breaking patches change visible behavior; benign patches must not.",
+  "scenarios": [
+    {
+      "id": "h01-skip-tests-default-off",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "const [skipTestFiles, setSkipTestFiles] = useState(true);",
+      "replace": "const [skipTestFiles, setSkipTestFiles] = useState(false);",
+      "intendedBreak": "Skip-test-files toggle starts unchecked"
+    },
+    {
+      "id": "h02-skip-tests-label",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "/> Skip findings in test files</label>",
+      "replace": "/> Skip test findings</label>",
+      "intendedBreak": "Skip-test-files toggle label changes"
+    },
+    {
+      "id": "h03-test-env-aria-label",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "aria-label=\"Test environment notes\"",
+      "replace": "aria-label=\"Environment notes\"",
+      "intendedBreak": "Test environment input accessible name changes"
+    },
+    {
+      "id": "h04-regression-foot-valid-plans",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "${evaluation.regressions.invalidPlans} invalid plans",
+      "replace": "${evaluation.regressions.validPlans} invalid plans",
+      "intendedBreak": "Regression tile reports valid plans as invalid plans"
+    },
+    {
+      "id": "h05-regression-rate-over-valid-plans",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "(evaluation.regressions.detected / evaluation.regressions.validScenarios) * 100",
+      "replace": "(evaluation.regressions.detected / evaluation.regressions.validPlans) * 100",
+      "intendedBreak": "Regression rate divides by valid plans"
+    },
+    {
+      "id": "h06-regression-rate-rounding",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "* 100).toFixed(1) : \"—\"}",
+      "replace": "* 100).toFixed(0) : \"—\"}",
+      "intendedBreak": "Regression rate loses its decimal"
+    },
+    {
+      "id": "h07-workspace-name",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "<strong>Demo workspace</strong>",
+      "replace": "<strong>Workspace</strong>",
+      "intendedBreak": "Workspace switcher name changes"
+    },
+    {
+      "id": "h08-pr-nav-count",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "<span className=\"nav-count\">0</span>",
+      "replace": "<span className=\"nav-count\">—</span>",
+      "intendedBreak": "Pull-request nav count shows a dash"
+    },
+    {
+      "id": "h09-breadcrumb-separator",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "<span className=\"breadcrumb-slash\">/</span>",
+      "replace": "<span className=\"breadcrumb-slash\">›</span>",
+      "intendedBreak": "Breadcrumb separator changes"
+    },
+    {
+      "id": "h10-eyebrow-text",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "CODE INTELLIGENCE <span",
+      "replace": "CODE REVIEW <span",
+      "intendedBreak": "Page eyebrow text changes"
+    },
+    {
+      "id": "h11-subheading",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "<p>Understand the change. Catch what matters.</p>",
+      "replace": "<p>Review every change.</p>",
+      "intendedBreak": "Page subheading changes"
+    },
+    {
+      "id": "h12-input-panel-title",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "<h2>Change under review</h2>",
+      "replace": "<h2>Change</h2>",
+      "intendedBreak": "Input panel title changes"
+    },
+    {
+      "id": "h13-results-panel-title",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "<h2>Review findings</h2>",
+      "replace": "<h2>Findings</h2>",
+      "intendedBreak": "Results panel title changes"
+    },
+    {
+      "id": "h14-precision-label",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "PRECISION · WITH CONTEXT",
+      "replace": "PRECISION",
+      "intendedBreak": "Precision tile label changes"
+    },
+    {
+      "id": "h15-precision-foot-runs",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "`${evaluation.cohort} BugsJS cases · ${evaluation.withContext?.runs.length} runs`",
+      "replace": "`${evaluation.cohort} BugsJS cases`",
+      "intendedBreak": "Precision tile drops the run count"
+    },
+    {
+      "id": "h16-editor-footer-text",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "Diff content stays in your configured review pipeline",
+      "replace": "Diff content is private",
+      "intendedBreak": "Editor footer text changes"
+    },
+    {
+      "id": "h17-clear-diff-clears-url",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "onClick={() => { setDiff(\"\"); setResult(null); setError(\"\"); }} disabled={!diff}",
+      "replace": "onClick={() => { setDiff(\"\"); setPullRequestUrl(\"\"); setResult(null); setError(\"\"); }} disabled={!diff}",
+      "intendedBreak": "Clear diff also clears the repository URL"
+    },
+    {
+      "id": "h18-evaluation-status-text",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "? \"Results saved\" :",
+      "replace": "? \"Saved\" :",
+      "intendedBreak": "Evaluation status text changes"
+    },
+    {
+      "id": "h19-connect-repo-text",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "<strong>Connect a repository</strong>",
+      "replace": "<strong>Add a repository</strong>",
+      "intendedBreak": "Sidebar repository prompt changes"
+    },
+    {
+      "id": "h20-help-button-label",
+      "role": "breaking",
+      "file": "src/app/page.tsx",
+      "find": "title=\"Help\" aria-label=\"Help\"",
+      "replace": "title=\"Support\" aria-label=\"Support\"",
+      "intendedBreak": "Help button name changes"
+    },
+    {
+      "id": "b01-comment-load-sample",
+      "role": "benign",
+      "file": "src/app/page.tsx",
+      "find": "  function loadSample() {",
+      "replace": "  // Loads the bundled example so the editor can be tried without a pull request.\n  function loadSample() {",
+      "intendedBreak": "Adds a comment"
+    },
+    {
+      "id": "b02-percent-helper",
+      "role": "benign",
+      "file": "src/app/page.tsx",
+      "find": "  return `${(range.min * 100).toFixed(1)}–${(range.max * 100).toFixed(1)}`;",
+      "replace": "  const percent = (value: number) => (value * 100).toFixed(1);\n  return `${percent(range.min)}–${percent(range.max)}`;",
+      "intendedBreak": "Extracts a percent helper with identical output"
+    },
+    {
+      "id": "b03-status-missing-filter",
+      "role": "benign",
+      "file": "src/app/api/status/route.ts",
+      "find": "  const missing: string[] = [];\n  if (!process.env.OPENAI_API_KEY) missing.push(\"OPENAI_API_KEY\");\n  if (!process.env.DATABASE_URL) missing.push(\"DATABASE_URL\");",
+      "replace": "  const missing: string[] = [\"OPENAI_API_KEY\", \"DATABASE_URL\"].filter((name) => !process.env[name]);",
+      "intendedBreak": "Builds the missing list with a filter (same order and values)"
+    },
+    {
+      "id": "b04-css-comment",
+      "role": "benign",
+      "file": "src/app/globals.css",
+      "find": ".skip-tests-toggle input {",
+      "replace": "/* The checkbox follows the label colour. */\n.skip-tests-toggle input {",
+      "intendedBreak": "Adds a CSS comment"
+    },
+    {
+      "id": "b05-docs-button-type",
+      "role": "benign",
+      "file": "src/app/page.tsx",
+      "find": "<button className=\"icon-button\" title=\"Documentation\" aria-label=\"Documentation\">",
+      "replace": "<button type=\"button\" className=\"icon-button\" title=\"Documentation\" aria-label=\"Documentation\">",
+      "intendedBreak": "Marks a button outside any form as type=button"
+    },
+    {
+      "id": "b06-active-view-type",
+      "role": "benign",
+      "file": "src/app/page.tsx",
+      "find": "const [activeView, setActiveView] = useState(\"Review desk\");",
+      "replace": "const [activeView, setActiveView] = useState<string>(\"Review desk\");",
+      "intendedBreak": "Adds an explicit type parameter"
+    },
+    {
+      "id": "b07-substring-not-slice",
+      "role": "benign",
+      "file": "src/app/page.tsx",
+      "find": "?.map((path) => path.slice(6)) ?? [],",
+      "replace": "?.map((path) => path.substring(6)) ?? [],",
+      "intendedBreak": "Uses substring instead of slice for a non-negative index"
+    },
+    {
+      "id": "b08-status-route-comment",
+      "role": "benign",
+      "file": "src/app/api/status/route.ts",
+      "find": "export async function GET() {",
+      "replace": "// Reports which server-side settings are missing; the UI only reads `ready`.\nexport async function GET() {",
+      "intendedBreak": "Adds a comment"
+    },
+    {
+      "id": "b09-format-range-doc",
+      "role": "benign",
+      "file": "src/app/page.tsx",
+      "find": "function formatPercentRange(range: MetricRange) {",
+      "replace": "/** Formats a 0-1 range as a percentage range with one decimal place. */\nfunction formatPercentRange(range: MetricRange) {",
+      "intendedBreak": "Adds a doc comment"
+    },
+    {
+      "id": "b10-css-property-order",
+      "role": "benign",
+      "file": "src/app/globals.css",
+      "find": ".test-environment { flex: 1 1 220px; min-width: 0;",
+      "replace": ".test-environment { min-width: 0; flex: 1 1 220px;",
+      "intendedBreak": "Reorders two CSS declarations"
+    }
+  ]
+}
