@@ -46,3 +46,7 @@ The 30 cases in `manifest.json` are the **DEV** cohort; they were used for the b
 - Result: 30 cases with 56 defect ranges, no fallback (Eslint 6, Express 6, Hexo 4, Karma 6, Mongoose 6, Node-redis 2).
 - Builder fix made while building HOLDOUT: a fix commit already present only as a shallow-clone boundary was not re-fetched, so its parent was missing. The builder now requires the parent too. The 7 candidates inspected by both builds have identical reasons, changed-line counts, and labels.
 - HOLDOUT is run exactly once with the final chosen configuration and once with the original baseline configuration.
+
+## TEST cohort (added 2026-10-05, before any TEST run)
+
+A third cohort, **TEST**, is registered in `manifest-test.json` and committed on its own before any review run on it. It uses the HOLDOUT rule (same order, eligibility rules, fallback, and stopping rule; per-project cap of 6 counted within TEST only), excluding the 30 DEV and 30 HOLDOUT cases. Build: `DIFFSENSE_COHORT=test npm run build-dataset`. TEST is reserved for a single final run in Round 4 (`ROUND4.md`).
