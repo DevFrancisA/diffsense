@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-13",
+  "project": "Mongoose",
+  "bugId": 13,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "a48c4054f38a7a11d968ffb44f7760abb9117ffa",
+  "buggySha": "57e8bf6da4b8b346cb8d064ee7dce3248fba7787",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "7e019412b9373ed94e91cdb59ced2fc03fcdcd5d5d666e6855781b6ca5c69cd6",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "57e8bf6da4b8b346cb8d064ee7dce3248fba7787",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 63,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/document.js",
+        "contentSha256": "7aec112205d8a6fc6c473ad3750118ea719026a0a43a9baf9f0b29251a1d5bbf"
+      },
+      {
+        "path": "lib/model.js",
+        "contentSha256": "f3e8d090d698783aefafdb9173cb2478d9551ba7c7b9be97cf4a9004d99331ef"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "9ce01033e7f5f5afcbf9f59a7b0890c13eaccd8cb6fdf3d1924a56b232155014"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "9a10640912b3377f1a59ca321aa0a730c45317c74ad5d5e468c6ee0814c1010e"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "873cd57c3319729fbd79b3a529c11cee7c9b8d2b5a959697e8102505f2a0deb3"
+      },
+      {
+        "path": "benchmarks/populationHeavyLoad.js",
+        "contentSha256": "46ae5d93f30e33fa8b6bd5ba4dc1a04fc3a2abd4c8412b6c7a2b098a78bba1ef"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 31266,
+          "outputTokens": 501,
+          "totalTokens": 31767
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect toObject option check for depopulate",
+            "severity": "high",
+            "file": "lib/document.js",
+            "line": 1430,
+            "explanation": "In Document.prototype.toObject, the condition was changed from checking 'options.convertToId' to checking 'options.depopulate && !options.isParent'. This changes behavior in depopulating logic when converting documents to plain object, potentially breaking existing functionality that relied on 'convertToId' flag and altering when depopulation occurs.",
+            "suggestion": "Restore the original condition checking 'options.convertToId' or ensure that the new behavior is fully compatible and tested for all use cases.",
+            "failureAfterChange": "Calling toObject with { convertToId: true } no longer triggers intended depopulation logic, possibly leading to fully populated objects instead of just their ids, breaking expectations.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "toObject forcibly sets options.isParent to false",
+            "severity": "medium",
+            "file": "lib/document.js",
+            "line": 1447,
+            "explanation": "Added line forcibly sets 'options.isParent = false' inside Document.prototype.toObject, overriding possibly explicitly set value by caller. This may cause issues in nested document transformations where 'isParent' flag is meaningful for correct depopulation or transformation behavior.",
+            "suggestion": "Remove the line setting 'options.isParent = false' or set it only if undefined to avoid overriding explicit caller options.",
+            "failureAfterChange": "Calling toObject with { isParent: true } option will have that overridden to false, breaking intended behavior for nested documents.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Incorrect option used for cloning in Model.$__delta",
+            "severity": "high",
+            "file": "lib/model.js",
+            "line": 381,
+            "explanation": "In Model.$__delta, the option passed to utils.clone was changed from { convertToId: 1 } to { depopulate: 1 }. Since these options cause different cloning behavior, this change alters how values are cloned before being sent in updates. This might cause incorrect serialization of populated fields or related data when saving, potentially resulting in data corruption or errors.",
+            "suggestion": "Restore the original cloning option { convertToId: 1 } unless thorough testing confirms the new option behaves correctly in all edge cases.",
+            "failureAfterChange": "Values cloned with { depopulate: 1 } might include full documents instead of ObjectIds, leading to malformed update commands to MongoDB and possible save failures.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect toObject option check for depopulate",
+            "severity": "high",
+            "file": "lib/document.js",
+            "line": 1430,
+            "explanation": "In Document.prototype.toObject, the condition was changed from checking 'options.convertToId' to checking 'options.depopulate && !options.isParent'. This changes behavior in depopulating logic when converting documents to plain object, potentially breaking existing functionality that relied on 'convertToId' flag and altering when depopulation occurs.",
+            "suggestion": "Restore the original condition checking 'options.convertToId' or ensure that the new behavior is fully compatible and tested for all use cases.",
+            "failureAfterChange": "Calling toObject with { convertToId: true } no longer triggers intended depopulation logic, possibly leading to fully populated objects instead of just their ids, breaking expectations.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "toObject forcibly sets options.isParent to false",
+            "severity": "medium",
+            "file": "lib/document.js",
+            "line": 1447,
+            "explanation": "Added line forcibly sets 'options.isParent = false' inside Document.prototype.toObject, overriding possibly explicitly set value by caller. This may cause issues in nested document transformations where 'isParent' flag is meaningful for correct depopulation or transformation behavior.",
+            "suggestion": "Remove the line setting 'options.isParent = false' or set it only if undefined to avoid overriding explicit caller options.",
+            "failureAfterChange": "Calling toObject with { isParent: true } option will have that overridden to false, breaking intended behavior for nested documents.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Incorrect option used for cloning in Model.$__delta",
+            "severity": "high",
+            "file": "lib/model.js",
+            "line": 381,
+            "explanation": "In Model.$__delta, the option passed to utils.clone was changed from { convertToId: 1 } to { depopulate: 1 }. Since these options cause different cloning behavior, this change alters how values are cloned before being sent in updates. This might cause incorrect serialization of populated fields or related data when saving, potentially resulting in data corruption or errors.",
+            "suggestion": "Restore the original cloning option { convertToId: 1 } unless thorough testing confirms the new option behaves correctly in all edge cases.",
+            "failureAfterChange": "Values cloned with { depopulate: 1 } might include full documents instead of ObjectIds, leading to malformed update commands to MongoDB and possible save failures.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

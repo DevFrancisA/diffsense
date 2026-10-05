@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-12",
+  "project": "Karma",
+  "bugId": 12,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6e31cb249ee5b32d91f37ea516ca0f84bddc5aa9",
+  "buggySha": "c786ee2ea19d2fcef078a30cecb70d69036a4803",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "72893776e93df4bd974d9f2cb0ed340e28b45d54ff412e7095498529492850e3",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "c786ee2ea19d2fcef078a30cecb70d69036a4803",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 84,
+    "embeddingUsage": {
+      "inputTokens": 938,
+      "outputTokens": 0,
+      "totalTokens": 938
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "1f91e67e9ad0555f77b3690c64856f724174bb479958356a818e0133dd83db48"
+      },
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "cd3212e64176ce702fa109c94daa1527ab1abeb3055cab547f0828c37e0b06bc"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "b04eeb726ab45cb7525bbb9357da31334ca08f20acf26b11e6d1c016c7fbc6dc"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "b1d56abaccad0fab0e424c50bd92654c7aad6c01a8b4d4458a75aa948178ec91"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "b627fdf6bdeef55ba63a39e82c8866361509944b59c39fcdea68a134e1dcb5a2"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "b76a9de0c583296e38f06d6b7a218beedf35cd143f90ba2de65afa91475d1205"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "730a24ff35a395fd02eaf6194a3326678af7d935ee598fe8a9a39c7092593f82"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "c90a2394aa04793cd6fd7da966f701dd803afee303bc0727f9b55ebf7b495c79"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "a31ef7e2a69a85496399fef8f4cf57154349e5fbfdf2df998540fa444afdb89b"
+      },
+      {
+        "path": "client/karma.js",
+        "contentSha256": "9ce771252f6148439737e86ed704e63375ffad02e0308c09dc89be54212971d4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1698,
+      "outputTokens": 0,
+      "totalTokens": 1698
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7440,
+          "outputTokens": 4271,
+          "totalTokens": 11711
+        },
+        "rawFindings": [
+          {
+            "title": "Unprocessed binary files are converted to UTF-8 text",
+            "severity": "medium",
+            "file": "lib/preprocessor.js",
+            "line": 63,
+            "explanation": "This path now runs for every file, including files with no configured preprocessors. Passing `buffer.toString()` into `nextPreprocessor` causes the final preprocessor step to set `file.content` to a decoded string and `file.contentPath` to `null`, so raw binary assets are no longer preserved byte-for-byte; different invalid UTF-8 byte sequences can also hash to the same replacement-character string.",
+            "suggestion": "Keep track of whether any real preprocessors matched; when none did, compute `file.sha` from the raw Buffer and leave `file.contentPath`/`file.content` unchanged. Only convert to string when running textual preprocessors.",
+            "failureAfterChange": "With no preprocessors configured, processing a served file whose bytes are `[0x80]` sets `file.content` to `'�'`; if the file changes to `[0x81]`, the decoded content and SHA remain the same even though the file bytes changed.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Read errors now crash preprocessing for files without preprocessors",
+            "severity": "medium",
+            "file": "lib/preprocessor.js",
+            "line": 63,
+            "explanation": "Because every file is now read, `fs.readFile` failures for files that previously skipped preprocessing reach `buffer.toString()` with `buffer === undefined`, throwing asynchronously instead of completing or reporting the missing file cleanly.",
+            "suggestion": "Check `err` in the `fs.readFile` callback before using `buffer`, and propagate/log the failure without calling `buffer.toString()` on an undefined value.",
+            "failureAfterChange": "With no preprocessors configured, if `file.originalPath` points to a file deleted between file-list creation and preprocessing, `fs.readFile` returns `ENOENT` and the process throws at `buffer.toString()`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Unprocessed binary files are converted to UTF-8 text",
+            "severity": "medium",
+            "file": "lib/preprocessor.js",
+            "line": 63,
+            "explanation": "This path now runs for every file, including files with no configured preprocessors. Passing `buffer.toString()` into `nextPreprocessor` causes the final preprocessor step to set `file.content` to a decoded string and `file.contentPath` to `null`, so raw binary assets are no longer preserved byte-for-byte; different invalid UTF-8 byte sequences can also hash to the same replacement-character string.",
+            "suggestion": "Keep track of whether any real preprocessors matched; when none did, compute `file.sha` from the raw Buffer and leave `file.contentPath`/`file.content` unchanged. Only convert to string when running textual preprocessors.",
+            "failureAfterChange": "With no preprocessors configured, processing a served file whose bytes are `[0x80]` sets `file.content` to `'�'`; if the file changes to `[0x81]`, the decoded content and SHA remain the same even though the file bytes changed.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Read errors now crash preprocessing for files without preprocessors",
+            "severity": "medium",
+            "file": "lib/preprocessor.js",
+            "line": 63,
+            "explanation": "Because every file is now read, `fs.readFile` failures for files that previously skipped preprocessing reach `buffer.toString()` with `buffer === undefined`, throwing asynchronously instead of completing or reporting the missing file cleanly.",
+            "suggestion": "Check `err` in the `fs.readFile` callback before using `buffer`, and propagate/log the failure without calling `buffer.toString()` on an undefined value.",
+            "failureAfterChange": "With no preprocessors configured, if `file.originalPath` points to a file deleted between file-list creation and preprocessing, `fs.readFile` returns `ENOENT` and the process throws at `buffer.toString()`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

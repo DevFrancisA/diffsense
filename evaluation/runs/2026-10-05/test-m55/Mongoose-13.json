@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-13",
+  "project": "Mongoose",
+  "bugId": 13,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "a48c4054f38a7a11d968ffb44f7760abb9117ffa",
+  "buggySha": "57e8bf6da4b8b346cb8d064ee7dce3248fba7787",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "b1f606a3a25b7ea1193db41430300d523151adbc1d6f2339c5303b6faa3169ba",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "a48c4054f38a7a11d968ffb44f7760abb9117ffa",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 63,
+    "embeddingUsage": {
+      "inputTokens": 11998,
+      "outputTokens": 0,
+      "totalTokens": 11998
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/document.js",
+        "contentSha256": "c741958f154dfa24c8b1d830e95580d1d703038827eb75354b3d17b427bdadd9"
+      },
+      {
+        "path": "lib/model.js",
+        "contentSha256": "7bac721885ea7819b8d6700992a35a7d9e28dd3884f0d1591a52df1c0d1a0769"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "9ce01033e7f5f5afcbf9f59a7b0890c13eaccd8cb6fdf3d1924a56b232155014"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "9a10640912b3377f1a59ca321aa0a730c45317c74ad5d5e468c6ee0814c1010e"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "873cd57c3319729fbd79b3a529c11cee7c9b8d2b5a959697e8102505f2a0deb3"
+      },
+      {
+        "path": "benchmarks/populationHeavyLoad.js",
+        "contentSha256": "46ae5d93f30e33fa8b6bd5ba4dc1a04fc3a2abd4c8412b6c7a2b098a78bba1ef"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 477,
+      "outputTokens": 0,
+      "totalTokens": 477
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 31246,
+          "outputTokens": 5936,
+          "totalTokens": 37182
+        },
+        "rawFindings": [
+          {
+            "title": "`depopulate` no longer converts populated documents to ids",
+            "severity": "high",
+            "file": "lib/document.js",
+            "line": 1430,
+            "explanation": "`Document#toObject()` now only returns an id when `options.convertToId` is set. Existing callers, including `save()` on new documents, still pass `{ depopulate: 1 }`, so populated reference values are serialized as full documents instead of their `_id`s.",
+            "suggestion": "Keep honoring the depopulate path for populated child documents, e.g. restore the `options.depopulate && !options.isParent` conversion or ensure depopulate callers set `convertToId` before invoking child `toObject()`.",
+            "failureAfterChange": "For a new `Post` with `author: { type: ObjectId, ref: 'User' }` whose `author` path is populated with a `User` document before `post.save()`, the inserted document contains `author: { _id: ..., name: ... }` instead of `author: ObjectId(...)`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "`depopulate` no longer converts populated documents to ids",
+            "severity": "high",
+            "file": "lib/document.js",
+            "line": 1430,
+            "explanation": "`Document#toObject()` now only returns an id when `options.convertToId` is set. Existing callers, including `save()` on new documents, still pass `{ depopulate: 1 }`, so populated reference values are serialized as full documents instead of their `_id`s.",
+            "suggestion": "Keep honoring the depopulate path for populated child documents, e.g. restore the `options.depopulate && !options.isParent` conversion or ensure depopulate callers set `convertToId` before invoking child `toObject()`.",
+            "failureAfterChange": "For a new `Post` with `author: { type: ObjectId, ref: 'User' }` whose `author` path is populated with a `User` document before `post.save()`, the inserted document contains `author: { _id: ..., name: ... }` instead of `author: ObjectId(...)`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

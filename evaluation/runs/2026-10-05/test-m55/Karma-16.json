@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-16",
+  "project": "Karma",
+  "bugId": 16,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "8b1b4b1052925e15770a0d4017a6ebc9ea89c0ed",
+  "buggySha": "322f3b34e978703df03ed131b3da8b2b435df212",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "d43999f4446ea36acd7bb42e34b41c739294d5d11bbf179e9a80939938e7e77f",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "8b1b4b1052925e15770a0d4017a6ebc9ea89c0ed",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 91,
+    "embeddingUsage": {
+      "inputTokens": 18234,
+      "outputTokens": 0,
+      "totalTokens": 18234
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "ce3bde46639b7ff234bab63260f0e1d5cf654b837453c98441971a94fef7b906"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "be758353e052c978cadef7eb7110a4257d9dd1ae6c67161d004e4bfe99d0aa47"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "243b563e88323b8872012053c6de9054bb29cb07aeb4ba33e4e1456b5b5895f5"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "98f8b1a79956385faf0623b7579ef2c6d3d331847b52a1c54a482d9613e44f0b"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "efec7d481c9adbdd43d9f6155d72c4b5eff3cfaa30d2e98a6f05c5e64863e85a"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "97bf0783ca7636d75d7e81348c85b80211d3164a892fb0a8e65565339be76d18"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "0fe039451e122a4d162e971ebabdaa1edd3899504ad644e60ef02f8a9467d0e8"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "348e785ca7d8de39e91bdf031ee7602392026aab1689a590358e1ae223a927b2"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "6f426284acd726e491c76e0eab605267780799b0228a69dd80ad08ac9e246774"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 915,
+      "outputTokens": 0,
+      "totalTokens": 915
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6121,
+          "outputTokens": 3819,
+          "totalTokens": 9940
+        },
+        "rawFindings": [
+          {
+            "title": "Valid single-byte ranges are rejected",
+            "severity": "medium",
+            "file": "lib/middleware/common.js",
+            "line": 61,
+            "explanation": "HTTP byte ranges are inclusive, so a range whose start equals its end (for example `bytes=0-0`) is valid. The new manual check treats it as unsatisfiable and returns 416.",
+            "suggestion": "Change this validation to reject only `end < start`, with a separate check for starts beyond the response length.",
+            "failureAfterChange": "Serving a 9-byte file with `Range: bytes=0-0` returns 416 with an empty body instead of 206 with the first byte and `Content-Range: bytes 0-0/9`.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Open-ended ranges use an end offset past EOF",
+            "severity": "medium",
+            "file": "lib/middleware/common.js",
+            "line": 56,
+            "explanation": "When the client sends an open-ended range like `bytes=3-`, this sets the inclusive end byte to `responseData.length`. The last valid byte offset is `responseData.length - 1`, so the response advertises an invalid `Content-Range`.",
+            "suggestion": "Use `responseData.length - 1` for omitted ends, and clamp explicit end values to `responseData.length - 1`.",
+            "failureAfterChange": "Serving a 9-byte file with `Range: bytes=3-` returns `Content-Range: bytes 3-9/9` while the body only contains bytes 3 through 8; it should report `bytes 3-8/9`.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Oversized suffix ranges produce negative start offsets",
+            "severity": "medium",
+            "file": "lib/middleware/common.js",
+            "line": 59,
+            "explanation": "For suffix ranges larger than the file, this calculation can make `start` negative. HTTP suffix ranges larger than the representation should start at byte 0, not produce a negative `Content-Range`.",
+            "suggestion": "Clamp the suffix start with `Math.max(0, responseData.length - Number(parts[2]))` and use `responseData.length - 1` as the inclusive end.",
+            "failureAfterChange": "Serving a 9-byte file with `Range: bytes=-100` returns a 206 response with `Content-Range: bytes -91-9/9`; it should return the whole file with `Content-Range: bytes 0-8/9`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Valid single-byte ranges are rejected",
+            "severity": "medium",
+            "file": "lib/middleware/common.js",
+            "line": 61,
+            "explanation": "HTTP byte ranges are inclusive, so a range whose start equals its end (for example `bytes=0-0`) is valid. The new manual check treats it as unsatisfiable and returns 416.",
+            "suggestion": "Change this validation to reject only `end < start`, with a separate check for starts beyond the response length.",
+            "failureAfterChange": "Serving a 9-byte file with `Range: bytes=0-0` returns 416 with an empty body instead of 206 with the first byte and `Content-Range: bytes 0-0/9`.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Open-ended ranges use an end offset past EOF",
+            "severity": "medium",
+            "file": "lib/middleware/common.js",
+            "line": 56,
+            "explanation": "When the client sends an open-ended range like `bytes=3-`, this sets the inclusive end byte to `responseData.length`. The last valid byte offset is `responseData.length - 1`, so the response advertises an invalid `Content-Range`.",
+            "suggestion": "Use `responseData.length - 1` for omitted ends, and clamp explicit end values to `responseData.length - 1`.",
+            "failureAfterChange": "Serving a 9-byte file with `Range: bytes=3-` returns `Content-Range: bytes 3-9/9` while the body only contains bytes 3 through 8; it should report `bytes 3-8/9`.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Oversized suffix ranges produce negative start offsets",
+            "severity": "medium",
+            "file": "lib/middleware/common.js",
+            "line": 59,
+            "explanation": "For suffix ranges larger than the file, this calculation can make `start` negative. HTTP suffix ranges larger than the representation should start at byte 0, not produce a negative `Content-Range`.",
+            "suggestion": "Clamp the suffix start with `Math.max(0, responseData.length - Number(parts[2]))` and use `responseData.length - 1` as the inclusive end.",
+            "failureAfterChange": "Serving a 9-byte file with `Range: bytes=-100` returns a 206 response with `Content-Range: bytes -91-9/9`; it should return the whole file with `Content-Range: bytes 0-8/9`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

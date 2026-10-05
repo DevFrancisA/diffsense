@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-18",
+  "project": "Eslint",
+  "bugId": 18,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "133f4895d833fa44987c11e818526aab03b3b3d4",
+  "buggySha": "a34b9c4c7558156e54af11fef6e053dbdd366857",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "516e5883026a03430cc18a59f84cb40d4f4239b507a8167593cc00a65ed40a11",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "133f4895d833fa44987c11e818526aab03b3b3d4",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 193,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/func-name-matching.js",
+        "contentSha256": "03a2a84a2b5555c3fac87a152be9a1b3c9267caa720236504e6c0c38aa5a16d0"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "e8e150e79467792cec9e3ee6054ae8e981998526be901ae26fabbd17a40b039c"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "7b00af1f94db7b56e4bc0b8521dde6fa277b38c8d4d3a34d9acf5f086f4a69d2"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "d04fe11caf93ddcb29e159c57b7888b8612a55ee6000310667f9ff5b9341a214"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "c6971081ade3fe5e4babcd0233fcce6ac338d275f3a647d5053670a6a1257638"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "12eb2e231b456b78b2a27845d61555e4253c751d1a46f485050303baea02e9f7"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "f2ba4902472c032fb4db895c0b10dc45f1450ee11ea01606947ef38343f6b6b0"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "8146d092ef9b04908da9c5eed091b5c2bb04cbd40baddadaa1863500031bfdf1"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "12f0ee5ac94455fa9d3e1ac3d91e80eba8e307fd12dfeea618e23730ca82e301"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7234,
+          "outputTokens": 190,
+          "totalTokens": 7424
+        },
+        "rawFindings": [
+          {
+            "title": "Invalid access of possibly non-Identifier node in VariableDeclarator",
+            "severity": "high",
+            "file": "lib/rules/func-name-matching.js",
+            "line": 151,
+            "explanation": "The changed code removes a prior check for node.id.type === 'Identifier' on a VariableDeclarator node, but then compares node.id.name without ensuring node.id is an Identifier node. If node.id is not an Identifier (e.g., a pattern node from destructuring), accessing node.id.name will throw an error.",
+            "suggestion": "Add a check to ensure node.id is an Identifier node before accessing node.id.name to avoid runtime exceptions.",
+            "failureAfterChange": "Parsing a variable declarator with a non-Identifier id (e.g., const {a} = function foo() {}) causes an exception when the rule accesses node.id.name without verifying node.id.type. The rule crashes instead of gracefully skipping.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Invalid access of possibly non-Identifier node in VariableDeclarator",
+            "severity": "high",
+            "file": "lib/rules/func-name-matching.js",
+            "line": 151,
+            "explanation": "The changed code removes a prior check for node.id.type === 'Identifier' on a VariableDeclarator node, but then compares node.id.name without ensuring node.id is an Identifier node. If node.id is not an Identifier (e.g., a pattern node from destructuring), accessing node.id.name will throw an error.",
+            "suggestion": "Add a check to ensure node.id is an Identifier node before accessing node.id.name to avoid runtime exceptions.",
+            "failureAfterChange": "Parsing a variable declarator with a non-Identifier id (e.g., const {a} = function foo() {}) causes an exception when the rule accesses node.id.name without verifying node.id.type. The rule crashes instead of gracefully skipping.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

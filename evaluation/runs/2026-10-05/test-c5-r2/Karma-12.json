@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-12",
+  "project": "Karma",
+  "bugId": 12,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "6e31cb249ee5b32d91f37ea516ca0f84bddc5aa9",
+  "buggySha": "c786ee2ea19d2fcef078a30cecb70d69036a4803",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "484fa82427aa18293ccac1de2f3c96edaf637d0c634a92bc18b57d41eed5ab21",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "6e31cb249ee5b32d91f37ea516ca0f84bddc5aa9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 84,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "6ce08d63d82b3d3cc82e53e29f5f830d17d1a48d45b13b6f2be4a49b3598eec8"
+      },
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "e5e7e49a7e295e862e2495ab4f17b7b62fead0132305ee75d22c2675304b375f"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/preprocessor.js",
+        "contentSha256": "cd72a623bb7f0d9b2768f3580cd87bda370d0a2f5bfb0d4b8b44eac74b886226"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "760c5d287c84838a7b65df9620a908c6de3313fc2dc9cf107d4d221c16473679"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "b627fdf6bdeef55ba63a39e82c8866361509944b59c39fcdea68a134e1dcb5a2"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "b76a9de0c583296e38f06d6b7a218beedf35cd143f90ba2de65afa91475d1205"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "730a24ff35a395fd02eaf6194a3326678af7d935ee598fe8a9a39c7092593f82"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "c90a2394aa04793cd6fd7da966f701dd803afee303bc0727f9b55ebf7b495c79"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "a31ef7e2a69a85496399fef8f4cf57154349e5fbfdf2df998540fa444afdb89b"
+      },
+      {
+        "path": "client/karma.js",
+        "contentSha256": "9ce771252f6148439737e86ed704e63375ffad02e0308c09dc89be54212971d4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7443,
+          "outputTokens": 253,
+          "totalTokens": 7696
+        },
+        "rawFindings": [
+          {
+            "title": "Missing SHA computation in preprocessor chain breaks cache-busting URLs referencing file.sha",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 56,
+            "explanation": "The updated createPreprocessor function no longer appends a preprocessor to compute the SHA hash for files, which was previously used by the karma middleware to append query parameters for cache busting using file.sha. After this change, file.sha will be undefined, causing generated URLs to have incorrect or missing cache-busting parameters.",
+            "suggestion": "Restore the SHA computation preprocessor in createPreprocessor so that file.sha is set, for example:\n\npreprocessors.push(function(content, file, done) {",
+            "failureAfterChange": "Serving '/context.html' or '/debug.html' results in script/link tags referencing files with query parameters using undefined file.sha, leading to cache issues and potential stale file serving.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Missing SHA computation in preprocessor chain breaks cache-busting URLs referencing file.sha",
+            "severity": "high",
+            "file": "lib/preprocessor.js",
+            "line": 56,
+            "explanation": "The updated createPreprocessor function no longer appends a preprocessor to compute the SHA hash for files, which was previously used by the karma middleware to append query parameters for cache busting using file.sha. After this change, file.sha will be undefined, causing generated URLs to have incorrect or missing cache-busting parameters.",
+            "suggestion": "Restore the SHA computation preprocessor in createPreprocessor so that file.sha is set, for example:\n\npreprocessors.push(function(content, file, done) {",
+            "failureAfterChange": "Serving '/context.html' or '/debug.html' results in script/link tags referencing files with query parameters using undefined file.sha, leading to cache issues and potential stale file serving.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

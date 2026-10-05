@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-15",
+  "project": "Express",
+  "bugId": 15,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "69290cad6fc66154181650d4eedd10d487488ad5",
+  "buggySha": "b66c7da05f8f7e1f58f69ddbcb2a6bb7b1fd4587",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "24549a61035cad77fc1395283513ec382dabdde15aebe2ad84a35e63a99debaa",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "69290cad6fc66154181650d4eedd10d487488ad5",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 46,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/response.js",
+        "contentSha256": "6a05185a05401cd3cd481f62dfb6cbacf6234e601f065de8c4b45b391f10273f"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/content-negotiation/index.js",
+        "contentSha256": "bd167a9cc85ba76de2955a88a46d45cf1f02df7583c089dbb40b5ff034ccfe36"
+      },
+      {
+        "path": "examples/resource/app.js",
+        "contentSha256": "010f457d072b09dfbbf782cf0a277a22b1f62026e46f31df7d46bd68c9c5fe36"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "d841b3dca6f571bd1e4d08af76af4472528a74375ac56d257145a4bdfc2d3378"
+      },
+      {
+        "path": "examples/cookies/app.js",
+        "contentSha256": "0966f23f01be176c0726ffcc80f2ceafcbf09f22559bbae767c183d5692153e8"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "10b3961069e75776b5345725914869fc69943ec644f6cd57d645c2f181c3dc42"
+      },
+      {
+        "path": "examples/cors/index.js",
+        "contentSha256": "c255c9f3545fff2daa43aa063b2ef54463ef79c1f9338225762a59d2f26bd663"
+      },
+      {
+        "path": "examples/content-negotiation/users.js",
+        "contentSha256": "ab3079e09a9ed8cf4285ca810ebd81c00aaec7c0ea7ee01aa99d0f9df70197de"
+      },
+      {
+        "path": "examples/multipart/index.js",
+        "contentSha256": "097d0b61f067ff69202ef3666662d956a78f672df3638d0293dc7971375e073a"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 8189,
+          "outputTokens": 184,
+          "totalTokens": 8373
+        },
+        "rawFindings": [
+          {
+            "title": "Removal of charset from Content-Type in res.format()",
+            "severity": "medium",
+            "file": "lib/response.js",
+            "line": 472,
+            "explanation": "The change removed the charset from the Content-Type header in the res.format() method. Previously, if a charset was associated with the MIME type, it was appended to the Content-Type value (e.g., 'text/plain; charset=UTF-8'). After the change, the charset is no longer added, potentially causing issues for clients expecting charset information.",
+            "suggestion": "Restore the logic that appends the charset to the Content-Type header if available, to maintain previous behavior and client compatibility.",
+            "failureAfterChange": "A client requesting 'text/plain' via Accept header gets 'Content-Type: text/plain' instead of 'text/plain; charset=UTF-8'; the client may misinterpret the response encoding.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Removal of charset from Content-Type in res.format()",
+            "severity": "medium",
+            "file": "lib/response.js",
+            "line": 471,
+            "explanation": "The change removed the charset from the Content-Type header in the res.format() method. Previously, if a charset was associated with the MIME type, it was appended to the Content-Type value (e.g., 'text/plain; charset=UTF-8'). After the change, the charset is no longer added, potentially causing issues for clients expecting charset information.",
+            "suggestion": "Restore the logic that appends the charset to the Content-Type header if available, to maintain previous behavior and client compatibility.",
+            "failureAfterChange": "A client requesting 'text/plain' via Accept header gets 'Content-Type: text/plain' instead of 'text/plain; charset=UTF-8'; the client may misinterpret the response encoding.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

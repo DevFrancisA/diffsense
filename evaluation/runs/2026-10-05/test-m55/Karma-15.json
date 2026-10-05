@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-15",
+  "project": "Karma",
+  "bugId": 15,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "892fa8945f96a852020ffedf667225f896e2c760",
+  "buggySha": "184f12e415fa970b3d14b70a41e2336d1fa73eb4",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "febbd51b3d81b3c3193c49d1091baa66c83cdbd59d26465682aeb76d2c42d0b1",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "892fa8945f96a852020ffedf667225f896e2c760",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 13764,
+      "outputTokens": 0,
+      "totalTokens": 13764
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "658a74823b08566525762424dd8057ba4e76f8cee8654f081762190ecf306030"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "a8ba0eeccce6e3df580bf0a4ee6dee16050085b744b0ad6e17bd9e85fb8b7c4f"
+      },
+      {
+        "path": "lib/web-server.js",
+        "contentSha256": "7a46b2d8088ddfdd3fb2fe388e05d162495e81c320c2b3ab04a3da017c466045"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/source_files.js",
+        "contentSha256": "da632e3d2254cfb861b1e7e845fab83ba350bd70abc8e0cdb98bf8da70b2995e"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "b24b3b1c9f28d3ad5a0469bb76b60b60c54a44a3739e993c1a90e8088e953801"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "d13a5933ad1414d40ba3dd54a2bbecca230d3ee3a0c190b296c9039895e1d0b8"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "3ff43d79215fa848809be7e886fc61fb1a31ba23a322bf246eb1c00cf9b1d419"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "a0432697f1183ae61e276266da3fedd9f4354325c0eb7b09b144da468cb3d3a8"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "56f3a50dd01950921753467bd40e824d1964711ac4b8f12a1ab0487965ea7a7b"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "d47f9fd0cbf3387df9308004fac3db79c456de2e5bba0f21c6444f86a4cf03dc"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "6867807788b58bb21e5fe6f9796a26158de0a0d64ad3c548a8dcc24bafcd1c38"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 623,
+      "outputTokens": 0,
+      "totalTokens": 623
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7980,
+          "outputTokens": 2477,
+          "totalTokens": 10457
+        },
+        "rawFindings": [
+          {
+            "title": "File middleware can be used before its backing promise is initialized",
+            "severity": "medium",
+            "file": "lib/web-server.js",
+            "line": 32,
+            "explanation": "The web server no longer receives the current file list and no longer initializes `filesPromise` before registering middlewares. Until a `file_list_modified` event fires, `PromiseContainer` has no internal promise, so requests that reach `source_files` or `karma` call `filesPromise.then(...)` and throw because `promise` is undefined instead of returning the previous empty file list behavior.",
+            "suggestion": "Initialize `filesPromise` when the server is created, e.g. inject `fileList` again and call `filesPromise.set(Promise.resolve(fileList.files))`, or set it to `Promise.resolve({served: [], included: []})` by default.",
+            "failureAfterChange": "Start the web server before any `file_list_modified` event and request `/base/new.js`; instead of a 404 response, `source_files` calls `filesPromise.then` with no promise set and throws a TypeError.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "`files` getter now throws before buckets are populated",
+            "severity": "medium",
+            "file": "lib/file-list.js",
+            "line": 224,
+            "explanation": "`self.buckets.get(p.pattern)` is undefined for patterns that have not been refreshed yet. Passing that directly to `Array.from` throws, whereas the getter previously returned an empty list for unpopulated buckets.",
+            "suggestion": "Keep the empty fallback when converting buckets, e.g. `from(self.buckets.get(p.pattern) || []).sort(byPath)` for both served and included buckets.",
+            "failureAfterChange": "Create a `List` with a served pattern and read `list.files` before calling `refresh()`; the getter throws `TypeError: undefined is not iterable` instead of returning `{served: [], included: []}`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "File middleware can be used before its backing promise is initialized",
+            "severity": "medium",
+            "file": "lib/web-server.js",
+            "line": 32,
+            "explanation": "The web server no longer receives the current file list and no longer initializes `filesPromise` before registering middlewares. Until a `file_list_modified` event fires, `PromiseContainer` has no internal promise, so requests that reach `source_files` or `karma` call `filesPromise.then(...)` and throw because `promise` is undefined instead of returning the previous empty file list behavior.",
+            "suggestion": "Initialize `filesPromise` when the server is created, e.g. inject `fileList` again and call `filesPromise.set(Promise.resolve(fileList.files))`, or set it to `Promise.resolve({served: [], included: []})` by default.",
+            "failureAfterChange": "Start the web server before any `file_list_modified` event and request `/base/new.js`; instead of a 404 response, `source_files` calls `filesPromise.then` with no promise set and throws a TypeError.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "`files` getter now throws before buckets are populated",
+            "severity": "medium",
+            "file": "lib/file-list.js",
+            "line": 224,
+            "explanation": "`self.buckets.get(p.pattern)` is undefined for patterns that have not been refreshed yet. Passing that directly to `Array.from` throws, whereas the getter previously returned an empty list for unpopulated buckets.",
+            "suggestion": "Keep the empty fallback when converting buckets, e.g. `from(self.buckets.get(p.pattern) || []).sort(byPath)` for both served and included buckets.",
+            "failureAfterChange": "Create a `List` with a served pattern and read `list.files` before calling `refresh()`; the getter throws `TypeError: undefined is not iterable` instead of returning `{served: [], included: []}`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-15",
+  "project": "Karma",
+  "bugId": 15,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "892fa8945f96a852020ffedf667225f896e2c760",
+  "buggySha": "184f12e415fa970b3d14b70a41e2336d1fa73eb4",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "8780d7a4e5ed1395115c7820b7ea3b89d06cc1eb539a91a4cd4f276ce3ebf82a",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "184f12e415fa970b3d14b70a41e2336d1fa73eb4",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "eaf30a8c9a09dbb057e2bb915350aac947e30cf122c47ff65886f6fc2a29ae85"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "26c918a8d41bdd7b8de5d865d5886bad0fe6dde48a1e9b7ee44cec0e97e7477a"
+      },
+      {
+        "path": "lib/web-server.js",
+        "contentSha256": "3218d12b076ec4a0d4f83d6616eab0efa62f3ff4a374f1aae918c425b819cdf4"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/source_files.js",
+        "contentSha256": "da632e3d2254cfb861b1e7e845fab83ba350bd70abc8e0cdb98bf8da70b2995e"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "b24b3b1c9f28d3ad5a0469bb76b60b60c54a44a3739e993c1a90e8088e953801"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "d13a5933ad1414d40ba3dd54a2bbecca230d3ee3a0c190b296c9039895e1d0b8"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "a0432697f1183ae61e276266da3fedd9f4354325c0eb7b09b144da468cb3d3a8"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "f3cd86792ac28e83eb3777267d0327c37e4a35fddf2e8c90ee36bf116e04e3d2"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "f0c5fa4b2c0f13b389a5bd0e2733c676ac1bb79f7d90e17d549fdc4e21181c94"
+      },
+      {
+        "path": "lib/file-list.js",
+        "contentSha256": "d47f9fd0cbf3387df9308004fac3db79c456de2e5bba0f21c6444f86a4cf03dc"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "6867807788b58bb21e5fe6f9796a26158de0a0d64ad3c548a8dcc24bafcd1c38"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 8019,
+          "outputTokens": 467,
+          "totalTokens": 8486
+        },
+        "rawFindings": [
+          {
+            "title": "Missing fallback for undefined bucket value access in List.prototype.files",
+            "severity": "high",
+            "file": "lib/file-list.js",
+            "line": 224,
+            "explanation": "In the getter for List.prototype.files, the code accesses this.buckets.get(p.pattern) without verifying if the bucket exists, which can result in an error if undefined is returned (for example, it lacks fallback for undefined value). The patch correctly adds '|| []' fallback to prevent errors caused by undefined buckets.",
+            "suggestion": "Add '|| []' fallback when accessing buckets map values to ensure from() always receives an array-like object.",
+            "failureAfterChange": "If a pattern in this._patterns has no entries in this.buckets, calling from() without fallback would throw an exception, breaking the file listing.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Incorrect PromiseContainer.then implementation that swallows errors",
+            "severity": "high",
+            "file": "lib/middleware/common.js",
+            "line": 12,
+            "explanation": "The PromiseContainer.then method previously returned promise.then(success, error), which is incorrect because Promise.then's second argument handles rejections but does not catch exceptions properly, which can result in swallowed errors. The patch changes it to promise.then(success).catch(error), which correctly catches errors and passes them to the error handler.",
+            "suggestion": "Change PromiseContainer.then to return promise.then(success).catch(error) to ensure proper error handling in Promise chains.",
+            "failureAfterChange": "Previously, errors in promise chains could be lost or mishandled causing unexpected behaviors in error cases.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "createWebServer factory missing fileList injection and initial filesPromise setup",
+            "severity": "medium",
+            "file": "lib/web-server.js",
+            "line": 38,
+            "explanation": "The createWebServer function was missing the fileList dependency parameter, and the filesPromise was not initialized with a resolved promise containing the initial file list, which can lead to race conditions when consuming filesPromise before the first 'file_list_modified' event is emitted.",
+            "suggestion": "Add fileList parameter to createWebServer and initialize filesPromise with Promise.resolve(fileList.files) to avoid race conditions.",
+            "failureAfterChange": "Without this, middleware depending on filesPromise may receive undefined or stale files on initial requests, causing 404 or improper behavior.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

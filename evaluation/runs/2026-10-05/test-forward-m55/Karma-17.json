@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-17",
+  "project": "Karma",
+  "bugId": 17,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "8ef475f7d1a06562e659347dcc53c2e474cbddc7",
+  "buggySha": "b765c33cc18056d54c397cffda04a1884225b382",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "ddb919f05588b9176ffddb1a68193c51bd5cb2431c2d7fb123a783948e6a1d8a",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "b765c33cc18056d54c397cffda04a1884225b382",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 84,
+    "embeddingUsage": {
+      "inputTokens": 3584,
+      "outputTokens": 0,
+      "totalTokens": 3584
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "a049d95e0d2179188619cca49ed72a02c626eb355cfdad89f06f2436cb5fb48e"
+      },
+      {
+        "path": "lib/web-server.js",
+        "contentSha256": "840ae71c28b9cf6c13cdc4c4001888e18b8aaaee498417c5146e27b3cce62d1f"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "fc233f0b7bd4dd2f70bdee33858ae541dda11d842826fc9d376b7b1dcb40758f"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "ea64423a0370be14f6eeb4f7c3f2a8b67f332ff25176b99f3b6faa5e48bf07fe"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "5663b30aca3762990ef198534f90c208b9b7563a8b9fe4cec09314ad781d5126"
+      },
+      {
+        "path": "client/karma.js",
+        "contentSha256": "1dab72c84e4d8a3baf8e890b894cf90b51bea11d5fd559543d89b33a0cea0fd0"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "b4ed748e2f38d1fe539b1fe45a591fc3a135290200082b653bdc8dded531a697"
+      },
+      {
+        "path": "client/karma.js",
+        "contentSha256": "5c9540e04a769f947ec14218650bbea3e6d4691238dd37668289460d1eebc97f"
+      },
+      {
+        "path": "client/karma.js",
+        "contentSha256": "9389fa056cebd95b277be3a9d4b3853844030413ae95624f26dc6275b14402df"
+      },
+      {
+        "path": "client/main.js",
+        "contentSha256": "b9e696ca5b257f7bd93c250802b72ccbac6a2f99dd896517b932e1fa4f932946"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1437,
+      "outputTokens": 0,
+      "totalTokens": 1437
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 8655,
+          "outputTokens": 1444,
+          "totalTokens": 10099
+        },
+        "rawFindings": [
+          {
+            "title": "Karma middleware can no longer be invoked by DI",
+            "severity": "critical",
+            "file": "lib/middleware/karma.js",
+            "line": 69,
+            "explanation": "After removing the explicit `$inject` annotation, the injector will infer the parameter name `basePath` from this function signature. The registered dependency is `config.basePath` (as the previous annotation used), not `basePath`, so `injector.invoke(karmaMiddleware.create)` in the web server fails while constructing the middleware.",
+            "suggestion": "Restore an explicit annotation, including the new injector dependency, e.g. `createKarmaMiddleware.$inject = ['filesPromise', 'serveStaticFile', 'serveFile', 'injector', 'config.basePath', 'config.urlRoot']`.",
+            "failureAfterChange": "Starting the web server with a normal config calls `injector.invoke(karmaMiddleware.create)` and throws a missing provider error for `basePath` instead of creating the Karma middleware.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Karma middleware can no longer be invoked by DI",
+            "severity": "critical",
+            "file": "lib/middleware/karma.js",
+            "line": 69,
+            "explanation": "After removing the explicit `$inject` annotation, the injector will infer the parameter name `basePath` from this function signature. The registered dependency is `config.basePath` (as the previous annotation used), not `basePath`, so `injector.invoke(karmaMiddleware.create)` in the web server fails while constructing the middleware.",
+            "suggestion": "Restore an explicit annotation, including the new injector dependency, e.g. `createKarmaMiddleware.$inject = ['filesPromise', 'serveStaticFile', 'serveFile', 'injector', 'config.basePath', 'config.urlRoot']`.",
+            "failureAfterChange": "Starting the web server with a normal config calls `injector.invoke(karmaMiddleware.create)` and throws a missing provider error for `basePath` instead of creating the Karma middleware.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

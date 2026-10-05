@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "test-forward-c5-r2",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "models": {
+    "review": "gpt-4.1-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 11,
+    "casesFlaggedOnSource": 11,
+    "findings": 14,
+    "sourceFindings": 14,
+    "testFindings": 0
+  },
+  "cases": [
+    {
+      "caseId": "Eslint-17",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-18",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Accessing node.id.type without verifying node.id in VariableDeclarator",
+          "severity": "high",
+          "file": "lib/rules/func-name-matching.js",
+          "line": 151,
+          "explanation": "At added line 151, the condition in VariableDeclarator listener was changed to add a check for node.id.type === \"Identifier\", but the check is done without verifying if node.id exists, which could cause runtime errors if node.id is null or undefined.",
+          "suggestion": "Add a nullish check for node.id before accessing node.id.type, such as node.id && node.id.type === \"Identifier\".",
+          "failureAfterChange": "Input code with a VariableDeclarator node where node.init.type is 'FunctionExpression' but node.id is null causes runtime error due to accessing node.id.type.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Incorrect call to isIdentifier missing ecmaVersion argument in AssignmentExpression",
+          "severity": "high",
+          "file": "lib/rules/func-name-matching.js",
+          "line": 160,
+          "explanation": "At added line 160, inside AssignmentExpression listener, the isIdentifier function is called as isIdentifier(name), but isIdentifier expects two arguments: name and ecmaVersion. The absence of ecmaVersion leads to inconsistent validation of identifiers.",
+          "suggestion": "Pass ecmaVersion to isIdentifier call: isIdentifier(name, ecmaVersion).",
+          "failureAfterChange": "AssignmentExpression with computed property name string literal that fails to be recognized as an identifier due to missing ecmaVersion argument, causing incorrect warning behavior.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-19",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Accessing potentially missing child scope without check can cause error",
+          "severity": "high",
+          "file": "lib/rules/no-invalid-this.js",
+          "line": 320,
+          "explanation": "In the code added at line 320, the expression accesses scope.childScopes[0].isStrict without verifying whether childScopes[0] exists. If the current scope has no childScopes, this will cause a runtime error when trying to access isStrict of undefined.",
+          "suggestion": "Add a check to verify that scope.childScopes[0] exists before accessing its isStrict property, e.g. (features.globalReturn && scope.childScopes[0] && scope.childScopes[0].isStrict).",
+          "failureAfterChange": "Invoking the rule in a context where scope.childScopes array is empty or undefined causes a TypeError: Cannot read property 'isStrict' of undefined.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-20",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-21",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect logic in determining optional semicolon opt-out tokens",
+          "severity": "medium",
+          "file": "lib/rules/semi.js",
+          "line": 56,
+          "explanation": "The regular expression used to determine \"opt-out\" tokens (tokens for which semicolon insertion should not happen automatically) was changed to /^[-[(\\/+]$/. This regex matches only a single character that is one of '-', '[', '(', '/', or '+'. The previous expression /[\\[\\(\\/\\+\\-]/ matched any of these characters anywhere in the string. The new regex does not correctly handle multi-character tokens (like '++' and '--') and falsely excludes them, potentially causing incorrect semicolon insertion ",
+          "suggestion": "Use a regex that tests for any one of these characters anywhere in the string, e.g. /[\\[\\(\\/\\+\\-]/, or improve the logic to precisely detect multi-character tokens such as '++' or '--'.",
+          "failureAfterChange": "When the next token is '++' or '--', isUnnecessarySemicolon incorrectly treats it as not an opt-out token, leading to incorrect semicolon removal or addition.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-23",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-13",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-16",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-17",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-18",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-19",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-12",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect fallback in preprocessor chain causes file content read twice",
+          "severity": "medium",
+          "file": "lib/preprocessor.js",
+          "line": 58,
+          "explanation": "In the updated createPreprocessor function, the SHA computation preprocessor was moved after the check that triggers fs.readFile and nextPreprocessor invocation only if preprocessors.length > 0. Because preprocessors array is empty initially, the new code always adds the SHA computation preprocessor, then immediately always reads the file and executes preprocessors. This changes behavior from the previous logic that would do nothing if no preprocessor matched (skip reading file). This might caus",
+          "suggestion": "Restore the logic to only invoke fs.readFile and processing chain if there are preprocessors (including SHA). Alternatively, always add the SHA computation preprocessor first so that 'preprocessors.length' is never zero during the condition check.",
+          "failureAfterChange": "When config.preprocessors is empty, the preprocessor function will still read the file and compute SHA, causing extra file read and setting file.sha unexpectedly. Previously it would do nothing and call done immediately.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-13",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect state assignment timing in start method",
+          "severity": "medium",
+          "file": "lib/launchers/Base.js",
+          "line": 29,
+          "explanation": "In the start method, the state BEING_CAPTURED is assigned after calling self._start(), whereas in the previous implementation it was assigned before. This subtle change could lead to race conditions if the process starts and interacts with state before it is set to BEING_CAPTURED.",
+          "suggestion": "Move the line `self.state = BEING_CAPTURED;` to precede the call to `self._start()` in the start method.",
+          "failureAfterChange": "If the spawned process emits events immediately upon start, those events may be handled with self.state still null, causing incorrect behavior in state checks.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Removed error event handler on spawned process causing lost error handling",
+          "severity": "high",
+          "file": "lib/launchers/Base.js",
+          "line": 111,
+          "explanation": "The updated _execCommand method incorrectly removed the existing error handler for the spawned process and its stderr data handler from the previous code and added a minimal error handler. This causes unhandled errors except ENOENT to silently fail or not be processed correctly, leading to potential missing retry logic or error reporting.",
+          "suggestion": "Retain the _process 'error' event handler and the stderr 'data' event handler, adapting them to handle errors consistently, particularly for ENOENT and other errors, to ensure proper retry and logging behavior.",
+          "failureAfterChange": "Spawned process errors other than ENOENT will not be captured in errorOutput, possibly losing critical diagnostic info and not triggering intended retries or log messages.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Improper handling of exit code on load errors before server start",
+          "severity": "high",
+          "file": "lib/server.js",
+          "line": 187,
+          "explanation": "After a load error is detected (_start method), the code sets process.exitCode to 1 and immediately tries to exit the process with SIGINT (kill process). This is problematic because no exit code is passed to the disconnectBrowsers done callback, which causes the server to call done with code 0 (success) instead of 1 (failure). This will cause the server to exit with success even though there are load errors.",
+          "suggestion": "Change the logic to call done with exit code 1 when load errors are present, or ensure the disconnectBrowsers function receives the appropriate failure exit code to propagate the error properly.",
+          "failureAfterChange": "Run server with load errors present; server.exit code is 0 (success) instead of 1 (failure), misleading the caller that the server started successfully despite load errors.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-16",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-17",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-11",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Missed exclusion when forcing inclusion of a deselected schema path in _applyPaths",
+          "severity": "medium",
+          "file": "lib/query.js",
+          "line": 517,
+          "explanation": "In Query.prototype._applyPaths, the addition of the condition '!~keys.indexOf(path)' in line 517 prevents forced inclusion of a path not explicitly specified in the selection keys, breaking the ability to force inclusion of deselected paths at the schema level.",
+          "suggestion": "Remove the added condition '!~keys.indexOf(path)' in line 517 to restore forced inclusion behavior.",
+          "failureAfterChange": "A query with .select('+forceInclusionPath') on a schema path marked select:false does not include 'forceInclusionPath' in the result, returning undefined incorrectly.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-13",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Redundant duplication of rawIds.push(ret) causing potential confusion",
+          "severity": "low",
+          "file": "lib/model.js",
+          "line": 1802,
+          "explanation": "In the populate function, the line 'rawIds.push(ret);' was previously duplicated (once on line 1800 removed, and once added anew on line 1802). The change adds a duplicate push operation which was effectively a no-op fix but could be confusing and is better to keep only one push.",
+          "suggestion": "Remove the redundant 'rawIds.push(ret);' line so rawIds are pushed only once per iteration to avoid confusion.",
+          "failureAfterChange": "Using populate with a list of documents, rawIds could be duplicated twice, leading to wrong mapping if not handled carefully.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Node-redis-5",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Parser Initialization Timing Changed",
+          "severity": "medium",
+          "file": "index.js",
+          "line": 231,
+          "explanation": "The parser initialization moved from the RedisClient constructor to the create_stream method. Before, the parser was created at client instantiation, now it's created on stream creation. This changes the timing of parser reset, which might affect behavior if code expects parser presence right after client creation and before stream connection.",
+          "suggestion": "Keep the parser initialization in the constructor to ensure consistent parser state regardless of stream connection timing. Initialize it both in constructor and in create_stream when reconnecting, or add explicit parser reset method on reconnect.",
+          "failureAfterChange": "Creating a RedisClient and accessing reply_parser immediately after instantiation (before any stream is created) will now find reply_parser undefined, causing errors for code relying on it. E.g. code accessing client.reply_parser.buffer right after creation will fail.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Node-redis-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "do_auth command error now emits 'error' event instead of callback invocation",
+          "severity": "medium",
+          "file": "index.js",
+          "line": 210,
+          "explanation": "Previously, if authentication failed due to an error other than 'LOADING' or 'no password is set', the authentication callback (if any) was called with the error. After the change, the error is emitted on the client instance and the callback (auth_callback) is not called. This breaks the contract that an auth callback provided to do_auth will be called on error, causing potential confusion or missed error handling in user code that relies on the callback.",
+          "suggestion": "Invoke the auth_callback with the error if it is defined, before emitting the error event. This preserves backward compatibility and ensures errors are reported via callback as expected.",
+          "failureAfterChange": "Calling client.auth with a bad password and a callback causes the callback not to be invoked on error, but an 'error' event is emitted instead, which may cause unhandled errors or test failures expecting the callback.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Pencilblue-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Pencilblue-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Unnecessary cloning of themeRoute in error formatter might cause duplication of object",
+          "severity": "low",
+          "file": "include/error/formatters/error_formatters.js",
+          "line": 152,
+          "explanation": "In ErrorFormatters.html, the assignment of params.request.themeRoute is changed to clone an existing object when truthy instead of defaulting to an empty object. This introduces extra cloning for no clear reason and can increase memory usage unnecessarily.",
+          "suggestion": "Revert to original assignment:\nparams.request.themeRoute = params.request.themeRoute || {};",
+          "failureAfterChange": "If params.request.themeRoute is already a valid object, it will be cloned unnecessarily, causing a new object that is not strictly equal to the original. This may cause subtle issues if callers expect identity equality or simple assignment.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Route descriptor freezing may cause unexpected immutability",
+          "severity": "medium",
+          "file": "include/http/request_handler.js",
+          "line": 488,
+          "explanation": "When registering a route, the route descriptor is frozen with Object.freeze. While this protects against modification, it may cause unexpected immutability for plugins or code that expect to modify the descriptor after registration, potentially causing runtime errors.",
+          "suggestion": "Either do not freeze the descriptor or document clearly that descriptors are immutable after registration. Alternatively, perform a shallow copy and freeze the copy to avoid unexpected shared immutable state.",
+          "failureAfterChange": "If any plugin or code tries to modify a descriptor property after registration, it will throw a TypeError due to the frozen object, potentially breaking functionality.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Pencilblue-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Pencilblue-7",
+      "skipped": null,
+      "findings": []
+    }
+  ]
+}

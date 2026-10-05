@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-7",
+  "project": "Node-redis",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "e24f056b2d88ea54b689f6bb8f290a9a91be573f",
+  "buggySha": "e4bd9bf0c5b92cb448df9bf45a52c62e42749ed8",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "1085f5955223c90d4af02e78d7eee79129a49e83b07338f95f5288d5bfc9a230",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "e24f056b2d88ea54b689f6bb8f290a9a91be573f",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "d2f01bf62ddde9b837d378f2c7016e851cdcbd1765cf71a646f47df49020bd32"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/auth.spec.js",
+        "contentSha256": "922665a03ae7f3e337865a7789f30de80ac07ac6d5e06a8eddfce2176189c5f5"
+      },
+      {
+        "path": "test/auth.spec.js",
+        "contentSha256": "b351a1382cbe6110a1f3dcb46114e62f72d3492e6521250a14166d8266ce7d60"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "a8c44b613756217dd1efe993f45af8cf35da5f35ec1a3faf46759a9e30cb7c96"
+      },
+      {
+        "path": "examples/auth.js",
+        "contentSha256": "0bb9ae922b40b9d9db7172d2f151ecc1dd38aebdf88c2526067eaae3c0079c14"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "5ea810f5640c5708b0822ecff7684c77b8002750799f0eb5128b5e54bf7e1bee"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "ea67237a226b9f75b0397d53ea002d269bfa3f2f67416b84474b081ea4db3fbe"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "9ccc69bb239a7f2489eedd9502837f9f1b706e31048d132a99144f50b2f75123"
+      },
+      {
+        "path": "examples/subqueries.js",
+        "contentSha256": "1feb49aab8653bc857ccca682951b269016e3f6cf3aef5a671bd5352ca749261"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 13557,
+          "outputTokens": 625,
+          "totalTokens": 14182
+        },
+        "rawFindings": [
+          {
+            "title": "Auth error handling inconsistent and missing error details in 'do_auth' method",
+            "severity": "high",
+            "file": "index.js",
+            "line": 210,
+            "explanation": "The previous code called the auth_callback with the error, but the new code only emits a new Error with 'Auth error: ' prefix, losing the 'command_used' property and error type; this can break error handling logic expecting detailed error information on auth failure.",
+            "suggestion": "Modify the error emission code in 'do_auth' to preserve the original error object and its properties or ensure it has the expected 'command_used' property set before emitting it, matching previous behavior for error callbacks.",
+            "failureAfterChange": "When authentication fails (e.g., invalid password), error events are emitted without the 'command_used' property and with a generic error message, causing caller error handlers that expect 'command_used' to fail or misbehave.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "'do_auth' method emits 'Auth failed' error on non-OK response",
+            "severity": "high",
+            "file": "index.js",
+            "line": 215,
+            "explanation": "Added explicit check for auth response inequality to 'OK' and emit an 'Auth failed' error; this was missing, so any non-OK response other than errors would not cause an error to be issued, potentially masking auth failures.",
+            "suggestion": "Keep the added check to emit error on non-OK response to properly propagate authentication failures when the server responds with unexpected reply.",
+            "failureAfterChange": "If server replies with auth result other than 'OK' (e.g., 'FAIL'), an error event 'Auth failed' is emitted correctly; previously such cases did not emit an error.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Change to success callback invocation in 'do_auth' sends original error instead of null",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 222,
+            "explanation": "The success callback now receives (err, res) where err can be non-null (previously always null). Callback code expecting null error on success might need to handle this properly.",
+            "suggestion": "Consider passing null as the first argument when calling auth_callback on success to maintain previous semantic of null error on success.",
+            "failureAfterChange": "Callbacks passed to auth() may receive a non-null err argument on success, potentially triggering error handling incorrectly.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Removed setting 'command_used' property on error in 'return_error'",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 511,
+            "explanation": "The patch removes the line that sets 'err.command_used = command_obj.command.toUpperCase()' which test code expected; this can break tests or error handlers relying on that property to identify the command causing error.",
+            "suggestion": "Restore the setting of 'command_used' property on error objects passed to callbacks to maintain compatibility with existing error handlers and tests.",
+            "failureAfterChange": "Auth failure and other command errors do not have 'command_used' property set in the error object, causing assertions or error management to fail.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Auth error handling inconsistent and missing error details in 'do_auth' method",
+            "severity": "high",
+            "file": "index.js",
+            "line": 210,
+            "explanation": "The previous code called the auth_callback with the error, but the new code only emits a new Error with 'Auth error: ' prefix, losing the 'command_used' property and error type; this can break error handling logic expecting detailed error information on auth failure.",
+            "suggestion": "Modify the error emission code in 'do_auth' to preserve the original error object and its properties or ensure it has the expected 'command_used' property set before emitting it, matching previous behavior for error callbacks.",
+            "failureAfterChange": "When authentication fails (e.g., invalid password), error events are emitted without the 'command_used' property and with a generic error message, causing caller error handlers that expect 'command_used' to fail or misbehave.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Change to success callback invocation in 'do_auth' sends original error instead of null",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 222,
+            "explanation": "The success callback now receives (err, res) where err can be non-null (previously always null). Callback code expecting null error on success might need to handle this properly.",
+            "suggestion": "Consider passing null as the first argument when calling auth_callback on success to maintain previous semantic of null error on success.",
+            "failureAfterChange": "Callbacks passed to auth() may receive a non-null err argument on success, potentially triggering error handling incorrectly.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

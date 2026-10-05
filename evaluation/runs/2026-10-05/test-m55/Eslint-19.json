@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-19",
+  "project": "Eslint",
+  "bugId": 19,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "1355e0b0f73369420d0158f58cb1b75c0fde0983",
+  "buggySha": "45863c1bc2a88103c87c3edcbad2e851b8c0b15b",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "7e031c4a2f65434aa4052afea2b6acd380c6cbea09460a5ce9a77da81425c945",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "1355e0b0f73369420d0158f58cb1b75c0fde0983",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 129,
+    "embeddingUsage": {
+      "inputTokens": 90338,
+      "outputTokens": 0,
+      "totalTokens": 90338
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/no-invalid-this.js",
+        "contentSha256": "def04f024c2cbb1ac809c9709ea88938f5d6580a3dae3d088e1511219f4eba69"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "6e23a7e99f4350cf612bd0392bd07c5829ee185d3e9df8f9c6f5d2d12ad07b06"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "4e7120e0e9c24b9ceed325beee02de2a9d81985094c8ea919558e9f350d8fc6e"
+      },
+      {
+        "path": "lib/rule-context.js",
+        "contentSha256": "959c75b4d0594c3d826e03dce79f52463ae81cd01ab215fb5325c8bba1eeca99"
+      },
+      {
+        "path": "lib/rule-context.js",
+        "contentSha256": "1456bfe2feb4b4bb673dddde5c86edfbf7ab2d34cc2d9201e4d9961f26bcd41b"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "84d0619b74011bd9460655449f4442569d566468ba278af021e760d0a6938ef1"
+      },
+      {
+        "path": "lib/rules/comma-style.js",
+        "contentSha256": "5cebb981eb41e0ec54ee9bdc278570a2e473a66a91fc46d2bfd49d1252c223bc"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "28e04a8df59aee68b775455afb22604ee9e052ea0a8b6b43ef181274fbf66951"
+      },
+      {
+        "path": "lib/rules/block-scoped-var.js",
+        "contentSha256": "f8cf104f46dcc54fb4d310021c8a393663f325182154f5ed759d3817b340df08"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 300,
+      "outputTokens": 0,
+      "totalTokens": 300
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6961,
+          "outputTokens": 1299,
+          "totalTokens": 8260
+        },
+        "rawFindings": [
+          {
+            "title": "Strict global-return programs are treated as non-strict",
+            "severity": "medium",
+            "file": "lib/rules/no-invalid-this.js",
+            "line": 321,
+            "explanation": "The new Program context validity check only looks at the global scope's `isStrict` flag. When `ecmaFeatures.globalReturn` is enabled, ESLint creates an implicit function scope for the program body, so a top-level `\"use strict\"` directive makes `scope.childScopes[0].isStrict` true while `context.getScope().isStrict` for Program remains false. As a result, `no-invalid-this` no longer reports invalid top-level `this` in strict CommonJS/global-return code.",
+            "suggestion": "Restore the globalReturn implicit-scope check, e.g. compute `scope` and set `valid` false when `context.ecmaFeatures.globalReturn && scope.childScopes[0].isStrict`.",
+            "failureAfterChange": "With rule `no-invalid-this` enabled and parser options `{ ecmaFeatures: { globalReturn: true } }`, input `\"use strict\"; console.log(this);` produces no lint error, but `this` is invalid in that strict implicit function scope.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Strict global-return programs are treated as non-strict",
+            "severity": "medium",
+            "file": "lib/rules/no-invalid-this.js",
+            "line": 321,
+            "explanation": "The new Program context validity check only looks at the global scope's `isStrict` flag. When `ecmaFeatures.globalReturn` is enabled, ESLint creates an implicit function scope for the program body, so a top-level `\"use strict\"` directive makes `scope.childScopes[0].isStrict` true while `context.getScope().isStrict` for Program remains false. As a result, `no-invalid-this` no longer reports invalid top-level `this` in strict CommonJS/global-return code.",
+            "suggestion": "Restore the globalReturn implicit-scope check, e.g. compute `scope` and set `valid` false when `context.ecmaFeatures.globalReturn && scope.childScopes[0].isStrict`.",
+            "failureAfterChange": "With rule `no-invalid-this` enabled and parser options `{ ecmaFeatures: { globalReturn: true } }`, input `\"use strict\"; console.log(this);` produces no lint error, but `this` is invalid in that strict implicit function scope.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

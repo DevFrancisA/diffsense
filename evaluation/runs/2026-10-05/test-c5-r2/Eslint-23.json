@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-23",
+  "project": "Eslint",
+  "bugId": 23,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "155424c0e98abefa66218930a085085f48b2e221",
+  "buggySha": "27616a81ff0636f94e2ea15c977b56e7c7e23a19",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "329d36dae8946ffff45d1f64cb05bb82dbf6a2f506909d55da3b4cbe8c4b526c",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "155424c0e98abefa66218930a085085f48b2e221",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 193,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/util/glob-util.js",
+        "contentSha256": "a6e8a5067213f980f715303c0bb8b8f69704a7d1314302e9b055e987a17f3d9d"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      },
+      {
+        "path": "lib/cli-engine.js",
+        "contentSha256": "9f2f457ca97fa5c1f17982461e7e71198c0e1db13578160f2fc883c74a3e879a"
+      },
+      {
+        "path": "lib/cli-engine.js",
+        "contentSha256": "b476b2584786ff674e6cd0b229a0a381c0445a5a9c7abccff814a245134cdcc3"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "f2ba4902472c032fb4db895c0b10dc45f1450ee11ea01606947ef38343f6b6b0"
+      },
+      {
+        "path": "lib/cli-engine.js",
+        "contentSha256": "fb4f8e927006e87558c873817746dda7f0f32948216f89cf411476727185c238"
+      },
+      {
+        "path": "lib/file-finder.js",
+        "contentSha256": "5568119885d6a7380d86b9f78623259dec71106602c35e12f69388cd60eaa37d"
+      },
+      {
+        "path": "conf/environments.js",
+        "contentSha256": "c8d21cbea61f7eddc4ba0720a7d41b800918428225a0eff728e1298555f5f1fd"
+      },
+      {
+        "path": "lib/file-finder.js",
+        "contentSha256": "2ca15939a3c9a60a8e097f4fc1c664bd35e51fa48dda4b8d29914816ff5a83c9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5974,
+          "outputTokens": 150,
+          "totalTokens": 6124
+        },
+        "rawFindings": [
+          {
+            "title": "resolveFileGlobPatterns no longer ignores empty string patterns",
+            "severity": "medium",
+            "file": "lib/util/glob-util.js",
+            "line": 89,
+            "explanation": "The changed line removes the previous filtering of empty string patterns before mapping, causing empty strings to be processed and returned as-is. This may cause unexpected behavior downstream where empty glob patterns are not meaningful or handled properly.",
+            "suggestion": "Restore filtering of empty patterns before mapping, e.g., return patterns.filter(p => p.length).map(processPathExtensions);",
+            "failureAfterChange": "Calling resolveFileGlobPatterns(['']) now returns [''] rather than []. If code expects no empty patterns, processing might fail or yield unexpected results.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "resolveFileGlobPatterns no longer ignores empty string patterns",
+            "severity": "medium",
+            "file": "lib/util/glob-util.js",
+            "line": 89,
+            "explanation": "The changed line removes the previous filtering of empty string patterns before mapping, causing empty strings to be processed and returned as-is. This may cause unexpected behavior downstream where empty glob patterns are not meaningful or handled properly.",
+            "suggestion": "Restore filtering of empty patterns before mapping, e.g., return patterns.filter(p => p.length).map(processPathExtensions);",
+            "failureAfterChange": "Calling resolveFileGlobPatterns(['']) now returns [''] rather than []. If code expects no empty patterns, processing might fail or yield unexpected results.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

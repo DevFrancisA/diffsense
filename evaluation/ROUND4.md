@@ -64,3 +64,17 @@ Two blind Claude judges (no OpenAI calls) audit TEST findings with the Round-2 r
   | `gpt-5.5` ×1 | 31 | 11 | 70.5% | 0.602 |
 - **Owner decision (cost):** phases B (extra `gpt-5.5` samples and voting) and C (verifier) are **skipped**. Selection uses the preregistered rule over the configurations actually measured: every `gpt-4.1-mini` C5 rule with n ≤ 2 (C7 included), `gpt-5.4-mini` n=1, and `gpt-5.5` n=1. The winner is chosen by development-set combined F1 after the last `gpt-5.5` HOLDOUT case completes. Phase D then runs on TEST once: the winner, plus C7 as the reference.
 - **Selection (development set, DEV + HOLDOUT, `npx tsx scripts/vote-analysis.ts`):** the winner is **`gpt-5.5`, one sample**: 63/115 found (54.8%), combined precision 76.8%, combined F1 **0.640**, 17/60 correct fixes flagged. C7 (`gpt-4.1-mini`, union of 2) scores 54/115, 63.5%, F1 0.540, 23/60; `gpt-5.4-mini` ×1 scores F1 0.526. The configuration is frozen as the C5 pipeline with `OPENAI_REVIEW_MODEL=gpt-5.5` and one sample, called **C8**. TEST runs next, once, for C8 and for C7.
+
+## TEST results (run once; `npx tsx scripts/vote-analysis.ts test`)
+
+| TEST (30 cases, 80 ranges) | Found (recall, Wilson 95%) | Findings (bug / correct) | Combined precision (Wilson 95%) | Combined F1 | Correct fixes flagged |
+|---|---|---|---|---:|---|
+| C7 (`gpt-4.1-mini`, union of 2) | 28 (35.0%, 25.5–45.9%) | 28 / 27 | 50.9% (38.1–63.6%) | 0.415 | 15/30 |
+| **C8 (`gpt-5.5`, 1 sample)** | **31 (38.8%, 28.8–49.7%)** | 33 / 10 | **72.1% (57.3–83.3%)** | **0.504** | **10/30** |
+
+- **Bugs found, paired by range:** both 19, C7 only 9, C8 only 12; exact McNemar p = 0.664.
+- **Correct fixes flagged, paired by case:** both 8, C7 only 7, C8 only 2; p = 0.180.
+- Neither paired difference is statistically significant on TEST alone. The direction matches the development set (F1 0.640 vs 0.540).
+- Recall is lower on TEST than on the development set for both configurations, so TEST appears harder (it includes a new project, Pencilblue).
+- **Cost:** C8 makes one `gpt-5.5` call per review, roughly $0.08; C7 makes two `gpt-4.1-mini` calls, roughly $0.008 in total.
+- **Session ledger:** 1,806 reserved / 1,796 completed calls, 14,174,043 tokens.

@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-11",
+  "project": "Mongoose",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "bf7bee94e99fb9088386c9c87b9e98f19c773aed",
+  "buggySha": "a4e83c4f93d0916a9acd31152ec58d5c1dbbabfb",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "b89f521242e92b1bd6e04af17883d5d0e90890ae14bd2ccded740092c03e20e9",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "a4e83c4f93d0916a9acd31152ec58d5c1dbbabfb",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/query.js",
+        "contentSha256": "5b86d3e00d4b9ede9c1e0abc1bf67d92df7503f3de9c0bfcbfb6477948967d6d"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "9ce01033e7f5f5afcbf9f59a7b0890c13eaccd8cb6fdf3d1924a56b232155014"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "9a10640912b3377f1a59ca321aa0a730c45317c74ad5d5e468c6ee0814c1010e"
+      },
+      {
+        "path": "docs/3.3.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      },
+      {
+        "path": "docs/3.1.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 23521,
+          "outputTokens": 292,
+          "totalTokens": 23813
+        },
+        "rawFindings": [
+          {
+            "title": "Fixed incorrect field reuse in _applyPaths method when forcibly including fields",
+            "severity": "medium",
+            "file": "lib/query.js",
+            "line": 517,
+            "explanation": "In _applyPaths, when forcibly including paths prefixed with '+', the code now correctly checks if the path is already in keys before adding it, preventing redundant or incorrect field selections.",
+            "suggestion": "Keep the added conditional `&& !~keys.indexOf(path)` in the if statement to ensure correct behavior when including fields.",
+            "failureAfterChange": "Without the added check, forcibly included fields may be incorrectly handled, causing unexpected query projections, such as unnecessary inclusion or conflicts in selected fields.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Updated schema select option tests to properly test forced inclusion of deselected schema paths",
+            "severity": "low",
+            "file": "test/schema.select.test.js",
+            "line": 292,
+            "explanation": "Test suite was modified to use a describe block with clearer scoping and proper order of operations to confirm that forcibly including deselected schema fields actually selects them and returns expected values instead of undefined.",
+            "suggestion": "Use nested describe and it blocks with correct setup and assertions to verify that `.select('+name +docs.name')` works and fields are included as expected in queries.",
+            "failureAfterChange": "Without the test updates, forced inclusion of deselected paths might be broken or inadequately tested, leading to regression or unnoticed bugs.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

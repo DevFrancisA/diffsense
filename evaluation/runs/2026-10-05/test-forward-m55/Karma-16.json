@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-16",
+  "project": "Karma",
+  "bugId": 16,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "8b1b4b1052925e15770a0d4017a6ebc9ea89c0ed",
+  "buggySha": "322f3b34e978703df03ed131b3da8b2b435df212",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "28d3300159f10a450099986e01ee53771d6dc83ff1841e49a5c9c85c0668da1b",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "322f3b34e978703df03ed131b3da8b2b435df212",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 91,
+    "embeddingUsage": {
+      "inputTokens": 2294,
+      "outputTokens": 0,
+      "totalTokens": 2294
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "75396467f9a293587f32c24658f1d575e17f0b051c2c57c7fb2d895f5673262c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "1a3853815fb78e445fa73aae803fa60262c7404784d04ab9474eb151711143e3"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "e9a9199e47686468bdb0e5d8a303e8411b9c83e6fb0652e7317202892f44ee87"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "98f8b1a79956385faf0623b7579ef2c6d3d331847b52a1c54a482d9613e44f0b"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "0265b9695a56530431f9d3a57ffddbdc216a815db111d91855baa6bd04bb9570"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "97bf0783ca7636d75d7e81348c85b80211d3164a892fb0a8e65565339be76d18"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "348e785ca7d8de39e91bdf031ee7602392026aab1689a590358e1ae223a927b2"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "0fe039451e122a4d162e971ebabdaa1edd3899504ad644e60ef02f8a9467d0e8"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "6f426284acd726e491c76e0eab605267780799b0228a69dd80ad08ac9e246774"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 917,
+      "outputTokens": 0,
+      "totalTokens": 917
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6094,
+          "outputTokens": 2293,
+          "totalTokens": 8387
+        },
+        "rawFindings": [
+          {
+            "title": "Cached text range requests use character length instead of byte length",
+            "severity": "medium",
+            "file": "lib/middleware/common.js",
+            "line": 37,
+            "explanation": "`responseData` can be a cached string (`cache[filepath] = data.toString()`), but HTTP Range offsets are byte offsets. Passing `responseData.length` to `range-parser` before converting the string to a Buffer makes multibyte content appear shorter than it is, so valid byte ranges can be rejected or truncated.",
+            "suggestion": "Convert string data to a Buffer before parsing the range, or pass `Buffer.byteLength(responseData)` as the size and slice the corresponding Buffer.",
+            "failureAfterChange": "If a UTF-8 file containing `éé` is cached and then requested with `Range: bytes=2-3`, the new code parses the range with size 2 characters and returns 416 with an empty body, although bytes 2-3 are a valid range of the 4-byte file.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Cached text range requests use character length instead of byte length",
+            "severity": "medium",
+            "file": "lib/middleware/common.js",
+            "line": 37,
+            "explanation": "`responseData` can be a cached string (`cache[filepath] = data.toString()`), but HTTP Range offsets are byte offsets. Passing `responseData.length` to `range-parser` before converting the string to a Buffer makes multibyte content appear shorter than it is, so valid byte ranges can be rejected or truncated.",
+            "suggestion": "Convert string data to a Buffer before parsing the range, or pass `Buffer.byteLength(responseData)` as the size and slice the corresponding Buffer.",
+            "failureAfterChange": "If a UTF-8 file containing `éé` is cached and then requested with `Range: bytes=2-3`, the new code parses the range with size 2 characters and returns 416 with an empty body, although bytes 2-3 are a valid range of the 4-byte file.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

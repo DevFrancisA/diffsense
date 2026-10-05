@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "test-forward-m55",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "models": {
+    "review": "gpt-5.5",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 10,
+    "casesFlaggedOnSource": 10,
+    "findings": 11,
+    "sourceFindings": 11,
+    "testFindings": 0
+  },
+  "cases": [
+    {
+      "caseId": "Eslint-17",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Multiline single-token argument can make following arguments expected at column 0",
+          "severity": "medium",
+          "file": "lib/rules/indent.js",
+          "line": 840,
+          "explanation": "This new condition also matches elements that start on the same line as the list opener but are a single token spanning multiple lines, such as a template literal. The code then bases the next element's indentation on that previous token's desired indentation. Since the previous token was on the opener line, its list offset was collapsed to the line indentation, so the next argument is expected at column 0 instead of one indent level.",
+          "suggestion": "Only rebase on the previous element when its first token is on a later line than the list opener, or otherwise preserve the previous element's visual column when aligning the next element.",
+          "failureAfterChange": "With the default indent rule, `foo(`bar\\nbaz`,\\n    qux\\n);` is now reported and autofixed to remove the 4-space indent before `qux`, even though continuation arguments should be indented one level.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-18",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-19",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-20",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-21",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Regex-literal continuations are no longer protected from semicolon removal",
+          "severity": "medium",
+          "file": "lib/rules/semi.js",
+          "line": 56,
+          "explanation": "Anchoring the opt-out pattern to only match a token whose entire value is `/` means a following regular expression token such as `/foo/` is not treated as an opt-out token. In `semi: [\"error\", \"never\"]`, the rule will now consider the semicolon before a newline-starting regex literal unnecessary, even though removing it can merge the regex into the previous expression as division and change behavior.",
+          "suggestion": "Treat regular expression tokens as slash opt-outs, e.g. include `nextToken.type === \"RegularExpression\"` in the opt-out check or match token values that start with `/` while still excluding `++`/`--`.",
+          "failureAfterChange": "For input `a = b;\\n/foo/g.test(c)` with option `never`, the rule reports and fixes to `a = b\\n/foo/g.test(c)`, which is parsed as division (`a = b / foo / g.test(c)`) instead of two statements.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-23",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-13",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-16",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-17",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-18",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-19",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-12",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Unprocessed binary files are converted to UTF-8 text",
+          "severity": "medium",
+          "file": "lib/preprocessor.js",
+          "line": 63,
+          "explanation": "This path now runs for every file, including files with no configured preprocessors. Passing `buffer.toString()` into `nextPreprocessor` causes the final preprocessor step to set `file.content` to a decoded string and `file.contentPath` to `null`, so raw binary assets are no longer preserved byte-for-byte; different invalid UTF-8 byte sequences can also hash to the same replacement-character string.",
+          "suggestion": "Keep track of whether any real preprocessors matched; when none did, compute `file.sha` from the raw Buffer and leave `file.contentPath`/`file.content` unchanged. Only convert to string when running textual preprocessors.",
+          "failureAfterChange": "With no preprocessors configured, processing a served file whose bytes are `[0x80]` sets `file.content` to `'�'`; if the file changes to `[0x81]`, the decoded content and SHA remain the same even though the file bytes changed.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Read errors now crash preprocessing for files without preprocessors",
+          "severity": "medium",
+          "file": "lib/preprocessor.js",
+          "line": 63,
+          "explanation": "Because every file is now read, `fs.readFile` failures for files that previously skipped preprocessing reach `buffer.toString()` with `buffer === undefined`, throwing asynchronously instead of completing or reporting the missing file cleanly.",
+          "suggestion": "Check `err` in the `fs.readFile` callback before using `buffer`, and propagate/log the failure without calling `buffer.toString()` on an undefined value.",
+          "failureAfterChange": "With no preprocessors configured, if `file.originalPath` points to a file deleted between file-list creation and preprocessing, `fs.readFile` returns `ENOENT` and the process throws at `buffer.toString()`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-13",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "stderr output is no longer captured for failed browser starts on supported Node versions",
+          "severity": "low",
+          "file": "lib/launchers/Base.js",
+          "line": 123,
+          "explanation": "The new guard limits the stderr data handler to Node 0.8. For Node 0.10 and newer, a browser process that exists but exits non-zero after writing diagnostics to stderr will now call `_onProcessExit` with an empty `errorOutput`, because no stderr listener is registered.",
+          "suggestion": "Register a stderr `data` listener unconditionally to append stderr to `errorOutput`, and keep only the Node 0.8 \"No such file or directory\" special-case inside the version check.",
+          "failureAfterChange": "On Node 0.10.x, if `/usr/bin/browser` starts, writes `invalid option --foo` to stderr, and exits with code 1, the launcher logs `Cannot start <browser>` with a blank diagnostic instead of including `invalid option --foo`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Load-error shutdown stores exit status in global process state",
+          "severity": "medium",
+          "file": "lib/server.js",
+          "line": 187,
+          "explanation": "`process.exitCode` is process-wide and is not reset by the server cleanup path. When the server is used through the public API with a custom `done` callback that does not terminate the Node process, a load error leaves `process.exitCode` set to 1 for later server instances or other application code, causing subsequent clean shutdowns to report/finally exit with the stale error code.",
+          "suggestion": "Keep the forced shutdown code in server-local state and pass that to `disconnectBrowsers`, or invoke `disconnectBrowsers(1)` for load-error shutdown instead of mutating `process.exitCode`.",
+          "failureAfterChange": "Create a `Server` with a custom `done` callback, trigger a load error so `done(1)` runs without exiting, then create a second clean `Server` in the same process and stop it with SIGINT; the second server's shutdown observes the stale `process.exitCode` and reports/exits with 1 despite no error.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-16",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Cached text range requests use character length instead of byte length",
+          "severity": "medium",
+          "file": "lib/middleware/common.js",
+          "line": 37,
+          "explanation": "`responseData` can be a cached string (`cache[filepath] = data.toString()`), but HTTP Range offsets are byte offsets. Passing `responseData.length` to `range-parser` before converting the string to a Buffer makes multibyte content appear shorter than it is, so valid byte ranges can be rejected or truncated.",
+          "suggestion": "Convert string data to a Buffer before parsing the range, or pass `Buffer.byteLength(responseData)` as the size and slice the corresponding Buffer.",
+          "failureAfterChange": "If a UTF-8 file containing `éé` is cached and then requested with `Range: bytes=2-3`, the new code parses the range with size 2 characters and returns 416 with an empty body, although bytes 2-3 are a valid range of the 4-byte file.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-17",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Karma middleware can no longer be invoked by DI",
+          "severity": "critical",
+          "file": "lib/middleware/karma.js",
+          "line": 69,
+          "explanation": "After removing the explicit `$inject` annotation, the injector will infer the parameter name `basePath` from this function signature. The registered dependency is `config.basePath` (as the previous annotation used), not `basePath`, so `injector.invoke(karmaMiddleware.create)` in the web server fails while constructing the middleware.",
+          "suggestion": "Restore an explicit annotation, including the new injector dependency, e.g. `createKarmaMiddleware.$inject = ['filesPromise', 'serveStaticFile', 'serveFile', 'injector', 'config.basePath', 'config.urlRoot']`.",
+          "failureAfterChange": "Starting the web server with a normal config calls `injector.invoke(karmaMiddleware.create)` and throws a missing provider error for `basePath` instead of creating the Karma middleware.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-10",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-11",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-13",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Public toObject({ depopulate: true }) now returns only the root _id",
+          "severity": "medium",
+          "file": "lib/document.js",
+          "line": 1430,
+          "explanation": "This branch runs for any caller that passes `{ depopulate: true }` without the internal `isParent` flag. As a result, calling `doc.toObject({ depopulate: true })` on a normal top-level document returns `clone(this._id, options)` and drops all other fields, even though depopulation should only replace populated child refs with their ids.",
+          "suggestion": "Do not treat a missing internal parent flag as permission to depopulate the root document; gate this branch on an explicit internal child/depopulate marker, and set that marker only when cloning nested populated values.",
+          "failureAfterChange": "For a model with `{ name: String }`, `new User({ name: 'Alice' }).toObject({ depopulate: true })` returns just the document `_id` instead of an object containing `_id` and `name`.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-14",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Node-redis-5",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Node-redis-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "AUTH failure with callback continues into success path",
+          "severity": "high",
+          "file": "index.js",
+          "line": 209,
+          "explanation": "When `AUTH` fails and an `auth_callback` is set, this new branch invokes the callback and clears it but does not return. Execution then continues to `res = res.toString()`, but Redis error replies call this callback with no `res`, causing a TypeError after the user callback is invoked.",
+          "suggestion": "Return after calling and clearing `self.auth_callback` in this error branch.",
+          "failureAfterChange": "Against a password-protected Redis server, `client.auth('wrong-password', cb)` before connect calls `cb(err)` and then throws `TypeError: Cannot read property 'toString' of undefined` instead of only reporting the AUTH error via the callback.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Pencilblue-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Pencilblue-3",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Pencilblue-4",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "ObjectID custom type deletion no longer removes its objects",
+          "severity": "medium",
+          "file": "include/service/entities/custom_object_service.js",
+          "line": 993,
+          "explanation": "`deleteForType` is called by `deleteTypeById`, whose contract and validation allow an `ObjectID` id. For a raw `ObjectID`, this new object branch reads `custObjType['_id']`, which is undefined, so it deletes with `{type: 'undefined'}` instead of the type id string.",
+          "suggestion": "Handle raw ids separately, e.g. if `pb.validation.isId(custObjType, true)` use `custObjType.toString()`, otherwise read the descriptor's `_id` field.",
+          "failureAfterChange": "Calling `deleteTypeById(ObjectID('64f000000000000000000001'))` when `custom_object` documents have `type: '64f000000000000000000001'` deletes the type descriptor but leaves those custom objects behind.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Pencilblue-7",
+      "skipped": null,
+      "findings": []
+    }
+  ]
+}

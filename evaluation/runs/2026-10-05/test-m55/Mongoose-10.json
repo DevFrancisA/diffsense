@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-10",
+  "project": "Mongoose",
+  "bugId": 10,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "622be749195947d329dc8285beed15ee4ce2541d",
+  "buggySha": "9d638207587ad5a9ac1351f1dcdf527e792c46c6",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "27564806fb407b4e0524f07edafa079ba1f6d4f023ea0eb1485ae342688fd8a4",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "622be749195947d329dc8285beed15ee4ce2541d",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/types/documentarray.js",
+        "contentSha256": "66547a9a766f98f8498ce7dfc27dbc7a0750d4f5384e16777759d5dc0a15b272"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "docs/3.3.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      },
+      {
+        "path": "docs/3.2.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      },
+      {
+        "path": "docs/3.1.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      },
+      {
+        "path": "docs/3.0.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 449,
+      "outputTokens": 0,
+      "totalTokens": 449
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6432,
+          "outputTokens": 1235,
+          "totalTokens": 7667
+        },
+        "rawFindings": [
+          {
+            "title": "DocumentArray toObject no longer forwards caller options to subdocuments",
+            "severity": "medium",
+            "file": "lib/types/documentarray.js",
+            "line": 129,
+            "explanation": "The new implementation drops the `options` argument when converting each embedded document. As a result, options passed to `toObject()` on a document array or parent document are not applied to subdocuments, even though subdocument `toObject()` supports those options.",
+            "suggestion": "Restore the `options` parameter on `MongooseDocumentArray.prototype.toObject` and call `doc.toObject(options)` here.",
+            "failureAfterChange": "Given a parent document with `children: [{ name: 'x' }]` where the child schema has a getter on `name`, calling `parent.children.toObject({ getters: true })` now returns the raw `name` value instead of the getter-transformed value for each child.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "DocumentArray toObject no longer forwards caller options to subdocuments",
+            "severity": "medium",
+            "file": "lib/types/documentarray.js",
+            "line": 129,
+            "explanation": "The new implementation drops the `options` argument when converting each embedded document. As a result, options passed to `toObject()` on a document array or parent document are not applied to subdocuments, even though subdocument `toObject()` supports those options.",
+            "suggestion": "Restore the `options` parameter on `MongooseDocumentArray.prototype.toObject` and call `doc.toObject(options)` here.",
+            "failureAfterChange": "Given a parent document with `children: [{ name: 'x' }]` where the child schema has a getter on `name`, calling `parent.children.toObject({ getters: true })` now returns the raw `name` value instead of the getter-transformed value for each child.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

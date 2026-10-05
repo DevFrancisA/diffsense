@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-20",
+  "project": "Eslint",
+  "bugId": 20,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "13eead9fc9809acfecf4838536c7392c72d974e3",
+  "buggySha": "133f4895d833fa44987c11e818526aab03b3b3d4",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "f4288f2764e2d99f103cde2cdfe049009b03bee76b3fb42a2d1b3214f7b604c2",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "13eead9fc9809acfecf4838536c7392c72d974e3",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 193,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/sort-vars.js",
+        "contentSha256": "b8be4397de0143093f40af55ee66c7e29950fe301f5f3fc66b23a62f88a715c1"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "0d9b9eeb85e90c330361a99a433d1f37d2abd403353437a635324e1cf629dfe6"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "d04fe11caf93ddcb29e159c57b7888b8612a55ee6000310667f9ff5b9341a214"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "c6971081ade3fe5e4babcd0233fcce6ac338d275f3a647d5053670a6a1257638"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "e8e150e79467792cec9e3ee6054ae8e981998526be901ae26fabbd17a40b039c"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "bf156a8d706f5681c60446a1ff490056d990294a0976e44551e9062fbec200ca"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "f2ba4902472c032fb4db895c0b10dc45f1450ee11ea01606947ef38343f6b6b0"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "494ff62a35ae2210e399225bc399ad71ca8153e48db5f47f29eee90eedff460e"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "4fd90aff07badae0c4d0c17ebfe5232d7d6416688982c2452001cba9d10a47c4"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5938,
+          "outputTokens": 219,
+          "totalTokens": 6157
+        },
+        "rawFindings": [
+          {
+            "title": "Potential crash when VariableDeclaration has no declarations",
+            "severity": "high",
+            "file": "lib/rules/sort-vars.js",
+            "line": 40,
+            "explanation": "The reducer uses the first element `node.declarations[0]` as the initial value without checking if the declarations array is empty. If the VariableDeclaration has zero declarators, accessing `node.declarations[0]` will be undefined, leading to a runtime error when attempting to access `memo.id.name` in the reducer.",
+            "suggestion": "Add a guard clause before the reduce call to check if `node.declarations` is non-empty. For example:\n\n```js",
+            "failureAfterChange": "Parsing a file with an empty variable declaration like `var;` or `var /* no declarators */ ;` triggers a crash due to accessing properties of undefined memo in the reduce call.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Potential crash when VariableDeclaration has no declarations",
+            "severity": "high",
+            "file": "lib/rules/sort-vars.js",
+            "line": 40,
+            "explanation": "The reducer uses the first element `node.declarations[0]` as the initial value without checking if the declarations array is empty. If the VariableDeclaration has zero declarators, accessing `node.declarations[0]` will be undefined, leading to a runtime error when attempting to access `memo.id.name` in the reducer.",
+            "suggestion": "Add a guard clause before the reduce call to check if `node.declarations` is non-empty. For example:\n\n```js",
+            "failureAfterChange": "Parsing a file with an empty variable declaration like `var;` or `var /* no declarators */ ;` triggers a crash due to accessing properties of undefined memo in the reduce call.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-14",
+  "project": "Karma",
+  "bugId": 14,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "86e2ef22c79276ea56031955fd81352413f8b1ba",
+  "buggySha": "7d2c1ae992ce430288f3f24b8d8b27ed880e5625",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "19e44009da7e33ecc59d02bb6ba82f4cb7aedfa3c2630420bd0bbecf176c492a",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "86e2ef22c79276ea56031955fd81352413f8b1ba",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 91,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/server.js",
+        "contentSha256": "645ed7649cf342954288af7ee4f97dfd74f0a23b4c73fc3c76673214113f3d3f"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "412c725a9a86ab245eab912c7eaa77ad3775e7c4f0f7848b5184cf8c7e7d1b41"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "d74d0e0043920f8362a640816c2a4bb2799f7057e6f2929cb14608d2dc038db7"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "e434a3e392d28b845e7e31e2c5a418ed2ec1f5e686bf5e00161136135e958548"
+      },
+      {
+        "path": "lib/index.js",
+        "contentSha256": "af345de1388d6ba4e7b17910f47ba67aa7f498a1b11b72ef9b4e1fa75ebe652e"
+      },
+      {
+        "path": "lib/launchers/process.js",
+        "contentSha256": "8225d1abaa073b8b9b8af6b860e9b1e6a6b5895d9d030fdfbbfb350df483db11"
+      },
+      {
+        "path": "lib/launcher.js",
+        "contentSha256": "38110328daec2625fd927fafdec2fa52385437403e4b9bf3c17722e647a58b6b"
+      },
+      {
+        "path": "lib/launcher.js",
+        "contentSha256": "93051da70c1b6e722ecd83df2ff20bdc2d12d10f668ef4a6671fc0bd17fe40fb"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "05964c179ec090f7257c717b274ecef4486fad83bda28206d21705f4ee92973b"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 8058,
+          "outputTokens": 219,
+          "totalTokens": 8277
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect disconnectBrowsers call on SIGINT event",
+            "severity": "high",
+            "file": "lib/server.js",
+            "line": 395,
+            "explanation": "Previously, the SIGINT handler was an anonymous function wrapping disconnectBrowsers(process.exitCode). Now it has been changed to disconnectBrowsers without any arguments. However, disconnectBrowsers expects a code, and without passing process.exitCode, it will be called with undefined, possibly leading to unexpected behavior when shutting down after SIGINT.",
+            "suggestion": "Restore the original behavior by having the SIGINT handler call a function that calls disconnectBrowsers with process.exitCode, i.e., processWrapper.on('SIGINT', function() { disconnectBrowsers(process.exitCode); }) instead of passing disconnectBrowsers directly.",
+            "failureAfterChange": "When a SIGINT is received, disconnectBrowsers is called with undefined exit code, which may cause done(code) inside disconnectBrowsers to be called with undefined instead of the expected process.exitCode, potentially resulting in an incorrect exit status or shutdown behavior.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect disconnectBrowsers call on SIGINT event",
+            "severity": "high",
+            "file": "lib/server.js",
+            "line": 395,
+            "explanation": "Previously, the SIGINT handler was an anonymous function wrapping disconnectBrowsers(process.exitCode). Now it has been changed to disconnectBrowsers without any arguments. However, disconnectBrowsers expects a code, and without passing process.exitCode, it will be called with undefined, possibly leading to unexpected behavior when shutting down after SIGINT.",
+            "suggestion": "Restore the original behavior by having the SIGINT handler call a function that calls disconnectBrowsers with process.exitCode, i.e., processWrapper.on('SIGINT', function() { disconnectBrowsers(process.exitCode); }) instead of passing disconnectBrowsers directly.",
+            "failureAfterChange": "When a SIGINT is received, disconnectBrowsers is called with undefined exit code, which may cause done(code) inside disconnectBrowsers to be called with undefined instead of the expected process.exitCode, potentially resulting in an incorrect exit status or shutdown behavior.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

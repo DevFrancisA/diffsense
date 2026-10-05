@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-17",
+  "project": "Express",
+  "bugId": 17,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "80f1ea9bec3c5aedb08a6917ecc24fb8d22b707d",
+  "buggySha": "c3fb7e5adc1fd40e301ed1e25f0d5b5a393d0295",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "e6e112b88cb7a839913684663e5bea84c6673fb6470f56f7a4d6d45d27084fb6",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "80f1ea9bec3c5aedb08a6917ecc24fb8d22b707d",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 48,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/view.js",
+        "contentSha256": "78152ed5428dd5357cb4858afc499fbf46c300cc000b24e145a234f69dbfa141"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/markdown/index.js",
+        "contentSha256": "4dc5c8dccc41f5ea112fdd01c62afe80532ee1863513807713f5bd1ef7f42b00"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "7b753061cd500a1b182ad1d69beb0fda4ad2b6388167a45a0fabf7a3482b1df0"
+      },
+      {
+        "path": "examples/mvc/lib/boot.js",
+        "contentSha256": "4126b12ac678b4b220394d9e4481fcc9b01222a89c0b6cec4b9c441a79e74e2b"
+      },
+      {
+        "path": "examples/ejs/index.js",
+        "contentSha256": "ac068a6fb0111342d959e90a5bc34c6f9bc4e037ce09e40fb5649036296d3b42"
+      },
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "1ea6ec8574b996ecca964375c1b2b49dbe50483cc420d6faf27209486cc59848"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "200d7613fa4a62495d06d075cc179aa33d87698592b9f313d5a66343034dcb41"
+      },
+      {
+        "path": "examples/mvc/controllers/user/index.js",
+        "contentSha256": "84fd25e6225a6401cb14a554374b1f99f21c8c6789f2c13c31f5dbc0aaf87742"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "9ea2701ee848eba4b578841a3257227e81222fa667207b17b2f8f0b8b3e7cfcf"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 4535,
+          "outputTokens": 260,
+          "totalTokens": 4795
+        },
+        "rawFindings": [
+          {
+            "title": "Missing validation of view engine module export in view.js",
+            "severity": "high",
+            "file": "lib/view.js",
+            "line": 86,
+            "explanation": "The code removed a validation check for the required view engine module export function (__express). Previously, after requiring the module, it checked that the export was a function and threw an error if not, preventing runtime failures when using an invalid or broken view engine module. The new code assigns the export without verification, potentially causing runtime errors or confusing failures if the module does not export a function.",
+            "suggestion": "Reinstate the check after requiring the module to ensure it is a function. For example:\n\n    var fn = require(mod).__express;",
+            "failureAfterChange": "Rendering a view with a non-engine module (e.g., a '.send' file or module without __express export) assigned as view engine will cause an unhandled TypeError or undefined behavior rather than a clear error stating the module does not provide a view engine.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Missing validation of view engine module export in view.js",
+            "severity": "high",
+            "file": "lib/view.js",
+            "line": 79,
+            "explanation": "The code removed a validation check for the required view engine module export function (__express). Previously, after requiring the module, it checked that the export was a function and threw an error if not, preventing runtime failures when using an invalid or broken view engine module. The new code assigns the export without verification, potentially causing runtime errors or confusing failures if the module does not export a function.",
+            "suggestion": "Reinstate the check after requiring the module to ensure it is a function. For example:\n\n    var fn = require(mod).__express;",
+            "failureAfterChange": "Rendering a view with a non-engine module (e.g., a '.send' file or module without __express export) assigned as view engine will cause an unhandled TypeError or undefined behavior rather than a clear error stating the module does not provide a view engine.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

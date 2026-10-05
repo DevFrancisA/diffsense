@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-13",
+  "project": "Mongoose",
+  "bugId": 13,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "a48c4054f38a7a11d968ffb44f7760abb9117ffa",
+  "buggySha": "57e8bf6da4b8b346cb8d064ee7dce3248fba7787",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "7e019412b9373ed94e91cdb59ced2fc03fcdcd5d5d666e6855781b6ca5c69cd6",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "57e8bf6da4b8b346cb8d064ee7dce3248fba7787",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 63,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/document.js",
+        "contentSha256": "7aec112205d8a6fc6c473ad3750118ea719026a0a43a9baf9f0b29251a1d5bbf"
+      },
+      {
+        "path": "lib/model.js",
+        "contentSha256": "f3e8d090d698783aefafdb9173cb2478d9551ba7c7b9be97cf4a9004d99331ef"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "9ce01033e7f5f5afcbf9f59a7b0890c13eaccd8cb6fdf3d1924a56b232155014"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "9a10640912b3377f1a59ca321aa0a730c45317c74ad5d5e468c6ee0814c1010e"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "873cd57c3319729fbd79b3a529c11cee7c9b8d2b5a959697e8102505f2a0deb3"
+      },
+      {
+        "path": "benchmarks/populationHeavyLoad.js",
+        "contentSha256": "46ae5d93f30e33fa8b6bd5ba4dc1a04fc3a2abd4c8412b6c7a2b098a78bba1ef"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 31266,
+          "outputTokens": 202,
+          "totalTokens": 31468
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect option property in Document.toObject call during Model.save",
+            "severity": "high",
+            "file": "lib/model.js",
+            "line": 173,
+            "explanation": "In Model.prototype.save, when the document is new, toObject is called with option depopulate:1 but without isParent. The fix changed to depopulate:1, isParent:1 which disables further depopulation processing. This is crucial to correctly save only the populated _id and not the full subdocument. The original code missing isParent causes incorrect saving of the full populated document instead of just the _id, breaking expected behavior when saving populated new documents.",
+            "suggestion": "Add isParent:1 to the options object in toObject call inside Model.prototype.save for new documents.",
+            "failureAfterChange": "Saving a new populated document results in saving the fully populated subdocument instead of just its _id, breaking data integrity and causing larger-than-expected data writes.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

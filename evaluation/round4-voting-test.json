@@ -1,0 +1,68 @@
+{
+  "cohorts": [
+    "test"
+  ],
+  "identity": "file:line",
+  "rows": [
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 1,
+      "k": 1,
+      "found": 22,
+      "ranges": 80,
+      "recall": 0.275,
+      "reversedFindings": 22,
+      "forwardFindings": 18,
+      "combinedPrecision": 0.55,
+      "f1": 0.3666666666666667,
+      "fixesFlagged": 13,
+      "fixes": 30,
+      "callsPerDiff": 1
+    },
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 2,
+      "k": 1,
+      "found": 28,
+      "ranges": 80,
+      "recall": 0.35,
+      "reversedFindings": 28,
+      "forwardFindings": 27,
+      "combinedPrecision": 0.509090909090909,
+      "f1": 0.4148148148148148,
+      "fixesFlagged": 15,
+      "fixes": 30,
+      "callsPerDiff": 2
+    },
+    {
+      "model": "gpt-4.1-mini (C5 samples)",
+      "n": 2,
+      "k": 2,
+      "found": 17,
+      "ranges": 80,
+      "recall": 0.2125,
+      "reversedFindings": 17,
+      "forwardFindings": 5,
+      "combinedPrecision": 0.7727272727272727,
+      "f1": 0.3333333333333333,
+      "fixesFlagged": 5,
+      "fixes": 30,
+      "callsPerDiff": 2
+    },
+    {
+      "model": "gpt-5.5",
+      "n": 1,
+      "k": 1,
+      "found": 31,
+      "ranges": 80,
+      "recall": 0.3875,
+      "reversedFindings": 33,
+      "forwardFindings": 10,
+      "combinedPrecision": 0.7209302325581395,
+      "f1": 0.5040650406504065,
+      "fixesFlagged": 10,
+      "fixes": 30,
+      "callsPerDiff": 1
+    }
+  ]
+}

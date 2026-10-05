@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-21",
+  "project": "Eslint",
+  "bugId": 21,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "14183848a1551710dd4a4dc602c5ba10adba502e",
+  "buggySha": "2ffe51636a64e9ae0cd7621a7c61936346025ca0",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "6cb5c9f322066452a3ebe9ee064ac755a13a242ba94c5e4f755dcd7724148aad",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "14183848a1551710dd4a4dc602c5ba10adba502e",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 183,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/semi.js",
+        "contentSha256": "60275490c5bd2df18d5a7565ceabdcfff58fec692debaefaf0e474ae1886a4aa"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "0b0838204b94795dda8018a933f0880371b7c14d074306c9bd5f6197bc56168f"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "d0b8c07bb38e3559283272d9fed4b072c8f06d1ff9b9e3ecb77cae80351256c7"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "1a7aa21e5d5410af52275b1ad82bd4ccb87910b2f0c1f682bfbf294e61cbceb4"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "db1581251122354944b21e76f6a40afe4c188b30dbe7578c2b46b8a84fa825fb"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "4b43b38e0860d0780f729c8164e6e6dbf2b4e01a320174fd7cf00d067200ab15"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bd138f22f78e055d17bdecd235d0e2670469b369e48223cfd79f6957498ce252"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "aaa8b8cf6bd036a75f2210de35801137a955f85df8aaa207a4a0727470356886"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 6839,
+          "outputTokens": 239,
+          "totalTokens": 7078
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect usage of semicolon detection logic in 'report' function",
+            "severity": "high",
+            "file": "lib/rules/semi.js",
+            "line": 56,
+            "explanation": "The regular expression OPT_OUT_PATTERN was changed from /^[-[(\\/+]$/ to /[\\[\\(/\\+\\-]/, widening the match incorrectly and potentially misdetecting tokens that should be opt-out for semicolon removal logic. The previous version was intended to match exact tokens `-`, `[`, `(`, `/`, `+` only, but the new regex matches any token containing any of those characters anywhere, possibly leading to false positives.",
+            "suggestion": "Restore the original regular expression /^[-[(\\/+]$/ for OPT_OUT_PATTERN to accurately match the intended single-character tokens only.",
+            "failureAfterChange": "Input like a line ending with ';' followed by a token with value containing one of those characters (e.g., a '+' in '++', or '-' in '--') might lead to incorrect identification of unnecessary semicolons and thus wrong linting behavior, flagging missing semicolons or extra semicolons erroneously.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect usage of semicolon detection logic in 'report' function",
+            "severity": "high",
+            "file": "lib/rules/semi.js",
+            "line": 56,
+            "explanation": "The regular expression OPT_OUT_PATTERN was changed from /^[-[(\\/+]$/ to /[\\[\\(/\\+\\-]/, widening the match incorrectly and potentially misdetecting tokens that should be opt-out for semicolon removal logic. The previous version was intended to match exact tokens `-`, `[`, `(`, `/`, `+` only, but the new regex matches any token containing any of those characters anywhere, possibly leading to false positives.",
+            "suggestion": "Restore the original regular expression /^[-[(\\/+]$/ for OPT_OUT_PATTERN to accurately match the intended single-character tokens only.",
+            "failureAfterChange": "Input like a line ending with ';' followed by a token with value containing one of those characters (e.g., a '+' in '++', or '-' in '--') might lead to incorrect identification of unnecessary semicolons and thus wrong linting behavior, flagging missing semicolons or extra semicolons erroneously.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

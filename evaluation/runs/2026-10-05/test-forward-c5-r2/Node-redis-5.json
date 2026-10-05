@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-5",
+  "project": "Node-redis",
+  "bugId": 5,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "db0e8c53cc7a68e65b591dc2e457b5a7e7f5065b",
+  "buggySha": "dffa8a6aee4ec39679aee584a50da485807e8ae5",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "e9ed81f63aef906a713c2c4dc38e8417bfd707bf73ef25e931e1b888dd0d36a8",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "dffa8a6aee4ec39679aee584a50da485807e8ae5",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 89,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "0487fab6b2e8cfed9a90264568820d38d2dabefd66078a53d9c3399e4d2b344d"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "a2e4a7cd4c75cfc280d54c2c625fdadd4efb449b9d758f3c29e515f4e36d1a3f"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "5684e4197bd57e365305455b004d7bf9151507486b5c35a1bc2c3b2aa5e835c0"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "3f2a1dce2669b6adbc4ffbcbb059d673371e58ea8f427f84450a650977dbd984"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "c19dcd7799bfcf92b1006b52554c68005e2278ab9872cbadc6af8d4b35006f80"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "4de9b98f8b88e91a5792ac03f9cb914f6106e5ce19532bf9490135ac214b5025"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "2e728b79ba1d1fdca1756205e5f0f6413b6f4f4a0aa028afa15e529fde5f1417"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "c203db8d0533912268eac5647ee26d99967d8e1afe310c432726bb1e5dc92e59"
+      },
+      {
+        "path": "lib/extendedApi.js",
+        "contentSha256": "5ba2b6611c1df9b74e94c256d522297faa8525f5a29bbf6e461f56741264b0d8"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 15404,
+          "outputTokens": 192,
+          "totalTokens": 15596
+        },
+        "rawFindings": [
+          {
+            "title": "Parser Initialization Timing Changed",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 231,
+            "explanation": "The parser initialization moved from the RedisClient constructor to the create_stream method. Before, the parser was created at client instantiation, now it's created on stream creation. This changes the timing of parser reset, which might affect behavior if code expects parser presence right after client creation and before stream connection.",
+            "suggestion": "Keep the parser initialization in the constructor to ensure consistent parser state regardless of stream connection timing. Initialize it both in constructor and in create_stream when reconnecting, or add explicit parser reset method on reconnect.",
+            "failureAfterChange": "Creating a RedisClient and accessing reply_parser immediately after instantiation (before any stream is created) will now find reply_parser undefined, causing errors for code relying on it. E.g. code accessing client.reply_parser.buffer right after creation will fail.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Parser Initialization Timing Changed",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 231,
+            "explanation": "The parser initialization moved from the RedisClient constructor to the create_stream method. Before, the parser was created at client instantiation, now it's created on stream creation. This changes the timing of parser reset, which might affect behavior if code expects parser presence right after client creation and before stream connection.",
+            "suggestion": "Keep the parser initialization in the constructor to ensure consistent parser state regardless of stream connection timing. Initialize it both in constructor and in create_stream when reconnecting, or add explicit parser reset method on reconnect.",
+            "failureAfterChange": "Creating a RedisClient and accessing reply_parser immediately after instantiation (before any stream is created) will now find reply_parser undefined, causing errors for code relying on it. E.g. code accessing client.reply_parser.buffer right after creation will fail.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

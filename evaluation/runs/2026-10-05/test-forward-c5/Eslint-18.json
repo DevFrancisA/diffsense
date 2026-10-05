@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-18",
+  "project": "Eslint",
+  "bugId": 18,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "133f4895d833fa44987c11e818526aab03b3b3d4",
+  "buggySha": "a34b9c4c7558156e54af11fef6e053dbdd366857",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "46c33b9be154771f32c1e34564a4d873f67da2e51c0f77867d17bcf27fa697d6",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "a34b9c4c7558156e54af11fef6e053dbdd366857",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 193,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/func-name-matching.js",
+        "contentSha256": "87a0fc42d858efb1b3755737a4e6834bd8f699a6f9390850cb40b92912c501c4"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "e8e150e79467792cec9e3ee6054ae8e981998526be901ae26fabbd17a40b039c"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "7b00af1f94db7b56e4bc0b8521dde6fa277b38c8d4d3a34d9acf5f086f4a69d2"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "12eb2e231b456b78b2a27845d61555e4253c751d1a46f485050303baea02e9f7"
+      },
+      {
+        "path": "lib/eslint.js",
+        "contentSha256": "d04fe11caf93ddcb29e159c57b7888b8612a55ee6000310667f9ff5b9341a214"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "c6971081ade3fe5e4babcd0233fcce6ac338d275f3a647d5053670a6a1257638"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "8146d092ef9b04908da9c5eed091b5c2bb04cbd40baddadaa1863500031bfdf1"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "f2ba4902472c032fb4db895c0b10dc45f1450ee11ea01606947ef38343f6b6b0"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "5b69c1a733ba295fbc2325b2a9030f5a597665ca59153358bd06bfd1a9f053f9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 7330,
+          "outputTokens": 286,
+          "totalTokens": 7616
+        },
+        "rawFindings": [
+          {
+            "title": "Missing check for node.id.type 'Identifier' in VariableDeclarator",
+            "severity": "medium",
+            "file": "lib/rules/func-name-matching.js",
+            "line": 151,
+            "explanation": "In the VariableDeclarator visitor, the added condition checks that node.id.type is 'Identifier' before proceeding. This prevents errors or false positives when node.id is not an Identifier, such as patterns in destructuring assignment.",
+            "suggestion": "Ensure node.id.type === 'Identifier' before checking function names to avoid processing unsupported patterns.",
+            "failureAfterChange": "For code like 'var [] = function foo() {}', the rule will correctly ignore it instead of processing and potentially throwing or reporting incorrectly.",
+            "alreadyFixedByChange": true
+          },
+          {
+            "title": "Expanded condition in AssignmentExpression to only process if left is Identifier or MemberExpression",
+            "severity": "medium",
+            "file": "lib/rules/func-name-matching.js",
+            "line": 160,
+            "explanation": "The condition now excludes AssignmentExpressions where the left side is not an Identifier or MemberExpression. This avoids errors or misbehavior when processing complex destructuring assignments or other unsupported patterns.",
+            "suggestion": "Continue to verify left side types strictly (Identifier or MemberExpression) to maintain robust function name matching logic.",
+            "failureAfterChange": "For code like '[a] = function foo() {}', the rule skips processing safely instead of throwing or giving incorrect warnings.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-17",
+  "project": "Express",
+  "bugId": 17,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "80f1ea9bec3c5aedb08a6917ecc24fb8d22b707d",
+  "buggySha": "c3fb7e5adc1fd40e301ed1e25f0d5b5a393d0295",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "5a29d3b5f78cdc43198ff01da15d00643cf5ce95f295b276aee3813808bbb635",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "c3fb7e5adc1fd40e301ed1e25f0d5b5a393d0295",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 48,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/view.js",
+        "contentSha256": "3553d5e2aa06e554895e0ef3194664c237c65cbe36464d13f8a8a528e523d0f3"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/markdown/index.js",
+        "contentSha256": "4dc5c8dccc41f5ea112fdd01c62afe80532ee1863513807713f5bd1ef7f42b00"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "7b753061cd500a1b182ad1d69beb0fda4ad2b6388167a45a0fabf7a3482b1df0"
+      },
+      {
+        "path": "examples/mvc/lib/boot.js",
+        "contentSha256": "4126b12ac678b4b220394d9e4481fcc9b01222a89c0b6cec4b9c441a79e74e2b"
+      },
+      {
+        "path": "examples/ejs/index.js",
+        "contentSha256": "ac068a6fb0111342d959e90a5bc34c6f9bc4e037ce09e40fb5649036296d3b42"
+      },
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "1ea6ec8574b996ecca964375c1b2b49dbe50483cc420d6faf27209486cc59848"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "200d7613fa4a62495d06d075cc179aa33d87698592b9f313d5a66343034dcb41"
+      },
+      {
+        "path": "examples/mvc/controllers/user/index.js",
+        "contentSha256": "84fd25e6225a6401cb14a554374b1f99f21c8c6789f2c13c31f5dbc0aaf87742"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "9ea2701ee848eba4b578841a3257227e81222fa667207b17b2f8f0b8b3e7cfcf"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 4579,
+          "outputTokens": 168,
+          "totalTokens": 4747
+        },
+        "rawFindings": [
+          {
+            "title": "Improper error handling for invalid view engine module",
+            "severity": "high",
+            "file": "lib/view.js",
+            "line": 79,
+            "explanation": "The code change introduces an enhanced check that throws an explicit error if a required view engine module does not export a function named __express. Previously, no such check was done, which could lead to confusing errors or runtime failures when using an invalid view engine module.",
+            "suggestion": "No fix needed; the change improves error handling correctly by throwing a clear error when the engine module is invalid.",
+            "failureAfterChange": "If a user attempts to render a view with a template engine whose module does not export a __express function, the code will throw an error 'Module \"[module_name]\" does not provide a view engine.'",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

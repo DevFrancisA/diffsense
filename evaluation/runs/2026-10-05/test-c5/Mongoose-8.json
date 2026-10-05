@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-8",
+  "project": "Mongoose",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "41912f9bfe3bb0fc5f001ed1bac61e761f8f6ecb",
+  "buggySha": "95b6d859f70371ee8426460bf6cf8a0af69e69f9",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "3fcb031555fc49d2c2cb4455b3c52b3aa47d71393a2544ae7cc1708647394f3b",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "41912f9bfe3bb0fc5f001ed1bac61e761f8f6ecb",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/document.js",
+        "contentSha256": "534b3262da2f187650aef5ce96c8e366b0e84a683b99ff302f4dc346f8bd9edc"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "9a10640912b3377f1a59ca321aa0a730c45317c74ad5d5e468c6ee0814c1010e"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "9ce01033e7f5f5afcbf9f59a7b0890c13eaccd8cb6fdf3d1924a56b232155014"
+      },
+      {
+        "path": "docs/3.1.x/docs/source/api.js",
+        "contentSha256": "7c20734a4af9d5e0817e2cbd83919cafa5d83a7177d81e99024c63cc0033049c"
+      },
+      {
+        "path": "docs/3.2.x/docs/source/api.js",
+        "contentSha256": "7c20734a4af9d5e0817e2cbd83919cafa5d83a7177d81e99024c63cc0033049c"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 16211,
+          "outputTokens": 179,
+          "totalTokens": 16390
+        },
+        "rawFindings": [
+          {
+            "title": "Document.prototype.update does not return the Query",
+            "severity": "medium",
+            "file": "lib/document.js",
+            "line": 355,
+            "explanation": "In the Document.prototype.update method, the underlying model's update is called without returning its result. The old code returned the Query object from the model's update method, but the new code omits the return statement, causing the update method to return undefined instead of the Query. This breaks callers relying on the return value.",
+            "suggestion": "Add a return statement before this.constructor.update.apply to ensure the Query is returned, i.e. return this.constructor.update.apply(this.constructor, args);",
+            "failureAfterChange": "Calling doc.update(...) does not return a Query object as expected; instead it returns undefined, breaking code that expects a Query return value and leading to potential runtime errors or incorrect behavior.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Document.prototype.update does not return the Query",
+            "severity": "medium",
+            "file": "lib/document.js",
+            "line": 355,
+            "explanation": "In the Document.prototype.update method, the underlying model's update is called without returning its result. The old code returned the Query object from the model's update method, but the new code omits the return statement, causing the update method to return undefined instead of the Query. This breaks callers relying on the return value.",
+            "suggestion": "Add a return statement before this.constructor.update.apply to ensure the Query is returned, i.e. return this.constructor.update.apply(this.constructor, args);",
+            "failureAfterChange": "Calling doc.update(...) does not return a Query object as expected; instead it returns undefined, breaking code that expects a Query return value and leading to potential runtime errors or incorrect behavior.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

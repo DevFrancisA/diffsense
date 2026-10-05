@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-17",
+  "project": "Eslint",
+  "bugId": 17,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "133336e04edc59c7441fc0670b0b24dd15ded9b3",
+  "buggySha": "ea1b15d3f996f10b63fcaec2efb44efdb7cda3a0",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "f4bdad183401cf70eada2f5c277946d82d41623c0300afb81df59b1d8a934169",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "ea1b15d3f996f10b63fcaec2efb44efdb7cda3a0",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 183,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/indent.js",
+        "contentSha256": "db48ebc1bcc9a41bb292795e2bb01612fc6609601d94c246f174e1582cdc9acd"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "b8bd9678358b12f88520cbd1064ce869deb627e2c4dfa4528ef5141344973c16"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "04bc79198c0e96564c97056cfd715ef212a1b9f0e2dd546af686fd0ed58fbb26"
+      },
+      {
+        "path": ".eslintrc.js",
+        "contentSha256": "ba89b1c1f8b428b5bfc4c6a19363b9d18f3db45295cd8b7f37f7c40a119a70a1"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "8ef565740e8a3bf829ea7330fc15c12083de34cd6dd772661bc5a004201fc7a7"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bba568e4537c9430461ae2cba77d79abf9fa118296714bfa210f6550b0e7b74c"
+      },
+      {
+        "path": "conf/eslint-recommended.js",
+        "contentSha256": "4ea8868ef14c79ba9181171b891265436975efd073d39bd80a60d02321068716"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "c76bb05c633c6b70cf49679979ff920b75e970d33689d1700368967e0927b403"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "0e0d88d3f610198539b4f5fb648da33e67869ff417b15ae51840f7886892fa0e"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 18324,
+          "outputTokens": 226,
+          "totalTokens": 18550
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect property access on token location causing faulty indent logic",
+            "severity": "medium",
+            "file": "lib/rules/indent.js",
+            "line": 840,
+            "explanation": "In the condition inside the addElementListIndent function, the code checks previousElement's last token line against startToken's end line. The changed line accesses previousElement's last token's 'loc.end.line', but the original code incorrectly accessed 'loc.start.line'. The new code is correct because indentation decisions depend on whether the last token of the previous element ends on a line after the startToken ends. Using the start line would be incorrect and may cause improper indent cal",
+            "suggestion": "Ensure to use 'loc.end.line' of the last token of the previous element in the condition to accurately compare lines for indent logic correction.",
+            "failureAfterChange": "With the previous change, indent calculations might fail when elements span multiple lines and indentation is decided. Using 'loc.start.line' could incorrectly cause tokens to be indented when they shouldn't, or vice versa.",
+            "alreadyFixedByChange": true
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

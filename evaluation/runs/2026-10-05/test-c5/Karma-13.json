@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-13",
+  "project": "Karma",
+  "bugId": 13,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "7d790b29c09c1f3784fe648b7d5ed16add10b4ca",
+  "buggySha": "0d3d97e7930975007d52ff7f5b4adcc3ce60a392",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "fcfb85aae07adf8c177928cd9a92e78fdc9e4ac92fb08fa955667b151bb9684f",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "7d790b29c09c1f3784fe648b7d5ed16add10b4ca",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/launchers/Base.js",
+        "contentSha256": "040b277fe13b7ae7a9cc38bd41b1bf2764c6f07cba6d34accc60b2aa09615265"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/launchers/Base.js",
+        "contentSha256": "3ce680d3093eceb7b4f4ff7cf6d651b8fc9176e8088f594743e078e413a447a8"
+      },
+      {
+        "path": "lib/launchers/Base.js",
+        "contentSha256": "81e4552ce22995141333be2f433d92ffb2b71e7daa6ad750b88abe7ff62bd8ed"
+      },
+      {
+        "path": "lib/launchers/Base.js",
+        "contentSha256": "5197acd8a8db2a26021ab3bbc4a08f7b9ebc21b648bf494c7a707f13bd1c30e9"
+      },
+      {
+        "path": "lib/launcher.js",
+        "contentSha256": "f0c6910d81480b17d284e76db0552c1d9c4675d5c8a29dd43bfdb0bd0ca745f5"
+      },
+      {
+        "path": "lib/server.js",
+        "contentSha256": "a2d35a5bf305ae7bd0c4da308f296496bd410775b1ed63f457582c06178a1a66"
+      },
+      {
+        "path": "lib/server.js",
+        "contentSha256": "6ed6065c2a8d7120f0da9827cc4a8e21e428c175e90345d5b5481f44c7da3f1d"
+      },
+      {
+        "path": "lib/server.js",
+        "contentSha256": "a835c0c860fe2d1c9544b317caf33b120019634573f6f185ff42c5b50ae97082"
+      },
+      {
+        "path": "lib/launcher.js",
+        "contentSha256": "caa46e3cd2936d93b90ccb658be51608a552a9f49af81e2eca983913bf0d27ed"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5642,
+          "outputTokens": 216,
+          "totalTokens": 5858
+        },
+        "rawFindings": [
+          {
+            "title": "Missing error handling for spawn process errors",
+            "severity": "high",
+            "file": "lib/launchers/Base.js",
+            "line": 107,
+            "explanation": "The patch removes the handler for the 'error' event on the spawned process (`self._process.on('error', ...)`). This means that if the spawn process emits an error (e.g., ENOENT for missing binary), the error will not be caught or handled properly. Consequently, the `retryLimit` will not be set to 0 and `errorOutput` will not be updated, which can lead to incorrect retry behavior and missing error logs.",
+            "suggestion": "Restore the 'error' event listener on the spawned process to handle errors like ENOENT correctly, ensuring retries are properly controlled and informative error messages are logged.",
+            "failureAfterChange": "Starting a browser when the binary does not exist will emit an uncaught 'error' event on the spawn process, leading to unhandled exceptions and infinite retry attempts instead of aborting with an error message.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Missing error handling for spawn process errors",
+            "severity": "high",
+            "file": "lib/launchers/Base.js",
+            "line": 107,
+            "explanation": "The patch removes the handler for the 'error' event on the spawned process (`self._process.on('error', ...)`). This means that if the spawn process emits an error (e.g., ENOENT for missing binary), the error will not be caught or handled properly. Consequently, the `retryLimit` will not be set to 0 and `errorOutput` will not be updated, which can lead to incorrect retry behavior and missing error logs.",
+            "suggestion": "Restore the 'error' event listener on the spawned process to handle errors like ENOENT correctly, ensuring retries are properly controlled and informative error messages are logged.",
+            "failureAfterChange": "Starting a browser when the binary does not exist will emit an uncaught 'error' event on the spawn process, leading to unhandled exceptions and infinite retry attempts instead of aborting with an error message.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

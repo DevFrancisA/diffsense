@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Pencilblue-4",
+  "project": "Pencilblue",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/pencilblue",
+  "fixedSha": "3637bc9054f191a87d5ffa54549e5a8ea2d69910",
+  "buggySha": "4504fb3cc07ce51216ed0c450844a81a2fe7c6aa",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "0454216e2767973b69d7a6c80b54d88c4f6c89fa6ccc68e6d533c64de05c9d43",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/pencilblue",
+    "commitSha": "4504fb3cc07ce51216ed0c450844a81a2fe7c6aa",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 224,
+    "embeddingUsage": {
+      "inputTokens": 1168,
+      "outputTokens": 0,
+      "totalTokens": 1168
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "include/dao/dao.js",
+        "contentSha256": "152b36481fc4fe7f07f09cc0e2b36e96c8605c700432b4edd0d1b84eb9d56a25"
+      },
+      {
+        "path": "include/service/entities/custom_object_service.js",
+        "contentSha256": "682a65e5fa94bb16b7a7eb9efd803740a0304d0e899fc730c100a71de3ed9cc2"
+      },
+      {
+        "path": "include/validation/validation_service.js",
+        "contentSha256": "6743ee8e40bbf4ad8dc715aa3bc425e2e529ee80b26f99a8b5647a8c068b70be"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "include/requirements.js",
+        "contentSha256": "f1fe7bf5d1acd42c6cf3b50cdc939ae6871456fd019d0b998d1bac79adb670b6"
+      },
+      {
+        "path": "include/service/entities/content/content_object_service.js",
+        "contentSha256": "04d5380fc3038a78d0bb012a5ad78166401ee9a5a4087a7af1b1578442d78feb"
+      },
+      {
+        "path": "include/requirements.js",
+        "contentSha256": "967b05ec988c96595c1d69ee361e09ffb6a1dbea575c40d1e81e83d0116cbfac"
+      },
+      {
+        "path": "include/requirements.js",
+        "contentSha256": "ba4d2d48a26f9bc082448e01d635c43e42e7c3978125130e6387dc26f728c6ad"
+      },
+      {
+        "path": "include/service/base_object_service.js",
+        "contentSha256": "559123465be49255067e4ebb0d4c30a1f116649dea7e27671afaea7bd1c952e3"
+      },
+      {
+        "path": "include/libraries.js",
+        "contentSha256": "abd586e99e886c547e3a86491180834f2dc8716a7ca22f99da0f0f7058a2bfe5"
+      },
+      {
+        "path": "include/service/entities/content/article_service_v2.js",
+        "contentSha256": "272f7f8fc0620af56faccd9734066f021e513a528d537ae75906d5d234165d79"
+      },
+      {
+        "path": "include/service/entities/content/article_service_v2.js",
+        "contentSha256": "e2631fda68d11f2cbc34faf45e5111f2627a757bda0bc631f2967e9f1ca5088a"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 1625,
+      "outputTokens": 0,
+      "totalTokens": 1625
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 29748,
+          "outputTokens": 879,
+          "totalTokens": 30627
+        },
+        "rawFindings": [
+          {
+            "title": "ObjectID custom type deletion no longer removes its objects",
+            "severity": "medium",
+            "file": "include/service/entities/custom_object_service.js",
+            "line": 993,
+            "explanation": "`deleteForType` is called by `deleteTypeById`, whose contract and validation allow an `ObjectID` id. For a raw `ObjectID`, this new object branch reads `custObjType['_id']`, which is undefined, so it deletes with `{type: 'undefined'}` instead of the type id string.",
+            "suggestion": "Handle raw ids separately, e.g. if `pb.validation.isId(custObjType, true)` use `custObjType.toString()`, otherwise read the descriptor's `_id` field.",
+            "failureAfterChange": "Calling `deleteTypeById(ObjectID('64f000000000000000000001'))` when `custom_object` documents have `type: '64f000000000000000000001'` deletes the type descriptor but leaves those custom objects behind.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "ObjectID custom type deletion no longer removes its objects",
+            "severity": "medium",
+            "file": "include/service/entities/custom_object_service.js",
+            "line": 993,
+            "explanation": "`deleteForType` is called by `deleteTypeById`, whose contract and validation allow an `ObjectID` id. For a raw `ObjectID`, this new object branch reads `custObjType['_id']`, which is undefined, so it deletes with `{type: 'undefined'}` instead of the type id string.",
+            "suggestion": "Handle raw ids separately, e.g. if `pb.validation.isId(custObjType, true)` use `custObjType.toString()`, otherwise read the descriptor's `_id` field.",
+            "failureAfterChange": "Calling `deleteTypeById(ObjectID('64f000000000000000000001'))` when `custom_object` documents have `type: '64f000000000000000000001'` deletes the type descriptor but leaves those custom objects behind.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

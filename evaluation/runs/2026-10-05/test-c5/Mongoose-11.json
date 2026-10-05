@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Mongoose-11",
+  "project": "Mongoose",
+  "bugId": 11,
+  "upstreamRepository": "https://github.com/BugsJS/mongoose",
+  "fixedSha": "bf7bee94e99fb9088386c9c87b9e98f19c773aed",
+  "buggySha": "a4e83c4f93d0916a9acd31152ec58d5c1dbbabfb",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "35776c100e2d7110cb02a7bef762ccf731ba9deddb6dc2e467d65511ddb2ea3b",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/mongoose",
+    "commitSha": "bf7bee94e99fb9088386c9c87b9e98f19c773aed",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 54,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/query.js",
+        "contentSha256": "6ca2e06e541fe49fb664a5170fdfa46f3dfaa2db58756b9082f1743abe5e344d"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "f3dd5e00e152079935b992a4b8f3ddd51c1e8bed64149c305b226155044bac8d"
+      },
+      {
+        "path": "benchmarks/clone.js",
+        "contentSha256": "69e6f8c065e8ee4635c9ec4103f318645b216f02a9a4cbc40e08090543a5a353"
+      },
+      {
+        "path": "benchmarks/populate.js",
+        "contentSha256": "9ce01033e7f5f5afcbf9f59a7b0890c13eaccd8cb6fdf3d1924a56b232155014"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "1b2cad10584c141b15453ba1ba7800070da73d1900a23acd32c24dcf26da8a27"
+      },
+      {
+        "path": "benchmarks/index.js",
+        "contentSha256": "76824056b784b03a2a7d10966c5768e094f13ec2c364c9dd0579e7bb5b49c8e9"
+      },
+      {
+        "path": "benchmarks/mem.js",
+        "contentSha256": "9a10640912b3377f1a59ca321aa0a730c45317c74ad5d5e468c6ee0814c1010e"
+      },
+      {
+        "path": "docs/3.3.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      },
+      {
+        "path": "docs/3.2.x/docs/helpers/linktype.js",
+        "contentSha256": "a4fc2de63df47b7432d0654b32e94e4bc50c21db508258561968b8db3cf08235"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 23514,
+          "outputTokens": 197,
+          "totalTokens": 23711
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect check in _applyPaths for forced inclusion of fields",
+            "severity": "high",
+            "file": "lib/query.js",
+            "line": 517,
+            "explanation": "The condition that decides whether to forcibly include the current path in fields previously excluded at schema level was changed from \"if false === exclude && keys.length > 1 && path not in keys\" to \"if false === exclude && keys.length > 1\". This change removes the check for path presence in keys, potentially causing incorrect inclusion of fields that were not explicitly selected, breaking expected field selection behavior.",
+            "suggestion": "Restore the check for path presence in keys: revert line 517 to if (false === exclude && keys.length > 1 && !~keys.indexOf(path)) {",
+            "failureAfterChange": "Selecting forced inclusion of a deselected schema path fails to include it if it was not in select keys, leading to missing fields in query results.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect check in _applyPaths for forced inclusion of fields",
+            "severity": "high",
+            "file": "lib/query.js",
+            "line": 517,
+            "explanation": "The condition that decides whether to forcibly include the current path in fields previously excluded at schema level was changed from \"if false === exclude && keys.length > 1 && path not in keys\" to \"if false === exclude && keys.length > 1\". This change removes the check for path presence in keys, potentially causing incorrect inclusion of fields that were not explicitly selected, breaking expected field selection behavior.",
+            "suggestion": "Restore the check for path presence in keys: revert line 517 to if (false === exclude && keys.length > 1 && !~keys.indexOf(path)) {",
+            "failureAfterChange": "Selecting forced inclusion of a deselected schema path fails to include it if it was not in select keys, leading to missing fields in query results.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

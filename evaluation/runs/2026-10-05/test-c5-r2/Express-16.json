@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-16",
+  "project": "Express",
+  "bugId": 16,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "6f0302fb78f636da320d3ffd329c18fed36aeda9",
+  "buggySha": "6f914160209c16c640d36db8565a968c4e63d3dc",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "35d713918363b0b1ab56f77a848aecea8bd82b2538b79aa05f7182ad190e0586",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "6f0302fb78f636da320d3ffd329c18fed36aeda9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/response.js",
+        "contentSha256": "65ffc75017cc979349b09a02df3da30e09abdda2f711bb4084a25126fdf0fcfc"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "2b973c72851faeb2ff55da31cd730cfbb6ce887e8ac9de4c8ece20b7b46292a4"
+      },
+      {
+        "path": "examples/resource/app.js",
+        "contentSha256": "227bfcecfe94c1786a630c028a84390c813abf02982ca0fad393e76fc515c66d"
+      },
+      {
+        "path": "examples/auth/app.js",
+        "contentSha256": "48ac3f18137be0c232ed79c3753a09725345e4a0f548a77b3766cfb05d824df3"
+      },
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "4c6d3b95f985fd39ea3cafd10f65ddf11d29bce1b6fa6b07f9aebe0a0378c869"
+      },
+      {
+        "path": "examples/content-negotiation/index.js",
+        "contentSha256": "42d0034e9e3acd608726afcede103a11a7e7844590968e183cbb366980dbc079"
+      },
+      {
+        "path": "examples/cookies/app.js",
+        "contentSha256": "c0df2c09f8f807be43c98e57121f1cefdbcac02ee9f475153d569541e116ca51"
+      },
+      {
+        "path": "examples/route-middleware/index.js",
+        "contentSha256": "712baa0298844ee1bc9cc79343e7df3dd62e61b982252ae4c20f29f1a14fdf0f"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "efb362efb0ebc869920f10a897d5bd06c52b967b76adebc36a2db13252d7d39c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 10469,
+          "outputTokens": 6,
+          "totalTokens": 10475
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

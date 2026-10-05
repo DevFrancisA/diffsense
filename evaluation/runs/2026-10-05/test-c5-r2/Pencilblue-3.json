@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Pencilblue-3",
+  "project": "Pencilblue",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/pencilblue",
+  "fixedSha": "23ff1238366aca0caa23ff8861920ef0d14e0c3d",
+  "buggySha": "8a2eca3389368fc9a857335e9920b919c29d6dd0",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "6bf4d447698a184cbecd9fc1e2b0b78975e48387e73ba55f96957b61bec5d51f",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/pencilblue",
+    "commitSha": "23ff1238366aca0caa23ff8861920ef0d14e0c3d",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 216,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "include/error/formatters/error_formatters.js",
+        "contentSha256": "5181718a9dd965314d1fb0141e1cfe5c6e1cabc56ee80b130c4480cfaea99188"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "f23015b864d8942c3d71b4ca1c4ad3869850512a9ebd255ac937bf97f8f5cf67"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "bc66ab801e194ff08cb2a64bcaa3c30d62138d8a2b6a92b0f6f23a6669bdd981"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "5800feb5dc6bc8accc9028466ceafc2ddcbbc5498f56f8aeca6991759169bed4"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "077b51206af5324fd120229a5af073edd9757df76c10765ff8c89212e132ef26"
+      },
+      {
+        "path": "include/error/formatters/error_formatters.js",
+        "contentSha256": "ba099098fce3cf5f830d9af670793ad60417b369c71d8222833d0803d96d1c32"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "e79dde4e274033310eb5d0982ca9b99d850f54198878f612c5883befe777e791"
+      },
+      {
+        "path": "include/error/formatters/error_formatters.js",
+        "contentSha256": "e17d067256f26c1fc81e94d5850ce00b0b3ecd624d27ecbf71f125320e97924e"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "34b9ea8c728b8379b55c95df3979e76e0f9610da87d4e36f058d3c27d9b01646"
+      },
+      {
+        "path": "include/http/middleware/index.js",
+        "contentSha256": "904db6a67128e68951c0b0aa6b5b1bdb1a334e0569291f311da559f164ab1247"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 20950,
+          "outputTokens": 479,
+          "totalTokens": 21429
+        },
+        "rawFindings": [
+          {
+            "title": "Removed cloning of params.request.themeRoute causes possible mutation of shared route theme object in error formatter",
+            "severity": "high",
+            "file": "include/error/formatters/error_formatters.js",
+            "line": 150,
+            "explanation": "The change removed the cloning of params.request.themeRoute, making error_formatters.js mutate the original params.request.themeRoute object directly by assigning properties to it. This can lead to side effects where the route theme object, potentially shared and reused elsewhere, gets modified unexpectedly, causing hard to trace bugs and inconsistent error page behavior.",
+            "suggestion": "Restore cloning of params.request.themeRoute using lodash clone or a similar deep copy mechanism before mutating it to avoid affecting the shared object.",
+            "failureAfterChange": "An error is handled that triggers error_formatters.js to set params.request.themeRoute.handler = 'render'. Without cloning, this mutates the original route theme object used elsewhere, potentially changing the theme handler globally and causing incorrect controller handling for future requests.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "RequestHandler route registration improperly mutates descriptor object by assigning controller",
+            "severity": "high",
+            "file": "include/http/request_handler.js",
+            "line": 491,
+            "explanation": "In _registerRoute(), the change removes assigning the Controller constructor directly to descriptor.controller and instead assigns it on the stored route object's method property. Previously, the descriptor object used for route registration was frozen after modifying controller. Now, the descriptor object is used as-is and controller is separately assigned on route storage. However, by assigning controller as a new property on routeDescriptor.themes[site][theme][method], mutability is increased",
+            "suggestion": "Either continue to assign Controller into descriptor.controller and freeze descriptor, or ensure that descriptor is deeply cloned before storage to avoid shared mutation. Alternatively, maintain previous immutability pattern by freezing descriptor after assignment to prevent unexpected state changes.",
+            "failureAfterChange": "If external code relies on descriptor.controller property existing, or that descriptors stored in routeDescriptor are immutable, this is broken. Mutations to descriptor outside route storage may affect route behavior, causing issues such as incorrect controller instances or unintended side effects during request handling.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Removed cloning of params.request.themeRoute causes possible mutation of shared route theme object in error formatter",
+            "severity": "high",
+            "file": "include/error/formatters/error_formatters.js",
+            "line": 150,
+            "explanation": "The change removed the cloning of params.request.themeRoute, making error_formatters.js mutate the original params.request.themeRoute object directly by assigning properties to it. This can lead to side effects where the route theme object, potentially shared and reused elsewhere, gets modified unexpectedly, causing hard to trace bugs and inconsistent error page behavior.",
+            "suggestion": "Restore cloning of params.request.themeRoute using lodash clone or a similar deep copy mechanism before mutating it to avoid affecting the shared object.",
+            "failureAfterChange": "An error is handled that triggers error_formatters.js to set params.request.themeRoute.handler = 'render'. Without cloning, this mutates the original route theme object used elsewhere, potentially changing the theme handler globally and causing incorrect controller handling for future requests.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "RequestHandler route registration improperly mutates descriptor object by assigning controller",
+            "severity": "high",
+            "file": "include/http/request_handler.js",
+            "line": 489,
+            "explanation": "In _registerRoute(), the change removes assigning the Controller constructor directly to descriptor.controller and instead assigns it on the stored route object's method property. Previously, the descriptor object used for route registration was frozen after modifying controller. Now, the descriptor object is used as-is and controller is separately assigned on route storage. However, by assigning controller as a new property on routeDescriptor.themes[site][theme][method], mutability is increased",
+            "suggestion": "Either continue to assign Controller into descriptor.controller and freeze descriptor, or ensure that descriptor is deeply cloned before storage to avoid shared mutation. Alternatively, maintain previous immutability pattern by freezing descriptor after assignment to prevent unexpected state changes.",
+            "failureAfterChange": "If external code relies on descriptor.controller property existing, or that descriptors stored in routeDescriptor are immutable, this is broken. Mutations to descriptor outside route storage may affect route behavior, causing issues such as incorrect controller instances or unintended side effects during request handling.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

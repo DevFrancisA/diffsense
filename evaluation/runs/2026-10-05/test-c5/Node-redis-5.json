@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-5",
+  "project": "Node-redis",
+  "bugId": 5,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "db0e8c53cc7a68e65b591dc2e457b5a7e7f5065b",
+  "buggySha": "dffa8a6aee4ec39679aee584a50da485807e8ae5",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "e92783ce18e4d7e304eb7c2efe6afd0929c6e0624bfc8437101ea05b1914d998",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "db0e8c53cc7a68e65b591dc2e457b5a7e7f5065b",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 89,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "3ffb581773c4909ad26fd2791fc7983f1cd58d7787dc8aafa39f950ded5be56a"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "034790a9ffb77776f9f476d1f4517b11cf40266b10701377ed4d56755b1aeea2"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "5684e4197bd57e365305455b004d7bf9151507486b5c35a1bc2c3b2aa5e835c0"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "3ecd6b86aac1aff57f5476792e9283d71560a667ae50bace69aab8cf5dc5ac2c"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "d0655bbab875109d806af9e1b0fe2fd81704cf21f1f4fc223dc421d841eb89d6"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "50babeed66c5a25d04dc49fbd091d86efbdfea8f54407e1135a35cb39e3c4508"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "cd47539a1a9858b051217388bb67703ec8d463056bb7cf14fb62e75b470692a5"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "225a646327717ac4b89cd64dc1516513a04b5b0faeb80a9a18f396b2e8edbaf7"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "86acc582c4fe0b902110b2b8af21b56fae488ec0727dcba17cfc7b99acbe5ea5"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 15264,
+          "outputTokens": 202,
+          "totalTokens": 15466
+        },
+        "rawFindings": [
+          {
+            "title": "Parser Initialization Location Changed Without Reset on Reconnect",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 159,
+            "explanation": "The parser (this.reply_parser) is now initialized in the RedisClient constructor instead of in the create_stream function. Previously, the parser was recreated each time create_stream was called (e.g., on reconnects), effectively resetting the parser's internal state. Now, since create_stream no longer resets the parser, there is a risk that the parser's internal buffer may retain leftover data during reconnects, causing parsing errors or incorrect command replies.",
+            "suggestion": "Move the parser initialization back into the create_stream function or ensure the parser is reset properly upon reconnect to avoid stale parser states.",
+            "failureAfterChange": "Create a client, partially consume some input so the parser has buffer data, then force a reconnect. The parser does not reset its buffer, and subsequent replies may be corrupted or fail to parse correctly.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Parser Initialization Location Changed Without Reset on Reconnect",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 159,
+            "explanation": "The parser (this.reply_parser) is now initialized in the RedisClient constructor instead of in the create_stream function. Previously, the parser was recreated each time create_stream was called (e.g., on reconnects), effectively resetting the parser's internal state. Now, since create_stream no longer resets the parser, there is a risk that the parser's internal buffer may retain leftover data during reconnects, causing parsing errors or incorrect command replies.",
+            "suggestion": "Move the parser initialization back into the create_stream function or ensure the parser is reset properly upon reconnect to avoid stale parser states.",
+            "failureAfterChange": "Create a client, partially consume some input so the parser has buffer data, then force a reconnect. The parser does not reset its buffer, and subsequent replies may be corrupted or fail to parse correctly.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

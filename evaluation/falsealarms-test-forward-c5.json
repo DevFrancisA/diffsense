@@ -1,0 +1,396 @@
+{
+  "schemaVersion": 1,
+  "kind": "forward-fix-false-alarms",
+  "benchmarkDate": "2026-10-05",
+  "benchmarkVariant": "test-forward-c5",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "models": {
+    "review": "gpt-4.1-mini",
+    "embedding": "text-embedding-3-small"
+  },
+  "reviewPromptSha256": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "summary": {
+    "cases": 30,
+    "casesReviewed": 30,
+    "casesFlagged": 13,
+    "casesFlaggedOnSource": 12,
+    "findings": 18,
+    "sourceFindings": 17,
+    "testFindings": 1
+  },
+  "cases": [
+    {
+      "caseId": "Eslint-17",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-18",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-19",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Invalid initialization of `valid` flag for `this` keyword under strict mode and globalReturn",
+          "severity": "high",
+          "file": "lib/rules/no-invalid-this.js",
+          "line": 319,
+          "explanation": "The code change modifies the initialization of the 'valid' flag in the 'Program' visitor to include a check for the 'strict' mode of the scope and the presence of 'globalReturn'. It assumes 'scope.childScopes[0]' exists, but this might be undefined in some cases (e.g., empty childScopes array). Accessing 'scope.childScopes[0].isStrict' without checking if 'childScopes[0]' exists may cause a runtime error.",
+          "suggestion": "Add a guard to confirm 'scope.childScopes.length > 0' before accessing 'scope.childScopes[0].isStrict'. For example, use a condition like 'features.globalReturn && scope.childScopes.length > 0 && scope.childScopes[0].isStrict' to avoid errors when 'childScopes' is empty.",
+          "failureAfterChange": "When processing a Program node with an empty 'childScopes' array in the scope, the code throws a runtime TypeError due to accessing 'scope.childScopes[0].isStrict' without null check.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-20",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Eslint-21",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect regular expression for OPT_OUT_PATTERN",
+          "severity": "medium",
+          "file": "lib/rules/semi.js",
+          "line": 56,
+          "explanation": "The OPT_OUT_PATTERN regex was changed from `/[\\[\\(\\/\\+\\-]/` to `/^[-[(\\/+]$/`. The original regex matches any of the characters '[', '(', '/', '+', '-', anywhere within the string (usually a token value). The new regex matches exactly one character that is one of '-', '[', '(', '/', '+', and anchors to start and end of string (`^...$`). This means it will not match multi-character tokens like '++' or '--' or '+=' anymore. However, this stricter match likely breaks the intended behavior because s",
+          "suggestion": "Revert the OPT_OUT_PATTERN regex to the original `/[\\[\\(\\/\\+\\-]/` to match any of the listed characters anywhere in the token value, ensuring proper detection of opt-out tokens.",
+          "failureAfterChange": "Input: Source code including '++' or '--' operators immediately after semicolons. The rule mistakenly treats these as requiring semicolons or reports missing semicolons incorrectly due to the faulty regex mismatch.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Eslint-23",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-13",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-16",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-17",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-18",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Express-19",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-12",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Middleware Karma uses non-existent 'file.sha' without setting it",
+          "severity": "high",
+          "file": "lib/middleware/karma.js",
+          "line": 86,
+          "explanation": "In the changed middleware karma.js at line 86, the code appends '?'+file.sha to the file path for cache busting. However, the 'sha' property is not guaranteed to exist on 'file' objects in this context, and was not previously set. This leads to undefined being appended, likely breaking resource URLs.",
+          "suggestion": "Ensure that the 'file.sha' property is set on all file objects before usage, or fallback to an existing property such as 'file.mtime.getTime()' if 'sha' is not available.",
+          "failureAfterChange": "Requesting /context.html serves script tags with URLs ending with '?undefined', causing resources not to load correctly.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Middleware Karma serves file mappings with non-existent 'file.sha'",
+          "severity": "high",
+          "file": "lib/middleware/karma.js",
+          "line": 101,
+          "explanation": "At line 101, mappings are generated using 'file.sha' for cache busting. If 'file.sha' is undefined or missing, the mapping will be incorrect, potentially breaking client-side lookup for these files.",
+          "suggestion": "Set the 'file.sha' property on the file objects before usage or fallback to an existing property like 'file.mtime.getTime()' if 'sha' is not available.",
+          "failureAfterChange": "The window.__karma__.files mapping contains 'undefined' values, causing client-side file cache mapping to fail.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-13",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "State BEING_CAPTURED set after start rather than before",
+          "severity": "medium",
+          "file": "lib/launchers/Base.js",
+          "line": 29,
+          "explanation": "The state BEING_CAPTURED is set after calling self._start() in the start() function, whereas the previous code set this state before. If _start() depends on the state being BEING_CAPTURED, this reordering may cause race conditions or logic errors in asynchronous code responding to the state.",
+          "suggestion": "Move 'self.state = BEING_CAPTURED;' line before the call to self._start(capturingUrl + '?id=' + self.id).",
+          "failureAfterChange": "Input: Calling start(url) followed immediately by an event handler triggered by _start() which checks self.state to be BEING_CAPTURED. Result: Handler does not detect correct state because state is not yet set, causing erroneous behavior.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Setting process.exitCode without stopping server start on load errors leads to unexpected behavior",
+          "severity": "high",
+          "file": "lib/server.js",
+          "line": 187,
+          "explanation": "In the server start function, when load errors are detected, the code sets process.exitCode = 1 but then immediately sends SIGINT to the process. However, this does not stop the server start sequence early and may lead to inconsistent server state or multiple stop attempts. Setting the exit code without terminating or stopping further processing may cause unpredictable behavior during startup failures.",
+          "suggestion": "Immediately return after setting process.exitCode=1 and emitting SIGINT, or refactor to properly stop server initialization flow when load errors occur.",
+          "failureAfterChange": "When the server starts with load errors present, process.exitCode is set to 1 but server start continues, potentially causing multiple exits or inconsistent state.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Anonymous SIGINT handler on processWrapper leads to duplicated logic and potential inconsistency",
+          "severity": "medium",
+          "file": "lib/server.js",
+          "line": 396,
+          "explanation": "The SIGINT listener on processWrapper was changed from a direct function reference (disconnectBrowsers) to an anonymous function calling disconnectBrowsers with process.exitCode. This can lead to subtle differences in behavior because the original handler passed the event arguments directly, but now the handler ignores the SIGINT event arguments and reuses process.exitCode. This minor change might add unnecessary indirection or prevent future signal argument usage.",
+          "suggestion": "Keep the SIGINT handler as processWrapper.on('SIGINT', disconnectBrowsers) to preserve existing semantics unless passing the exit code via a wrapper function is strictly required.",
+          "failureAfterChange": "SIGINT events on processWrapper are handled differently and may affect signal handling behavior.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-15",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Karma-16",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect Content-Range header end byte in range request handling",
+          "severity": "high",
+          "file": "lib/middleware/common.js",
+          "line": 52,
+          "explanation": "The code sets the Content-Range header as 'bytes start-end/length' but actually slices responseData with slice(start, end + 1). Since slice is exclusive of the end index, the Content-Range end byte should be 'end' - 1 to reflect the actual byte range served. The current code will cause clients to think one more byte is sent than actually is, leading to protocol inconsistencies or client errors.",
+          "suggestion": "Change the Content-Range header end byte to 'end' instead of 'end'. For example, set it as 'bytes ' + start + '-' + (end) + '/' + responseData.length, but ensure the slicing and header match. Alternatively, correct the slicing or header so that the number of bytes matches.",
+          "failureAfterChange": "A request for a byte range 'bytes=3-8' on a 9-byte resource returns a Content-Range header of 'bytes 3-9/9' but response body with bytes 3 to 8 (6 bytes). Clients expecting 7 bytes (3 to 9) will detect truncated data or other issues.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Karma-17",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Use of injector inside createKarmaMiddleware causes incompatibility with existing $inject annotations and may break DI behavior",
+          "severity": "high",
+          "file": "lib/middleware/karma.js",
+          "line": 73,
+          "explanation": "The createKarmaMiddleware function was changed to take an injector parameter and retrieve config values from it inside the returned middleware. The prior version took these config values as parameters directly with $inject annotations. This change breaks the previously declared $inject array for dependency injection, potentially breaking DI in setups relying on $inject annotations or on direct parameters for config values.",
+          "suggestion": "Revert createKarmaMiddleware signature to accept config.client, config.customContextFile, and config.customDebugFile as separate parameters instead of using injector inside the middleware. Alternatively, update the $inject array and DI setup accordingly to inject the injector and handle config retrieval consistently.",
+          "failureAfterChange": "Starting Karma server with the new middleware setup where DI relies on $inject annotations can cause errors or missing configuration values because the injector is not injected properly or config client values are not found at runtime.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Possible missing log debug for serving custom files in createKarmaMiddleware",
+          "severity": "low",
+          "file": "lib/middleware/karma.js",
+          "line": 125,
+          "explanation": "The new code added several log.debug lines for debugging serving customContextFile and customDebugFile but these logs might expose internal urls or client configuration, which could lead to verbose or sensitive information leaking in logs if not carefully controlled.",
+          "suggestion": "Review the necessity and content of debug logs added at lines 125, 131, 135 to verify that sensitive information is not logged, and optionally remove or secure these logs for production environments.",
+          "failureAfterChange": "Debug logs could reveal sensitive internal file paths or configuration values during request handling, potentially leaking information to log files.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-8",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-9",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-10",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect use of delta() method and missing toObject options in test",
+          "severity": "high",
+          "file": "test/types.documentarray.test.js",
+          "line": 180,
+          "explanation": "The new test added at line 180 attempts to test that options passed to toObject() are successfully passed to subdocuments during MongooseArray#toObject() calls. However, the test calls m.$__delta() (likely internal Mongoose change tracking) and then checks a generated delta object for a field 'changed' that should not exist, but this does not actually invoke toObject with options, nor does it verify that the options were passed or that the transform was called as intended. The test is ineffectiv",
+          "suggestion": "Modify the test to directly call m.docs.toObject({ customOption: true }) and verify that the transform function on the subSchema is called with the options, asserting that the transformed object includes the 'changed' property set to 123. Avoid using internal delta methods, as they do not trigger toObject transformations.",
+          "failureAfterChange": "Running the test does not verify that options pass through to subdocuments' toObject, allowing regressions where transform options are ignored.",
+          "alreadyFixedByChange": false,
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-11",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Mongoose-13",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Incorrect toObject option check for depopulate",
+          "severity": "high",
+          "file": "lib/document.js",
+          "line": 1430,
+          "explanation": "In Document.prototype.toObject, the condition was changed from checking 'options.convertToId' to checking 'options.depopulate && !options.isParent'. This changes behavior in depopulating logic when converting documents to plain object, potentially breaking existing functionality that relied on 'convertToId' flag and altering when depopulation occurs.",
+          "suggestion": "Restore the original condition checking 'options.convertToId' or ensure that the new behavior is fully compatible and tested for all use cases.",
+          "failureAfterChange": "Calling toObject with { convertToId: true } no longer triggers intended depopulation logic, possibly leading to fully populated objects instead of just their ids, breaking expectations.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "toObject forcibly sets options.isParent to false",
+          "severity": "medium",
+          "file": "lib/document.js",
+          "line": 1447,
+          "explanation": "Added line forcibly sets 'options.isParent = false' inside Document.prototype.toObject, overriding possibly explicitly set value by caller. This may cause issues in nested document transformations where 'isParent' flag is meaningful for correct depopulation or transformation behavior.",
+          "suggestion": "Remove the line setting 'options.isParent = false' or set it only if undefined to avoid overriding explicit caller options.",
+          "failureAfterChange": "Calling toObject with { isParent: true } option will have that overridden to false, breaking intended behavior for nested documents.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        },
+        {
+          "title": "Incorrect option used for cloning in Model.$__delta",
+          "severity": "high",
+          "file": "lib/model.js",
+          "line": 381,
+          "explanation": "In Model.$__delta, the option passed to utils.clone was changed from { convertToId: 1 } to { depopulate: 1 }. Since these options cause different cloning behavior, this change alters how values are cloned before being sent in updates. This might cause incorrect serialization of populated fields or related data when saving, potentially resulting in data corruption or errors.",
+          "suggestion": "Restore the original cloning option { convertToId: 1 } unless thorough testing confirms the new option behaves correctly in all edge cases.",
+          "failureAfterChange": "Values cloned with { depopulate: 1 } might include full documents instead of ObjectIds, leading to malformed update commands to MongoDB and possible save failures.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Mongoose-14",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Duplicate line added: redundant push to rawIds",
+          "severity": "low",
+          "file": "lib/model.js",
+          "line": 1802,
+          "explanation": "In the function populate(), added line duplicates existing line rawIds.push(ret);. This redundancy doesn't cause functional defects but bloats code unnecessarily.",
+          "suggestion": "Remove the added duplicate line rawIds.push(ret); at line 1802.",
+          "failureAfterChange": "No functional failure occurs but code is redundant and harder to maintain.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Node-redis-5",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Parser not reset before reconnection",
+          "severity": "high",
+          "file": "index.js",
+          "line": 232,
+          "explanation": "The patch adds initialization of the parser during create_stream but does not reset or clear any existing parser state before reconnection. Without resetting the parser's internal buffer, partial or corrupted input may incorrectly accumulate across reconnects.",
+          "suggestion": "Explicitly reset the parser's internal state (e.g., reply_parser.buffer) before re-initializing it upon stream creation or reconnection.",
+          "failureAfterChange": "If the connection disconnects with partial data in parser, reconnecting will reuse the parser with leftover data causing parsing errors or crashes.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Node-redis-7",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Auth error missing command_used property on error object",
+          "severity": "medium",
+          "file": "index.js",
+          "line": 209,
+          "explanation": "In RedisClient.prototype.do_auth, when auth fails and error occurs, the error passed to callback or emitted as 'error' event does not include the 'command_used' property as other errors do, which limits context for error handling.",
+          "suggestion": "Add error.command_used = 'AUTH' before calling auth_callback or emitting 'error' event for failed auth.",
+          "failureAfterChange": "When client.auth with bad password is called without callback, 'error' event emitted lacks error.command_used property set to 'AUTH', hindering error identification.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Pencilblue-2",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Pencilblue-3",
+      "skipped": null,
+      "findings": [
+        {
+          "title": "Inconsistent Cloning of themeRoute in ErrorFormatters.html",
+          "severity": "medium",
+          "file": "include/error/formatters/error_formatters.js",
+          "line": 152,
+          "explanation": "In ErrorFormatters.html, the assignment of params.request.themeRoute uses _.clone only if params.request.themeRoute is truthy, else assigns an empty object. This results in the new themeRoute being a shallow clone or an empty object. For safety and code consistency, cloning should always occur if themeRoute exists.",
+          "suggestion": "Change line 152 to always clone params.request.themeRoute when set: params.request.themeRoute = _.clone(params.request.themeRoute || {});",
+          "failureAfterChange": "If params.request.themeRoute is an object with nested properties and changes to params.request.themeRoute after assignment affect original references due to shallow clone, leading to potential state corruption.",
+          "alreadyFixedByChange": false,
+          "isTest": false
+        }
+      ]
+    },
+    {
+      "caseId": "Pencilblue-4",
+      "skipped": null,
+      "findings": []
+    },
+    {
+      "caseId": "Pencilblue-7",
+      "skipped": null,
+      "findings": []
+    }
+  ]
+}

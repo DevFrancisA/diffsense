@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-7",
+  "project": "Node-redis",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "e24f056b2d88ea54b689f6bb8f290a9a91be573f",
+  "buggySha": "e4bd9bf0c5b92cb448df9bf45a52c62e42749ed8",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "1085f5955223c90d4af02e78d7eee79129a49e83b07338f95f5288d5bfc9a230",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "e24f056b2d88ea54b689f6bb8f290a9a91be573f",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 26514,
+      "outputTokens": 0,
+      "totalTokens": 26514
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "d2f01bf62ddde9b837d378f2c7016e851cdcbd1765cf71a646f47df49020bd32"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/auth.spec.js",
+        "contentSha256": "922665a03ae7f3e337865a7789f30de80ac07ac6d5e06a8eddfce2176189c5f5"
+      },
+      {
+        "path": "test/auth.spec.js",
+        "contentSha256": "b351a1382cbe6110a1f3dcb46114e62f72d3492e6521250a14166d8266ce7d60"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "a8c44b613756217dd1efe993f45af8cf35da5f35ec1a3faf46759a9e30cb7c96"
+      },
+      {
+        "path": "examples/auth.js",
+        "contentSha256": "0bb9ae922b40b9d9db7172d2f151ecc1dd38aebdf88c2526067eaae3c0079c14"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "5ea810f5640c5708b0822ecff7684c77b8002750799f0eb5128b5e54bf7e1bee"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "ea67237a226b9f75b0397d53ea002d269bfa3f2f67416b84474b081ea4db3fbe"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "9ccc69bb239a7f2489eedd9502837f9f1b706e31048d132a99144f50b2f75123"
+      },
+      {
+        "path": "examples/subqueries.js",
+        "contentSha256": "1feb49aab8653bc857ccca682951b269016e3f6cf3aef5a671bd5352ca749261"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 739,
+      "outputTokens": 0,
+      "totalTokens": 739
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 13555,
+          "outputTokens": 1233,
+          "totalTokens": 14788
+        },
+        "rawFindings": [
+          {
+            "title": "AUTH callback is skipped on authentication failure",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 210,
+            "explanation": "When do_auth receives an AUTH error, this line now always emits an error instead of invoking the callback saved by client.auth(pass, callback). The auth method still stores auth_callback and the success path still invokes it, so callers using the documented command-callback pattern no longer receive failures through their callback.",
+            "suggestion": "Before emitting, check self.auth_callback, call it with the original error, clear it, and return; only emit when no callback is registered.",
+            "failureAfterChange": "Against a password-protected Redis server, `client = redis.createClient(); client.auth('wrong', function (err) { called = true; }); client.on('error', function() {});` results in the error event firing while `called` remains false.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "AUTH callback is skipped on authentication failure",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 210,
+            "explanation": "When do_auth receives an AUTH error, this line now always emits an error instead of invoking the callback saved by client.auth(pass, callback). The auth method still stores auth_callback and the success path still invokes it, so callers using the documented command-callback pattern no longer receive failures through their callback.",
+            "suggestion": "Before emitting, check self.auth_callback, call it with the original error, clear it, and return; only emit when no callback is registered.",
+            "failureAfterChange": "Against a password-protected Redis server, `client = redis.createClient(); client.auth('wrong', function (err) { called = true; }); client.on('error', function() {});` results in the error event firing while `called` remains false.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Pencilblue-3",
+  "project": "Pencilblue",
+  "bugId": 3,
+  "upstreamRepository": "https://github.com/BugsJS/pencilblue",
+  "fixedSha": "23ff1238366aca0caa23ff8861920ef0d14e0c3d",
+  "buggySha": "8a2eca3389368fc9a857335e9920b919c29d6dd0",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "2d209c5a934b4e3b3179e3793a9c0645c2459eb339e6bdcda0fdf761b027e186",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/pencilblue",
+    "commitSha": "8a2eca3389368fc9a857335e9920b919c29d6dd0",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 216,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "include/error/formatters/error_formatters.js",
+        "contentSha256": "f58f7a7d40dd4bf504966b92b46ad3a8dc6792443c1c96d6ea9cc640eff5dd35"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "d1355ec7a31f549690ea4f6f4f4d7383506cad3d57e569efbdebb49fdec5928b"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "bc66ab801e194ff08cb2a64bcaa3c30d62138d8a2b6a92b0f6f23a6669bdd981"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "49d1aadc6569904aae539dd48bfe48e3cb6f04f85087393060c3259d2ee82921"
+      },
+      {
+        "path": "include/error/formatters/error_formatters.js",
+        "contentSha256": "d642d6964262138ee9f246b4e4bce062e121e345d5133ad214fc79dffd4ad7b2"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "1ae6904934321e379ef033190ad25c0964334c4ca3e11ec8d7f11f7a6302d15a"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "749e49e862ac16f908126d9abafa1767e81d8550d8101efc546058d95202fbf7"
+      },
+      {
+        "path": "include/http/middleware/index.js",
+        "contentSha256": "904db6a67128e68951c0b0aa6b5b1bdb1a334e0569291f311da559f164ab1247"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "8900a774364d75f059bcd92bea585677a32a785b1b0fe680edf7f1114c342203"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "baf7370acdc3833711e21bbb22dbd391af3724eb5915c5714c954a6265ead81e"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 21105,
+          "outputTokens": 324,
+          "totalTokens": 21429
+        },
+        "rawFindings": [
+          {
+            "title": "Unnecessary cloning of themeRoute in error formatter might cause duplication of object",
+            "severity": "low",
+            "file": "include/error/formatters/error_formatters.js",
+            "line": 152,
+            "explanation": "In ErrorFormatters.html, the assignment of params.request.themeRoute is changed to clone an existing object when truthy instead of defaulting to an empty object. This introduces extra cloning for no clear reason and can increase memory usage unnecessarily.",
+            "suggestion": "Revert to original assignment:\nparams.request.themeRoute = params.request.themeRoute || {};",
+            "failureAfterChange": "If params.request.themeRoute is already a valid object, it will be cloned unnecessarily, causing a new object that is not strictly equal to the original. This may cause subtle issues if callers expect identity equality or simple assignment.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Route descriptor freezing may cause unexpected immutability",
+            "severity": "medium",
+            "file": "include/http/request_handler.js",
+            "line": 488,
+            "explanation": "When registering a route, the route descriptor is frozen with Object.freeze. While this protects against modification, it may cause unexpected immutability for plugins or code that expect to modify the descriptor after registration, potentially causing runtime errors.",
+            "suggestion": "Either do not freeze the descriptor or document clearly that descriptors are immutable after registration. Alternatively, perform a shallow copy and freeze the copy to avoid unexpected shared immutable state.",
+            "failureAfterChange": "If any plugin or code tries to modify a descriptor property after registration, it will throw a TypeError due to the frozen object, potentially breaking functionality.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Unnecessary cloning of themeRoute in error formatter might cause duplication of object",
+            "severity": "low",
+            "file": "include/error/formatters/error_formatters.js",
+            "line": 152,
+            "explanation": "In ErrorFormatters.html, the assignment of params.request.themeRoute is changed to clone an existing object when truthy instead of defaulting to an empty object. This introduces extra cloning for no clear reason and can increase memory usage unnecessarily.",
+            "suggestion": "Revert to original assignment:\nparams.request.themeRoute = params.request.themeRoute || {};",
+            "failureAfterChange": "If params.request.themeRoute is already a valid object, it will be cloned unnecessarily, causing a new object that is not strictly equal to the original. This may cause subtle issues if callers expect identity equality or simple assignment.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Route descriptor freezing may cause unexpected immutability",
+            "severity": "medium",
+            "file": "include/http/request_handler.js",
+            "line": 488,
+            "explanation": "When registering a route, the route descriptor is frozen with Object.freeze. While this protects against modification, it may cause unexpected immutability for plugins or code that expect to modify the descriptor after registration, potentially causing runtime errors.",
+            "suggestion": "Either do not freeze the descriptor or document clearly that descriptors are immutable after registration. Alternatively, perform a shallow copy and freeze the copy to avoid unexpected shared immutable state.",
+            "failureAfterChange": "If any plugin or code tries to modify a descriptor property after registration, it will throw a TypeError due to the frozen object, potentially breaking functionality.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

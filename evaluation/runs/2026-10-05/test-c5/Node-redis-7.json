@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Node-redis-7",
+  "project": "Node-redis",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/node_redis",
+  "fixedSha": "e24f056b2d88ea54b689f6bb8f290a9a91be573f",
+  "buggySha": "e4bd9bf0c5b92cb448df9bf45a52c62e42749ed8",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "1085f5955223c90d4af02e78d7eee79129a49e83b07338f95f5288d5bfc9a230",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/node_redis",
+    "commitSha": "e24f056b2d88ea54b689f6bb8f290a9a91be573f",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 69,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "index.js",
+        "contentSha256": "d2f01bf62ddde9b837d378f2c7016e851cdcbd1765cf71a646f47df49020bd32"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/auth.spec.js",
+        "contentSha256": "922665a03ae7f3e337865a7789f30de80ac07ac6d5e06a8eddfce2176189c5f5"
+      },
+      {
+        "path": "test/auth.spec.js",
+        "contentSha256": "b351a1382cbe6110a1f3dcb46114e62f72d3492e6521250a14166d8266ce7d60"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "a8c44b613756217dd1efe993f45af8cf35da5f35ec1a3faf46759a9e30cb7c96"
+      },
+      {
+        "path": "examples/auth.js",
+        "contentSha256": "0bb9ae922b40b9d9db7172d2f151ecc1dd38aebdf88c2526067eaae3c0079c14"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "5ea810f5640c5708b0822ecff7684c77b8002750799f0eb5128b5e54bf7e1bee"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "ea67237a226b9f75b0397d53ea002d269bfa3f2f67416b84474b081ea4db3fbe"
+      },
+      {
+        "path": "index.js",
+        "contentSha256": "9ccc69bb239a7f2489eedd9502837f9f1b706e31048d132a99144f50b2f75123"
+      },
+      {
+        "path": "examples/subqueries.js",
+        "contentSha256": "1feb49aab8653bc857ccca682951b269016e3f6cf3aef5a671bd5352ca749261"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 13557,
+          "outputTokens": 503,
+          "totalTokens": 14060
+        },
+        "rawFindings": [
+          {
+            "title": "Inconsistent error emission in do_auth callback error handling",
+            "severity": "high",
+            "file": "index.js",
+            "line": 210,
+            "explanation": "In RedisClient.prototype.do_auth, when send_command returns an error other than LOADING or no password set, the error handling branch either calls auth_callback(err) if auth_callback is set, or else emits 'error' with err directly. The error emitted is the original err instead of a new Error with 'Auth error: ' prefix, which is inconsistent.",
+            "suggestion": "Modify to always emit an Error object with 'Auth error: ' prefix when emitting 'error', and ensure that auth_callback is called with (err, res) for consistency.",
+            "failureAfterChange": "When Redis auth fails with an error not matched by LOADING or noPasswordIsSet, and auth_callback is not set, the emitted error event will receive the original error instead of a new Error with 'Auth error: ' prefix string. This differs from the branch where auth_callback is called, which receives just err, potentially confusing error handling.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Missing error emission with command_used property in on_auth error handler",
+            "severity": "high",
+            "file": "index.js",
+            "line": 210,
+            "explanation": "Prior code line 512 set err.command_used = 'AUTH' when returning error callback for auth. This was removed, losing the command_used property which some client code and tests rely on to identify the error source.",
+            "suggestion": "Restore err.command_used = 'AUTH' in the error passed to auth_callback and error event emitter to maintain compatibility with clients relying on this property.",
+            "failureAfterChange": "Redis client errors on bad AUTH now lack the 'command_used' property set to 'AUTH', causing tests and user code that assert or check this property to fail or behave incorrectly.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Error emission on auth failure emits generic errors without command context",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 215,
+            "explanation": "The new error emitted on authentication failure lacks additional context properties like command_used which were previously added. This might reduce error detail available to consumers.",
+            "suggestion": "Add command_used='AUTH' property to the error emitted on auth failure to preserve error detail and support downstream error handlers.",
+            "failureAfterChange": "Downstream error handlers or tests relying on error.command_used to be 'AUTH' will receive generic Error objects without this property on auth failures.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Inconsistent error emission in do_auth callback error handling",
+            "severity": "high",
+            "file": "index.js",
+            "line": 210,
+            "explanation": "In RedisClient.prototype.do_auth, when send_command returns an error other than LOADING or no password set, the error handling branch either calls auth_callback(err) if auth_callback is set, or else emits 'error' with err directly. The error emitted is the original err instead of a new Error with 'Auth error: ' prefix, which is inconsistent.",
+            "suggestion": "Modify to always emit an Error object with 'Auth error: ' prefix when emitting 'error', and ensure that auth_callback is called with (err, res) for consistency.",
+            "failureAfterChange": "When Redis auth fails with an error not matched by LOADING or noPasswordIsSet, and auth_callback is not set, the emitted error event will receive the original error instead of a new Error with 'Auth error: ' prefix string. This differs from the branch where auth_callback is called, which receives just err, potentially confusing error handling.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Missing error emission with command_used property in on_auth error handler",
+            "severity": "high",
+            "file": "index.js",
+            "line": 210,
+            "explanation": "Prior code line 512 set err.command_used = 'AUTH' when returning error callback for auth. This was removed, losing the command_used property which some client code and tests rely on to identify the error source.",
+            "suggestion": "Restore err.command_used = 'AUTH' in the error passed to auth_callback and error event emitter to maintain compatibility with clients relying on this property.",
+            "failureAfterChange": "Redis client errors on bad AUTH now lack the 'command_used' property set to 'AUTH', causing tests and user code that assert or check this property to fail or behave incorrectly.",
+            "alreadyFixedByChange": false
+          },
+          {
+            "title": "Error emission on auth failure emits generic errors without command context",
+            "severity": "medium",
+            "file": "index.js",
+            "line": 215,
+            "explanation": "The new error emitted on authentication failure lacks additional context properties like command_used which were previously added. This might reduce error detail available to consumers.",
+            "suggestion": "Add command_used='AUTH' property to the error emitted on auth failure to preserve error detail and support downstream error handlers.",
+            "failureAfterChange": "Downstream error handlers or tests relying on error.command_used to be 'AUTH' will receive generic Error objects without this property on auth failures.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

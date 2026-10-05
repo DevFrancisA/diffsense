@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-13",
+  "project": "Karma",
+  "bugId": 13,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "7d790b29c09c1f3784fe648b7d5ed16add10b4ca",
+  "buggySha": "0d3d97e7930975007d52ff7f5b4adcc3ce60a392",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "8b6ae5930bf31ead8fcd36e3b020b7c43999cad1ff544e1cbe9305bebc74b9f0",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "0d3d97e7930975007d52ff7f5b4adcc3ce60a392",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 83,
+    "embeddingUsage": {
+      "inputTokens": 2158,
+      "outputTokens": 0,
+      "totalTokens": 2158
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/launchers/Base.js",
+        "contentSha256": "fe98755ed8e0efa792d29a5d695d746c0100b4a33cb391ca5384742c46c2afca"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/launchers/Base.js",
+        "contentSha256": "4c8549dfc7676ed83a7afb1e0494f9e9aae6950d76ea184c3eaa5b2f9d958be8"
+      },
+      {
+        "path": "lib/launchers/Base.js",
+        "contentSha256": "a5a0fc94042f4a6113c27a3f2f6682771dd57813907d310b0fc5c3c2acd9079b"
+      },
+      {
+        "path": "lib/launcher.js",
+        "contentSha256": "f0c6910d81480b17d284e76db0552c1d9c4675d5c8a29dd43bfdb0bd0ca745f5"
+      },
+      {
+        "path": "lib/launchers/Base.js",
+        "contentSha256": "32fab1e31491f6a851d37fcd50ea264df4f37b5897d43e0b12d665f8e530c6d3"
+      },
+      {
+        "path": "lib/server.js",
+        "contentSha256": "a2d35a5bf305ae7bd0c4da308f296496bd410775b1ed63f457582c06178a1a66"
+      },
+      {
+        "path": "lib/server.js",
+        "contentSha256": "6ed6065c2a8d7120f0da9827cc4a8e21e428c175e90345d5b5481f44c7da3f1d"
+      },
+      {
+        "path": "lib/server.js",
+        "contentSha256": "a835c0c860fe2d1c9544b317caf33b120019634573f6f185ff42c5b50ae97082"
+      },
+      {
+        "path": "lib/launcher.js",
+        "contentSha256": "caa46e3cd2936d93b90ccb658be51608a552a9f49af81e2eca983913bf0d27ed"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 710,
+      "outputTokens": 0,
+      "totalTokens": 710
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 5625,
+          "outputTokens": 1865,
+          "totalTokens": 7490
+        },
+        "rawFindings": [
+          {
+            "title": "stderr output is no longer captured for failed browser starts on supported Node versions",
+            "severity": "low",
+            "file": "lib/launchers/Base.js",
+            "line": 123,
+            "explanation": "The new guard limits the stderr data handler to Node 0.8. For Node 0.10 and newer, a browser process that exists but exits non-zero after writing diagnostics to stderr will now call `_onProcessExit` with an empty `errorOutput`, because no stderr listener is registered.",
+            "suggestion": "Register a stderr `data` listener unconditionally to append stderr to `errorOutput`, and keep only the Node 0.8 \"No such file or directory\" special-case inside the version check.",
+            "failureAfterChange": "On Node 0.10.x, if `/usr/bin/browser` starts, writes `invalid option --foo` to stderr, and exits with code 1, the launcher logs `Cannot start <browser>` with a blank diagnostic instead of including `invalid option --foo`.",
+            "alreadyFixedByChange": false
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "stderr output is no longer captured for failed browser starts on supported Node versions",
+            "severity": "low",
+            "file": "lib/launchers/Base.js",
+            "line": 123,
+            "explanation": "The new guard limits the stderr data handler to Node 0.8. For Node 0.10 and newer, a browser process that exists but exits non-zero after writing diagnostics to stderr will now call `_onProcessExit` with an empty `errorOutput`, because no stderr listener is registered.",
+            "suggestion": "Register a stderr `data` listener unconditionally to append stderr to `errorOutput`, and keep only the Node 0.8 \"No such file or directory\" special-case inside the version check.",
+            "failureAfterChange": "On Node 0.10.x, if `/usr/bin/browser` starts, writes `invalid option --foo` to stderr, and exits with code 1, the launcher logs `Cannot start <browser>` with a blank diagnostic instead of including `invalid option --foo`.",
+            "alreadyFixedByChange": false
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Pencilblue-7",
+  "project": "Pencilblue",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/pencilblue",
+  "fixedSha": "aec8888386d9643cf1e5eca8fe482e0a6409dc1f",
+  "buggySha": "69cb975e27532e9a813f2236639f7102ab82f948",
+  "manifestSha256": "60b352db7082efaed9201db8bee38de8d4a8b7c36c32cdeac3e84d424b64ed2f",
+  "diffSha256": "211f920ddbfadb4f65c028f42ae0d83820bbded65e62a1097e96814bb5095132",
+  "pipelineConfig": {
+    "manifest": "manifest-test.json",
+    "promptRevision": "post-change",
+    "includeChangedFiles": true,
+    "changedFilesExcludeTests": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 1,
+    "acceptance": "remap-removed",
+    "direction": "forward",
+    "changedFileSide": "after"
+  },
+  "model": "gpt-5.5",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+  "index": {
+    "repository": "bugsjs/pencilblue",
+    "commitSha": "69cb975e27532e9a813f2236639f7102ab82f948",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 220,
+    "embeddingUsage": {
+      "inputTokens": 736,
+      "outputTokens": 0,
+      "totalTokens": 736
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "f65f1566e8566f97fdf2a0fad370ce923448dafb7794f1d1b97c9fc16abacf2c"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "69dcc8beee1371979e2436eaf60bb0766666331bff7e0ae4a6d99d8c256f803a"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "16ba416ad007e0a41e19246815bc3995c52a06c41e7e19a10695aed1c73fed75"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "ada0abc4396d67da5894aecae79f6c1e3b4ff526d8194a358a4dac459663ad33"
+      },
+      {
+        "path": "include/http/parsers/index.js",
+        "contentSha256": "d6cd7dd0d1c0d8c1ffa1a974088d3b4423241c02cd942f7a6197bc5f8dac02d5"
+      },
+      {
+        "path": "include/http/parsers/index.js",
+        "contentSha256": "d663cfcdc3822795390d186d8e4f76c68174e74a87cb2ac10d08c2b2f813a76f"
+      },
+      {
+        "path": "include/http/parsers/index.js",
+        "contentSha256": "4df5c5f6fdc76359e1fb56b2ac00e38373858beea421edb0ea0a6bda8e1a6450"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "d4d91ed9aa0f7ed68a9092badaf3e77d4ee38a8dd6aa8ebf3f7641f36a587834"
+      },
+      {
+        "path": "include/http/request_handler.js",
+        "contentSha256": "8a4804570fcb23d569ac66e9cca5256126674564ad95df840acc08710ef9894a"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 902,
+      "outputTokens": 0,
+      "totalTokens": 902
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-5.5",
+        "promptHash": "93f092ef19dcea14f9b89c118f71ea7617d8a662bbe4bc75c49ac1edc3c0091d",
+        "usage": {
+          "inputTokens": 16652,
+          "outputTokens": 1050,
+          "totalTokens": 17702
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}
