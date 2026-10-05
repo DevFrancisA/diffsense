@@ -25,7 +25,11 @@ services:
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       NODE_ENV: production
     ports:
-      - "3000:3000"
+      - "${DIFFSENSE_PORT:-3000}:3000"
+    networks:
+      default:
+        aliases:
+          - diffsense-web
     depends_on:
       postgres:
         condition: service_healthy
@@ -45,7 +49,7 @@ services:
       - /app/node_modules
     environment:
       CI: "1"
-      PLAYWRIGHT_BASE_URL: http://app:3000
+      PLAYWRIGHT_BASE_URL: http://diffsense-web:3000
     command: ["sh", "-c", "npm ci && npm run test:e2e"]
     depends_on:
       app:
