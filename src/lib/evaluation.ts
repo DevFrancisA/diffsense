@@ -12,7 +12,7 @@ export const evaluationSchema = z.object({
   pullRequests: z.array(z.object({
     id: z.string().min(1),
     knownDefects: z.array(defectSchema),
-    manualFindings: z.array(findingSchema),
+    manualFindings: z.array(findingSchema).optional(),
     assistedFindings: z.array(findingSchema),
     manualMinutes: z.number().positive().optional(),
     assistedMinutes: z.number().positive().optional(),
@@ -22,11 +22,17 @@ export const evaluationSchema = z.object({
     }
   })),
   regressionScenarios: z.array(z.object({ id: z.string().min(1), detected: z.boolean() })).default([]),
+}).superRefine((input, context) => {
+  const manualRows = input.pullRequests.filter((pullRequest) => pullRequest.manualFindings !== undefined).length;
+  if (manualRows > 0 && manualRows < input.pullRequests.length) {
+    context.addIssue({ code: "custom", path: ["pullRequests"], message: "Manual findings must be provided for every pull request or omitted for the whole cohort." });
+  }
 });
 
 type Finding = z.infer<typeof findingSchema>;
 type Defect = { file: string; startLine: number; endLine: number };
 export type EvaluationInput = z.input<typeof evaluationSchema>;
+export type BenchmarkArmRun = { runNumber: number; pullRequests: EvaluationInput["pullRequests"] };
 
 function normalizeDefect(defect: z.infer<typeof defectSchema>): Defect {
   if ("line" in defect) return { file: defect.file, startLine: defect.line, endLine: defect.line };
@@ -72,16 +78,22 @@ export function evaluate(input: EvaluationInput) {
   let manualFindings = 0;
   let assistedDefectsFound = 0;
   let manualDefectsFound = 0;
+  const manualReviewMeasured = input.pullRequests.length > 0
+    && input.pullRequests.every((pullRequest) => pullRequest.manualFindings !== undefined);
   const pairedTimeSavings: number[] = [];
   const perPullRequest = input.pullRequests.map((pullRequest) => {
     const known = pullRequest.knownDefects.map(normalizeDefect);
     const assistedMatches = countMatchedFindings(known, pullRequest.assistedFindings);
-    const manualMatches = countMatchedFindings(known, pullRequest.manualFindings);
+    const manualMatches = pullRequest.manualFindings === undefined
+      ? null
+      : countMatchedFindings(known, pullRequest.manualFindings);
     knownDefects += known.length;
     assistedFindings += pullRequest.assistedFindings.length;
-    manualFindings += pullRequest.manualFindings.length;
     assistedDefectsFound += assistedMatches;
-    manualDefectsFound += manualMatches;
+    if (pullRequest.manualFindings !== undefined) {
+      manualFindings += pullRequest.manualFindings.length;
+      manualDefectsFound += manualMatches ?? 0;
+    }
 
     const manualMinutes = pullRequest.manualMinutes;
     const assistedMinutes = pullRequest.assistedMinutes;
@@ -93,7 +105,7 @@ export function evaluate(input: EvaluationInput) {
     return {
       id: pullRequest.id,
       knownDefects: known.length,
-      manualFindings: pullRequest.manualFindings.length,
+      manualFindings: pullRequest.manualFindings?.length ?? null,
       assistedFindings: pullRequest.assistedFindings.length,
       manualDefectsFound: manualMatches,
       assistedDefectsFound: assistedMatches,
@@ -114,14 +126,24 @@ export function evaluate(input: EvaluationInput) {
     recall: knownDefects === 0 ? null : assistedDefectsFound / knownDefects,
     reviewTimeSavingsMedianPercent: median(pairedTimeSavings),
     pairedReviewTasks: pairedTimeSavings.length,
-    manualDefectsFound,
+    manualDefectsFound: manualReviewMeasured ? manualDefectsFound : null,
     assistedDefectsFound,
     falsePositives: assistedFindings - assistedDefectsFound,
     knownDefects,
     seededRegressions: regressionScenarios.length,
     regressionCatchRate: regressionScenarios.length === 0 ? null : caughtRegressions / regressionScenarios.length,
     caughtRegressions,
-    findings: { manual: manualFindings, assisted: assistedFindings },
+    findings: { manual: manualReviewMeasured ? manualFindings : null, assisted: assistedFindings },
     perPullRequest,
   };
+}
+
+export function evaluateBenchmarkArms(arms: Record<string, BenchmarkArmRun[]>) {
+  return Object.fromEntries(Object.entries(arms).map(([arm, runs]) => [
+    arm,
+    runs.map((run) => ({
+      runNumber: run.runNumber,
+      ...evaluate({ pullRequests: run.pullRequests, regressionScenarios: [] }),
+    })),
+  ]));
 }

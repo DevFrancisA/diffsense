@@ -10,7 +10,8 @@
     "test:unit": "tsx --test tests/review.test.ts",
     "test:e2e": "playwright test",
     "evaluate": "tsx scripts/evaluate.ts",
-    "build-dataset": "tsx scripts/build-dataset.ts"
+    "build-dataset": "tsx scripts/build-dataset.ts",
+    "benchmark": "tsx scripts/benchmark.ts"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",

@@ -1,4 +1,5 @@
-import { getOpenAIClient } from "@/lib/server/ai";
+import { createHash } from "node:crypto";
+import { type ApiTokenUsage, estimateTokens, getOpenAIClient, type OpenAIBudget } from "@/lib/server/ai";
 
 export type AddedLine = { path: string; line: number };
 
@@ -60,18 +61,37 @@ type ReviewFinding = {
 };
 
 export async function reviewDiff(diff: string, addedLines: AddedLine[], context: { path: string; content: string }[]) {
-  const openai = getOpenAIClient();
+  const result = await reviewDiffDetailed(diff, addedLines, context);
+  return { findings: result.findings, model: result.model };
+}
+
+const reviewSystemPrompt = "You are a conservative senior code reviewer. Report only concrete defects introduced by this change. Use the supplied repository context to verify behavior. Do not report style preferences, speculative concerns, or issues already present. Each finding must cite an added line from the diff and propose a concise fix. If no actionable defect is supported, return an empty findings array.";
+
+export const reviewPromptHash = createHash("sha256").update(JSON.stringify({
+  system: reviewSystemPrompt,
+  schema: reviewSchema,
+})).digest("hex");
+
+export async function reviewDiffDetailed(
+  diff: string,
+  addedLines: AddedLine[],
+  context: { path: string; content: string }[],
+  budget?: OpenAIBudget,
+) {
+  const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
   const contextText = context.map((item) => `FILE: ${item.path}\n${item.content}`).join("\n\n---\n\n");
+  const userContent = `REPOSITORY CONTEXT\n${contextText}\n\nPULL REQUEST DIFF\n${diff}`;
+  await budget?.beforeBatch("review_response", 1, estimateTokens(reviewSystemPrompt + userContent) + 1000);
   const response = await openai.responses.create({
     model: process.env.OPENAI_REVIEW_MODEL ?? "gpt-4.1-mini",
     input: [
       {
         role: "system",
-        content: "You are a conservative senior code reviewer. Report only concrete defects introduced by this change. Use the supplied repository context to verify behavior. Do not report style preferences, speculative concerns, or issues already present. Each finding must cite an added line from the diff and propose a concise fix. If no actionable defect is supported, return an empty findings array.",
+        content: reviewSystemPrompt,
       },
       {
         role: "user",
-        content: `REPOSITORY CONTEXT\n${contextText}\n\nPULL REQUEST DIFF\n${diff}`,
+        content: userContent,
       },
     ],
     text: {
@@ -88,5 +108,17 @@ export async function reviewDiff(diff: string, addedLines: AddedLine[], context:
   const parsed = JSON.parse(response.output_text) as { findings: ReviewFinding[] };
   const addedLineKeys = new Set(addedLines.map(({ path, line }) => `${path}:${line}`));
   const findings = parsed.findings.filter((finding) => addedLineKeys.has(`${finding.file}:${finding.line}`));
-  return { findings, model: process.env.OPENAI_REVIEW_MODEL ?? "gpt-4.1-mini" };
+  const usage: ApiTokenUsage = {
+    inputTokens: response.usage?.input_tokens ?? 0,
+    outputTokens: response.usage?.output_tokens ?? 0,
+    totalTokens: response.usage?.total_tokens ?? 0,
+  };
+  await budget?.recordUsage("review_response", usage);
+  return {
+    findings,
+    rawFindings: parsed.findings,
+    model: process.env.OPENAI_REVIEW_MODEL ?? "gpt-4.1-mini",
+    promptHash: reviewPromptHash,
+    usage,
+  };
 }

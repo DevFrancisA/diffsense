@@ -1,4 +1,4 @@
-import { embeddingModel, getOpenAIClient } from "@/lib/server/ai";
+import { type ApiTokenUsage, embeddingModel, estimateTokens, getOpenAIClient, type OpenAIBudget } from "@/lib/server/ai";
 import { ensureDatabaseSchema } from "@/lib/server/database";
 import { getRawRepositoryFile, getRepositoryTree } from "@/lib/server/github";
 
@@ -24,11 +24,10 @@ function splitIntoChunks(path: string, source: string): Chunk[] {
   return chunks;
 }
 
-export async function indexRepository(owner: string, repository: string, ref?: string) {
-  const [tree, pool, openai] = await Promise.all([
+export async function indexRepository(owner: string, repository: string, ref?: string, budget?: OpenAIBudget) {
+  const [tree, pool] = await Promise.all([
     getRepositoryTree(owner, repository, ref),
     ensureDatabaseSchema(),
-    Promise.resolve(getOpenAIClient()),
   ]);
   const files = tree.entries
     .filter((entry) => entry.type === "blob" && (entry.size ?? 0) <= maxFileBytes)
@@ -47,6 +46,11 @@ export async function indexRepository(owner: string, repository: string, ref?: s
   if (chunks.length === 0) throw new Error("No readable source files were found on this branch.");
 
   const embeddings: number[][] = [];
+  const embeddingUsage: ApiTokenUsage = { inputTokens: 0, outputTokens: 0, totalTokens: 0 };
+  const embeddingBatches = Math.ceil(chunks.length / 64);
+  const estimatedEmbeddingTokens = chunks.reduce((total, chunk) => total + estimateTokens(`${chunk.path}\n${chunk.content}`), 0);
+  await budget?.beforeBatch("index_embeddings", embeddingBatches, estimatedEmbeddingTokens);
+  const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
   for (let offset = 0; offset < chunks.length; offset += 64) {
     const batch = chunks.slice(offset, offset + 64);
     const response = await openai.embeddings.create({
@@ -54,6 +58,14 @@ export async function indexRepository(owner: string, repository: string, ref?: s
       input: batch.map((chunk) => `${chunk.path}\n${chunk.content}`),
       dimensions: 1536,
     });
+    const usage = {
+      inputTokens: response.usage.prompt_tokens,
+      outputTokens: 0,
+      totalTokens: response.usage.total_tokens,
+    };
+    embeddingUsage.inputTokens += usage.inputTokens;
+    embeddingUsage.totalTokens += usage.totalTokens;
+    await budget?.recordUsage("index_embeddings", usage);
     const ordered = response.data.sort((left, right) => left.index - right.index);
     embeddings.push(...ordered.map((item) => item.embedding));
   }
@@ -84,12 +96,20 @@ export async function indexRepository(owner: string, repository: string, ref?: s
     client.release();
   }
 
-  return { repository: repositoryKey, commitSha: tree.commitSha, branch: tree.branch, maxFiles, filesIndexed: files.length, chunksIndexed: chunks.length };
+  return { repository: repositoryKey, commitSha: tree.commitSha, branch: tree.branch, maxFiles, filesIndexed: files.length, chunksIndexed: chunks.length, embeddingUsage };
 }
 
-export async function retrieveRepositoryContext(repository: string, diff: string) {
-  const openai = getOpenAIClient();
-  const embedding = await openai.embeddings.create({ model: embeddingModel, input: diff.slice(0, 12_000), dimensions: 1536 });
+export async function retrieveRepositoryContextDetailed(repository: string, diff: string, budget?: OpenAIBudget) {
+  const openai = getOpenAIClient({ maxRetries: budget ? 0 : undefined });
+  const query = diff.slice(0, 12_000);
+  await budget?.beforeBatch("context_embedding", 1, estimateTokens(query));
+  const embedding = await openai.embeddings.create({ model: embeddingModel, input: query, dimensions: 1536 });
+  const embeddingUsage = {
+    inputTokens: embedding.usage.prompt_tokens,
+    outputTokens: 0,
+    totalTokens: embedding.usage.total_tokens,
+  };
+  await budget?.recordUsage("context_embedding", embeddingUsage);
   const vector = `[${embedding.data[0].embedding.join(",")}]`;
   const pool = await ensureDatabaseSchema();
   const result = await pool.query<{ file_path: string; content: string; distance: number }>(
@@ -100,5 +120,13 @@ export async function retrieveRepositoryContext(repository: string, diff: string
      LIMIT 8`,
     [repository, vector],
   );
-  return result.rows.map((row) => ({ path: row.file_path, content: row.content, distance: row.distance }));
+  return {
+    chunks: result.rows.map((row) => ({ path: row.file_path, content: row.content, distance: row.distance })),
+    embeddingUsage,
+  };
+}
+
+export async function retrieveRepositoryContext(repository: string, diff: string) {
+  const result = await retrieveRepositoryContextDetailed(repository, diff);
+  return result.chunks;
 }

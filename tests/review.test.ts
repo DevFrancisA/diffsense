@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { evaluate } from "../src/lib/evaluation";
+import { evaluate, evaluateBenchmarkArms, evaluationSchema } from "../src/lib/evaluation";
 import { parseGitHubSource } from "../src/lib/server/github";
 import { getAddedLines } from "../src/lib/server/review";
 
@@ -97,7 +97,6 @@ test("matches inclusive range boundaries with two-line tolerance and counts unma
     pullRequests: [{
       id: "range-boundaries",
       knownDefects: [{ file: "src/a.js", startLine: 10, endLine: 12 }],
-      manualFindings: [],
       assistedFindings: [
         { file: "src/a.js", line: 8 },
         { file: "src/a.js", line: 14 },
@@ -109,9 +108,22 @@ test("matches inclusive range boundaries with two-line tolerance and counts unma
   assert.equal(metrics.precision, 1 / 3);
   assert.equal(metrics.recall, 1);
   assert.equal(metrics.falsePositives, 2);
+  assert.equal(metrics.manualDefectsFound, null);
+  assert.equal(metrics.findings.manual, null);
   assert.equal(metrics.reviewTimeSavingsMedianPercent, null);
   assert.equal(metrics.regressionCatchRate, null);
   assert.deepEqual(metrics.perPullRequest.map((row) => row.reviewTimeSavingsPercent), [null]);
+});
+
+test("rejects partially supplied manual findings", () => {
+  const result = evaluationSchema.safeParse({
+    pullRequests: [
+      { id: "pr-1", knownDefects: [], manualFindings: [], assistedFindings: [] },
+      { id: "pr-2", knownDefects: [], assistedFindings: [] },
+    ],
+  });
+
+  assert.equal(result.success, false);
 });
 
 test("returns null quality rates for an empty evaluation dataset", () => {
@@ -123,4 +135,23 @@ test("returns null quality rates for an empty evaluation dataset", () => {
   assert.equal(metrics.regressionCatchRate, null);
   assert.equal(metrics.falsePositives, 0);
   assert.deepEqual(metrics.perPullRequest, []);
+});
+
+test("evaluates each benchmark arm and repeat independently", () => {
+  const arms = evaluateBenchmarkArms({
+    withContext: [
+      { runNumber: 1, pullRequests: [{ id: "pr-1", knownDefects: [{ file: "a.js", line: 10 }], assistedFindings: [{ file: "a.js", line: 10 }] }] },
+      { runNumber: 2, pullRequests: [{ id: "pr-1", knownDefects: [{ file: "a.js", line: 10 }], assistedFindings: [] }] },
+    ],
+    withoutContext: [
+      { runNumber: 1, pullRequests: [{ id: "pr-1", knownDefects: [{ file: "a.js", line: 10 }], assistedFindings: [{ file: "b.js", line: 12 }] }] },
+    ],
+  });
+
+  assert.equal(arms.withContext[0].precision, 1);
+  assert.equal(arms.withContext[0].recall, 1);
+  assert.equal(arms.withContext[1].precision, null);
+  assert.equal(arms.withContext[1].recall, 0);
+  assert.equal(arms.withoutContext[0].precision, 0);
+  assert.equal(arms.withoutContext[0].falsePositives, 1);
 });
