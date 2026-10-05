@@ -1,0 +1,11 @@
+{
+  "id": "r39-diff-textarea-frozen",
+  "role": "primary",
+  "intendedBreak": "Diff editor ignores typing",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:49:19.990Z"
+}

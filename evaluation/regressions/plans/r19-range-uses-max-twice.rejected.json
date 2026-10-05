@@ -1,0 +1,94 @@
+{
+  "scenarios": [
+    {
+      "title": "Evaluation metrics show correct precision range after patch",
+      "purpose": "Verify that the evaluation precision metric displays the maximum value as both lower and upper bounds after the formatPercentRange change",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "100.0–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and verify diff contains expected invoice error message",
+      "purpose": "Ensure loading the sample diff works and the diff textarea shows the updated diff content containing 'Invoice not found'",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Review button disabled when API not ready or inputs are missing",
+      "purpose": "Validate that the analyze change button is disabled appropriately depending on API readiness and form inputs",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": "disabled"
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/example/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": "disabled"
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "some diff lines",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button:not(:disabled)",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

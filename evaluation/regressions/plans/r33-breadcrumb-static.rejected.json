@@ -1,0 +1,208 @@
+{
+  "scenarios": [
+    {
+      "title": "Index repository context with valid PR URL",
+      "purpose": "Verify that the repository context indexing works correctly when a valid pull request URL is provided and the index button is clicked.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": "Index repository context"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "span[role='status']",
+          "value": "",
+          "expected": "Indexed"
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Generate Playwright regression test plan after loading example diff",
+      "purpose": "Ensure the Playwright test plan generation works after loading the example diff and clicking generate button",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "Invoice not found",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button.evaluation-link",
+          "value": "",
+          "expected": "Generate Playwright plan"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.generated-plan",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Display error message when running review without PR URL or diff",
+      "purpose": "Verify an error is shown if the user tries to run a review without providing PR URL or diff",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.error-inline[role='alert']",
+          "value": "",
+          "expected": "Paste a diff or provide a GitHub pull request URL."
+        }
+      ]
+    },
+    {
+      "title": "Clear diff and error messages from input panel",
+      "purpose": "Verify that clicking clear diff button empties the diff textarea and removes error and result messages",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "some diff content",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.results-panel.panel",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button:has-text('Clear diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "div.error-inline[role='alert']",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Navigation between workspace views",
+      "purpose": "Verify that clicking navigation buttons updates the active view and breadcrumbs accordingly",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.nav-item:has-text('Pull requests')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "header.topbar div.breadcrumbs strong",
+          "value": "",
+          "expected": "Pull requests"
+        },
+        {
+          "action": "click",
+          "selector": "button.nav-item:has-text('Evaluations')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "header.topbar div.breadcrumbs strong",
+          "value": "",
+          "expected": "Evaluations"
+        }
+      ]
+    }
+  ]
+}

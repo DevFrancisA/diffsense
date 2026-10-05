@@ -1,0 +1,118 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify evaluation metrics display correct precision and recall values",
+      "purpose": "Ensure that the precision and recall metrics with context are displayed correctly and separately after the patch fixed the recall metric display issue.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0%"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5%"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and check unified diff content",
+      "purpose": "Confirm loading the example diff populates the diff area with expected contents referencing 'Invoice not found'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "Invoice not found",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Navigate review desk and check busy states",
+      "purpose": "Validate disabling and enabling of review button based on inputs and busy status.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "input#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button:disabled",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Switch views in sidebar and verify active state",
+      "purpose": "Ensure user can switch between views and active view updates accordingly.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button[aria-label=\"Pull requests\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.nav-item.is-active:has-text(\"Pull requests\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button[aria-label=\"Evaluations\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.nav-item.is-active:has-text(\"Evaluations\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

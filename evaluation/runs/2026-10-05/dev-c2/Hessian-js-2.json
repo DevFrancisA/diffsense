@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-2",
+  "project": "Hessian.js",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+  "buggySha": "ed7f966a31c448a62a1414f26196b342631925bb",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "1c6eaecbb962a4e53f7aebc5a9605f978944c1ad69d83849a73483ca03ba198a",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "37d19e74151a07d7709f2e6e867e39d71e2a0bd9",
+    "maxFiles": 40,
+    "filesIndexed": 27,
+    "chunksIndexed": 123,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "45f3f2d576895ab9eb33958f455cb83424278fb65a3f03920340d8e29bda24a6"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "dc9878abd2cab5b06b86693b01dc4f60af2956807042d3648e8b8ad2032a105a"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "4d6a9aa3712276d3f0c09669500fff6fdc4c4d5f72538cf88cd9965e80fd3ff2"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "d4e1555e9928700ffd1f4e21a0f285409160b649cd7fb48cc6eddf7272fce55e"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "7a8366fbf0b56d042d4558bb96f533927830a952cda30c26a1842197331ea8d3"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "68cef63dc14d7685650144fdfd65a3e5499bc06f3021929bfcb5dc040fcc754e"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "e4ac088e8ee8cc923f426e6f73a9b16a84ff86b3d06a9eaf942fb9978f379b8a"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "87595a4935247e661ab4f4aa8b61ca8758fa48e7a2dde3628d376f4dea5be99f"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "0b43e4c1e6eda6739f62c810d54b471d06f05a3710f455a82b2eada2c4c9066c"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "264f52071d21bf6d178fed63b6faa81d022c546a59eb7ded68514e81e80f7e38"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f073ba8dc7741227e07fa99c5a90b438a7cf995ec7de430f7df5964e4fd5293c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 404,
+      "outputTokens": 0,
+      "totalTokens": 404
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 20133,
+          "outputTokens": 528,
+          "totalTokens": 20661
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect decoding of map keys allowing unexpected types",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In lib/v1/decoder.js, the readObject method reads keys from the binary map and unconditionally uses them as object keys. This causes keys of unexpected types (e.g., objects) to be used, which can cause unexpected behavior or errors, especially since keys in JS objects should be strings or numbers.",
+            "suggestion": "Add a type check on each key before assigning to result.$, only assign key if its type is 'string' or 'number'. This is added at line 421 with variable 't' capturing typeof key and checking before assignment."
+          },
+          {
+            "title": "Incorrect decoding of map keys allowing unexpected types",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "In lib/v2/decoder.js, the _readMap function reads entries from the input and inserts entries into the map object unconditionally. This could lead to keys with unexpected types (e.g., objects) being used as object keys, causing incorrect map construction or conflicts.",
+            "suggestion": "Add a type check on each key before adding to map. Only assign map[k] = v if the key is of type 'string' or 'number'. This fix is added at line 728 with variable 't' capturing typeof k."
+          },
+          {
+            "title": "Test assertion incorrect for null key map decoding",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The test case expects decoding map data containing a null key to produce an object with key 'null' as string, but the decoding logic now prevents keys of unexpected types, so the result is an empty object. The assertion was incorrectly expecting a non-empty object.",
+            "suggestion": "Change the expected object in the test at line 168 to an empty object ({}), to be consistent with the decoding changes that disallow non-string/number keys."
+          },
+          {
+            "title": "Test assertion incorrect for map decoding involving keys with object types",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "The test case transformed a decoded map with object keys to a plain object and expected it to have keys like '[object Object]' mapping to some value. Given the decoding now skips keys that are not string or number types, the resulting plain object should be empty.",
+            "suggestion": "Change the expected object in the test at line 480 to an empty object ({}), matching the updated decoding behavior that excludes keys with object types."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect decoding of map keys allowing unexpected types",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In lib/v1/decoder.js, the readObject method reads keys from the binary map and unconditionally uses them as object keys. This causes keys of unexpected types (e.g., objects) to be used, which can cause unexpected behavior or errors, especially since keys in JS objects should be strings or numbers.",
+            "suggestion": "Add a type check on each key before assigning to result.$, only assign key if its type is 'string' or 'number'. This is added at line 421 with variable 't' capturing typeof key and checking before assignment."
+          },
+          {
+            "title": "Incorrect decoding of map keys allowing unexpected types",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "In lib/v2/decoder.js, the _readMap function reads entries from the input and inserts entries into the map object unconditionally. This could lead to keys with unexpected types (e.g., objects) being used as object keys, causing incorrect map construction or conflicts.",
+            "suggestion": "Add a type check on each key before adding to map. Only assign map[k] = v if the key is of type 'string' or 'number'. This fix is added at line 728 with variable 't' capturing typeof k."
+          },
+          {
+            "title": "Test assertion incorrect for null key map decoding",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The test case expects decoding map data containing a null key to produce an object with key 'null' as string, but the decoding logic now prevents keys of unexpected types, so the result is an empty object. The assertion was incorrectly expecting a non-empty object.",
+            "suggestion": "Change the expected object in the test at line 168 to an empty object ({}), to be consistent with the decoding changes that disallow non-string/number keys."
+          },
+          {
+            "title": "Test assertion incorrect for map decoding involving keys with object types",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "The test case transformed a decoded map with object keys to a plain object and expected it to have keys like '[object Object]' mapping to some value. Given the decoding now skips keys that are not string or number types, the resulting plain object should be empty.",
+            "suggestion": "Change the expected object in the test at line 480 to an empty object ({}), matching the updated decoding behavior that excludes keys with object types."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 20133,
+          "outputTokens": 504,
+          "totalTokens": 20637
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of non-string/non-number map keys in v1 Decoder",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In the updated readObject method of the v1 decoder, the code adds a type check before assigning keys to the result object: only keys of type 'string' or 'number' and not matching /^this\\$\\d+$/ regex are added. This is a sensible change to avoid using keys of invalid types as object properties that could lead to unexpected behavior.",
+            "suggestion": "Accept this check as a fix to robustly handle only valid property keys when reading map/object entries."
+          },
+          {
+            "title": "Incorrect handling of non-string/non-number map keys in v2 Decoder",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "In the updated _readMap method of the v2 decoder, the code includes a type check before assigning entries to the map object: only keys of type 'string' or 'number' are assigned as properties. This prevents keys of other types (e.g., objects) from corrupting the resulting plain object. The entries are still stored in the ES6 Map if available, preserving original keys.",
+            "suggestion": "Accept this fix as it prevents unexpected property keys and maintains correct key-value mapping in v2 maps."
+          },
+          {
+            "title": "Test expectations corrected for maps with non-string/non-number keys",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The test case expecting a map with a 'null' key to decode to an object with { null: 'null' } is updated to expect an empty object instead. This aligns with the decoder's logic to omit keys which are not strings or numbers when populating plain object properties.",
+            "suggestion": "Update the test expectations to match the decoder behavior of omitting non-string/number keys from resulting plain objects."
+          },
+          {
+            "title": "Test expectations corrected for deserialized map to plain object",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "The test case checking JSON serialization of a decoded map expects an object with key '[object Object]' mapping to a value, but now expects an empty object instead. This matches the decoder change to omit keys of types other than string or number in the resulting plain object.",
+            "suggestion": "Update the test to expect an empty object when serializing to JSON, reflecting the updated decoder logic."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of non-string/non-number map keys in v1 Decoder",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "In the updated readObject method of the v1 decoder, the code adds a type check before assigning keys to the result object: only keys of type 'string' or 'number' and not matching /^this\\$\\d+$/ regex are added. This is a sensible change to avoid using keys of invalid types as object properties that could lead to unexpected behavior.",
+            "suggestion": "Accept this check as a fix to robustly handle only valid property keys when reading map/object entries."
+          },
+          {
+            "title": "Incorrect handling of non-string/non-number map keys in v2 Decoder",
+            "severity": "medium",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "In the updated _readMap method of the v2 decoder, the code includes a type check before assigning entries to the map object: only keys of type 'string' or 'number' are assigned as properties. This prevents keys of other types (e.g., objects) from corrupting the resulting plain object. The entries are still stored in the ES6 Map if available, preserving original keys.",
+            "suggestion": "Accept this fix as it prevents unexpected property keys and maintains correct key-value mapping in v2 maps."
+          },
+          {
+            "title": "Test expectations corrected for maps with non-string/non-number keys",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The test case expecting a map with a 'null' key to decode to an object with { null: 'null' } is updated to expect an empty object instead. This aligns with the decoder's logic to omit keys which are not strings or numbers when populating plain object properties.",
+            "suggestion": "Update the test expectations to match the decoder behavior of omitting non-string/number keys from resulting plain objects."
+          },
+          {
+            "title": "Test expectations corrected for deserialized map to plain object",
+            "severity": "low",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "The test case checking JSON serialization of a decoded map expects an object with key '[object Object]' mapping to a value, but now expects an empty object instead. This matches the decoder change to omit keys of types other than string or number in the resulting plain object.",
+            "suggestion": "Update the test to expect an empty object when serializing to JSON, reflecting the updated decoder logic."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 20133,
+          "outputTokens": 499,
+          "totalTokens": 20632
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect inclusion of keys with unsupported types in V1 decoder's readObject",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "The added code in lib/v1/decoder.js at line 421 restricts keys added to the result object in readObject to only those of type 'string' or 'number', excluding keys of other types that might have been added previously. This is a correct fix to prevent keys like objects (which become '[object Object]' in string conversion) from polluting the result object.",
+            "suggestion": "Keep the added type check: only add key-value pairs to the object if the key's type is 'string' or 'number'."
+          },
+          {
+            "title": "Incorrect inclusion of keys with unsupported types in V2 decoder's _readMap",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "The patch restricts keys added to the map in _readMap to be only those of type 'string' or 'number'. This is a valid fix to avoid unexpected behaviors when keys are objects or other types that are not suitable as map keys in plain JS objects.",
+            "suggestion": "Keep the added type check to guard that only 'string' or 'number' typed keys are added to the map in _readMap."
+          },
+          {
+            "title": "Fix test expectation for decoding map with null key in v1 version",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The original test expects decoding a buffer with a null key to produce an object with the key 'null', but the correct expected output after patch is an empty object. Adjusting the test expectation is necessary to reflect the behavior that keys with types other than string or number are excluded.",
+            "suggestion": "Update the expected output in test to {}, as decoded map should not include keys with unsupported types after patch."
+          },
+          {
+            "title": "Fix test expectation for converting map with object keys to plain object",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "The original test expected a plain object with a '[object Object]' key after JSON serialization from a map that has object keys, but with the new filtering of keys by type, the resulting plain object should be empty. The test expectation needs to be updated accordingly.",
+            "suggestion": "Update the expected output in test from {'[object Object]': value} to {}."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect inclusion of keys with unsupported types in V1 decoder's readObject",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 421,
+            "explanation": "The added code in lib/v1/decoder.js at line 421 restricts keys added to the result object in readObject to only those of type 'string' or 'number', excluding keys of other types that might have been added previously. This is a correct fix to prevent keys like objects (which become '[object Object]' in string conversion) from polluting the result object.",
+            "suggestion": "Keep the added type check: only add key-value pairs to the object if the key's type is 'string' or 'number'."
+          },
+          {
+            "title": "Incorrect inclusion of keys with unsupported types in V2 decoder's _readMap",
+            "severity": "high",
+            "file": "lib/v2/decoder.js",
+            "line": 728,
+            "explanation": "The patch restricts keys added to the map in _readMap to be only those of type 'string' or 'number'. This is a valid fix to avoid unexpected behaviors when keys are objects or other types that are not suitable as map keys in plain JS objects.",
+            "suggestion": "Keep the added type check to guard that only 'string' or 'number' typed keys are added to the map in _readMap."
+          },
+          {
+            "title": "Fix test expectation for decoding map with null key in v1 version",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 168,
+            "explanation": "The original test expects decoding a buffer with a null key to produce an object with the key 'null', but the correct expected output after patch is an empty object. Adjusting the test expectation is necessary to reflect the behavior that keys with types other than string or number are excluded.",
+            "suggestion": "Update the expected output in test to {}, as decoded map should not include keys with unsupported types after patch."
+          },
+          {
+            "title": "Fix test expectation for converting map with object keys to plain object",
+            "severity": "medium",
+            "file": "test/map.test.js",
+            "line": 480,
+            "explanation": "The original test expected a plain object with a '[object Object]' key after JSON serialization from a map that has object keys, but with the new filtering of keys by type, the resulting plain object should be empty. The test expectation needs to be updated accordingly.",
+            "suggestion": "Update the expected output in test from {'[object Object]': value} to {}."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

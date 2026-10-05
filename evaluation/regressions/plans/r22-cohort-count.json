@@ -1,0 +1,28 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify updated precision metric footnote text on the evaluation metrics strip",
+      "purpose": "Ensure the precision metric footnote correctly displays the number of BugsJS cases and runs from the withContext evaluation data after the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.metrics-strip",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "div.metric-cell:nth-child(1) > span.metric-foot",
+          "value": "",
+          "expected": "0 BugsJS cases · 0 runs"
+        }
+      ]
+    }
+  ]
+}

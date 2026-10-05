@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-2",
+  "project": "Karma",
+  "bugId": 2,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "05616a2f4ceca7e86f35a921ab26fe571db33cc9",
+  "buggySha": "8ef475f7d1a06562e659347dcc53c2e474cbddc7",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "19b15f6f9ebbbac0f12f0769b09c8b3a7e081b202603a1033fe3d106a873174f",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "05616a2f4ceca7e86f35a921ab26fe571db33cc9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 86,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "aa84a12e5a968811831f123d16b00fe525c85ba8e17cd07e6d920f8b8c49e2bf"
+      },
+      {
+        "path": "test/unit/middleware/proxy.spec.js",
+        "contentSha256": "2944b871b5483f689be725456c1d4c577117c52f466e996abfedb3f9529df221"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "526a928b7cc1b48e61473eea4f06c2695820cc796b02f11f5662ba65883ad3a1"
+      },
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "d10b36aa74a59bcf4a88185837f658afaf3646eff2bb16c3928d0e9335e945d2"
+      },
+      {
+        "path": "lib/middleware/proxy.js",
+        "contentSha256": "efc466a20b97f951f1bbe9d257cda5c438b30865092e84432105b1e0f68c53f7"
+      },
+      {
+        "path": "lib/middleware/common.js",
+        "contentSha256": "cd3bd4a535f1dc39f7332de5c2506e709c6fc1f2f10e66c771f5350839ee3ae2"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "ab222d68c0079cf91d3e0ecfd8206161ac2db477087106302aed38a0200a9690"
+      },
+      {
+        "path": "lib/middleware/source_files.js",
+        "contentSha256": "8bc8f254ea672bb330a7d9e0872f50f9bfa63c2f2376989767ea0592a1097e13"
+      },
+      {
+        "path": "lib/middleware/karma.js",
+        "contentSha256": "a9d6a06a327e58b3eab8e3b0d24cbdf18c8db49107225c50fb30949ca40e64f0"
+      },
+      {
+        "path": "lib/config.js",
+        "contentSha256": "af468eb5f21e64271a983147caa8e8dbc81ea998ccad534274202ecc10cfb665"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 576,
+      "outputTokens": 0,
+      "totalTokens": 576
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 8323,
+          "outputTokens": 175,
+          "totalTokens": 8498
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of proxy port fallback order in parseProxyConfig",
+            "severity": "medium",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The patch changes the port determination logic to first use proxyDetails.port, then fallback to config.port before checking the protocol default ports 443 or 80. The original code first checked proxyDetails.port, then proxyDetails.protocol default ports, then config.port as last fallback. This changes the fallback logic, so if config.port is defined, it would override the correct default ports from protocol, which is incorrect and differs from previously tested behavior.",
+            "suggestion": "Revert to original logic for port assignment: first check proxyDetails.port, if not present then check proxyDetails.protocol to assign default port (443 for https, 80 for http), else fallback to config.port."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of proxy port fallback order in parseProxyConfig",
+            "severity": "medium",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The patch changes the port determination logic to first use proxyDetails.port, then fallback to config.port before checking the protocol default ports 443 or 80. The original code first checked proxyDetails.port, then proxyDetails.protocol default ports, then config.port as last fallback. This changes the fallback logic, so if config.port is defined, it would override the correct default ports from protocol, which is incorrect and differs from previously tested behavior.",
+            "suggestion": "Revert to original logic for port assignment: first check proxyDetails.port, if not present then check proxyDetails.protocol to assign default port (443 for https, 80 for http), else fallback to config.port."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 8323,
+          "outputTokens": 163,
+          "totalTokens": 8486
+        },
+        "rawFindings": [
+          {
+            "title": "Inconsistent port parsing fallback",
+            "severity": "medium",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The original code assigns the port based on explicit if-else conditions prioritizing proxyDetails.port, then proxyDetails.protocol, then config.port. The new code uses a fallback with '||' operators in order: proxyDetails.port, config.port, then a conditional for https port '443' or '80'. This change means that if config.port is present, it will be used even if proxyDetails.protocol requires standard ports differently, which alters the logic and can cause incorrect port assignment.",
+            "suggestion": "Restore the original conditional logic for port assignment to correctly prioritize proxyDetails.port, then proxyDetails.protocol default ports, and lastly config.port."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Inconsistent port parsing fallback",
+            "severity": "medium",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The original code assigns the port based on explicit if-else conditions prioritizing proxyDetails.port, then proxyDetails.protocol, then config.port. The new code uses a fallback with '||' operators in order: proxyDetails.port, config.port, then a conditional for https port '443' or '80'. This change means that if config.port is present, it will be used even if proxyDetails.protocol requires standard ports differently, which alters the logic and can cause incorrect port assignment.",
+            "suggestion": "Restore the original conditional logic for port assignment to correctly prioritize proxyDetails.port, then proxyDetails.protocol default ports, and lastly config.port."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 8323,
+          "outputTokens": 180,
+          "totalTokens": 8503
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect port type returned from parseProxyConfig",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The port value is returned as a number when using a default port from config.port, but previously it was ensured to be a string. The proxy code and tests expect port to be a string (e.g., '80', '443'), but the change will set it to a number (e.g., 9877) causing potential issues when passed to httpProxy options expecting a string.",
+            "suggestion": "Cast the port to a string to maintain consistent type. Modify line 43 to:\n\n  var port = proxyDetails.port || config.port ||"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect port type returned from parseProxyConfig",
+            "severity": "high",
+            "file": "lib/middleware/proxy.js",
+            "line": 43,
+            "explanation": "The port value is returned as a number when using a default port from config.port, but previously it was ensured to be a string. The proxy code and tests expect port to be a string (e.g., '80', '443'), but the change will set it to a number (e.g., 9877) causing potential issues when passed to httpProxy options expecting a string.",
+            "suggestion": "Cast the port to a string to maintain consistent type. Modify line 43 to:\n\n  var port = proxyDetails.port || config.port ||"
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

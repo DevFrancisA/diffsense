@@ -1,0 +1,70 @@
+{
+  "scenarios": [
+    {
+      "title": "Verify evaluation results loading from updated filename",
+      "purpose": "Ensure the application correctly loads evaluation results from the renamed file evaluation/result.json instead of evaluation/results.json.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".evaluation-panel .evaluation-status",
+          "value": "",
+          "expected": "Results saved"
+        }
+      ]
+    },
+    {
+      "title": "Check fallback behavior when evaluation results file missing",
+      "purpose": "Verify that when the evaluation/result.json file is missing, the UI displays the appropriate message indicating no results yet.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-panel .evaluation-status",
+          "value": "",
+          "expected": "No results yet"
+        }
+      ]
+    },
+    {
+      "title": "Validate evaluation summary display after results loading",
+      "purpose": "Confirm the evaluation summary panel correctly shows cohort size, model name, and date after loading results from evaluation/result.json.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".evaluation-panel .evaluation-copy h2",
+          "value": "",
+          "expected": "BugsJS review baseline"
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-panel .evaluation-copy p",
+          "value": "",
+          "expected": "pre-labeled cases ·"
+        },
+        {
+          "action": "expectText",
+          "selector": ".evaluation-panel .evaluation-copy p",
+          "value": "",
+          "expected": "·"
+        }
+      ]
+    }
+  ]
+}

@@ -2,24 +2,24 @@
   "session": "session-2",
   "callLimit": 1000,
   "tokenLimit": 10000000,
-  "reservedCalls": 235,
-  "completedCalls": 234,
-  "estimatedInputTokens": 2810291,
-  "observedInputTokens": 2034973,
-  "observedOutputTokens": 34185,
-  "observedTotalTokens": 2069158,
+  "reservedCalls": 367,
+  "completedCalls": 366,
+  "estimatedInputTokens": 4180599,
+  "observedInputTokens": 3034063,
+  "observedOutputTokens": 55438,
+  "observedTotalTokens": 3089501,
   "byLabel": {
     "regressions/index_embeddings": {
       "calls": 1,
       "totalTokens": 35649
     },
     "regressions/context_embedding": {
-      "calls": 35,
-      "totalTokens": 12049
+      "calls": 41,
+      "totalTokens": 14572
     },
     "regressions/test_plan": {
-      "calls": 35,
-      "totalTokens": 281599
+      "calls": 41,
+      "totalTokens": 333819
     },
     "benchmark/dev-c1/index_embeddings": {
       "calls": 44,
@@ -32,6 +32,14 @@
     "benchmark/dev-c1/review_response": {
       "calls": 89,
       "totalTokens": 932013
+    },
+    "benchmark/dev-c2/context_embedding": {
+      "calls": 30,
+      "totalTokens": 18096
+    },
+    "benchmark/dev-c2/review_response": {
+      "calls": 90,
+      "totalTokens": 947504
     }
   },
   "log": [
@@ -3699,6 +3707,2118 @@
         "inputTokens": 8361,
         "outputTokens": 432,
         "totalTokens": 8793
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:09.880Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1195
+    },
+    {
+      "at": "2026-10-05T10:48:10.081Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 873,
+        "outputTokens": 0,
+        "totalTokens": 873
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:10.292Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 21756
+    },
+    {
+      "at": "2026-10-05T10:48:12.261Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12947,
+        "outputTokens": 176,
+        "totalTokens": 13123
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:12.264Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 21756
+    },
+    {
+      "at": "2026-10-05T10:48:15.747Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12947,
+        "outputTokens": 417,
+        "totalTokens": 13364
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:15.750Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 21756
+    },
+    {
+      "at": "2026-10-05T10:48:18.008Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12947,
+        "outputTokens": 202,
+        "totalTokens": 13149
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:20.385Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 910
+    },
+    {
+      "at": "2026-10-05T10:48:20.609Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 660,
+        "outputTokens": 0,
+        "totalTokens": 660
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:20.776Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 20585
+    },
+    {
+      "at": "2026-10-05T10:48:22.533Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12242,
+        "outputTokens": 136,
+        "totalTokens": 12378
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:22.536Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 20585
+    },
+    {
+      "at": "2026-10-05T10:48:23.560Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 704
+    },
+    {
+      "at": "2026-10-05T10:48:23.764Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 551,
+        "outputTokens": 0,
+        "totalTokens": 551
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:23.777Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 11607
+    },
+    {
+      "at": "2026-10-05T10:48:24.596Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12242,
+        "outputTokens": 184,
+        "totalTokens": 12426
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:24.600Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 20585
+    },
+    {
+      "at": "2026-10-05T10:48:26.590Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8910,
+        "outputTokens": 240,
+        "totalTokens": 9150
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:26.987Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 12242,
+        "outputTokens": 266,
+        "totalTokens": 12508
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:29.289Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 576
+    },
+    {
+      "at": "2026-10-05T10:48:29.456Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 432,
+        "outputTokens": 0,
+        "totalTokens": 432
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:29.648Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11310
+    },
+    {
+      "at": "2026-10-05T10:48:30.361Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7093,
+        "outputTokens": 6,
+        "totalTokens": 7099
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:30.364Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11310
+    },
+    {
+      "at": "2026-10-05T10:48:32.127Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7093,
+        "outputTokens": 152,
+        "totalTokens": 7245
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:32.130Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11310
+    },
+    {
+      "at": "2026-10-05T10:48:34.084Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7093,
+        "outputTokens": 236,
+        "totalTokens": 7329
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:36.303Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 636
+    },
+    {
+      "at": "2026-10-05T10:48:36.492Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 590,
+        "outputTokens": 0,
+        "totalTokens": 590
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:36.738Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9410
+    },
+    {
+      "at": "2026-10-05T10:48:37.559Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6173,
+        "outputTokens": 6,
+        "totalTokens": 6179
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:37.562Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9410
+    },
+    {
+      "at": "2026-10-05T10:48:39.667Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6173,
+        "outputTokens": 236,
+        "totalTokens": 6409
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:39.669Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9410
+    },
+    {
+      "at": "2026-10-05T10:48:41.564Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6173,
+        "outputTokens": 181,
+        "totalTokens": 6354
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:43.677Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 407
+    },
+    {
+      "at": "2026-10-05T10:48:43.887Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 370,
+        "outputTokens": 0,
+        "totalTokens": 370
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:44.178Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9469
+    },
+    {
+      "at": "2026-10-05T10:48:45.658Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5518,
+        "outputTokens": 130,
+        "totalTokens": 5648
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:45.661Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9469
+    },
+    {
+      "at": "2026-10-05T10:48:47.844Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5518,
+        "outputTokens": 227,
+        "totalTokens": 5745
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:47.847Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9469
+    },
+    {
+      "at": "2026-10-05T10:48:49.240Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5518,
+        "outputTokens": 117,
+        "totalTokens": 5635
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:51.424Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 901
+    },
+    {
+      "at": "2026-10-05T10:48:51.609Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 768,
+        "outputTokens": 0,
+        "totalTokens": 768
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:51.997Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 25503
+    },
+    {
+      "at": "2026-10-05T10:48:53.951Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15946,
+        "outputTokens": 189,
+        "totalTokens": 16135
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:53.953Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 25503
+    },
+    {
+      "at": "2026-10-05T10:48:55.561Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 652
+    },
+    {
+      "at": "2026-10-05T10:48:55.766Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 512,
+        "outputTokens": 0,
+        "totalTokens": 512
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:55.781Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 11870
+    },
+    {
+      "at": "2026-10-05T10:48:59.592Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15946,
+        "outputTokens": 213,
+        "totalTokens": 16159
+      }
+    },
+    {
+      "at": "2026-10-05T10:48:59.595Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 25503
+    },
+    {
+      "at": "2026-10-05T10:49:00.053Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 9098,
+        "outputTokens": 568,
+        "totalTokens": 9666
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:03.222Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15946,
+        "outputTokens": 425,
+        "totalTokens": 16371
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:05.311Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 745
+    },
+    {
+      "at": "2026-10-05T10:49:05.370Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 593
+    },
+    {
+      "at": "2026-10-05T10:49:05.457Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 631,
+        "outputTokens": 0,
+        "totalTokens": 631
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:05.560Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 464,
+        "outputTokens": 0,
+        "totalTokens": 464
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:05.607Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 11038
+    },
+    {
+      "at": "2026-10-05T10:49:05.681Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13769
+    },
+    {
+      "at": "2026-10-05T10:49:07.623Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8912,
+        "outputTokens": 185,
+        "totalTokens": 9097
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:07.626Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13769
+    },
+    {
+      "at": "2026-10-05T10:49:09.596Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8912,
+        "outputTokens": 197,
+        "totalTokens": 9109
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:09.599Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13769
+    },
+    {
+      "at": "2026-10-05T10:49:10.316Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8448,
+        "outputTokens": 561,
+        "totalTokens": 9009
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:11.215Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8912,
+        "outputTokens": 124,
+        "totalTokens": 9036
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:13.139Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1020
+    },
+    {
+      "at": "2026-10-05T10:49:13.358Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 930,
+        "outputTokens": 0,
+        "totalTokens": 930
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:13.510Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13474
+    },
+    {
+      "at": "2026-10-05T10:49:15.656Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 571
+    },
+    {
+      "at": "2026-10-05T10:49:16.051Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 443,
+        "outputTokens": 0,
+        "totalTokens": 443
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:16.065Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10321
+    },
+    {
+      "at": "2026-10-05T10:49:17.997Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8321,
+        "outputTokens": 457,
+        "totalTokens": 8778
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:18.000Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13474
+    },
+    {
+      "at": "2026-10-05T10:49:19.692Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8321,
+        "outputTokens": 162,
+        "totalTokens": 8483
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:19.695Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13474
+    },
+    {
+      "at": "2026-10-05T10:49:19.988Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7956,
+        "outputTokens": 503,
+        "totalTokens": 8459
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:23.795Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8321,
+        "outputTokens": 300,
+        "totalTokens": 8621
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:25.273Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 576
+    },
+    {
+      "at": "2026-10-05T10:49:25.484Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 451,
+        "outputTokens": 0,
+        "totalTokens": 451
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:25.531Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 10326
+    },
+    {
+      "at": "2026-10-05T10:49:26.244Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 279
+    },
+    {
+      "at": "2026-10-05T10:49:26.442Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 267,
+        "outputTokens": 0,
+        "totalTokens": 267
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:26.707Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 15927
+    },
+    {
+      "at": "2026-10-05T10:49:28.079Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7964,
+        "outputTokens": 268,
+        "totalTokens": 8232
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:28.394Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11247,
+        "outputTokens": 161,
+        "totalTokens": 11408
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:28.397Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 15927
+    },
+    {
+      "at": "2026-10-05T10:49:29.899Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11247,
+        "outputTokens": 165,
+        "totalTokens": 11412
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:29.902Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 15927
+    },
+    {
+      "at": "2026-10-05T10:49:32.727Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11247,
+        "outputTokens": 298,
+        "totalTokens": 11545
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:33.423Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 113
+    },
+    {
+      "at": "2026-10-05T10:49:33.633Z",
+      "label": "regressions/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 102,
+        "outputTokens": 0,
+        "totalTokens": 102
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:33.682Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "estimatedTokens": 9294
+    },
+    {
+      "at": "2026-10-05T10:49:34.827Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 462
+    },
+    {
+      "at": "2026-10-05T10:49:34.991Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 411,
+        "outputTokens": 0,
+        "totalTokens": 411
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:35.229Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11597
+    },
+    {
+      "at": "2026-10-05T10:49:36.938Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8219,
+        "outputTokens": 121,
+        "totalTokens": 8340
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:36.941Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11597
+    },
+    {
+      "at": "2026-10-05T10:49:37.650Z",
+      "label": "regressions/test_plan",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7184,
+        "outputTokens": 520,
+        "totalTokens": 7704
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:38.671Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8219,
+        "outputTokens": 171,
+        "totalTokens": 8390
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:38.674Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11597
+    },
+    {
+      "at": "2026-10-05T10:49:40.155Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8219,
+        "outputTokens": 129,
+        "totalTokens": 8348
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:42.132Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 590
+    },
+    {
+      "at": "2026-10-05T10:49:42.314Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 533,
+        "outputTokens": 0,
+        "totalTokens": 533
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:42.651Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11398
+    },
+    {
+      "at": "2026-10-05T10:49:44.331Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8097,
+        "outputTokens": 163,
+        "totalTokens": 8260
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:44.334Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11398
+    },
+    {
+      "at": "2026-10-05T10:49:46.074Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8097,
+        "outputTokens": 166,
+        "totalTokens": 8263
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:46.078Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11398
+    },
+    {
+      "at": "2026-10-05T10:49:47.651Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8097,
+        "outputTokens": 143,
+        "totalTokens": 8240
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:49.594Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 342
+    },
+    {
+      "at": "2026-10-05T10:49:49.749Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 333,
+        "outputTokens": 0,
+        "totalTokens": 333
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:50.006Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 15569
+    },
+    {
+      "at": "2026-10-05T10:49:52.580Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11544,
+        "outputTokens": 234,
+        "totalTokens": 11778
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:52.583Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 15569
+    },
+    {
+      "at": "2026-10-05T10:49:53.362Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11544,
+        "outputTokens": 6,
+        "totalTokens": 11550
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:53.366Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 15569
+    },
+    {
+      "at": "2026-10-05T10:49:55.902Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11544,
+        "outputTokens": 125,
+        "totalTokens": 11669
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:57.730Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 717
+    },
+    {
+      "at": "2026-10-05T10:49:57.918Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 624,
+        "outputTokens": 0,
+        "totalTokens": 624
+      }
+    },
+    {
+      "at": "2026-10-05T10:49:58.163Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11687
+    },
+    {
+      "at": "2026-10-05T10:50:00.171Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8376,
+        "outputTokens": 192,
+        "totalTokens": 8568
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:00.174Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11687
+    },
+    {
+      "at": "2026-10-05T10:50:02.401Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8376,
+        "outputTokens": 258,
+        "totalTokens": 8634
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:02.404Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11687
+    },
+    {
+      "at": "2026-10-05T10:50:04.154Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8376,
+        "outputTokens": 152,
+        "totalTokens": 8528
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:06.059Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 240
+    },
+    {
+      "at": "2026-10-05T10:50:06.263Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 238,
+        "outputTokens": 0,
+        "totalTokens": 238
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:06.542Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8366
+    },
+    {
+      "at": "2026-10-05T10:50:08.049Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5813,
+        "outputTokens": 148,
+        "totalTokens": 5961
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:08.052Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8366
+    },
+    {
+      "at": "2026-10-05T10:50:09.473Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5813,
+        "outputTokens": 141,
+        "totalTokens": 5954
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:09.476Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8366
+    },
+    {
+      "at": "2026-10-05T10:50:11.310Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5813,
+        "outputTokens": 158,
+        "totalTokens": 5971
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:13.156Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 745
+    },
+    {
+      "at": "2026-10-05T10:50:13.319Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 679,
+        "outputTokens": 0,
+        "totalTokens": 679
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:13.595Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11097
+    },
+    {
+      "at": "2026-10-05T10:50:15.760Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7938,
+        "outputTokens": 190,
+        "totalTokens": 8128
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:15.763Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11097
+    },
+    {
+      "at": "2026-10-05T10:50:17.215Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7938,
+        "outputTokens": 117,
+        "totalTokens": 8055
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:17.218Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11097
+    },
+    {
+      "at": "2026-10-05T10:50:18.901Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7938,
+        "outputTokens": 136,
+        "totalTokens": 8074
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:20.615Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 387
+    },
+    {
+      "at": "2026-10-05T10:50:20.783Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 404,
+        "outputTokens": 0,
+        "totalTokens": 404
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:20.880Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 23103
+    },
+    {
+      "at": "2026-10-05T10:50:24.820Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 20133,
+        "outputTokens": 528,
+        "totalTokens": 20661
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:24.823Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 23103
+    },
+    {
+      "at": "2026-10-05T10:50:28.620Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 20133,
+        "outputTokens": 504,
+        "totalTokens": 20637
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:28.623Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 23103
+    },
+    {
+      "at": "2026-10-05T10:50:32.522Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 20133,
+        "outputTokens": 499,
+        "totalTokens": 20632
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:34.168Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 684
+    },
+    {
+      "at": "2026-10-05T10:50:34.359Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 688,
+        "outputTokens": 0,
+        "totalTokens": 688
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:34.434Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 25406
+    },
+    {
+      "at": "2026-10-05T10:50:36.678Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21335,
+        "outputTokens": 234,
+        "totalTokens": 21569
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:36.681Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 25406
+    },
+    {
+      "at": "2026-10-05T10:50:39.576Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21335,
+        "outputTokens": 216,
+        "totalTokens": 21551
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:39.579Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 25406
+    },
+    {
+      "at": "2026-10-05T10:50:42.462Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 21335,
+        "outputTokens": 261,
+        "totalTokens": 21596
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:44.093Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1677
+    },
+    {
+      "at": "2026-10-05T10:50:44.326Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1902,
+        "outputTokens": 0,
+        "totalTokens": 1902
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:44.440Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 29137
+    },
+    {
+      "at": "2026-10-05T10:50:47.722Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 25792,
+        "outputTokens": 317,
+        "totalTokens": 26109
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:47.724Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 29137
+    },
+    {
+      "at": "2026-10-05T10:50:50.541Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 25792,
+        "outputTokens": 296,
+        "totalTokens": 26088
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:50.544Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 29137
+    },
+    {
+      "at": "2026-10-05T10:50:53.605Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 25792,
+        "outputTokens": 347,
+        "totalTokens": 26139
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:55.580Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 1562
+    },
+    {
+      "at": "2026-10-05T10:50:55.772Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 1470,
+        "outputTokens": 0,
+        "totalTokens": 1470
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:55.873Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 17735
+    },
+    {
+      "at": "2026-10-05T10:50:57.399Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 14853,
+        "outputTokens": 118,
+        "totalTokens": 14971
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:57.402Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 17735
+    },
+    {
+      "at": "2026-10-05T10:50:59.333Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 14853,
+        "outputTokens": 188,
+        "totalTokens": 15041
+      }
+    },
+    {
+      "at": "2026-10-05T10:50:59.336Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 17735
+    },
+    {
+      "at": "2026-10-05T10:51:01.410Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 14853,
+        "outputTokens": 201,
+        "totalTokens": 15054
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:03.201Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 787
+    },
+    {
+      "at": "2026-10-05T10:51:03.383Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 831,
+        "outputTokens": 0,
+        "totalTokens": 831
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:03.462Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 17936
+    },
+    {
+      "at": "2026-10-05T10:51:05.362Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15500,
+        "outputTokens": 131,
+        "totalTokens": 15631
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:05.365Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 17936
+    },
+    {
+      "at": "2026-10-05T10:51:07.226Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15500,
+        "outputTokens": 149,
+        "totalTokens": 15649
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:07.229Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 17936
+    },
+    {
+      "at": "2026-10-05T10:51:10.062Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 15500,
+        "outputTokens": 215,
+        "totalTokens": 15715
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:11.578Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 229
+    },
+    {
+      "at": "2026-10-05T10:51:11.780Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 233,
+        "outputTokens": 0,
+        "totalTokens": 233
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:11.863Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13414
+    },
+    {
+      "at": "2026-10-05T10:51:13.460Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11123,
+        "outputTokens": 169,
+        "totalTokens": 11292
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:13.463Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13414
+    },
+    {
+      "at": "2026-10-05T10:51:15.011Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11123,
+        "outputTokens": 120,
+        "totalTokens": 11243
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:15.014Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 13414
+    },
+    {
+      "at": "2026-10-05T10:51:16.635Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 11123,
+        "outputTokens": 136,
+        "totalTokens": 11259
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:18.563Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 843
+    },
+    {
+      "at": "2026-10-05T10:51:18.860Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 736,
+        "outputTokens": 0,
+        "totalTokens": 736
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:19.030Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9177
+    },
+    {
+      "at": "2026-10-05T10:51:21.087Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6092,
+        "outputTokens": 160,
+        "totalTokens": 6252
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:21.090Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9177
+    },
+    {
+      "at": "2026-10-05T10:51:23.566Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6092,
+        "outputTokens": 278,
+        "totalTokens": 6370
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:23.569Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 9177
+    },
+    {
+      "at": "2026-10-05T10:51:25.141Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6092,
+        "outputTokens": 149,
+        "totalTokens": 6241
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:28.029Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 365
+    },
+    {
+      "at": "2026-10-05T10:51:28.191Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 324,
+        "outputTokens": 0,
+        "totalTokens": 324
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:29.419Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 7840
+    },
+    {
+      "at": "2026-10-05T10:51:31.147Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5366,
+        "outputTokens": 184,
+        "totalTokens": 5550
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:31.153Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 7840
+    },
+    {
+      "at": "2026-10-05T10:51:33.395Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5366,
+        "outputTokens": 261,
+        "totalTokens": 5627
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:33.398Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 7840
+    },
+    {
+      "at": "2026-10-05T10:51:35.964Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5366,
+        "outputTokens": 237,
+        "totalTokens": 5603
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:38.108Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 478
+    },
+    {
+      "at": "2026-10-05T10:51:38.313Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 415,
+        "outputTokens": 0,
+        "totalTokens": 415
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:38.485Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 6723
+    },
+    {
+      "at": "2026-10-05T10:51:40.406Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4491,
+        "outputTokens": 247,
+        "totalTokens": 4738
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:40.409Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 6723
+    },
+    {
+      "at": "2026-10-05T10:51:41.952Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4491,
+        "outputTokens": 168,
+        "totalTokens": 4659
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:41.955Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 6723
+    },
+    {
+      "at": "2026-10-05T10:51:44.004Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 4491,
+        "outputTokens": 175,
+        "totalTokens": 4666
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:45.878Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 623
+    },
+    {
+      "at": "2026-10-05T10:51:46.079Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 539,
+        "outputTokens": 0,
+        "totalTokens": 539
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:46.350Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8118
+    },
+    {
+      "at": "2026-10-05T10:51:49.389Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5653,
+        "outputTokens": 385,
+        "totalTokens": 6038
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:49.392Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8118
+    },
+    {
+      "at": "2026-10-05T10:51:53.033Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5653,
+        "outputTokens": 403,
+        "totalTokens": 6056
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:53.036Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8118
+    },
+    {
+      "at": "2026-10-05T10:51:55.488Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 5653,
+        "outputTokens": 341,
+        "totalTokens": 5994
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:57.456Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 463
+    },
+    {
+      "at": "2026-10-05T10:51:57.662Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 433,
+        "outputTokens": 0,
+        "totalTokens": 433
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:57.913Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8838
+    },
+    {
+      "at": "2026-10-05T10:51:59.430Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6330,
+        "outputTokens": 134,
+        "totalTokens": 6464
+      }
+    },
+    {
+      "at": "2026-10-05T10:51:59.433Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8838
+    },
+    {
+      "at": "2026-10-05T10:52:01.109Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6330,
+        "outputTokens": 120,
+        "totalTokens": 6450
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:01.112Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 8838
+    },
+    {
+      "at": "2026-10-05T10:52:02.679Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 6330,
+        "outputTokens": 133,
+        "totalTokens": 6463
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:04.799Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 451
+    },
+    {
+      "at": "2026-10-05T10:52:05.203Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 370,
+        "outputTokens": 0,
+        "totalTokens": 370
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:05.468Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11847
+    },
+    {
+      "at": "2026-10-05T10:52:07.022Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8438,
+        "outputTokens": 168,
+        "totalTokens": 8606
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:07.024Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11847
+    },
+    {
+      "at": "2026-10-05T10:52:08.964Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8438,
+        "outputTokens": 129,
+        "totalTokens": 8567
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:08.967Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11847
+    },
+    {
+      "at": "2026-10-05T10:52:12.333Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8438,
+        "outputTokens": 165,
+        "totalTokens": 8603
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:14.455Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 406
+    },
+    {
+      "at": "2026-10-05T10:52:14.643Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 366,
+        "outputTokens": 0,
+        "totalTokens": 366
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:14.909Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11125
+    },
+    {
+      "at": "2026-10-05T10:52:16.298Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7761,
+        "outputTokens": 123,
+        "totalTokens": 7884
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:16.301Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11125
+    },
+    {
+      "at": "2026-10-05T10:52:19.283Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7761,
+        "outputTokens": 143,
+        "totalTokens": 7904
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:19.286Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11125
+    },
+    {
+      "at": "2026-10-05T10:52:20.880Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 7761,
+        "outputTokens": 162,
+        "totalTokens": 7923
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:22.731Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 632
+    },
+    {
+      "at": "2026-10-05T10:52:22.918Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 576,
+        "outputTokens": 0,
+        "totalTokens": 576
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:23.090Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11981
+    },
+    {
+      "at": "2026-10-05T10:52:25.607Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8323,
+        "outputTokens": 175,
+        "totalTokens": 8498
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:25.610Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11981
+    },
+    {
+      "at": "2026-10-05T10:52:27.268Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8323,
+        "outputTokens": 163,
+        "totalTokens": 8486
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:27.272Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 11981
+    },
+    {
+      "at": "2026-10-05T10:52:29.226Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 8323,
+        "outputTokens": 180,
+        "totalTokens": 8503
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:31.359Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "estimatedTokens": 614
+    },
+    {
+      "at": "2026-10-05T10:52:31.504Z",
+      "label": "benchmark/dev-c2/context_embedding",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 470,
+        "outputTokens": 0,
+        "totalTokens": 470
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:31.726Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 14262
+    },
+    {
+      "at": "2026-10-05T10:52:33.912Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10061,
+        "outputTokens": 242,
+        "totalTokens": 10303
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:33.915Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 14262
+    },
+    {
+      "at": "2026-10-05T10:52:36.914Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10061,
+        "outputTokens": 364,
+        "totalTokens": 10425
+      }
+    },
+    {
+      "at": "2026-10-05T10:52:36.917Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "estimatedTokens": 14262
+    },
+    {
+      "at": "2026-10-05T10:52:39.234Z",
+      "label": "benchmark/dev-c2/review_response",
+      "calls": 1,
+      "usage": {
+        "inputTokens": 10061,
+        "outputTokens": 277,
+        "totalTokens": 10338
       }
     }
   ]

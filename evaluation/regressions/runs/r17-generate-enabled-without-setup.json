@@ -1,0 +1,110 @@
+{
+  "id": "r17-generate-enabled-without-setup",
+  "role": "primary",
+  "intendedBreak": "Generate-plan button is enabled without setup",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 5,
+    "steps": 18,
+    "usage": {
+      "inputTokens": 8756,
+      "outputTokens": 631,
+      "totalTokens": 9387
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "tests/review.test.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Generate Playwright plan button enabled when API not ready but inputs present",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate Playwright plan button disabled when no diff or pull request URL",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Show evaluation panel with correct status and metrics",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Load example diff populates diff textarea with sample and shows findings",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Index repository context button disabled when no pull request URL or indexing in progress",
+          "status": "failed",
+          "failedStep": "plan step 2: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.index-button')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Generate Playwright plan button enabled when API not ready but inputs present",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate Playwright plan button disabled when no diff or pull request URL",
+          "status": "failed",
+          "failedStep": "plan step 3: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.text-button.evaluation-link')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Show evaluation panel with correct status and metrics",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Load example diff populates diff textarea with sample and shows findings",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Index repository context button disabled when no pull request URL or indexing in progress",
+          "status": "failed",
+          "failedStep": "plan step 2: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.index-button')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:41:30.264Z"
+}

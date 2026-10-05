@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Karma-1",
+  "project": "Karma",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/karma",
+  "fixedSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+  "buggySha": "4673116a6f7310a6390025618a4a6c7215e3b793",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "0b58b67c952edfb17e7cf2b17e0436530dd06ac2688959fc5a89e3a8745349bb",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/karma",
+    "commitSha": "0407a2280b01972ebcebe9ad341cff87c788975e",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 82,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/reporter.js",
+        "contentSha256": "97e2ecc1732cc9caa0062826672689d38153c14ae852f1b384319dc1c50fa5d0"
+      },
+      {
+        "path": "test/unit/reporter.spec.js",
+        "contentSha256": "51b50c464dd4e743e70bc0b21b3665fe21d912b000d104734de719600c7f0da5"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "7b5226b64e19578f70429b75083b0f8a2324bf566373a72ab55f59fabbd67e9f"
+      },
+      {
+        "path": "lib/middleware/runner.js",
+        "contentSha256": "1679a24276d8964eebc7dc16f23a446871879c5f1f8ad48da9d3bcc0a664db96"
+      },
+      {
+        "path": "lib/init/formatters.js",
+        "contentSha256": "3d03e5b9c80351bb45fb5315f3e3aaa9a8c3fb77e21f1d5e8e07ece6fecf87fe"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "0ce0f0fdb3add867cb6b9f91bc3807650af1a0ffad425865462b378f1ee76628"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "d9731c53104530b883816a185e3769317415040cea98078dafd5feb257877a91"
+      },
+      {
+        "path": "lib/init.js",
+        "contentSha256": "f36c17834c39947e383abe9bf17a6d681c2d739f9003e3eeb0b4c3b2db113cbe"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "11aad1e5af03508430c39a71f3b85add0cb37241d9b7cc10be53dc252ea465c8"
+      },
+      {
+        "path": "lib/cli.js",
+        "contentSha256": "cea387ddcb7fc0be734e4568a71a95a0590ffd0c4791dc84d90bcf33f2383ec3"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 366,
+      "outputTokens": 0,
+      "totalTokens": 366
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 7761,
+          "outputTokens": 123,
+          "totalTokens": 7884
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL_REGEXP breaks relative URL matching in error formatter",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original regex matched URLs optionally starting with domain and allowed paths starting with optional slash. The changed regex matches URLs starting necessarily with 'http://' and a domain, requiring '/' after domain, thus failing to match relative URLs without domain.",
+            "suggestion": "Restore the original regex that optionally matches URLs starting with 'http://' and domain, and also matches relative URLs starting with optional slash, to correctly identify URLs in error messages."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL_REGEXP breaks relative URL matching in error formatter",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original regex matched URLs optionally starting with domain and allowed paths starting with optional slash. The changed regex matches URLs starting necessarily with 'http://' and a domain, requiring '/' after domain, thus failing to match relative URLs without domain.",
+            "suggestion": "Restore the original regex that optionally matches URLs starting with 'http://' and domain, and also matches relative URLs starting with optional slash, to correctly identify URLs in error messages."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 7761,
+          "outputTokens": 143,
+          "totalTokens": 7904
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL_REGEXP pattern causes failed relative URL matching",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original regex matched optional http and optional domain for URLs, allowing matching of relative URLs like '/base/path'. The changed regex requires 'http://' and domain, so URLs without 'http://' (like '/base/b.js') no longer match, breaking relative URL handling.",
+            "suggestion": "Restore original regex pattern to allow matching URLs with optional http domain, e.g., revert line 24 to: var URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' + ... );"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL_REGEXP pattern causes failed relative URL matching",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original regex matched optional http and optional domain for URLs, allowing matching of relative URLs like '/base/path'. The changed regex requires 'http://' and domain, so URLs without 'http://' (like '/base/b.js') no longer match, breaking relative URL handling.",
+            "suggestion": "Restore original regex pattern to allow matching URLs with optional http domain, e.g., revert line 24 to: var URL_REGEXP = new RegExp('(?:http:\\/\\/[^\\/]*)?\\/?' + ... );"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 7761,
+          "outputTokens": 162,
+          "totalTokens": 7923
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect URL_REGEXP alteration breaks matching relative URLs",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original regular expression \"(?:http:\\/\\/[^\\/]*)?\\/?\" allowed matching both URLs with and without the protocol and domain, including relative paths starting with '/base' or '/absolute'. The changed RegExp \"http:\\/\\/[^\\/]*\\/\" requires the URL to start explicitly with 'http://' and a domain, failing to match relative URLs like '/base/b.js'. This can break error message formatting where relative URLs are common.",
+            "suggestion": "Restore the original RegExp or adjust it to allow matching both absolute (with http://) and relative URLs (starting with '/') as before."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect URL_REGEXP alteration breaks matching relative URLs",
+            "severity": "high",
+            "file": "lib/reporter.js",
+            "line": 24,
+            "explanation": "The original regular expression \"(?:http:\\/\\/[^\\/]*)?\\/?\" allowed matching both URLs with and without the protocol and domain, including relative paths starting with '/base' or '/absolute'. The changed RegExp \"http:\\/\\/[^\\/]*\\/\" requires the URL to start explicitly with 'http://' and a domain, failing to match relative URLs like '/base/b.js'. This can break error message formatting where relative URLs are common.",
+            "suggestion": "Restore the original RegExp or adjust it to allow matching both absolute (with http://) and relative URLs (starting with '/') as before."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

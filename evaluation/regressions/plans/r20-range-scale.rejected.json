@@ -1,0 +1,136 @@
+{
+  "scenarios": [
+    {
+      "title": "Evaluation Metrics Display with Correct Percent Range Formatting",
+      "purpose": "Verify that evaluation metrics with context display precision and recall correctly reflecting the percent ranges after the formatPercentRange function change.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(1) strong",
+          "value": "",
+          "expected": "94.4–100.0"
+        },
+        {
+          "action": "expectText",
+          "selector": ".metric-cell:nth-child(2) strong",
+          "value": "",
+          "expected": "28.8–30.5"
+        }
+      ]
+    },
+    {
+      "title": "Load Example Diff and Verify Diff Content",
+      "purpose": "Check that loading the example diff populates the diff textarea with expected content including the 'Invoice not found' error string reflecting any changes from the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "Invoice not found",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Run Review Button Disabled Without API Ready or Valid Input",
+      "purpose": "Ensure that the 'Analyze change' button remains disabled if API is not ready or required input fields are empty, consistent with patch logic for apiReady state handling.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": "disabled"
+        }
+      ]
+    },
+    {
+      "title": "Index Repository Context Button Toggle and Message Display",
+      "purpose": "Validate that the 'Index repository context' button toggles disabled state appropriately based on pullRequestUrl input and apiReady state, and status messages update correctly.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": "disabled"
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/test/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "button.index-button",
+          "value": "",
+          "expected": "enabled"
+        }
+      ]
+    },
+    {
+      "title": "Download Generated Playwright Test Plan Button Availability",
+      "purpose": "Confirm that after successful test plan generation, the download JSON button appears and is clickable, reflecting patch UI changes for test plan presentation.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "diff content",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/test/repo",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button:has-text(\"Download JSON\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

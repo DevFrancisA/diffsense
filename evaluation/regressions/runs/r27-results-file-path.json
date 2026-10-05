@@ -1,0 +1,11 @@
+{
+  "id": "r27-results-file-path",
+  "role": "primary",
+  "intendedBreak": "Results API reads a misspelled file and reports no results",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan contains a navigation target outside the configured application.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:46:38.248Z"
+}

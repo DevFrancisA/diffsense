@@ -1,0 +1,52 @@
+{
+  "scenarios": [
+    {
+      "title": "API status endpoint returns ready=true regardless of missing environment variables",
+      "purpose": "Verify that the /api/status endpoint response always reports ready as true even when required environment variables are unset or database unreachable.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/api/status",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "body",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "\"ready\":true"
+        }
+      ]
+    },
+    {
+      "title": "Check missing field in /api/status response is always present",
+      "purpose": "Confirm that the missing field is present in the JSON response even if non-empty and that ready is true.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/api/status",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "body",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "missing"
+        }
+      ]
+    }
+  ]
+}

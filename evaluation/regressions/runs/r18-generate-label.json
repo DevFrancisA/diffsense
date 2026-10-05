@@ -1,0 +1,96 @@
+{
+  "id": "r18-generate-label",
+  "role": "primary",
+  "intendedBreak": "Generate-plan button label changes",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 4,
+    "steps": 15,
+    "usage": {
+      "inputTokens": 8460,
+      "outputTokens": 479,
+      "totalTokens": 8939
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "tests/generated-plan.spec.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Generate test plan button displays correct label",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('button.evaluation-link')\nExpected substring: \"Generate test plan\"\nReceived string:    \"Generate Playwright plan\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('button.evaluation-link') with timeout 5000ms\n  - waiting for locator('button.evaluation-link')\n    14 × locator resolved to <button disabled type=\"button\" class=\"text-button evaluation-link\">…</button>\n       - unexpected value \"Generate Playwright plan\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate test plan button disables appropriately",
+          "status": "failed",
+          "failedStep": "plan step 1: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.evaluation-link[disabled]')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate test plan button enabled with input",
+          "status": "failed",
+          "failedStep": "plan step 3: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('button.evaluation-link:not([disabled])')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('button.evaluation-link:not([disabled])') with timeout 5000ms\n  - waiting for locator('button.evaluation-link:not([disabled])')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generating test plan shows spinner and text change",
+          "status": "timedOut",
+          "failedStep": "plan step 3: click",
+          "error": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('button.evaluation-link')\n    - locator resolved to <button disabled type=\"button\" class=\"text-button evaluation-link\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    57 × waiting for element to be visible, enabled and stable\n      ",
+          "outcome": "action"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Generate test plan button displays correct label",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('button.evaluation-link')\nExpected substring: \"Generate test plan\"\nReceived string:    \"Generate Playwright plan\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('button.evaluation-link') with timeout 5000ms\n  - waiting for locator('button.evaluation-link')\n    14 × locator resolved to <button disabled type=\"button\" class=\"text-button evaluation-link\">…</button>\n       - unexpected value \"Generate Playwright plan\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate test plan button disables appropriately",
+          "status": "failed",
+          "failedStep": "plan step 1: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('button.evaluation-link[disabled]')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate test plan button enabled with input",
+          "status": "failed",
+          "failedStep": "plan step 3: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('button.evaluation-link:not([disabled])')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('button.evaluation-link:not([disabled])') with timeout 5000ms\n  - waiting for locator('button.evaluation-link:not([disabled])')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generating test plan shows spinner and text change",
+          "status": "timedOut",
+          "failedStep": "plan step 3: click",
+          "error": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('button.evaluation-link')\n    - locator resolved to <button disabled type=\"button\" class=\"text-button evaluation-link\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    57 × waiting for element to be visible, enabled and stable\n      ",
+          "outcome": "action"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:43:04.958Z"
+}

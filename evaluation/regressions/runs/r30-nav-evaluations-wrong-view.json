@@ -1,0 +1,11 @@
+{
+  "id": "r30-nav-evaluations-wrong-view",
+  "role": "primary",
+  "intendedBreak": "Evaluations nav item does not switch views",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan contains a navigation target outside the configured application.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:47:05.039Z"
+}

@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Eslint-1",
+  "project": "Eslint",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/eslint",
+  "fixedSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+  "buggySha": "4742d82ee9daf68c9095c283ce1d0dab42fe9e32",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "0847065488769f2cb432c0f2a5c6882dbb14edaf9b3c7d88ce4eb6a81543b36f",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/eslint",
+    "commitSha": "4278c424f775556316cfd9af84acea64d6ba15d2",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 186,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/rules/no-obj-calls.js",
+        "contentSha256": "c01c51faec74d62e04e3a6cb5e9030dbc8d4c7f8a55bcb850b6d8856628a2f9c"
+      },
+      {
+        "path": "tests/lib/rules/no-obj-calls.js",
+        "contentSha256": "73ca4048f90185e543d4f6aa93e3fc8e656958ecb32a1b26f075fe2ebd0f51f8"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "9a1a1acbf3ce16cc62f5738cd32f9cc508ac9438acda90570cfb883000eae163"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "5e883404183491b59413b544e673370bef9d02452603b6e9f3f1655ef0092a1d"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2184d0c36ae059355db97131389723026e255863e2eae47fde6fb8f1e2ba9ff1"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "6ba4794bb0193119faf1cd4da7453c3aa438f0ce28a9d6504f184ac4d6526880"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "bac555b5b248028f13a5e4d88551658fb6a52f234ef1467d311ded0ce5b4ce83"
+      },
+      {
+        "path": "lib/ast-utils.js",
+        "contentSha256": "f6b680b4efd4cbc127df6854f7061e53f55c553079ec944d6910e04b7ef19e74"
+      },
+      {
+        "path": "conf/eslint-all.js",
+        "contentSha256": "24c1efa127f5e7b7c61ce07540cffbc29a14fd05871140d0b0490bde1882a701"
+      },
+      {
+        "path": "Makefile.js",
+        "contentSha256": "2ff3c131d3b6f12f05d0058d25cf98062d10a639469bfa1f122267519a9a2ac5"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 590,
+      "outputTokens": 0,
+      "totalTokens": 590
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 6173,
+          "outputTokens": 6,
+          "totalTokens": 6179
+        },
+        "rawFindings": [],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 6173,
+          "outputTokens": 236,
+          "totalTokens": 6409
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrectly removes 'Reflect' from no-calls list in rule implementation",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule no longer reports calls to 'Reflect' as invalid, but the global 'Reflect' object is not callable and should be flagged if called to prevent errors.",
+            "suggestion": "Restore 'Reflect' in the check condition to ensure calls to 'Reflect' are reported as errors, e.g., `if (name === \"Math\" || name === \"JSON\" || name === \"Reflect\")`."
+          },
+          {
+            "title": "Tests no longer validate calls to 'Reflect' are flagged as errors",
+            "severity": "high",
+            "file": "tests/lib/rules/no-obj-calls.js",
+            "line": 27,
+            "explanation": "The test case that expected an error when calling 'Reflect()' has been removed. This means changes allowing calls to 'Reflect()' will go undetected by automated tests.",
+            "suggestion": "Reinsert or add a test case to verify that calling 'Reflect()' throws the expected error, consistent with the rule's intended behavior."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrectly removes 'Reflect' from no-calls list in rule implementation",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule no longer reports calls to 'Reflect' as invalid, but the global 'Reflect' object is not callable and should be flagged if called to prevent errors.",
+            "suggestion": "Restore 'Reflect' in the check condition to ensure calls to 'Reflect' are reported as errors, e.g., `if (name === \"Math\" || name === \"JSON\" || name === \"Reflect\")`."
+          },
+          {
+            "title": "Tests no longer validate calls to 'Reflect' are flagged as errors",
+            "severity": "high",
+            "file": "tests/lib/rules/no-obj-calls.js",
+            "line": 27,
+            "explanation": "The test case that expected an error when calling 'Reflect()' has been removed. This means changes allowing calls to 'Reflect()' will go undetected by automated tests.",
+            "suggestion": "Reinsert or add a test case to verify that calling 'Reflect()' throws the expected error, consistent with the rule's intended behavior."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 6173,
+          "outputTokens": 181,
+          "totalTokens": 6354
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect removal of 'Reflect' from no-obj-calls rule without updating documentation and tests properly",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule implementation no longer reports 'Reflect' as a non-callable function (line 31), but the associated documentation and tests were only partially updated. The tests still include a test for calling 'Reflect()', which is now obsolete and should not expect an error. The documentation removal should be consistent with the code behavior and tests, ensuring synchronization.",
+            "suggestion": "Fully remove all references to 'Reflect' in the rule code, documentation, and tests if deprecating it as a forbidden callable. Specifically, remove the 'Reflect()' test case from tests/lib/rules/no-obj-calls.js and ensure documentation reflects this change accurately."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect removal of 'Reflect' from no-obj-calls rule without updating documentation and tests properly",
+            "severity": "high",
+            "file": "lib/rules/no-obj-calls.js",
+            "line": 31,
+            "explanation": "The rule implementation no longer reports 'Reflect' as a non-callable function (line 31), but the associated documentation and tests were only partially updated. The tests still include a test for calling 'Reflect()', which is now obsolete and should not expect an error. The documentation removal should be consistent with the code behavior and tests, ensuring synchronization.",
+            "suggestion": "Fully remove all references to 'Reflect' in the rule code, documentation, and tests if deprecating it as a forbidden callable. Specifically, remove the 'Reflect()' test case from tests/lib/rules/no-obj-calls.js and ensure documentation reflects this change accurately."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

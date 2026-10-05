@@ -1,0 +1,68 @@
+{
+  "id": "r34-heading-case",
+  "role": "primary",
+  "intendedBreak": "Page heading text changes",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 2,
+    "steps": 5,
+    "usage": {
+      "inputTokens": 7581,
+      "outputTokens": 187,
+      "totalTokens": 7768
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/layout.tsx",
+      "tests/review.spec.ts",
+      "src/lib/server/review.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Load example diff and verify text change in heading",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('h1')\nExpected substring: \"Review Desk\"\nReceived string:    \"Review desk\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('h1') with timeout 5000ms\n  - waiting for locator('h1')\n    14 × locator resolved to <h1>Review desk</h1>\n       - unexpected value \"Review desk\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Load example diff and display example content in diff editor",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Load example diff and verify text change in heading",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('h1')\nExpected substring: \"Review Desk\"\nReceived string:    \"Review desk\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('h1') with timeout 5000ms\n  - waiting for locator('h1')\n    14 × locator resolved to <h1>Review desk</h1>\n       - unexpected value \"Review desk\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Load example diff and display example content in diff editor",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:47:56.004Z"
+}

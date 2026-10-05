@@ -1,0 +1,11 @@
+{
+  "id": "r32-settings-view-name",
+  "role": "primary",
+  "intendedBreak": "Settings breadcrumb is misspelled",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan contains a navigation target outside the configured application.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:47:23.138Z"
+}

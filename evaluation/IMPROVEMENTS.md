@@ -36,3 +36,18 @@ Filled in from the committed `results-dev-*.json` files as each variant complete
 | C1 (`results-dev-c1.json`) | 22, 23, 24 | 82 | 13 | 69/177 = 39.0% | 69/82 = 84.1% | **no** (precision < 90%) |
 
 Per-run C1: precision 75.9% / 88.5% / 88.9%, recall 37.3% / 39.0% / 40.7%. Session ledger after C1: 233 calls, 2,059,722 tokens.
+| C2 (`results-dev-c2.json`) | 22, 23, 29 | 87 | 13 | 74/177 = 41.8% | 74/87 = 85.1% | **no** (precision < 90%) |
+
+Per-run C2: precision 84.6% / 82.1% / 87.9%, recall 37.3% / 39.0% / 49.2%. Session ledger after C2 (shared with the regression harness): 367 calls, 3,089,501 tokens.
+
+### Deviation: C3 amended after seeing DEV results
+
+The preregistered C3 options (k=16, a higher index cap, per-hunk retrieval) did not target the observed precision loss. All 13 C2 false positives were findings on **test files** in the reversed fix diffs (for example, removed test cases in `test/map.test.js`). Labels cover only non-test source files (SELECTION.md), so the evaluator conservatively scores these as false positives. Including the full text of changed test files appears to invite such findings.
+
+With the repository owner's approval, C3 was redefined **after seeing DEV false positives**:
+
+| ID | Variant | Change | Config |
+|---|---|---|---|
+| C3 | `dev-c3` | C2, but full-file context includes only non-test changed files, and the prompt appends: "Focus on application source code; do not report findings in test files." (revision `cite-added-line-source-focus`, sha256 `e618f388…`; the baseline anti-speculation text is kept verbatim) | C2 + `DIFFSENSE_CHANGED_FILES_EXCLUDE_TESTS=true` + `REVIEW_PROMPT_REVISION=cite-added-line-source-focus` |
+
+This is tuned to the benchmark's label scope (source files only). On a real project, a test-file defect is still a defect, so suppressing test findings is a product trade-off, not a free accuracy gain. The final-configuration rule above is unchanged.

@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Express-1",
+  "project": "Express",
+  "bugId": 1,
+  "upstreamRepository": "https://github.com/BugsJS/express",
+  "fixedSha": "12626aed35a6d1ef4466fa0d67613a53db8b1149",
+  "buggySha": "3387916efcac19302188151a24927a0405a373e8",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "5553ecafbe872e43b6e8e2a3a13b439776d13ae4cc36f1424aa2514ac86215ac",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/express",
+    "commitSha": "12626aed35a6d1ef4466fa0d67613a53db8b1149",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 47,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/router/index.js",
+        "contentSha256": "8c46c3eddf1c66bf26190d7461c904bf1b22b409be8270c6a5eaecff3d88ddc7"
+      },
+      {
+        "path": "test/app.options.js",
+        "contentSha256": "d10a0bc6bbc008ac0f1e66adba02ba6b0263cfbef45a2158b9f3a68a4fd24863"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "examples/mvc/index.js",
+        "contentSha256": "4c6d3b95f985fd39ea3cafd10f65ddf11d29bce1b6fa6b07f9aebe0a0378c869"
+      },
+      {
+        "path": "examples/route-map/index.js",
+        "contentSha256": "d7709e448a5bddf16a22a1a39fda95f9b8a1e8d70c8a149b67542972957b2613"
+      },
+      {
+        "path": "examples/resource/index.js",
+        "contentSha256": "227bfcecfe94c1786a630c028a84390c813abf02982ca0fad393e76fc515c66d"
+      },
+      {
+        "path": "examples/error-pages/index.js",
+        "contentSha256": "e347dfa0febb367795f914fffd48c49605821099d17c604e2bedbc78503c0f02"
+      },
+      {
+        "path": "examples/mvc/lib/boot.js",
+        "contentSha256": "1f0e5f5362c590e85d262b4484cbd28417dd92eed1bd5c8c0688987c6a7a1ee3"
+      },
+      {
+        "path": "examples/route-middleware/index.js",
+        "contentSha256": "712baa0298844ee1bc9cc79343e7df3dd62e61b982252ae4c20f29f1a14fdf0f"
+      },
+      {
+        "path": "examples/route-separation/index.js",
+        "contentSha256": "8f02901d94758765f6513217a0a7992c4fa55db011dd609780cdf85f9741b6cf"
+      },
+      {
+        "path": "examples/error/index.js",
+        "contentSha256": "efb362efb0ebc869920f10a897d5bd06c52b967b76adebc36a2db13252d7d39c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 411,
+      "outputTokens": 0,
+      "totalTokens": 411
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 8219,
+          "outputTokens": 121,
+          "totalTokens": 8340
+        },
+        "rawFindings": [
+          {
+            "title": "Allow header may contain duplicate methods in OPTIONS response",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The patch replaced appendMethods (which avoided adding duplicate HTTP methods) with a direct push.apply to the options array, which does not check for duplicates. This causes duplicate methods to appear in the 'Allow' header for OPTIONS requests.",
+            "suggestion": "Restore the use of a function that avoids duplicates when adding route._options() methods to the options array, or reimplement appendMethods logic to prevent duplicates during the push."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Allow header may contain duplicate methods in OPTIONS response",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The patch replaced appendMethods (which avoided adding duplicate HTTP methods) with a direct push.apply to the options array, which does not check for duplicates. This causes duplicate methods to appear in the 'Allow' header for OPTIONS requests.",
+            "suggestion": "Restore the use of a function that avoids duplicates when adding route._options() methods to the options array, or reimplement appendMethods logic to prevent duplicates during the push."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 8219,
+          "outputTokens": 171,
+          "totalTokens": 8390
+        },
+        "rawFindings": [
+          {
+            "title": "'Allow' header for OPTIONS may contain duplicate methods",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The patch replaces a call to a custom 'appendMethods' function with a direct array push that concatenates all options without checking for duplicates. Previously, 'appendMethods' ensured that only unique HTTP methods were pushed into the 'options' array, preventing duplicates in the 'Allow' header. The new code allows duplicates which can cause the 'Allow' header to list the same method multiple times, violating HTTP standards and potentially confusing clients.",
+            "suggestion": "Restore the use of 'appendMethods' helper or implement a mechanism to ensure that added methods are unique in the 'options' array before pushing them. This will prevent duplicated methods in the 'Allow' header."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "'Allow' header for OPTIONS may contain duplicate methods",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The patch replaces a call to a custom 'appendMethods' function with a direct array push that concatenates all options without checking for duplicates. Previously, 'appendMethods' ensured that only unique HTTP methods were pushed into the 'options' array, preventing duplicates in the 'Allow' header. The new code allows duplicates which can cause the 'Allow' header to list the same method multiple times, violating HTTP standards and potentially confusing clients.",
+            "suggestion": "Restore the use of 'appendMethods' helper or implement a mechanism to ensure that added methods are unique in the 'options' array before pushing them. This will prevent duplicated methods in the 'Allow' header."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 8219,
+          "outputTokens": 129,
+          "totalTokens": 8348
+        },
+        "rawFindings": [
+          {
+            "title": "Potential duplicate HTTP methods in 'Allow' header for OPTIONS requests",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The patch replaces a method that appends HTTP methods to the 'options' array ensuring uniqueness (appendMethods) with a simple push.apply call that concatenates arrays without removing duplicates. This may cause the 'Allow' header sent in response to OPTIONS requests to include duplicate HTTP methods.",
+            "suggestion": "Restore uniqueness when adding route methods to the 'options' array by either reusing the appendMethods function or implementing a similar duplicate-filtering mechanism."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Potential duplicate HTTP methods in 'Allow' header for OPTIONS requests",
+            "severity": "medium",
+            "file": "lib/router/index.js",
+            "line": 210,
+            "explanation": "The patch replaces a method that appends HTTP methods to the 'options' array ensuring uniqueness (appendMethods) with a simple push.apply call that concatenates arrays without removing duplicates. This may cause the 'Allow' header sent in response to OPTIONS requests to include duplicate HTTP methods.",
+            "suggestion": "Restore uniqueness when adding route methods to the 'options' array by either reusing the appendMethods function or implementing a similar duplicate-filtering mechanism."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

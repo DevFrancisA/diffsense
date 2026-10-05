@@ -1,0 +1,112 @@
+{
+  "scenarios": [
+    {
+      "title": "Navigation button updates activeView correctly",
+      "purpose": "Verify that clicking the 'Evaluations' nav-item sets activeView to 'Review desk' instead of 'Evaluations' after patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "nav.primary-nav > button[aria-label=\"Evaluations\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.nav-item.is-active[aria-label=\"Review desk\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.nav-item:not(.is-active)[aria-label=\"Evaluations\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Review desk nav button is active on page load",
+      "purpose": "Ensure the 'Review desk' nav button is active by default reflecting current activeView state.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.nav-item.is-active[aria-label=\"Review desk\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Clicking other nav buttons updates activeView accordingly",
+      "purpose": "Confirm other nav buttons like 'Pull requests' update activeView and active state correctly.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "nav.primary-nav > button[aria-label=\"Pull requests\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.nav-item.is-active[aria-label=\"Pull requests\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "nav.primary-nav > button[aria-label=\"Review desk\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.nav-item.is-active[aria-label=\"Review desk\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Text content of nav-item labels remains correct",
+      "purpose": "Verify the nav-item text labels have not changed and remain correct after patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "nav.primary-nav > button[aria-label=\"Review desk\"] > span:nth-child(2)",
+          "value": "",
+          "expected": "Review desk"
+        },
+        {
+          "action": "expectText",
+          "selector": "nav.primary-nav > button[aria-label=\"Evaluations\"] > span:nth-child(2)",
+          "value": "",
+          "expected": "Evaluations"
+        }
+      ]
+    }
+  ]
+}

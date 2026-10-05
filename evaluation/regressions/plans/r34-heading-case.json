@@ -1,0 +1,46 @@
+{
+  "scenarios": [
+    {
+      "title": "Load example diff and verify text change in heading",
+      "purpose": "Confirm that the heading text changes from 'Review desk' to 'Review Desk' reflecting the update in casing.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "h1",
+          "value": "",
+          "expected": "Review Desk"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and display example content in diff editor",
+      "purpose": "Ensure that clicking 'Load example diff' populates the diff editor with the example diff content, including the new 'Invoice not found' text from the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.button-secondary",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "Invoice not found",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

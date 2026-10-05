@@ -1,0 +1,130 @@
+{
+  "scenarios": [
+    {
+      "title": "Load example diff disables manual diff editing",
+      "purpose": "Verify that after loading the example diff, the unified diff textarea does not accept manual edits",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.button-secondary:has-text('Load example diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "some text",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Clear diff button disables when no diff",
+      "purpose": "Ensure Clear diff button is disabled when unified diff textarea is empty",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.text-button:has-text('Clear diff')",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "button.text-button:has-text('Clear diff')[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Index repository context button disabled without PR URL or API ready",
+      "purpose": "Verify the index repository context button is disabled if PR URL is empty or apiReady is false",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "input#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "button.index-button[disabled]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.index-button[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Generate Playwright plan button disabled without API ready or input",
+      "purpose": "Ensure the generate Playwright plan button is disabled when no diff or pr URL is set or apiReady is false",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label='Unified diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "input#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.text-button.evaluation-link[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

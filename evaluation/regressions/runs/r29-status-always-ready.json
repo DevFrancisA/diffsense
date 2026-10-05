@@ -1,0 +1,11 @@
+{
+  "id": "r29-status-always-ready",
+  "role": "primary",
+  "intendedBreak": "Status API reports ready without credentials",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan contains a navigation target outside the configured application.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:46:55.808Z"
+}

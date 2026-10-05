@@ -1,0 +1,54 @@
+{
+  "id": "r22-cohort-count",
+  "role": "primary",
+  "intendedBreak": "Cohort size shows the run count",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 1,
+    "steps": 3,
+    "usage": {
+      "inputTokens": 8931,
+      "outputTokens": 118,
+      "totalTokens": 9049
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "tests/review.test.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify updated precision metric footnote text on the evaluation metrics strip",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.metric-cell:nth-child(1) > span.metric-foot')\nExpected substring: \"0 BugsJS cases · 0 runs\"\nReceived string:    \"30 BugsJS cases · 3 runs\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('div.metric-cell:nth-child(1) > span.metric-foot') with timeout 5000ms\n  - waiting for locator('div.metric-cell:nth-child(1) > span.metric-foot')\n    14 × locator resolved to <span class=\"metric-foot\">30 BugsJS cases · 3 runs</span>\n       - unexpected value \"30 BugsJS cases · 3 runs\"\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Verify updated precision metric footnote text on the evaluation metrics strip",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('div.metric-cell:nth-child(1) > span.metric-foot')\nExpected substring: \"0 BugsJS cases · 0 runs\"\nReceived string:    \"30 BugsJS cases · 3 runs\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('div.metric-cell:nth-child(1) > span.metric-foot') with timeout 5000ms\n  - waiting for locator('div.metric-cell:nth-child(1) > span.metric-foot')\n    14 × locator resolved to <span class=\"metric-foot\">30 BugsJS cases · 3 runs</span>\n       - unexpected value \"30 BugsJS cases · 3 runs\"\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:43:51.537Z"
+}

@@ -1,0 +1,163 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Generate Playwright plan button enabled when API not ready but inputs present",
+        "purpose": "Verify that the 'Generate Playwright plan' button is enabled even if the API is not ready, as long as there is a diff or pull request URL input present, reflecting the removal of the apiReady condition in the disabled logic.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "#pr-url",
+            "value": "https://github.com/owner/repo/pull/1",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "textarea[aria-label='Unified diff']",
+            "value": "diff content",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "button.text-button.evaluation-link",
+            "value": "",
+            "expected": "disabled=\"false\""
+          }
+        ]
+      },
+      {
+        "title": "Generate Playwright plan button disabled when no diff or pull request URL",
+        "purpose": "Ensure that the 'Generate Playwright plan' button remains disabled when both the diff and pull request URL inputs are empty.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "#pr-url",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "textarea[aria-label='Unified diff']",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "button.text-button.evaluation-link",
+            "value": "",
+            "expected": "disabled=\"true\""
+          }
+        ]
+      },
+      {
+        "title": "Show evaluation panel with correct status and metrics",
+        "purpose": "Confirm that the evaluation panel displays the correct heading, subtitle, and evaluation status based on the availability of evaluation data.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "section.evaluation-panel",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "section.evaluation-panel h2",
+            "value": "",
+            "expected": "BugsJS review baseline"
+          },
+          {
+            "action": "expectText",
+            "selector": "section.evaluation-panel .evaluation-status",
+            "value": "",
+            "expected": "Results saved"
+          }
+        ]
+      },
+      {
+        "title": "Load example diff populates diff textarea with sample and shows findings",
+        "purpose": "Verify that clicking 'Load example diff' loads a sample diff into the textarea, enabling analysis of the loaded diff including expected sample content display.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text('Load example diff')",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "textarea[aria-label='Unified diff']",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Index repository context button disabled when no pull request URL or indexing in progress",
+        "purpose": "Verify that the 'Index repository context' button is disabled when there is no pull request URL entered or when indexing is in progress or when apiReady is false, ensuring proper button state behavior.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "#pr-url",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "button.index-button",
+            "value": "",
+            "expected": "disabled=\"true\""
+          }
+        ]
+      }
+    ]
+  },
+  "info": {
+    "scenarios": 5,
+    "steps": 18,
+    "usage": {
+      "inputTokens": 8756,
+      "outputTokens": 631,
+      "totalTokens": 9387
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "tests/review.test.ts"
+    ]
+  }
+}

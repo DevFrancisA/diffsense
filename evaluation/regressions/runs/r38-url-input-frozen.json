@@ -1,0 +1,11 @@
+{
+  "id": "r38-url-input-frozen",
+  "role": "primary",
+  "intendedBreak": "Repository URL input ignores typing",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:49:10.318Z"
+}

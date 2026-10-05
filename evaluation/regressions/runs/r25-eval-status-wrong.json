@@ -1,0 +1,110 @@
+{
+  "id": "r25-eval-status-wrong",
+  "role": "primary",
+  "intendedBreak": "Evaluation status says loading after results load",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 5,
+    "steps": 16,
+    "usage": {
+      "inputTokens": 8001,
+      "outputTokens": 540,
+      "totalTokens": 8541
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "src/app/layout.tsx"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Display evaluation status when evaluation is available",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-status')\nExpected substring: \"Loading results\"\nReceived string:    \"Results saved\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-status') with timeout 5000ms\n  - waiting for locator('.evaluation-status')\n    14 × locator resolved to <div class=\"evaluation-status\">…</div>\n       - unexpected value \"Results saved\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate Playwright test plan button enabled conditions",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('button.text-button.evaluation-link:not([disabled])')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('button.text-button.evaluation-link:not([disabled])') with timeout 5000ms\n  - waiting for locator('button.text-button.evaluation-link:not([disabled])')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generating Playwright test plan button shows spinner and disables",
+          "status": "timedOut",
+          "failedStep": "plan step 1: click",
+          "error": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('button.text-button.evaluation-link:not([disabled])')\n",
+          "outcome": "action"
+        },
+        {
+          "title": "generated plan: Loading sample diff populates diff editor",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Verify evaluation metrics display precision and recall ranges",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Display evaluation status when evaluation is available",
+          "status": "failed",
+          "failedStep": "plan step 2: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-status')\nExpected substring: \"Loading results\"\nReceived string:    \"Results saved\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-status') with timeout 5000ms\n  - waiting for locator('.evaluation-status')\n    14 × locator resolved to <div class=\"evaluation-status\">…</div>\n       - unexpected value \"Results saved\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generate Playwright test plan button enabled conditions",
+          "status": "failed",
+          "failedStep": "plan step 1: expectVisible",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('button.text-button.evaluation-link:not([disabled])')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('button.text-button.evaluation-link:not([disabled])') with timeout 5000ms\n  - waiting for locator('button.text-button.evaluation-link:not([disabled])')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Generating Playwright test plan button shows spinner and disables",
+          "status": "timedOut",
+          "failedStep": "plan step 1: click",
+          "error": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for locator('button.text-button.evaluation-link:not([disabled])')\n",
+          "outcome": "action"
+        },
+        {
+          "title": "generated plan: Loading sample diff populates diff editor",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Verify evaluation metrics display precision and recall ranges",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:46:11.139Z"
+}

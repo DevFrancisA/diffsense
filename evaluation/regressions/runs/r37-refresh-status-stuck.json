@@ -1,0 +1,11 @@
+{
+  "id": "r37-refresh-status-stuck",
+  "role": "primary",
+  "intendedBreak": "Refresh status leaves the pill stuck on Checking setup",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:49:00.056Z"
+}

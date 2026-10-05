@@ -1,0 +1,166 @@
+{
+  "scenarios": [
+    {
+      "title": "Evaluation Results API returns correct precision and recall ranges",
+      "purpose": "Verify that the API returns precisionRange and recallRange with min and max values equal to the minimum of present values after the recent code change.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/api/evaluation/results",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "body",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "precisionRange.min <= precisionRange.max and recallRange.min <= recallRange.max"
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "\"precisionRange\": {\"min\" : ., \"max\" : .}"
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "\"recallRange\": {\"min\" : ., \"max\" : .}"
+        }
+      ]
+    },
+    {
+      "title": "Evaluation Results API handles missing data gracefully",
+      "purpose": "Confirm API returns available: false with message when results.json file is not found.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/api/evaluation/results",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "No results yet."
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "available\": false"
+        }
+      ]
+    },
+    {
+      "title": "Evaluation Results API reports error on invalid data",
+      "purpose": "Verify API returns HTTP 500 and error message when results.json contains invalid data.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/api/evaluation/results",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "error\""
+        }
+      ]
+    },
+    {
+      "title": "Evaluation Results JSON includes arms withContext and withoutContext data",
+      "purpose": "Check the response contains runs with precision, recall and falsePositives for both withContext and withoutContext arms.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/api/evaluation/results",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "withContext"
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "withoutContext"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "runNumber"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "precision"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "recall"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "falsePositives"
+        }
+      ]
+    },
+    {
+      "title": "Regression status information is present in evaluation results",
+      "purpose": "Ensure manualReview and regressionEvaluation status and reason fields are included in the API response.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/api/evaluation/results",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "manualReview"
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "body",
+          "value": "",
+          "expected": "regressionEvaluation"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "status"
+        },
+        {
+          "action": "expectText",
+          "selector": "body",
+          "value": "",
+          "expected": "reason"
+        }
+      ]
+    }
+  ]
+}

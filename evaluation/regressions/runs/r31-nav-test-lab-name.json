@@ -1,0 +1,65 @@
+{
+  "id": "r31-nav-test-lab-name",
+  "role": "primary",
+  "intendedBreak": "Test lab breadcrumb shows the wrong name",
+  "status": "not-detected",
+  "reason": "plan passed on patched app",
+  "plan": {
+    "scenarios": 1,
+    "steps": 3,
+    "usage": {
+      "inputTokens": 8174,
+      "outputTokens": 120,
+      "totalTokens": 8294
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/layout.tsx",
+      "tests/review.spec.ts",
+      "src/lib/server/review.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: Navigation button label and aria-label update for Test lab",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "pass",
+      "tests": [
+        {
+          "title": "generated plan: Navigation button label and aria-label update for Test lab",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "patchedRun": {
+    "outcome": "pass",
+    "tests": [
+      {
+        "title": "generated plan: Navigation button label and aria-label update for Test lab",
+        "status": "passed",
+        "failedStep": null,
+        "error": null,
+        "outcome": "pass"
+      }
+    ]
+  },
+  "completedAt": "2026-10-05T10:47:16.211Z"
+}

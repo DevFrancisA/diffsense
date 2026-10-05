@@ -1,0 +1,142 @@
+{
+  "scenarios": [
+    {
+      "title": "Check pipeline status refresh behavior",
+      "purpose": "Verify that clicking the refresh status button resets API readiness state to null instead of re-fetching status.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "footer .page-footer button[aria-label=\"Refresh status\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "footer .page-footer span.footer-online + span",
+          "value": "",
+          "expected": "Pipeline status: not configured"
+        }
+      ]
+    },
+    {
+      "title": "Review desk initial state with sample diff loaded",
+      "purpose": "Ensure loading a sample diff populates the diff textarea and updates file and line counts.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "section.page-heading button.button-secondary",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "diff --git a/"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.field-label.diff-label span.diff-label-right span:first-child",
+          "value": "",
+          "expected": "1 files"
+        },
+        {
+          "action": "expectText",
+          "selector": "div.field-label.diff-label span.diff-label-right span:nth-child(3)",
+          "value": "",
+          "expected": "lines"
+        }
+      ]
+    },
+    {
+      "title": "Generate Playwright plan button enabled only when conditions met",
+      "purpose": "Check the Generate Playwright plan button disables/enables correctly based on API readiness and input fields.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "input#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.evaluation-panel button.text-button.evaluation-link[disabled]",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "Some diff content",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.evaluation-panel button.text-button.evaluation-link:not([disabled])",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Display error message on review API failure",
+      "purpose": "Confirm error message is shown when the review API returns an error after form submission.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://invalid-url.example.com",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.input-panel div.error-inline[role=\"alert\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

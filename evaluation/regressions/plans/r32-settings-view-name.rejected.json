@@ -1,0 +1,28 @@
+{
+  "scenarios": [
+    {
+      "title": "Settings navigation button changes activeView to 'Setting'",
+      "purpose": "Verify that clicking the Settings button in the sidebar sets the activeView state to 'Setting' to reflect the updated behavior from the patch.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "/",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.nav-item.settings-item",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "nav.primary-nav button.nav-item.is-active:has-text(\"Settings\")",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

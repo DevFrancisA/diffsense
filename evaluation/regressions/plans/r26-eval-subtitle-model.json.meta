@@ -1,0 +1,61 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Display evaluation header with cohort and date",
+        "purpose": "Verify that when evaluation data is available, the evaluation panel header shows the cohort and date but omits the review model text.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": ".evaluation-panel .evaluation-copy h2",
+            "value": "",
+            "expected": "BugsJS review baseline"
+          },
+          {
+            "action": "expectText",
+            "selector": ".evaluation-panel .evaluation-copy p",
+            "value": "",
+            "expected": "\\d+ pre-labeled cases · \\d{4}-\\d{2}-\\d{2}"
+          },
+          {
+            "action": "expectValueContains",
+            "selector": ".evaluation-panel .evaluation-copy p",
+            "value": "",
+            "expected": "pre-labeled cases"
+          },
+          {
+            "action": "expectValueContains",
+            "selector": ".evaluation-panel .evaluation-copy p",
+            "value": "",
+            "expected": "202"
+          }
+        ]
+      }
+    ]
+  },
+  "info": {
+    "scenarios": 1,
+    "steps": 5,
+    "usage": {
+      "inputTokens": 8105,
+      "outputTokens": 178,
+      "totalTokens": 8283
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "src/app/layout.tsx"
+    ]
+  }
+}

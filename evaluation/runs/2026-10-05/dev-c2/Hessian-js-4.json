@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-4",
+  "project": "Hessian.js",
+  "bugId": 4,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+  "buggySha": "d996501c087a3cecc5ce3e470106ebdb90657ca9",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c1ddbead0c62f2329329ceff89e32a8c1cf0642e5d120b4a4f0aa200a654ff77",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "7c06f92bb85f47a3a9ed5c598b2157cd76bc76fa",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 112,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/encoder.js",
+        "contentSha256": "e0299cdc07b6d461644873b9fe25693253a8a986993f221fb002853e4ae60fc8"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "9a7b43e5128f689bb24eb22fcae62f05f0e11575100a47f89b2609f608f59135"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "d7b7d17b237a564ed9a4924b887f42e9ee0f7ec5c7775018ad57502cccf9a932"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "4a9703ac11552bdc7ffdb82af37418dcbe06c18497770ffab24bce2fdcf1481c"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "977696c529b1eac65856740a255687aa44e8fb24e73fd16dcbb70b7b333432a6"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "52338a1f604c9d5ab739ad5b10708d72c9a80d7510a15e6f1c0ab423acbd46cd"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "02de82534bf8c4e5d75f8fc10b3c9eba06037799d4d583bb17f59c5c81c5ea7d"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "cc0e1f71f68c0749eaf03cedb7e94d39c4c5114aa12a3c50b373fb6a43e17258"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/object.test.js",
+        "contentSha256": "16eda6809ee9d217fdc65fb0872699e4eece5c25027c25fce173a68105e25346"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 688,
+      "outputTokens": 0,
+      "totalTokens": 688
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 21335,
+          "outputTokens": 234,
+          "totalTokens": 21569
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect null handling for object with $class and null $ value in v1 encoder",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 303,
+            "explanation": "The original code treats an object as null if it is null or if it has a string $class property and its $ property is null, i.e., it writes a null for objects like { $class: 'xxx', $: null }. The change removes the check for (is.string(obj.$class) && is.nullOrUndefined(obj.$)) and only considers the object null if it itself is null or undefined. This breaks backward compatibility and the test coverage, as shown by the removal of tests that confirm encoding of such objects results in null encoding",
+            "suggestion": "Restore the additional null check for objects with $class string and null $ value, specifically revert to: if (is.nullOrUndefined(obj) || (is.string(obj.$class) && is.nullOrUndefined(obj.$))) {"
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 21335,
+          "outputTokens": 216,
+          "totalTokens": 21551
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect object null-check in writeObject",
+            "severity": "high",
+            "file": "lib/v1/encoder.js",
+            "line": 303,
+            "explanation": "The original condition in writeObject incorrectly returns true if obj is an object with a string $class property and a null or undefined $ property, causing such objects to be encoded as null, which is not standard behavior and breaks encoding of valid objects. The change removes this check and only returns true if obj itself is null or undefined, which aligns with expectations and standard handling of nulls.",
+            "suggestion": "Replace the condition in writeObject to only check if obj is null or undefined, removing the extra condition that treats objects with string $class and null $ as nulls. Specifically, change from:\nif (is.nullOrUndefined(obj) || (is.string(obj.$class) && is.nullOrUndefined(obj.$))) {\n  return this.writeNull();"
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 21335,
+          "outputTokens": 261,
+          "totalTokens": 21596
+        },
+        "rawFindings": [
+          {
+            "title": "Bug: Unexpected null-check condition removed in writeObject in lib/v1/encoder.js",
+            "severity": "critical",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The original code in proto.writeObject checked if the input object is null or undefined or if it is a java serialized object with $class string but $ equals null. This allowed special serialization for {a: {$class: 'xxx', $: null}} to be encoded as null correctly.\n\nThe patch removed the extra condition (is.string(obj.$class) && is.nullOrUndefined(obj.$)), simplifying the check to only is.nullOrUndefined(obj). This change breaks the ability to serialize objects with $class and $===null as null, w",
+            "suggestion": "Restore the original null-check condition in proto.writeObject to include check for (is.string(obj.$class) && is.nullOrUndefined(obj.$)) to preserve expected serialization behavior for Java objects with null $ property."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Bug: Unexpected null-check condition removed in writeObject in lib/v1/encoder.js",
+            "severity": "critical",
+            "file": "lib/v1/encoder.js",
+            "line": 302,
+            "explanation": "The original code in proto.writeObject checked if the input object is null or undefined or if it is a java serialized object with $class string but $ equals null. This allowed special serialization for {a: {$class: 'xxx', $: null}} to be encoded as null correctly.\n\nThe patch removed the extra condition (is.string(obj.$class) && is.nullOrUndefined(obj.$)), simplifying the check to only is.nullOrUndefined(obj). This change breaks the ability to serialize objects with $class and $===null as null, w",
+            "suggestion": "Restore the original null-check condition in proto.writeObject to include check for (is.string(obj.$class) && is.nullOrUndefined(obj.$)) to preserve expected serialization behavior for Java objects with null $ property."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

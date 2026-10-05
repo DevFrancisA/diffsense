@@ -1,0 +1,151 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Display evaluation status when evaluation is available",
+        "purpose": "Verify that when evaluation data is present and available, the text in the evaluation status area shows 'Loading results' instead of 'Results saved'.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": ".evaluation-status",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".evaluation-status",
+            "value": "",
+            "expected": "Loading results"
+          }
+        ]
+      },
+      {
+        "title": "Generate Playwright test plan button enabled conditions",
+        "purpose": "Ensure the 'Generate Playwright plan' button is enabled only when API is ready, not currently generating tests, and either diff or pull request URL is non-empty.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "button.text-button.evaluation-link:not([disabled])",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Generating Playwright test plan button shows spinner and disables",
+        "purpose": "Upon clicking 'Generate Playwright plan', button shows loader and disables to indicate plan generation in progress.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button.text-button.evaluation-link:not([disabled])",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "button.text-button.evaluation-link .spin",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "button.text-button.evaluation-link",
+            "value": "",
+            "expected": "Generating plan…"
+          }
+        ]
+      },
+      {
+        "title": "Loading sample diff populates diff editor",
+        "purpose": "Check that clicking 'Load example diff' loads sample diff text containing 'Invoice not found' into unified diff textbox.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button.button-secondary",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Verify evaluation metrics display precision and recall ranges",
+        "purpose": "Confirm that evaluation metrics for precision and recall are displayed with ranges in percent format when data is available.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          }
+        ]
+      }
+    ]
+  },
+  "info": {
+    "scenarios": 5,
+    "steps": 16,
+    "usage": {
+      "inputTokens": 8001,
+      "outputTokens": 540,
+      "totalTokens": 8541
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "src/app/layout.tsx"
+    ]
+  }
+}

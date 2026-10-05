@@ -71,6 +71,7 @@ const baselineSystemPrompt = "You are a conservative senior code reviewer. Repor
 export const reviewPromptRevisions = {
   baseline: baselineSystemPrompt,
   "cite-added-line": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context.`,
+  "cite-added-line-source-focus": `${baselineSystemPrompt} Set "line" to the new-file line number of the added ('+') line in the diff where the defect appears; never cite a removed line, an unchanged context line, or a line number from the repository context. Focus on application source code; do not report findings in test files.`,
 } as const;
 export type ReviewPromptRevision = keyof typeof reviewPromptRevisions;
 

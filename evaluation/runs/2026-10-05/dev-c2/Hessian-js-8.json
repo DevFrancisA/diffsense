@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-8",
+  "project": "Hessian.js",
+  "bugId": 8,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "ed102d096883428073795c61777b57efabef8517",
+  "buggySha": "dd8a485d524c96d20b0384e7d81da3ff9b3bfd16",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "c7319e595024a922d28a64bcc8cfaabd83b130ced617741cb128ced2d7525944",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "ed102d096883428073795c61777b57efabef8517",
+    "maxFiles": 40,
+    "filesIndexed": 26,
+    "chunksIndexed": 119,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/utils.js",
+        "contentSha256": "b3fcf6e8ce30b8d032f1cd12dade9007049a786ffce99b667fe62580bcd723b0"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "f0dd988bcafb4ebc9195ede2078cc5d812d651f11bdd4e4fe73470ea8f68f5d4"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "13ca45f66540e4e864a83c1fd9b67778a547a8d36afcb37039547c8948383731"
+      },
+      {
+        "path": "test/int.test.js",
+        "contentSha256": "34253e0410f4eff4788d891788e0f44524493d11c464229bc6e1f70c7393a990"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "22f03efc821ee50a4960d2c6af64a63464953ac81241f5d3d45205e04bd5132c"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "50fd2a49fb9029d5df52fa832b44a42379ee7346441584bd5a9faa85f0943cc2"
+      },
+      {
+        "path": "test/int.test.js",
+        "contentSha256": "ce275a01d09e98e01adf919c9c5f8a5b3b6b2978f0286014e031d52b6c802688"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "a813f66daa456ee1278de020c7ee3ef976c17ca53498870a524683b93a155b50"
+      },
+      {
+        "path": "test/long.test.js",
+        "contentSha256": "1e7027830c72bb343821364148791c6b83003bbe78650a1067ef9313f408e2c3"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "9f60d491b453e592f5ab65bae8b81ade43227a360bbbe000f53efc1c3bb5bbfb"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 831,
+      "outputTokens": 0,
+      "totalTokens": 831
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 15500,
+          "outputTokens": 131,
+          "totalTokens": 15631
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of large Long values in handleLong function",
+            "severity": "high",
+            "file": "lib/utils.js",
+            "line": 42,
+            "explanation": "The original implementation used Long's greaterThan and lessThan comparing against MAX_SAFE_INT and MIN_SAFE_INT, which was removed. The new implementation infers safety by checking the high and low bits directly, but it fails to properly compare the whole 64-bit value causing incorrect detection of unsafe values.",
+            "suggestion": "Use proper Long comparison methods or adjust the boundary constants to compare 64-bit long values correctly for safe integer range, ensuring accurate detection of unsafe long values."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of large Long values in handleLong function",
+            "severity": "high",
+            "file": "lib/utils.js",
+            "line": 42,
+            "explanation": "The original implementation used Long's greaterThan and lessThan comparing against MAX_SAFE_INT and MIN_SAFE_INT, which was removed. The new implementation infers safety by checking the high and low bits directly, but it fails to properly compare the whole 64-bit value causing incorrect detection of unsafe values.",
+            "suggestion": "Use proper Long comparison methods or adjust the boundary constants to compare 64-bit long values correctly for safe integer range, ensuring accurate detection of unsafe long values."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 15500,
+          "outputTokens": 149,
+          "totalTokens": 15649
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect not-safe integer check in handleLong",
+            "severity": "high",
+            "file": "lib/utils.js",
+            "line": 39,
+            "explanation": "The original code incorrectly checks if a Long value is not safe for JS number conversion by comparing high and low parts with constants that don't correspond to the actual 2^53 boundary. This can lead to unsafe conversion of Long values that should be strings, or vice versa.",
+            "suggestion": "Fix the notSafeInt condition in handleLong to correctly represent the 2^53 boundary by checking if val.high is outside of -2^20 to 2^20 range or if the value exceeds 2^53. Use proper bit comparisons for high and low fields."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 15500,
+          "outputTokens": 215,
+          "totalTokens": 15715
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect handling of large Long numbers in utils.handleLong",
+            "severity": "medium",
+            "file": "lib/utils.js",
+            "line": 42,
+            "explanation": "The updated code adjusts the logic to determine if a Long value is outside the safe integer range. The checks now use val.high and val.low properties of the Long to define whether it exceeds JavaScript's safe integer boundaries, replacing the previous calls to greaterThan/lessThan with numeric comparisons. This can introduce subtle bugs if val.high or val.low are not numbers or interpreted incorrectly, or if the boundaries are not correctly calculated for the safe integer range.",
+            "suggestion": "Verify that val.high and val.low are valid integers representing the high and low 32 bits of the Long number. Adjust the boundary conditions carefully to exactly match JavaScript's Number.MAX_SAFE_INTEGER (2^53 - 1) and Number.MIN_SAFE_INTEGER (-2^53 + 1). Include unit tests covering the edge cases of Long values close to these limits to ensure proper string conversion for out-of-range values."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Incorrect handling of large Long numbers in utils.handleLong",
+            "severity": "medium",
+            "file": "lib/utils.js",
+            "line": 42,
+            "explanation": "The updated code adjusts the logic to determine if a Long value is outside the safe integer range. The checks now use val.high and val.low properties of the Long to define whether it exceeds JavaScript's safe integer boundaries, replacing the previous calls to greaterThan/lessThan with numeric comparisons. This can introduce subtle bugs if val.high or val.low are not numbers or interpreted incorrectly, or if the boundaries are not correctly calculated for the safe integer range.",
+            "suggestion": "Verify that val.high and val.low are valid integers representing the high and low 32 bits of the Long number. Adjust the boundary conditions carefully to exactly match JavaScript's Number.MAX_SAFE_INTEGER (2^53 - 1) and Number.MIN_SAFE_INTEGER (-2^53 + 1). Include unit tests covering the edge cases of Long values close to these limits to ensure proper string conversion for out-of-range values."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

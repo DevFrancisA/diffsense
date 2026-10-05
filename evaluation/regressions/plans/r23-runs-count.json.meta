@@ -1,0 +1,181 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Load example diff and verify diff content",
+        "purpose": "Test loading the example diff into the unified diff textarea and verify content appears",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text(\"Load example diff\")",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "",
+            "expected": "Invoice not found"
+          }
+        ]
+      },
+      {
+        "title": "Check evaluation metrics display",
+        "purpose": "Verify the evaluation metrics precision and recall ranges and labels are displayed correctly",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(1) strong",
+            "value": "",
+            "expected": "94.4–100.0%"
+          },
+          {
+            "action": "expectText",
+            "selector": ".metric-cell:nth-child(2) strong",
+            "value": "",
+            "expected": "28.8–30.5%"
+          },
+          {
+            "action": "expectVisible",
+            "selector": "text=Unmeasured",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Navigate active view buttons in sidebar",
+        "purpose": "Test switching between different active views in the sidebar navigation",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button[aria-label=\"Pull requests\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button[aria-label=\"Evaluations\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button[aria-label=\"Test lab\"]",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button[aria-label=\"Review desk\"]",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Index repository context button state",
+        "purpose": "Ensure the index repository context button is enabled or disabled based on input and apiReady state",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "input#pr-url",
+            "value": "https://github.com/owner/repo",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "button.index-button:not([disabled])",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "input#pr-url",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "button.index-button[disabled]",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Generate Playwright plan button functionality",
+        "purpose": "Test the generation of Playwright plan when inputs are valid and button is enabled",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "input#pr-url",
+            "value": "https://github.com/owner/repo",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "some diff text",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "button:text(\"Generate Playwright plan\")",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "info": {
+    "scenarios": 5,
+    "steps": 21,
+    "usage": {
+      "inputTokens": 8912,
+      "outputTokens": 591,
+      "totalTokens": 9503
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "tests/review.test.ts"
+    ]
+  }
+}

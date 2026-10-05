@@ -1,0 +1,11 @@
+{
+  "id": "r33-breadcrumb-static",
+  "role": "primary",
+  "intendedBreak": "Breadcrumb ignores the active view",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:47:36.144Z"
+}

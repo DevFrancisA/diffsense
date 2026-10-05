@@ -158,9 +158,11 @@ export async function retrieveRepositoryContext(repository: string, diff: string
 }
 
 /** Full text of each source file changed by the diff, read at the given commit (the pre-change side when that commit is the base). */
-export async function getChangedFileContext(owner: string, repository: string, commitSha: string, diff: string) {
+const testPath = /(?:^|\/)(?:test|tests|__tests__|spec|specs)\/|\.(?:test|spec)\.[^/]+$/i;
+
+export async function getChangedFileContext(owner: string, repository: string, commitSha: string, diff: string, options: { excludeTests?: boolean } = {}) {
   const paths = [...new Set([...diff.matchAll(/^--- a\/(.+)$/gm)].map((match) => match[1].trim()))]
-    .filter((path) => supportedSource.test(path) && !ignoredPath.test(path));
+    .filter((path) => supportedSource.test(path) && !ignoredPath.test(path) && !(options.excludeTests && testPath.test(path)));
   const files: { path: string; content: string }[] = [];
   for (const path of paths) {
     try {

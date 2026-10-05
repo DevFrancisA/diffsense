@@ -1,0 +1,82 @@
+{
+  "id": "r24-eval-heading-inverted",
+  "role": "primary",
+  "intendedBreak": "Evaluation heading is inverted",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 3,
+    "steps": 7,
+    "usage": {
+      "inputTokens": 8323,
+      "outputTokens": 238,
+      "totalTokens": 8561
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "scripts/evaluate.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Display evaluation header when evaluation available",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-copy h2')\nExpected substring: \"Evidence, not vibes\"\nReceived string:    \"BugsJS review baseline\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-copy h2') with timeout 5000ms\n  - waiting for locator('.evaluation-copy h2')\n    14 × locator resolved to <h2>BugsJS review baseline</h2>\n       - unexpected value \"BugsJS review baseline\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Display evaluation header when evaluation not available",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Evaluation description paragraph text check when evaluation available",
+          "status": "failed",
+          "failedStep": "plan step 2: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('.evaluation-copy p')\n",
+          "outcome": "assertion"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Display evaluation header when evaluation available",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('.evaluation-copy h2')\nExpected substring: \"Evidence, not vibes\"\nReceived string:    \"BugsJS review baseline\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('.evaluation-copy h2') with timeout 5000ms\n  - waiting for locator('.evaluation-copy h2')\n    14 × locator resolved to <h2>BugsJS review baseline</h2>\n       - unexpected value \"BugsJS review baseline\"\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Display evaluation header when evaluation not available",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        },
+        {
+          "title": "generated plan: Evaluation description paragraph text check when evaluation available",
+          "status": "failed",
+          "failedStep": "plan step 2: expectValueContains",
+          "error": "Error: locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n  - waiting for locator('.evaluation-copy p')\n",
+          "outcome": "assertion"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:44:37.089Z"
+}

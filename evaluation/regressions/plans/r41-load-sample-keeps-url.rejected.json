@@ -1,0 +1,130 @@
+{
+  "scenarios": [
+    {
+      "title": "Load example diff retains pull request URL",
+      "purpose": "Verify that loading the example diff no longer clears the pull request URL input field, maintaining previously entered URL.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Index repository context button enables with pull request URL",
+      "purpose": "Ensure the Index repository context button is enabled only when a PR URL is entered and API is ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.index-button:not([disabled])",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Review button disables when no PR URL",
+      "purpose": "Confirm that the Analyze change button is disabled when no pull request URL is provided.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button[disabled]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Generated test plan download functionality",
+      "purpose": "Verify that the download button for the generated regression test plan appears and triggers download properly.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "some diff content",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Generate Playwright plan\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "section.generated-plan button.button-secondary",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

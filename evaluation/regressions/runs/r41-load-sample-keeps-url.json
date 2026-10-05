@@ -1,0 +1,11 @@
+{
+  "id": "r41-load-sample-keeps-url",
+  "role": "reserve",
+  "intendedBreak": "Loading the example diff no longer clears the repository URL",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:49:37.652Z"
+}

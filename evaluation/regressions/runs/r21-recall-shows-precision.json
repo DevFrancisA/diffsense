@@ -1,0 +1,11 @@
+{
+  "id": "r21-recall-shows-precision",
+  "role": "primary",
+  "intendedBreak": "Recall cell shows the precision range",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan is missing an expected value.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:43:33.021Z"
+}

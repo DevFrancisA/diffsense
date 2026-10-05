@@ -22,13 +22,14 @@ if (!Number.isSafeInteger(withContextRuns) || withContextRuns < 1 || withContext
 // Post-baseline variants are fully described by this configuration; it is stored with every case and result.
 const pipelineConfig = {
   manifest: manifestFile,
-  promptRevision: (process.env.REVIEW_PROMPT_REVISION ?? "baseline") as "baseline" | "cite-added-line",
+  promptRevision: (process.env.REVIEW_PROMPT_REVISION ?? "baseline") as "baseline" | "cite-added-line" | "cite-added-line-source-focus",
   includeChangedFiles: process.env.DIFFSENSE_INCLUDE_CHANGED_FILES === "true",
+  ...(process.env.DIFFSENSE_CHANGED_FILES_EXCLUDE_TESTS === "true" ? { changedFilesExcludeTests: true } : {}),
   retrievalK: Number(process.env.DIFFSENSE_RETRIEVAL_K ?? 8),
   maxIndexFiles: Number(process.env.MAX_INDEX_FILES ?? 40),
   withContextRuns,
 };
-if (!["baseline", "cite-added-line"].includes(pipelineConfig.promptRevision)) throw new Error("Unknown REVIEW_PROMPT_REVISION.");
+if (!["baseline", "cite-added-line", "cite-added-line-source-focus"].includes(pipelineConfig.promptRevision)) throw new Error("Unknown REVIEW_PROMPT_REVISION.");
 if (!Number.isSafeInteger(pipelineConfig.retrievalK) || pipelineConfig.retrievalK < 1 || pipelineConfig.retrievalK > 32) throw new Error("DIFFSENSE_RETRIEVAL_K must be 1-32.");
 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(runDate) || Number.isNaN(Date.parse(`${runDate}T00:00:00Z`))) {
@@ -318,7 +319,7 @@ async function main() {
 
     const retrieved = await contextModule.retrieveRepositoryContextDetailed(index.repository, diff, budget, pipelineConfig.retrievalK);
     if (retrieved.chunks.length === 0) throw new Error(`No context retrieved for ${id}; refusing to label a context arm as complete.`);
-    const changedFiles = pipelineConfig.includeChangedFiles ? await contextModule.getChangedFileContext(owner, repositoryName, item.fixSha, diff) : [];
+    const changedFiles = pipelineConfig.includeChangedFiles ? await contextModule.getChangedFileContext(owner, repositoryName, item.fixSha, diff, { excludeTests: pipelineConfig.changedFilesExcludeTests === true }) : [];
     const reviewContext = [...changedFiles.map((file) => ({ path: `${file.path} (full file before this change)`, content: file.content })), ...retrieved.chunks];
     stored.context = {
       changedFileRefs: changedFiles.map((file) => ({ path: file.path, contentSha256: sha256(file.content) })),

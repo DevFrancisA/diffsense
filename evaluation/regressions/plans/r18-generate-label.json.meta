@@ -1,0 +1,139 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Generate test plan button displays correct label",
+        "purpose": "Verify the button text changes from generating state to idle state with correct label 'Generate test plan'.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "button.evaluation-link",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "button.evaluation-link",
+            "value": "",
+            "expected": "Generate test plan"
+          }
+        ]
+      },
+      {
+        "title": "Generate test plan button disables appropriately",
+        "purpose": "Ensure the 'Generate test plan' button is disabled when API is not ready or when no diff and no pull request URL is provided.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": "button.evaluation-link[disabled]",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Generate test plan button enabled with input",
+        "purpose": "Confirm the 'Generate test plan' button enables when diff text or pull request URL is provided, API is ready, and not generating.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "diff --git a/sample b/sample\n",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "input#pr-url",
+            "value": "https://github.com/example/repo/pull/1",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "button.evaluation-link:not([disabled])",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      },
+      {
+        "title": "Generating test plan shows spinner and text change",
+        "purpose": "Check that while generating tests the button shows a spinner and text changes to 'Generating plan…'.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "textarea[aria-label=\"Unified diff\"]",
+            "value": "diff --git a/sample b/sample\n",
+            "expected": ""
+          },
+          {
+            "action": "fill",
+            "selector": "input#pr-url",
+            "value": "https://github.com/example/repo/pull/1",
+            "expected": ""
+          },
+          {
+            "action": "click",
+            "selector": "button.evaluation-link",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": "button.evaluation-link .spin",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": "button.evaluation-link",
+            "value": "",
+            "expected": "Generating plan…"
+          }
+        ]
+      }
+    ]
+  },
+  "info": {
+    "scenarios": 4,
+    "steps": 15,
+    "usage": {
+      "inputTokens": 8460,
+      "outputTokens": 479,
+      "totalTokens": 8939
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "tests/generated-plan.spec.ts"
+    ]
+  }
+}

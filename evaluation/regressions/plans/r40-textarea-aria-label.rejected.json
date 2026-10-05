@@ -1,0 +1,64 @@
+{
+  "scenarios": [
+    {
+      "title": "Edit pull request diff textarea and check placeholder and label update",
+      "purpose": "Verify that the textarea for diff input updates its aria-label from 'Unified diff' to 'Diff' while keeping the placeholder unchanged to improve accessibility.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "form.review-form",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "textarea[aria-label='Diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "textarea[aria-label='Diff']",
+          "value": "Paste a unified diff here, or enter a GitHub pull request URL above.",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Clear diff content resets state and disables clear button",
+      "purpose": "Ensure that clicking clear diff button empties the diff textarea, clears results and errors, and disables the clear button.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "form.review-form",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label='Diff']",
+          "value": "some diff content",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.text-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValue",
+          "selector": "textarea[aria-label='Diff']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.text-button:disabled",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

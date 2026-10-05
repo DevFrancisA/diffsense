@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hessian-js-9",
+  "project": "Hessian.js",
+  "bugId": 9,
+  "upstreamRepository": "https://github.com/BugsJS/hessian.js",
+  "fixedSha": "f22c27617edcba99bdd6a9f1f7c3daa99797d091",
+  "buggySha": "68dd5347b54e4702f6a2f43bea862abc784a9f6c",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "b58eb31b40b5a980cbfaa06cc4a1be4c99de1f14c299596a9ea24edb713f5c23",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/hessian.js",
+    "commitSha": "f22c27617edcba99bdd6a9f1f7c3daa99797d091",
+    "maxFiles": 40,
+    "filesIndexed": 24,
+    "chunksIndexed": 111,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "6f514150655976aaaf460d7a3ef5ecde69adc7a9d68792f1f2aad1e38ac4cbb4"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "8f1735a6f899c1e0f4d7d90f790fafeb7a9d09711e9ea773a42a8585beb312bb"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2bacdf432d5b3a3613a9a8226f05e51135b0336c0d0cbc2603c0391eee828786"
+      },
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "8bb52aff0da53fe97a56d4d6875a0c95fa0d90087cf1657df7db979b2c9e89bf"
+      },
+      {
+        "path": "test/v1.test.js",
+        "contentSha256": "46e7405352a970a337b8c7dfa5a7b51365f669256231422c063bd115569391f0"
+      },
+      {
+        "path": "lib/v2/decoder.js",
+        "contentSha256": "88143809348a9dff4d6a3ee9f58f23aae0f072ee5de23f8ca2816fac9c3000b8"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "2870d5af95fc4e1ee15134394e55609ff4bc5f105dbfdec05c76dc475756f0f8"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "b3d089294a8f436213aa52ddfe73b1aaa2b6af56669e9992cc31094a83afdaf5"
+      },
+      {
+        "path": "test/map.test.js",
+        "contentSha256": "73d7010fa134b37bdeb25134ca945dd8bde678397868aa98744c784ddd30a2d8"
+      },
+      {
+        "path": "lib/v1/decoder.js",
+        "contentSha256": "37ddecb05a10691fde410ab3e27b0685fae34f2ca13c1b5576ac3d3eb1f900d9"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 233,
+      "outputTokens": 0,
+      "totalTokens": 233
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 11123,
+          "outputTokens": 169,
+          "totalTokens": 11292
+        },
+        "rawFindings": [
+          {
+            "title": "Missing key string conversion in readObject causing potential key type issues",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In the updated line 415, the key read from the buffer is explicitly converted to a string using key.toString(). This is necessary because keys coming from the buffer may not always be strings, and using them as non-string keys in JavaScript objects can cause unexpected behavior or loss of data. The previously commented-out line could cause issues if keys are other types like numbers or objects, so the fix ensures all keys become strings consistently when used as object properties.",
+            "suggestion": "Convert the key to string in the readObject function before assigning it to the result object, as done in the added line: key = key.toString();"
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Missing key string conversion in readObject causing potential key type issues",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In the updated line 415, the key read from the buffer is explicitly converted to a string using key.toString(). This is necessary because keys coming from the buffer may not always be strings, and using them as non-string keys in JavaScript objects can cause unexpected behavior or loss of data. The previously commented-out line could cause issues if keys are other types like numbers or objects, so the fix ensures all keys become strings consistently when used as object properties.",
+            "suggestion": "Convert the key to string in the readObject function before assigning it to the result object, as done in the added line: key = key.toString();"
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 11123,
+          "outputTokens": 120,
+          "totalTokens": 11243
+        },
+        "rawFindings": [
+          {
+            "title": "Map key conversion to string missing in readObject",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In the readObject method, keys are used directly as object keys without converting to strings. Since JavaScript object keys are strings or symbols, non-string keys (e.g., Numbers) should be explicitly converted to strings to ensure correct behavior and matching with test expectations.",
+            "suggestion": "Add explicit key to string conversion by assigning `key = key.toString();` before using key as an object property."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Map key conversion to string missing in readObject",
+            "severity": "high",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In the readObject method, keys are used directly as object keys without converting to strings. Since JavaScript object keys are strings or symbols, non-string keys (e.g., Numbers) should be explicitly converted to strings to ensure correct behavior and matching with test expectations.",
+            "suggestion": "Add explicit key to string conversion by assigning `key = key.toString();` before using key as an object property."
+          }
+        ]
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 11123,
+          "outputTokens": 136,
+          "totalTokens": 11259
+        },
+        "rawFindings": [
+          {
+            "title": "Keys in decoded objects may not be strings",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In the readObject function, the keys read from the buffer are not uniformly converted to strings before using them as object property names. This can lead to subtle bugs, especially when keys are numbers or other types. The patch fixes this by converting the key to a string with `key = key.toString();` to ensure all keys are strings as expected.",
+            "suggestion": "Add `key = key.toString();` after reading the key to ensure keys in the resulting object are strings."
+          }
+        ],
+        "acceptedFindings": [
+          {
+            "title": "Keys in decoded objects may not be strings",
+            "severity": "medium",
+            "file": "lib/v1/decoder.js",
+            "line": 415,
+            "explanation": "In the readObject function, the keys read from the buffer are not uniformly converted to strings before using them as object property names. This can lead to subtle bugs, especially when keys are numbers or other types. The patch fixes this by converting the key to a string with `key = key.toString();` to ensure all keys are strings as expected.",
+            "suggestion": "Add `key = key.toString();` after reading the key to ensure keys in the resulting object are strings."
+          }
+        ]
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

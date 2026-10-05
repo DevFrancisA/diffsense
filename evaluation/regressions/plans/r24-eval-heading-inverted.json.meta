@@ -1,0 +1,85 @@
+{
+  "plan": {
+    "scenarios": [
+      {
+        "title": "Display evaluation header when evaluation available",
+        "purpose": "Verify that header text changes to 'Evidence, not vibes' when evaluation is available.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".evaluation-copy h2",
+            "value": "",
+            "expected": "Evidence, not vibes"
+          }
+        ]
+      },
+      {
+        "title": "Display evaluation header when evaluation not available",
+        "purpose": "Verify that header text changes to 'BugsJS review baseline' when evaluation is not available.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectText",
+            "selector": ".evaluation-copy h2",
+            "value": "",
+            "expected": "BugsJS review baseline"
+          }
+        ]
+      },
+      {
+        "title": "Evaluation description paragraph text check when evaluation available",
+        "purpose": "Check that the paragraph under the evaluation header contains cohort, review model, and date when evaluation is available.",
+        "steps": [
+          {
+            "action": "goto",
+            "selector": "",
+            "value": "/",
+            "expected": ""
+          },
+          {
+            "action": "expectVisible",
+            "selector": ".evaluation-copy p",
+            "value": "",
+            "expected": ""
+          },
+          {
+            "action": "expectValueContains",
+            "selector": ".evaluation-copy p",
+            "value": "",
+            "expected": ""
+          }
+        ]
+      }
+    ]
+  },
+  "info": {
+    "scenarios": 3,
+    "steps": 7,
+    "usage": {
+      "inputTokens": 8323,
+      "outputTokens": 238,
+      "totalTokens": 8561
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/review.spec.ts",
+      "src/app/api/evaluation/results/route.ts",
+      "scripts/evaluate.ts"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "r20-range-scale",
+  "role": "primary",
+  "intendedBreak": "Metric range upper bound is scaled wrong",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan contains a navigation target outside the configured application.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:43:23.976Z"
+}

@@ -1,0 +1,82 @@
+{
+  "id": "r36-footer-status-text",
+  "role": "primary",
+  "intendedBreak": "Footer status text changes",
+  "status": "invalid-plan",
+  "reason": "baseline outcomes assertion/assertion",
+  "plan": {
+    "scenarios": 3,
+    "steps": 6,
+    "usage": {
+      "inputTokens": 9461,
+      "outputTokens": 240,
+      "totalTokens": 9701
+    },
+    "contextChunks": [
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "src/app/page.tsx",
+      "tests/generated-plan.spec.ts",
+      "src/app/page.tsx",
+      "scripts/regressions.ts",
+      "scripts/regressions.ts"
+    ]
+  },
+  "baselineRuns": [
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Footer connection status displays as 'offline' when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('footer .footer-online + span')\nExpected substring: \"Pipeline status: offline\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('footer .footer-online + span') with timeout 5000ms\n  - waiting for locator('footer .footer-online + span')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Footer connection status displays as 'ready' when API is ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('footer .footer-online + span')\nExpected substring: \"Pipeline status: ready\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('footer .footer-online + span') with timeout 5000ms\n  - waiting for locator('footer .footer-online + span')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Refresh status button triggers API status check and updates footer",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    },
+    {
+      "outcome": "assertion",
+      "tests": [
+        {
+          "title": "generated plan: Footer connection status displays as 'offline' when API is not ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('footer .footer-online + span')\nExpected substring: \"Pipeline status: offline\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('footer .footer-online + span') with timeout 5000ms\n  - waiting for locator('footer .footer-online + span')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Footer connection status displays as 'ready' when API is ready",
+          "status": "failed",
+          "failedStep": "plan step 1: expectText",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('footer .footer-online + span')\nExpected substring: \"Pipeline status: ready\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" locator('footer .footer-online + span') with timeout 5000ms\n  - waiting for locator('footer .footer-online + span')\n",
+          "outcome": "assertion"
+        },
+        {
+          "title": "generated plan: Refresh status button triggers API status check and updates footer",
+          "status": "passed",
+          "failedStep": null,
+          "error": null,
+          "outcome": "pass"
+        }
+      ]
+    }
+  ],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:48:50.238Z"
+}

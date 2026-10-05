@@ -1,0 +1,100 @@
+{
+  "scenarios": [
+    {
+      "title": "Empty review state displays updated heading",
+      "purpose": "Verify that the empty review state shows the new heading text 'Start a review' instead of the previous 'Your review starts here'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": ".empty-state > strong",
+          "value": "",
+          "expected": "Start a review"
+        }
+      ]
+    },
+    {
+      "title": "Load example diff and verify diff content updates",
+      "purpose": "Check that clicking 'Load example diff' populates the diff editor with sample content including the phrase 'Invoice not found'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button:has-text(\"Load example diff\")",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "",
+          "expected": "Invoice not found"
+        }
+      ]
+    },
+    {
+      "title": "Run review with API ready and valid input",
+      "purpose": "Ensure the Analyze change button is enabled only when API is ready and required inputs are present, and trigger a review run.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "input#pr-url",
+          "value": "https://github.com/owner/repo/pull/42",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "textarea[aria-label=\"Unified diff\"]",
+          "value": "diff --git a/file b/file\n+++ b/file\n+console.log('test');",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "button.run-button:not([disabled])",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "button.run-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Generate Playwright test plan button enabled logic",
+      "purpose": "Verify 'Generate Playwright plan' button is disabled when API is not ready or no diff and pull request URL are empty.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": "button.text-button.evaluation-link",
+          "value": "Generate Playwright plan",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

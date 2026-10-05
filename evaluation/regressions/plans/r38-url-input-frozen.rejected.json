@@ -1,0 +1,154 @@
+{
+  "scenarios": [
+    {
+      "title": "Validate Index Repository Context Button Disabled State",
+      "purpose": "Ensure the 'Index repository context' button disables and enables correctly based on pull request URL input and API readiness status.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": ".index-button",
+          "value": "disabled",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": ".index-button",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Check Index Message Reset on PR URL Input Change",
+      "purpose": "Confirm that changing the pull request URL input clears the index message displayed to the user.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": ".index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectVisible",
+          "selector": "[role='status']",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "[role='status']",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Validate Disabled State for Review Button Without Inputs",
+      "purpose": "Verify that the 'Analyze change' button is disabled when no PR URL and diff inputs are provided or API is not ready.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectValueContains",
+          "selector": ".run-button",
+          "value": "disabled",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Load Example Diff Clears Index Message",
+      "purpose": "Test that loading the example diff resets any existing index message and related UI feedback.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": ".button-secondary",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "[role='status']",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "title": "Verify Index Repository Context Button Text Changes on Indexing",
+      "purpose": "Verify that the index repository context button changes text to 'Indexing repository…' and shows spinner icon while indexing is in progress.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "fill",
+          "selector": "#pr-url",
+          "value": "https://github.com/owner/repo",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": ".index-button",
+          "value": "",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": ".index-button",
+          "value": "Indexing repository…",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}

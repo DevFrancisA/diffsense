@@ -1,0 +1,11 @@
+{
+  "id": "r28-range-max-is-min",
+  "role": "primary",
+  "intendedBreak": "Results API returns min as the range maximum",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan contains a navigation target outside the configured application.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:46:48.540Z"
+}

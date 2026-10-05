@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-10-05",
+  "caseId": "Hexo-7",
+  "project": "Hexo",
+  "bugId": 7,
+  "upstreamRepository": "https://github.com/BugsJS/hexo",
+  "fixedSha": "c8d47b8a963e94f8a36c51f825c3d204fe626bd9",
+  "buggySha": "dee3b03d2697ad33675a4b2cf761a9f49c9d2486",
+  "manifestSha256": "6404d2bafd959b5aa07312255e9ce498138aeb00403914a286a63b6c88bbbfc2",
+  "diffSha256": "8b6b966a123fd2265e20f4f2f3f2b9862c030b5c301b61b294ea9f189524b1ac",
+  "pipelineConfig": {
+    "manifest": "manifest.json",
+    "promptRevision": "cite-added-line",
+    "includeChangedFiles": true,
+    "retrievalK": 8,
+    "maxIndexFiles": 40,
+    "withContextRuns": 3
+  },
+  "model": "gpt-4.1-mini",
+  "embeddingModel": "text-embedding-3-small",
+  "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+  "index": {
+    "repository": "bugsjs/hexo",
+    "commitSha": "c8d47b8a963e94f8a36c51f825c3d204fe626bd9",
+    "maxFiles": 40,
+    "filesIndexed": 40,
+    "chunksIndexed": 71,
+    "embeddingUsage": {
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
+  },
+  "context": {
+    "changedFileRefs": [
+      {
+        "path": "lib/plugins/helper/toc.js",
+        "contentSha256": "f31200730c95fd0ab801878e4a3d3c38977da1696eeb1c7866744cc60b5d7c63"
+      },
+      {
+        "path": "test/scripts/helpers/toc.js",
+        "contentSha256": "77380d2361044dea572e060b066050d43c17d03cb6c701384e59c83a62570ca5"
+      }
+    ],
+    "chunkRefs": [
+      {
+        "path": "lib/extend/tag.js",
+        "contentSha256": "922962f62b114f11a12c11f4c10ea4a46622be5558be035e3e64ec11ad71d387"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "df59f9ab8732e5a63461490bb2f6d9ec21e90bbde56e7d75bbe49b35500f7480"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "fad9e7b8945534a6e032fbb1f368f7f582f4c2271371f884c5e7eaafbaf47d20"
+      },
+      {
+        "path": "lib/hexo/render.js",
+        "contentSha256": "582241d0bc852520c193331a3ab28c558ecd4c66ff973a3116e034f6dd2c681c"
+      },
+      {
+        "path": "lib/hexo/load_plugins.js",
+        "contentSha256": "7e37eb6962e29f71b2714afc072d5ee30143d43d7f344e2a7f70d753d7db1c68"
+      },
+      {
+        "path": "lib/hexo/load_config.js",
+        "contentSha256": "0d830122123469cf9adeaa28223b5a9c8f87bc6377f2fa9f910025da74b7b541"
+      },
+      {
+        "path": "lib/extend/index.js",
+        "contentSha256": "94ff14a0f9669fafa6f49a999fbe585eda92901abc510f9f8a75332d6fe4abe7"
+      },
+      {
+        "path": "lib/hexo/index.js",
+        "contentSha256": "deccb90d78345cfdcfef28dc7036ce6d30ad0024f55f16b38d377fd8e5d78e0c"
+      }
+    ],
+    "embeddingUsage": {
+      "inputTokens": 433,
+      "outputTokens": 0,
+      "totalTokens": 433
+    }
+  },
+  "arms": {
+    "withContext": [
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 6330,
+          "outputTokens": 134,
+          "totalTokens": 6464
+        },
+        "rawFindings": [
+          {
+            "title": "Unsafe HTML in TOC text, potential XSS risk",
+            "severity": "high",
+            "file": "lib/plugins/helper/toc.js",
+            "line": 29,
+            "explanation": "The change replaces HTML-escaped text extraction (_.escape($(this).text())) with direct HTML extraction ($(this).html()). This can introduce raw HTML, potentially including scripts or unescaped characters, into the generated Table of Contents, leading to XSS vulnerabilities if user-provided content contains malicious HTML.",
+            "suggestion": "Revert to escaping text content with _.escape($(this).text()) to ensure the TOC text is safely escaped and does not inject raw HTML."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 6330,
+          "outputTokens": 120,
+          "totalTokens": 6450
+        },
+        "rawFindings": [
+          {
+            "title": "TOC module insecurely uses heading HTML content without escaping",
+            "severity": "high",
+            "file": "lib/plugins/helper/toc.js",
+            "line": 29,
+            "explanation": "The change replaces safe text extraction and escaping (_.escape($(this).text())) with directly using the inner HTML of a heading ($(this).html()) without any escaping, which may introduce XSS vulnerabilities if the heading contains malicious HTML or scripts.",
+            "suggestion": "Revert to extracting text and escaping it safely using _.escape($(this).text()) instead of using $(this).html() directly."
+          }
+        ],
+        "acceptedFindings": []
+      },
+      {
+        "model": "gpt-4.1-mini",
+        "promptHash": "0af6fef020a37c50579eac479e7ae7bfa5aab731e2d86b8d7d1bfec5c31d0cbb",
+        "usage": {
+          "inputTokens": 6330,
+          "outputTokens": 133,
+          "totalTokens": 6463
+        },
+        "rawFindings": [
+          {
+            "title": "Incorrect HTML escaping breaking XSS safety in TOC helper",
+            "severity": "high",
+            "file": "lib/plugins/helper/toc.js",
+            "line": 29,
+            "explanation": "The original code escaped the text content of headings using Lodash's escape method, which converts characters to their corresponding HTML entities to prevent XSS attacks. The new code uses $(this).html() directly, which can include raw HTML and may introduce XSS vulnerabilities if headings contain untrusted HTML.",
+            "suggestion": "Restore the original escaping by using 'var text = _.escape($(this).text());' to safely encode content before inserting into the TOC."
+          }
+        ],
+        "acceptedFindings": []
+      }
+    ],
+    "withoutContext": null
+  },
+  "complete": true
+}

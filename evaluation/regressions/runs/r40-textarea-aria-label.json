@@ -1,0 +1,11 @@
+{
+  "id": "r40-textarea-aria-label",
+  "role": "primary",
+  "intendedBreak": "Diff editor accessible name changes",
+  "status": "invalid-plan",
+  "reason": "plan generation failed: Generated test plan contains a navigation target outside the configured application.",
+  "plan": null,
+  "baselineRuns": [],
+  "patchedRun": null,
+  "completedAt": "2026-10-05T10:49:28.081Z"
+}

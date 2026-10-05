@@ -1,0 +1,58 @@
+{
+  "scenarios": [
+    {
+      "title": "Footer connection status displays as 'offline' when API is not ready",
+      "purpose": "Verify that the footer correctly shows 'offline' when apiReady state is false instead of 'not configured'.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "footer .footer-online + span",
+          "value": "",
+          "expected": "Pipeline status: offline"
+        }
+      ]
+    },
+    {
+      "title": "Footer connection status displays as 'ready' when API is ready",
+      "purpose": "Confirm footer pipeline status text updates to 'ready' when apiReady is true.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "expectText",
+          "selector": "footer .footer-online + span",
+          "value": "",
+          "expected": "Pipeline status: ready"
+        }
+      ]
+    },
+    {
+      "title": "Refresh status button triggers API status check and updates footer",
+      "purpose": "Check that clicking the refresh button in the footer attempts to fetch API status and updates the footer text accordingly.",
+      "steps": [
+        {
+          "action": "goto",
+          "selector": "",
+          "value": "/",
+          "expected": ""
+        },
+        {
+          "action": "click",
+          "selector": "footer button[aria-label=\"Refresh status\"]",
+          "value": "",
+          "expected": ""
+        }
+      ]
+    }
+  ]
+}
