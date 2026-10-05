@@ -150,7 +150,9 @@ lines.push("", "| Forward-fix arm (HOLDOUT, correct code) | Cases flagged | Case
 for (const [label, file] of [["baseline", "falsealarms-holdout-forward-baseline.json"], ["final (C4)", "falsealarms-holdout-forward-final.json"]]) {
   const path = join(root, file);
   if (!existsSync(path)) continue;
-  const { summary } = JSON.parse(readFileSync(path, "utf8")) as { summary: { cases: number; casesFlagged: number; casesFlaggedOnSource: number; findings: number; sourceFindings: number; testFindings: number } };
+  const { summary: raw } = JSON.parse(readFileSync(path, "utf8")) as { summary: { cases: number; casesReviewed: number; casesFlagged: number; casesFlaggedOnSource: number; findings: number; sourceFindings: number; testFindings: number } };
+  // Rates use reviewed cases: a fix that adds no lines is skipped without a review call.
+  const summary = { ...raw, cases: raw.casesReviewed };
   falseAlarms.push({ label, file, ...summary, casesFlaggedWilson: wilson(summary.casesFlagged, summary.cases), casesFlaggedOnSourceWilson: wilson(summary.casesFlaggedOnSource, summary.cases) });
   lines.push(`| ${label} | ${summary.casesFlagged}/${summary.cases} = ${rate(summary.casesFlagged, summary.cases)} | ${summary.casesFlaggedOnSource}/${summary.cases} = ${rate(summary.casesFlaggedOnSource, summary.cases)} | ${summary.findings} (${summary.sourceFindings} / ${summary.testFindings}) |`);
 }

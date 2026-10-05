@@ -99,7 +99,8 @@ async function main() {
   if (!baselineBuild.ok) throw new Error(`Baseline build failed:\n${baselineBuild.output.slice(-3000)}`);
   let baselineServer: ChildProcess | null = startServer(baselineDirectory, baselinePort);
   if (!await waitForServer(baselinePort)) throw new Error("Baseline server did not start.");
-  const patchedDirectory = prepareWorktree("v2-patched", base);
+  // Per-base name, so dependencies are installed from the same lockfile as the baseline build.
+  const patchedDirectory = prepareWorktree(`v2-patched-${base.slice(0, 7)}`, base);
 
   let environment = "";
   if (set !== "replay-v1") {
