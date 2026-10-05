@@ -1,34 +1,56 @@
 # DiffSense
 
-DiffSense is a context-aware pull request review workspace. It indexes GitHub source files into PostgreSQL/pgvector, retrieves relevant chunks for a diff, asks OpenAI for structured findings, and checks that every finding points to an added line. It can also generate constrained Playwright regression plans and run them through a fixed action runner.
+**Context-aware code review for maintainers and engineering teams.**
 
-Evaluation values in the interface start blank on purpose. Precision, recall, review-time savings, and regression catch rate must come from a blind-labeled corpus and paired runs; the app does not claim the resume targets as measured results.
+Reviewers often have to reconstruct how a change fits into a codebase before they can judge it. DiffSense indexes relevant repository code, retrieves context for a pull request diff, and asks an AI model to identify concrete defects with evidence on changed lines. It also turns risky changes into structured Playwright regression-test plans.
 
-## Requirements
+DiffSense is designed as a review aid: reviewers remain responsible for validating findings, deciding what to merge, and checking generated tests. It does not post comments to GitHub or modify repositories.
+
+## What it does
+
+- Indexes supported source files from a GitHub repository into PostgreSQL with pgvector embeddings.
+- Retrieves nearby repository context before asking OpenAI to review a diff.
+- Returns structured findings with severity, changed-file line, explanation, and suggested fix. Findings that do not point to added diff lines are discarded.
+- Generates a bounded Playwright plan from the diff and retrieved context. Plans contain browser actions and assertions, not executable model-written code.
+- Calculates review-quality and workflow metrics from a labeled evaluation dataset you provide.
+
+## Try it locally
+
+### Requirements
 
 - Node.js 24 or newer
 - Docker Desktop with Compose
 - An OpenAI API key
 - A GitHub token for private repositories or higher API rate limits (optional for public repositories)
 
-## Run locally
+### Start the app
 
 ```powershell
 Copy-Item .env.example .env.local
+```
+
+Add `OPENAI_API_KEY` to `.env.local`, then start PostgreSQL and the Next.js app:
+
+```powershell
 docker compose up -d postgres
-npm install
+npm ci
 npm run dev
 ```
 
-Add `OPENAI_API_KEY` to `.env.local`. The local database URL in the example matches the Compose PostgreSQL service. Open `http://localhost:3000`.
+Open `http://localhost:3000`. The sample diff can be loaded without credentials; indexing and AI actions require the configured services.
 
-Paste a repository or pull request URL and choose **Index repository context**. Indexing selects up to 40 source files (each at most 80 KB), chunks them, creates `text-embedding-3-small` embeddings, and replaces that repository's previous indexed snapshot. Then paste a unified diff or use a pull request URL and choose **Analyze change**. Public pull requests are fetched through the GitHub API; private repositories require `GITHUB_TOKEN`.
+### Review a change
 
-The first index request creates the pgvector extension and table. The review and test-plan endpoints require an indexed repository so model output is grounded in retrieved code context.
+1. Enter a GitHub repository or pull request URL.
+2. Choose **Index repository context**. DiffSense selects up to 40 supported source files, skips files larger than 80 KB, chunks the source, and stores embeddings in PostgreSQL/pgvector.
+3. Paste a unified diff or use a pull request URL, then choose **Analyze change**.
+4. Inspect the candidate findings and verify them against the code before acting.
 
-## Playwright regression plans
+For private repositories, set `GITHUB_TOKEN` in `.env.local`. Indexing a pull-request URL targets its head commit; indexing a repository URL uses its default branch. Re-index after the source changes to refresh the stored snapshot.
 
-Choose **Generate Playwright plan** after indexing and providing a pull request URL and diff. The model returns a bounded JSON plan of same-origin navigation, CSS interactions, and assertions; it cannot return executable JavaScript. Download the plan and point the test runner at it:
+## Regression tests
+
+Choose **Generate Playwright plan** after indexing the repository and providing a diff or pull request. The generated JSON plan is limited to same-origin navigation, CSS-based interactions, and assertions. Download it from the review desk and run it against your app:
 
 ```powershell
 $env:DIFFSENSE_TEST_PLAN = "C:\path\to\diffsense-playwright-plan.json"
@@ -37,16 +59,18 @@ $env:CI = "1"
 npm run test:e2e
 ```
 
-The containerized workflow executes the checked-in Playwright smoke plan and UI tests:
+The plan runner supports a fixed set of actions and rejects external navigation; it never evaluates generated JavaScript. The repository also includes a smoke plan and responsive UI checks. To run the browser suite in containers, start Docker Desktop first, then run:
 
 ```powershell
 docker compose --profile test up --build --abort-on-container-exit --exit-code-from e2e e2e
 docker compose --profile test down
 ```
 
-## Measure the resume claims
+## Evaluate review quality
 
-Create a JSON file with human-labeled defects recorded before tool output is inspected. Include every reviewed PR, both manual and assisted findings, paired elapsed minutes, and seeded regression outcomes:
+Meaningful precision, recall, review-time, and regression-catch metrics need a representative labeled set. Keep defect labels independent of model output, define the cohort and matching rules before evaluating, and compare manual and assisted reviews of the same changes.
+
+The evaluator accepts one JSON file:
 
 ```json
 {
@@ -64,13 +88,27 @@ Create a JSON file with human-labeled defects recorded before tool output is ins
 }
 ```
 
-Run `npm run evaluate -- path/to/results.json`. Defect matching uses exact file paths and a two-line tolerance. Precision and recall use assisted findings against known defects; review-time savings are the median paired percentage change; manual/assisted defect counts are reported side by side; regression catch rate is detections divided by seeded scenarios. Use the full predeclared cohort (for example, 30 PRs and 40 scenarios) and report its actual results.
+Run it with:
 
-## Environment
+```powershell
+npm run evaluate -- path/to/results.json
+```
 
-See `.env.example` for settings. `OPENAI_REVIEW_MODEL` defaults to `gpt-4.1-mini`; `OPENAI_EMBEDDING_MODEL` defaults to `text-embedding-3-small`. `DATABASE_URL` must point to PostgreSQL with permission to install the `vector` extension. `GITHUB_TOKEN` is optional for public repositories.
+Precision and recall compare assisted findings with labeled defects; file paths must match and line numbers may differ by at most two. Review-time savings are calculated per paired pull request, with the median percentage change reported. Regression catch rate is the fraction of seeded scenarios marked detected. Empty datasets produce `null` rates rather than invented scores.
 
-Repository source chunks are stored in the configured database. Review diffs and retrieved context are sent to the configured OpenAI API. Do not index code unless those data flows are approved for your repository.
+For a CLI smoke test, run `npm run evaluate -- tests/fixtures/synthetic-metrics-smoke.json`. That fixture is deliberately synthetic and verifies the calculations; its output is not a benchmark of DiffSense.
+
+## Data handling and deployment limits
+
+Repository source chunks are stored in the configured PostgreSQL database. Source and diff content is sent to OpenAI for embeddings and review. GitHub and OpenAI credentials are read server-side from environment variables; do not commit `.env.local` or index code unless those data flows are approved for your repositories.
+
+This version is intended for local use or a trusted single-operator environment. It has no sign-in, authorization, or tenant isolation, so **do not expose a shared instance to the public internet or use it for multiple users**. Add authentication and repository-level access controls before hosting it as a team service.
+
+Other current limits: GitHub is the only repository provider; indexing is capped at 40 supported source files per run; findings are suggestions, not confirmed defects; and the app does not create GitHub review comments or apply fixes.
+
+## Configuration
+
+See `.env.example` for the complete list. `OPENAI_REVIEW_MODEL` defaults to `gpt-4.1-mini`; `OPENAI_EMBEDDING_MODEL` defaults to `text-embedding-3-small`. `DATABASE_URL` must point to PostgreSQL with the pgvector extension available. The API creates its table and indexes on first use.
 
 ## Checks
 
@@ -80,5 +118,3 @@ npm run test:unit
 npm run build
 npm run test:e2e
 ```
-
-The evaluation harness reports measured values only; this repository does not ship a labeled 30-PR corpus or 40 seeded regression outcomes.
